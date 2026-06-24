@@ -1,0 +1,15 @@
+# Rendered output — never commit interim or final PDFs (render to /tmp)
+*.pdf
+
+# OS / editor cruft
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# LaTeX intermediates
+*.aux
+*.log
+*.out
+*.toc
