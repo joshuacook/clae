@@ -104,6 +104,33 @@ BOOK OUTLINE
     └──────────────────────────────────────────────────────────┘
 ```
 
+## Source Assembly (CLAE source-first modification)
+
+CLAE is source-heavy (course lessons, case studies, project-1, and the prior-work
+repos in `~/working/clae-refs/`). For this book, a **Source Assembly** phase runs
+per chapter *before* the chapter notes+outline, so the chapter outline is built
+from an understanding of the source rather than top-down.
+
+For each chapter, in order:
+
+1. **Gather** — collect every source for the chapter. `source/coverage-by-chapter.md`
+   is the index of where to look (lessons, case studies, datasets, repo chapters).
+   Pull clean source only; never copy `assessments/` student submissions (PII).
+2. **Organize against the outline** — map each source fragment to the chapter's
+   book-outline sections: what it provides (derivation, code, figure, worked
+   example, dataset) and a reuse verdict (adapt / rewrite / net-new).
+3. **Assess** — note quality, redundancies, conflicts, and gaps (sections with no
+   source are genuinely scratch).
+4. **Build the chapter outline from the map** — validate and adjust the section
+   structure against what the source actually supports. The book outline's section
+   breakdown is provisional for strong chapters and may be reshaped here.
+
+Output: a chapter source map, `chapter_notes/clae-chapter-NN-source-map.md`, with a
+section-to-source table and a short gaps-and-conflicts note. It feeds the chapter
+notes+outline.
+
+Modified dependency: **book outline + chapter source map → chapter notes+outline**.
+
 ## Dependency Rules
 
 ### Chapter-level dependencies
