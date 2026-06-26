@@ -53,11 +53,11 @@ factor:                32x
 
 Both return the same numbers; they do not take the same time. The list comprehension is dozens of times slower, and the gap only widens with `n`. A gap that large is worth chasing.
 
->>>> indicate where these were run here
+Every figure and number in this book is produced by the companion notebooks at [github.com/joshuacook/clae-code](https://github.com/joshuacook/clae-code), run on a 4-vCPU cloud virtual machine with no GPU. Your own machine will print different numbers; the shape of the gap will not.
 
 ![axpy timing: loop vs vectorized](figures/fig_axpy_timing.png)
 
-> **Figure 1.1.** Wall-clock time of `by_hand` (a pure-Python list comprehension) against `vectorized` (NumPy) for axpy, swept over `n` from a thousand to ten million, with a log x-axis and a linear y-axis. The vectorized call stays flat against the floor while the list comprehension's cost climbs away. Measured on a 4-vCPU cloud VM.
+> **Figure 1.1.** Wall-clock time of `by_hand` (a pure-Python list comprehension) against `vectorized` (NumPy) for axpy, swept over `n` from a thousand to ten million, with a log x-axis and a linear y-axis. The vectorized call stays flat against the floor while the list comprehension's cost climbs away.
 
 The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy's `a * x + y` skips every bit of that per-entry overhead: the whole array goes to a compiled loop the interpreter never re-enters. That is where the gap comes from. It is a software win, not a hardware trick.
 
@@ -70,34 +70,43 @@ So look again at the operation we opened with. To scale a vector by a number and
 ## 1.1 Two operations
 
 > **BEAT:** Start with the geometry, first and loud. Scalar multiplication is stretching: multiply a vector by `c` and its arrow grows or shrinks along its own line through the origin, flipping to point backward when `c` is negative. Only after the picture, the algebra: every entry scales by `c`.
->>> use code to draw it. Do this now
 
 $$c\mathbf{v} = (cv_1, cv_2, \ldots, cv_n)$$
 
-> **BEAT:** Geometry first again. Addition is the tip-to-tail rule: walk out along the first arrow, then along the second from where you landed, and the sum is the arrow from start to finish. Then the algebra: add entrywise.
-
-$$\mathbf{v} + \mathbf{w} = (v_1 + w_1, \ldots, v_n + w_n)$$
-
 ```python
-# L001
 import matplotlib.pyplot as plt
 
 def plot_vector(v, color='blue', label=None):
     plt.quiver(0, 0, v[0], v[1], angles='xy', scale_units='xy', scale=1,
                color=color, label=label)
 
+v = np.array([2, 1])
+plot_vector(2 * v, 'purple', '2v')    # stretch
+plot_vector(v, 'blue', 'v')
+plot_vector(-v, 'red', '-v')          # flip
+plt.show()
+```
+
+![scalar multiplication](figures/fig_scalar_multiplication.png)
+
+> **Figure 1.2.** Scalar multiplication. `v`, `2v`, and `-v` all lie on the single line through the origin: multiplying by `c` slides the arrow along that line, and flips it to the far side when `c` is negative.
+
+> **BEAT:** Geometry first again. Addition is the tip-to-tail rule: walk out along the first arrow, then along the second from where you landed, and the sum is the arrow from start to finish. Then the algebra: add entrywise.
+
+$$\mathbf{v} + \mathbf{w} = (v_1 + w_1, \ldots, v_n + w_n)$$
+
+```python
 def vector_addition(v1, v2):
     plot_vector(v1, 'blue', 'v1'); plot_vector(v2, 'red', 'v2')
     plot_vector(v1 + v2, 'green', 'v1 + v2')
-    plt.title('Vector Addition'); plt.legend(); plt.show()
+    plt.show()
 
-v1 = np.array([1, 2]); v2 = np.array([3, 1])
-vector_addition(v1, v2)
+vector_addition(np.array([1, 2]), np.array([3, 1]))
 ```
 
 ![vector addition: tip to tail](figures/fig_vector_addition.png)
 
-> **Figure 1.2.** `vector_addition(v1, v2)`: `v1` and `v2` from the origin, with `v2` carried to the tip of `v1` (faded), and the tip-to-tail sum `v1 + v2` in green.
+> **Figure 1.3.** `vector_addition(v1, v2)`: `v1` and `v2` from the origin, with `v2` carried to the tip of `v1` (faded), and the tip-to-tail sum `v1 + v2` in green.
 
 > **BEAT:** Combine both operations into the linear combination `c*v + d*w`; name `c, d` the weights. This is the one move. Close by posing the question that drives 1.2: as the weights range over all values, what set of vectors do we get?
 
@@ -116,7 +125,7 @@ plt.scatter(span[:, 0], span[:, 1], s=4, alpha=0.4)
 plot_vector(v, 'blue', 'v'); plot_vector(w, 'red', 'w'); plt.legend(); plt.show()
 ```
 
-> **Figure 1.3** — the cloud of `c*v + d*w` filling the plane spanned by `v` and `w`.
+> **Figure 1.4** — the cloud of `c*v + d*w` filling the plane spanned by `v` and `w`.
 
 > **BEAT:** The span is closed under both operations (scale or add things inside it, stay inside) and always contains the origin. A set with that property is a subspace. Span and subspace are two views of one object.
 
