@@ -74,7 +74,7 @@ vector_addition(v1, v2)
 ```
 
 > **Figure 1.1** — `vector_addition(v1, v2)` output: `v1`, `v2`, and the tip-to-tail sum in green.
-
+>>>> where is the figure? also is this n
 > **BEAT:** Combine both operations into the linear combination `c*v + d*w`; name `c, d` the weights. This is the one move. Close by posing the question that drives 1.2: as the weights range over all values, what set of vectors do we get?
 
 $$c\mathbf{v} + d\mathbf{w}$$
