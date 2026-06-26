@@ -7,35 +7,29 @@
 
 ## 1.0 Hook: linear combinations, and why they are fast
 
-NumPy is not math in Python. That is the first thing to unlearn. Python is a high-level wrapper around C, and NumPy is a high-level wrapper around BLAS, the decades-old library of basic linear algebra subroutines that the whole numerical stack rests on. When you write NumPy you are writing a short note that says: have BLAS do this. Let me show you what I mean.
->>>> the whole numerical stack (and our implementation of artificial intelligence) I may have the details of that off a bit. I think tenor flow may have rewritten BLAS and I don't even know what's going on at the frontier labs in terms of are they using torch or TF? I don't know but to a principal what I'm saying is true and maybe let's even leave with that.
+NumPy is not math in Python. That is the first thing to unlearn. Python is a high-level wrapper around C, and NumPy is a high-level wrapper around the compiled numerical libraries beneath it, BLAS chief among them, that the whole numerical stack rests on, the models we train and run included. When you write NumPy you are writing a short note that says: have the fast code do this. Let me show you what I mean.
 
-We will compute one thing, $a\mathbf{x} + \mathbf{y}$, where $\mathbf{x}$ and $\mathbf{y}$ hold ten million numbers and $a$ is a single scalar. We compute it three ways and time all three: a pure-Python list comprehension over the entries, NumPy's vectorized expression, and a direct call to the BLAS routine.
->>>> why do you blow this up my dude I was good with axpy. I said use a list comprehension which it appears you didn't do and no need to bring in the actual BLAS calls from numpy just yet. Sometimes I give you a rope and you wanna be a cowboy.
+We will compute one thing, $a\mathbf{x} + \mathbf{y}$, where $\mathbf{x}$ and $\mathbf{y}$ hold ten million numbers and $a$ is a single scalar. We compute it two ways and time both: a pure-Python list comprehension over the entries, and NumPy's vectorized expression.
 
 ```python
 import numpy as np
-from scipy.linalg.blas import daxpy
 
 def by_hand(a, x, y):       # pure Python, one entry at a time
     return [a * xi + yi for xi, yi in zip(x, y)]
 
 def vectorized(a, x, y):    # NumPy, the whole array at once
     return a * x + y
-
-def blas(a, x, y):          # the BLAS routine NumPy leans on
-    return daxpy(x, y, a=a)
 ```
 
-> **Figure 1.0** [render once compute lands] — wall-clock time of `by_hand`, `vectorized`, and `blas` for $a\mathbf{x}+\mathbf{y}$, swept over `n` on a logspace from $10^3$ to $10^8$, log-log axes. Expect `by_hand` to climb linearly and sit about two orders of magnitude above `vectorized` and `blas`, which track each other near the floor.
+> **Figure 1.0** [render once compute lands]. Wall-clock time of `by_hand` vs `vectorized` for $a\mathbf{x}+\mathbf{y}$, swept over `n` on a logspace from $10^3$ to $10^8$, log-log axes. Expect `by_hand` to climb linearly and `vectorized` to sit about two orders of magnitude below it.
 
-The three return the same numbers. They do not take the same time. The pure-Python loop climbs in a straight line and runs on the order of a hundred times slower than the other two, which sit on top of each other near the bottom. **[MEASURE]** real factor and machine, from the run. A gap that large is worth chasing into the weeds.
+Both return the same numbers; they do not take the same time. The Python loop climbs in a straight line and runs on the order of a hundred times slower. **[MEASURE]** real factor and machine, from the run. A gap that large is worth chasing.
 
-The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy's `a * x + y`, and the BLAS call beneath it, skip every bit of that per-entry overhead: the whole array is handed to a compiled loop the interpreter never re-enters. That is where the hundredfold goes. It is a software win, not a hardware trick. Escaping the interpreter is most of the story.
+The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy's `a * x + y` skips every bit of that per-entry overhead: the whole array goes to a compiled loop the interpreter never re-enters. That is where the hundredfold goes. It is a software win, not a hardware trick.
 
-Follow it one layer further, though. The BLAS routine has a name, **axpy**, for "a x plus y," and it is among the most carefully tuned routines in all of computing. It is tuned because at the very bottom $a\mathbf{x} + \mathbf{y}$ is a single hardware instruction, the **fused multiply-add**, and modern processors carry a vector form that performs eight or sixteen of them in one step. So the chain is software all the way down to one operation the silicon itself was built to do at once: scale, and add.
+The operation that compiled loop is built around has a name: **axpy**, for "a x plus y." It is one of the most carefully tuned routines in numerical computing, and at the very bottom $a\mathbf{x} + \mathbf{y}$ is a single hardware instruction, the fused multiply-add, that modern processors run many of at once. So it is software the whole way down to one operation the silicon was built to do in a single step: scale, and add.
 
-Now look at what that operation is. To scale a vector by a number and add it to another is to form a **linear combination**. The thing numerical computing is built around, the routine with its own name and its own machine instruction, is the linear combination. This is the thesis of the book, not a curiosity to admire and move past. Least squares finds the combination of features closest to a price; principal component analysis finds the combinations that carry the most variation; the Kalman filter blends a prediction and a measurement into one combination and calls it an estimate. Learn to see linear combinations everywhere, and the rest of the book is commentary.
+Now look at what that operation is. To scale a vector by a number and add it to another is to form a **linear combination**. The operation numerical computing is built around, the one with its own name, is the linear combination. This is the thesis of the book. Least squares finds the combination of features closest to a price; principal component analysis finds the combinations that carry the most variation; the Kalman filter blends a prediction and a measurement into one combination and calls it an estimate. Learn to see linear combinations everywhere, and the rest of the book is commentary.
 
 ## 1.1 Two operations
 
