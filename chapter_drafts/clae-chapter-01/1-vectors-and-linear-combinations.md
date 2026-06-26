@@ -8,6 +8,7 @@
 ## 1.0 Hook: the axpy timing demo  [net-new]
 
 > **BEAT:** Cold open on the experiment. We compute `a*x + y` two ways, on ten million numbers, and time both. Two or three sentences, no preamble.
+>> numpy is not "math in python". Python is high level wrapper to C, numpy is a high-level wrapper to BLAS (need to get the details right but the gist is there). Let me show you what I mean. 
 
 ```python
 import numpy as np
@@ -29,11 +30,18 @@ def vectorized(a, x, y):       # all at once
 | `by_hand` | ~3 s |
 | `vectorized` | ~20 ms |
 
+>>>> make this a list comprehension
+>>>> do this over a logspace of different numbers
+>>>> create a plot and show it
+
 > **[MEASURE]** replace with real timings from a named machine.
+>>>> Don't see any reason why you can't run this code, let's discuss with main getting you access to the core libs you need numpy, etc
 
 > **BEAT:** Same ten million numbers, a hundredfold gap. A gap that large is not an accident. Where does it come from?
+>>>> go into the weeds with python and compiling a bit before reemerging with a*x + y, and connect axpy to strang
 
 > **BEAT:** The reveal. NumPy hands `a*x + y` to BLAS `axpy` ("a x plus y"), the most-tuned routine in numerical computing, and it is a linear combination. The operation the hardware is built to do fastest is the operation the book is built on. (Hook and thesis in one breath.)
+>>>> its not hardware tho? this is all software right?
 
 > **BEAT:** The reconception and the triple. Least squares, PCA, and the Kalman filter are each a search for the right linear combination. Land on: learn to see linear combinations everywhere and the rest of the book is commentary.
 
