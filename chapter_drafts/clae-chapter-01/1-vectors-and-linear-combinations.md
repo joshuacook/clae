@@ -70,6 +70,7 @@ So look again at the operation we opened with. To scale a vector by a number and
 ## 1.1 Two operations
 
 > **BEAT:** Start with the geometry, first and loud. Scalar multiplication is stretching: multiply a vector by `c` and its arrow grows or shrinks along its own line through the origin, flipping to point backward when `c` is negative. Only after the picture, the algebra: every entry scales by `c`.
+>>> use code to draw it. Do this now
 
 $$c\mathbf{v} = (cv_1, cv_2, \ldots, cv_n)$$
 
