@@ -53,6 +53,8 @@ factor:                32x
 
 Both return the same numbers; they do not take the same time. The list comprehension is dozens of times slower, and the gap only widens with `n`. A gap that large is worth chasing.
 
+>>>> indicate where these were run here
+
 ![axpy timing: loop vs vectorized](figures/fig_axpy_timing.png)
 
 > **Figure 1.1.** Wall-clock time of `by_hand` (a pure-Python list comprehension) against `vectorized` (NumPy) for axpy, swept over `n` from a thousand to ten million, with a log x-axis and a linear y-axis. The vectorized call stays flat against the floor while the list comprehension's cost climbs away. Measured on a 4-vCPU cloud VM.
