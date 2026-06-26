@@ -10,7 +10,10 @@
 Modern artificial intelligence rests on a single, simple operation: scale a vector by a number, and add it to another vector. That is the whole of the operation. The libraries that perform it ten billion times a second call it **axpy**, for "a x plus y." This book calls it the **linear combination**. Everything else, the layers and the attention heads and the billions of parameters and the warehouses of silicon, is structure built around this one move. The plain timber the whole edifice hangs on is axpy.
 >>>> add something about RNNs and attention being all you need
 
-That it is foundational you might take on faith. That it is also the operation your computer runs faster than almost anything else, you should not. Let me show you what I mean. NumPy is not math in Python. Python is a high-level wrapper around C, and NumPy is a high-level wrapper around the compiled numerical libraries beneath it, BLAS chief among them, that the whole numerical stack rests on, the models we train and run included. When you write NumPy you are writing a short note that says: have the fast code do this.
+That it is foundational you might take on faith. That it is also the operation your computer runs faster than almost anything else, you should not. Let me show you what I mean. 
+
+NumPy is not math in Python. Python is a high-level wrapper around C, and NumPy is a high-level wrapper around the compiled numerical libraries beneath it, BLAS chief among them, that the whole numerical stack rests on, the models we train and run included. When you write NumPy you are writing a short note that says: have the fast code do this.
+>>>> numpy as a proxy that allows you to hold axpy and arm's length and not muck with the fiddly bits
 
 We will compute axpy itself, on real arrays: two vectors `x` and `y` of ten million numbers, and a single scalar `a`. We compute it two ways and time both: a pure-Python list comprehension over the entries, and NumPy's vectorized expression.
 
