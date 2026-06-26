@@ -48,6 +48,7 @@ So look again at the operation we opened with. To scale a vector by a number and
 ## 1.1 Two operations
 
 > **BEAT:** The two operations are the whole foundation. Scalar multiplication: every entry scales by `c`; geometry, the arrow stays on its line through the origin, only length and direction-sign change.
+>>>> this needs geometric intut
 
 $$c\mathbf{v} = (cv_1, cv_2, \ldots, cv_n)$$
 
