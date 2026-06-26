@@ -5,45 +5,35 @@
 
 # Chapter 1: Vectors and Linear Combinations
 
-## 1.0 Hook: the axpy timing demo  [net-new]
+## 1.0 Hook: linear combinations, and why they are fast
 
-> **BEAT:** Cold open on the experiment. We compute `a*x + y` two ways, on ten million numbers, and time both. Two or three sentences, no preamble.
->> numpy is not "math in python". Python is high level wrapper to C, numpy is a high-level wrapper to BLAS (need to get the details right but the gist is there). Let me show you what I mean. 
+NumPy is not math in Python. That is the first thing to unlearn. Python is a high-level wrapper around C, and NumPy is a high-level wrapper around BLAS, the decades-old library of basic linear algebra subroutines that the whole numerical stack rests on. When you write NumPy you are writing a short note that says: have BLAS do this. Let me show you what I mean.
+
+We will compute one thing, $a\mathbf{x} + \mathbf{y}$, where $\mathbf{x}$ and $\mathbf{y}$ hold ten million numbers and $a$ is a single scalar. We compute it three ways and time all three: a pure-Python list comprehension over the entries, NumPy's vectorized expression, and a direct call to the BLAS routine.
 
 ```python
 import numpy as np
-n = 10_000_000; a = 2.5
-x = np.random.rand(n); y = np.random.rand(n)
+from scipy.linalg.blas import daxpy
 
-def by_hand(a, x, y):          # one entry at a time
-    out = np.empty(n)
-    for i in range(n):
-        out[i] = a * x[i] + y[i]
-    return out
+def by_hand(a, x, y):       # pure Python, one entry at a time
+    return [a * xi + yi for xi, yi in zip(x, y)]
 
-def vectorized(a, x, y):       # all at once
+def vectorized(a, x, y):    # NumPy, the whole array at once
     return a * x + y
+
+def blas(a, x, y):          # the BLAS routine NumPy leans on
+    return daxpy(x, y, a=a)
 ```
 
-| version | time |
-|---|---|
-| `by_hand` | ~3 s |
-| `vectorized` | ~20 ms |
+> **Figure 1.0** [render once compute lands] — wall-clock time of `by_hand`, `vectorized`, and `blas` for $a\mathbf{x}+\mathbf{y}$, swept over `n` on a logspace from $10^3$ to $10^8$, log-log axes. Expect `by_hand` to climb linearly and sit about two orders of magnitude above `vectorized` and `blas`, which track each other near the floor.
 
->>>> make this a list comprehension
->>>> do this over a logspace of different numbers
->>>> create a plot and show it
+The three return the same numbers. They do not take the same time. The pure-Python loop climbs in a straight line and runs on the order of a hundred times slower than the other two, which sit on top of each other near the bottom. **[MEASURE]** real factor and machine, from the run. A gap that large is worth chasing into the weeds.
 
-> **[MEASURE]** replace with real timings from a named machine.
->>>> Don't see any reason why you can't run this code, let's discuss with main getting you access to the core libs you need numpy, etc
+The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy's `a * x + y`, and the BLAS call beneath it, skip every bit of that per-entry overhead: the whole array is handed to a compiled loop the interpreter never re-enters. That is where the hundredfold goes. It is a software win, not a hardware trick. Escaping the interpreter is most of the story.
 
-> **BEAT:** Same ten million numbers, a hundredfold gap. A gap that large is not an accident. Where does it come from?
->>>> go into the weeds with python and compiling a bit before reemerging with a*x + y, and connect axpy to strang
+Follow it one layer further, though. The BLAS routine has a name, **axpy**, for "a x plus y," and it is among the most carefully tuned routines in all of computing. It is tuned because at the very bottom $a\mathbf{x} + \mathbf{y}$ is a single hardware instruction, the **fused multiply-add**, and modern processors carry a vector form that performs eight or sixteen of them in one step. So the chain is software all the way down to one operation the silicon itself was built to do at once: scale, and add.
 
-> **BEAT:** The reveal. NumPy hands `a*x + y` to BLAS `axpy` ("a x plus y"), the most-tuned routine in numerical computing, and it is a linear combination. The operation the hardware is built to do fastest is the operation the book is built on. (Hook and thesis in one breath.)
->>>> its not hardware tho? this is all software right?
-
-> **BEAT:** The reconception and the triple. Least squares, PCA, and the Kalman filter are each a search for the right linear combination. Land on: learn to see linear combinations everywhere and the rest of the book is commentary.
+Now look at what that operation is. To scale a vector by a number and add it to another is to form a **linear combination**. The thing numerical computing is built around, the routine with its own name and its own machine instruction, is the linear combination. This is the thesis of the book, not a curiosity to admire and move past. Least squares finds the combination of features closest to a price; principal component analysis finds the combinations that carry the most variation; the Kalman filter blends a prediction and a measurement into one combination and calls it an estimate. Learn to see linear combinations everywhere, and the rest of the book is commentary.
 
 ## 1.1 Two operations
 
