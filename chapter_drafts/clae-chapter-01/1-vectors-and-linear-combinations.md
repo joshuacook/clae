@@ -20,24 +20,50 @@ NumPy is not math in Python. Python is a high-level wrapper around C, and NumPy 
 We will compute axpy itself, on real arrays: two vectors `x` and `y` of ten million numbers, and a single scalar `a`. We compute it two ways and time both: a pure-Python list comprehension over the entries, and NumPy's vectorized expression.
 
 ```python
+import time
 import numpy as np
+
 
 def by_hand(a, x, y):       # pure Python, a list comprehension over the entries
     return [a * xi + yi for xi, yi in zip(x, y)]
+
 
 def vectorized(a, x, y):    # NumPy, the whole array at once
     return a * x + y
 ```
 
+```python
+a = 2.5
+rng = np.random.default_rng(0)
+x, y = rng.random(10_000_000), rng.random(10_000_000)
+
+t0 = time.perf_counter(); by_hand(a, x, y)
+t_loop = time.perf_counter() - t0
+t0 = time.perf_counter(); vectorized(a, x, y)
+t_vec = time.perf_counter() - t0
+
+print(f'list comprehension: {t_loop:5.2f} s')
+print(f'vectorized:         {t_vec * 1e3:5.0f} ms')
+print(f'factor:             {t_loop / t_vec:5.0f}x')
+```
+
+```text
+list comprehension:  4.34 s
+vectorized:           138 ms
+factor:                32x
+```
+
+Both return the same numbers; they do not take the same time. The list comprehension is dozens of times slower, and the gap only widens with `n`. A gap that large is worth chasing.
+
 ![axpy timing: loop vs vectorized](figures/fig_axpy_timing.png)
 
 > **Figure 1.1.** Wall-clock time of `by_hand` (a pure-Python list comprehension) against `vectorized` (NumPy) for axpy, swept over `n` from a thousand to ten million, with a log x-axis and a linear y-axis. The vectorized call stays flat against the floor while the list comprehension's cost climbs away. Measured on a 4-vCPU cloud VM.
 
-Both return the same numbers; they do not take the same time. At ten million entries the list comprehension takes around five seconds and the vectorized call about ninety milliseconds, a factor of roughly fifty. A gap that large is worth chasing.
-
 The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy's `a * x + y` skips every bit of that per-entry overhead: the whole array goes to a compiled loop the interpreter never re-enters. That is where the gap comes from. It is a software win, not a hardware trick.
 
-The operation that compiled loop is built around is axpy, and it is among the most carefully tuned routines in numerical computing. At the very bottom axpy is a single hardware instruction, the fused multiply-add, that modern processors run many of at once. So it is software the whole way down to one operation the silicon was built to do in a single step: scale, and add.
+The operation that compiled loop is built around is axpy, and it is among the most carefully tuned routines in numerical computing. At the very bottom axpy is a single hardware instruction, the fused multiply-add, that modern processors run many of at once. So it is software the whole way down to one operation the silicon was built to do in a single step: scale, and add.[^alphatensor]
+
+[^alphatensor]: DeepMind's AlphaTensor (2022) and AlphaEvolve (2025) did find faster algorithms, but for matrix *multiplication*: ways to combine many multiply-adds with fewer scalar multiplications than Strassen. The atomic axpy is not what they improved; it is already the irreducible step.
 
 So look again at the operation we opened with. To scale a vector by a number and add it to another is to form a linear combination, and you have just watched your machine treat it as the most important thing it knows how to do. That is not a coincidence. We poured decades of engineering into axpy precisely because nearly everything we wanted to compute was built out of it. Least squares finds the combination of features closest to a price; principal component analysis finds the combinations that carry the most variation; the Kalman filter blends a prediction and a measurement into one combination and calls it an estimate. Learn to see linear combinations everywhere, and the rest of the book is commentary.
 
