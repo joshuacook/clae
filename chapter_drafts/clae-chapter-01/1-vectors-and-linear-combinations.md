@@ -23,10 +23,8 @@ We will compute axpy itself, on real arrays: two vectors `x` and `y` of ten mill
 import time
 import numpy as np
 
-
 def by_hand(a, x, y):       # pure Python, a list comprehension over the entries
     return [a * xi + yi for xi, yi in zip(x, y)]
-
 
 def vectorized(a, x, y):    # NumPy, the whole array at once
     return a * x + y
