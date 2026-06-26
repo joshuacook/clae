@@ -8,8 +8,10 @@
 ## 1.0 Hook: linear combinations, and why they are fast
 
 NumPy is not math in Python. That is the first thing to unlearn. Python is a high-level wrapper around C, and NumPy is a high-level wrapper around BLAS, the decades-old library of basic linear algebra subroutines that the whole numerical stack rests on. When you write NumPy you are writing a short note that says: have BLAS do this. Let me show you what I mean.
+>>>> the whole numerical stack (and our implementation of artificial intelligence) I may have the details of that off a bit. I think tenor flow may have rewritten BLAS and I don't even know what's going on at the frontier labs in terms of are they using torch or TF? I don't know but to a principal what I'm saying is true and maybe let's even leave with that.
 
 We will compute one thing, $a\mathbf{x} + \mathbf{y}$, where $\mathbf{x}$ and $\mathbf{y}$ hold ten million numbers and $a$ is a single scalar. We compute it three ways and time all three: a pure-Python list comprehension over the entries, NumPy's vectorized expression, and a direct call to the BLAS routine.
+>>>> why do you blow this up my dude I was good with axpy. I said use a list comprehension which it appears you didn't do and no need to bring in the actual BLAS calls from numpy just yet. Sometimes I give you a rope and you wanna be a cowboy.
 
 ```python
 import numpy as np
