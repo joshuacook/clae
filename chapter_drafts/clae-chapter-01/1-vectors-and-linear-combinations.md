@@ -29,30 +29,25 @@ def vectorized(a, x, y):    # NumPy, the whole array at once
     return a * x + y
 ```
 
-![axpy timing: loop vs vectorized](figures/fig_1_0_axpy.png)
+![axpy timing: loop vs vectorized](figures/fig_axpy_timing.png)
 
->>>> this is not enough code to do the computation. And we should put all code including plots somewhere ... like a public github repo for this book. Still not enough code have you addressed this yet? You're probably gonna need some kind of if name main
-
-> **Figure 1.0.** Wall-clock time of `by_hand` (a pure-Python list comprehension) against `vectorized` (NumPy) for axpy, swept over `n` from a thousand to ten million, with a log x-axis and a linear y-axis. The vectorized call stays flat against the floor while the list comprehension's cost climbs away. Measured on cc-host, a GCP e2-standard-4.
->>>> we don't need to tell everyone the name of my machine
+> **Figure 1.1.** Wall-clock time of `by_hand` (a pure-Python list comprehension) against `vectorized` (NumPy) for axpy, swept over `n` from a thousand to ten million, with a log x-axis and a linear y-axis. The vectorized call stays flat against the floor while the list comprehension's cost climbs away. Measured on a 4-vCPU cloud VM.
 
 Both return the same numbers; they do not take the same time. At ten million entries the list comprehension takes around five seconds and the vectorized call about ninety milliseconds, a factor of roughly fifty. A gap that large is worth chasing.
 
 The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy's `a * x + y` skips every bit of that per-entry overhead: the whole array goes to a compiled loop the interpreter never re-enters. That is where the gap comes from. It is a software win, not a hardware trick.
 
 The operation that compiled loop is built around is axpy, and it is among the most carefully tuned routines in numerical computing. At the very bottom axpy is a single hardware instruction, the fused multiply-add, that modern processors run many of at once. So it is software the whole way down to one operation the silicon was built to do in a single step: scale, and add.
->>>> didn't their researchers at Google published some kind of improvement to this a few years ago or recently
 
 So look again at the operation we opened with. To scale a vector by a number and add it to another is to form a linear combination, and you have just watched your machine treat it as the most important thing it knows how to do. That is not a coincidence. We poured decades of engineering into axpy precisely because nearly everything we wanted to compute was built out of it. Least squares finds the combination of features closest to a price; principal component analysis finds the combinations that carry the most variation; the Kalman filter blends a prediction and a measurement into one combination and calls it an estimate. Learn to see linear combinations everywhere, and the rest of the book is commentary.
 
 ## 1.1 Two operations
 
-> **BEAT:** The two operations are the whole foundation. Scalar multiplication: every entry scales by `c`; geometry, the arrow stays on its line through the origin, only length and direction-sign change.
->>>> this needs geometric intuition. like first and loud. START with the geometry
+> **BEAT:** Start with the geometry, first and loud. Scalar multiplication is stretching: multiply a vector by `c` and its arrow grows or shrinks along its own line through the origin, flipping to point backward when `c` is negative. Only after the picture, the algebra: every entry scales by `c`.
 
 $$c\mathbf{v} = (cv_1, cv_2, \ldots, cv_n)$$
 
-> **BEAT:** Addition: entrywise; geometry, the tip-to-tail rule.
+> **BEAT:** Geometry first again. Addition is the tip-to-tail rule: walk out along the first arrow, then along the second from where you landed, and the sum is the arrow from start to finish. Then the algebra: add entrywise.
 
 $$\mathbf{v} + \mathbf{w} = (v_1 + w_1, \ldots, v_n + w_n)$$
 
@@ -73,8 +68,9 @@ v1 = np.array([1, 2]); v2 = np.array([3, 1])
 vector_addition(v1, v2)
 ```
 
-> **Figure 1.1** — `vector_addition(v1, v2)` output: `v1`, `v2`, and the tip-to-tail sum in green.
->>>> where is the figure? also is this now misnumbered?
+![vector addition: tip to tail](figures/fig_vector_addition.png)
+
+> **Figure 1.2.** `vector_addition(v1, v2)`: `v1` and `v2` from the origin, with `v2` carried to the tip of `v1` (faded), and the tip-to-tail sum `v1 + v2` in green.
 
 > **BEAT:** Combine both operations into the linear combination `c*v + d*w`; name `c, d` the weights. This is the one move. Close by posing the question that drives 1.2: as the weights range over all values, what set of vectors do we get?
 
@@ -93,7 +89,7 @@ plt.scatter(span[:, 0], span[:, 1], s=4, alpha=0.4)
 plot_vector(v, 'blue', 'v'); plot_vector(w, 'red', 'w'); plt.legend(); plt.show()
 ```
 
-> **Figure 1.2** — the cloud of `c*v + d*w` filling the plane spanned by `v` and `w`.
+> **Figure 1.3** — the cloud of `c*v + d*w` filling the plane spanned by `v` and `w`.
 
 > **BEAT:** The span is closed under both operations (scale or add things inside it, stay inside) and always contains the origin. A set with that property is a subspace. Span and subspace are two views of one object.
 
