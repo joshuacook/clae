@@ -15,7 +15,7 @@ A = 2.5
 rng = np.random.default_rng(0)
 
 
-def by_hand(a, x, y):       # pure Python, one entry at a time
+def by_hand(a, x, y):       # pure Python, a list comprehension over the entries
     return [a * xi + yi for xi, yi in zip(x, y)]
 
 
@@ -47,8 +47,8 @@ print(f"n = {ns[-1]:,}:  by_hand {t_loop[-1]*1e3:.1f} ms   "
       f"vectorized {t_vec[-1]*1e3:.3f} ms   factor {factor:.0f}x")
 
 plt.figure(figsize=(7, 5))
-plt.loglog(ns, t_loop, "o-", label="by_hand (pure-Python list comprehension)")
-plt.loglog(ns, t_vec, "s-", label="vectorized (NumPy)")
+plt.semilogx(ns, t_loop, "o-", label="by_hand (pure-Python list comprehension)")
+plt.semilogx(ns, t_vec, "s-", label="vectorized (NumPy)")
 plt.xlabel("n  (length of x and y)")
 plt.ylabel("wall-clock time (s)")
 plt.title("axpy: scale a vector and add another, loop vs vectorized")

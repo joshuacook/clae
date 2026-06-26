@@ -20,7 +20,7 @@ We will compute axpy itself, on real arrays: two vectors `x` and `y` of ten mill
 ```python
 import numpy as np
 
-def by_hand(a, x, y):       # pure Python, one entry at a time
+def by_hand(a, x, y):       # pure Python, a list comprehension over the entries
     return [a * xi + yi for xi, yi in zip(x, y)]
 
 def vectorized(a, x, y):    # NumPy, the whole array at once
@@ -29,9 +29,9 @@ def vectorized(a, x, y):    # NumPy, the whole array at once
 
 ![axpy timing: loop vs vectorized](figures/fig_1_0_axpy.png)
 
-> **Figure 1.0.** Wall-clock time of `by_hand` (pure-Python list comprehension) against `vectorized` (NumPy) for axpy, swept over `n` from a thousand to ten million, log-log axes. The loop climbs in a straight line; the vectorized call stays near the floor. Measured on cc-host, a GCP e2-standard-4.
+> **Figure 1.0.** Wall-clock time of `by_hand` (a pure-Python list comprehension) against `vectorized` (NumPy) for axpy, swept over `n` from a thousand to ten million, with a log x-axis and a linear y-axis. The vectorized call stays flat against the floor while the list comprehension's cost climbs away. Measured on cc-host, a GCP e2-standard-4.
 
-Both return the same numbers; they do not take the same time. At ten million entries the Python loop takes about four seconds and the vectorized call about ninety milliseconds, a factor of forty-four. A gap that large is worth chasing.
+Both return the same numbers; they do not take the same time. At ten million entries the list comprehension takes around five seconds and the vectorized call about ninety milliseconds, a factor of roughly fifty. A gap that large is worth chasing.
 
 The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy's `a * x + y` skips every bit of that per-entry overhead: the whole array goes to a compiled loop the interpreter never re-enters. That is where the gap comes from. It is a software win, not a hardware trick.
 
