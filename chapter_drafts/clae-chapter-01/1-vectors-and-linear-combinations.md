@@ -34,6 +34,7 @@ def vectorized(a, x, y):    # NumPy, the whole array at once
 >>>> this is not enough code to do the computation. And we should put all code including plots somewhere ... like a public github repo for this book
 
 > **Figure 1.0.** Wall-clock time of `by_hand` (a pure-Python list comprehension) against `vectorized` (NumPy) for axpy, swept over `n` from a thousand to ten million, with a log x-axis and a linear y-axis. The vectorized call stays flat against the floor while the list comprehension's cost climbs away. Measured on cc-host, a GCP e2-standard-4.
+>>>> 
 
 Both return the same numbers; they do not take the same time. At ten million entries the list comprehension takes around five seconds and the vectorized call about ninety milliseconds, a factor of roughly fifty. A gap that large is worth chasing.
 
