@@ -5,7 +5,7 @@
 
 # Chapter 1: Vectors and Linear Combinations
 
-## 1.0 Hook: linear combinations, and why they are fast
+## 1.0 In `axpy` we trust
 
 Modern artificial intelligence rests on a single, almost embarrassingly simple operation: scale a vector by a number, and add it to another vector. That is the whole of the operation. The libraries that perform it ten billion times a second call it **axpy**, for "a x plus y." This book calls it the **linear combination**. Everything else, the layers and the attention heads and the billions of parameters and the warehouses of silicon, is structure built around this one move. The plain timber the whole edifice hangs on is axpy.
 
