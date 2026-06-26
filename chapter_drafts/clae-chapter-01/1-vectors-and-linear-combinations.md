@@ -27,11 +27,13 @@ def vectorized(a, x, y):    # NumPy, the whole array at once
     return a * x + y
 ```
 
-> **Figure 1.0** [render once compute lands]. Wall-clock time of `by_hand` vs `vectorized` for axpy, swept over `n` on a logspace from $10^3$ to $10^8$, log-log axes. Expect `by_hand` to climb linearly and `vectorized` to sit about two orders of magnitude below it.
+![axpy timing: loop vs vectorized](figures/fig_1_0_axpy.png)
 
-Both return the same numbers; they do not take the same time. The Python loop climbs in a straight line and runs on the order of a hundred times slower. **[MEASURE]** real factor and machine, from the run. A gap that large is worth chasing.
+> **Figure 1.0.** Wall-clock time of `by_hand` (pure-Python list comprehension) against `vectorized` (NumPy) for axpy, swept over `n` from a thousand to ten million, log-log axes. The loop climbs in a straight line; the vectorized call stays near the floor. Measured on cc-host, a GCP e2-standard-4.
 
-The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy's `a * x + y` skips every bit of that per-entry overhead: the whole array goes to a compiled loop the interpreter never re-enters. That is where the hundredfold goes. It is a software win, not a hardware trick.
+Both return the same numbers; they do not take the same time. At ten million entries the Python loop takes about four seconds and the vectorized call about ninety milliseconds, a factor of forty-four. A gap that large is worth chasing.
+
+The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy's `a * x + y` skips every bit of that per-entry overhead: the whole array goes to a compiled loop the interpreter never re-enters. That is where the gap comes from. It is a software win, not a hardware trick.
 
 The operation that compiled loop is built around is axpy, and it is among the most carefully tuned routines in numerical computing. At the very bottom axpy is a single hardware instruction, the fused multiply-add, that modern processors run many of at once. So it is software the whole way down to one operation the silicon was built to do in a single step: scale, and add.
 
