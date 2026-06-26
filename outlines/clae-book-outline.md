@@ -3,7 +3,7 @@ title: "CLAE Book Outline"
 type: book-outline
 status: draft
 created: "2026-06-24"
-updated: "2026-06-24"
+updated: "2026-06-26"
 ---
 
 # Computational Linear Algebra for Estimation: Book Outline
@@ -27,8 +27,9 @@ Rationale and decisions: `clae-book-decisions.md`.
 
 ## Introduction (front matter, read first)
 
-The book's on-ramp; not skippable. Carries the narrative that Ch 1's reference
-cannot.
+The book's on-ramp; not skippable. Sets the running thread, the data, and the
+roadmap. Ch 1 then builds the linear-algebra foundation; both are read first,
+neither is a reference.
 
 - Motivation: linear algebra texts stop at the mathematics; estimation texts assume it. This book bridges them.
 - The running thread: *recover structure from noisy, incomplete data*, revisited every chapter.
@@ -38,18 +39,25 @@ cannot.
 
 ## Part I: Linear Algebra Foundations
 
-### 1. Vector Spaces and Data Representation (~28 pp · skim-first reference, written last)
+### 1. Vectors and Linear Combinations (~28 pp · must-read foundation, written first)
 
-Not skipped, skimmed: the reader skims this once to calibrate notation, then refers
-back to it throughout the book. Written last, calibrated to the notation and
-operations the book actually uses. Geometric depth for a specific operation is
-taught just-in-time where a later chapter first needs it.
+The book's conceptual foundation, written first and read first. Its job is the
+Strang moment: linear combinations are the central idea, and a vector is not a
+list of numbers but a thing you scale and add. Constructive, not axiomatic
+(operations to combination to span to structure, never an axiom list first), and
+code-native from the first page. Reconceives the vector so that Ch 2's
+matrix-as-action lands on solid ground.
 
-- 1.1 Vectors, vector spaces, and R^n (axioms)
-- 1.2 Linear independence, basis, dimension, subspace (the load-bearing structure for rank and column space)
-- 1.3 Norm, inner product, distance, angle
-- 1.4 Data as vectors: the data matrix and notation
-- 1.5 Notation quick reference
+- 1.0 Hook: the axpy timing demo (loop vs vectorized; the linear combination is the operation the hardware is built to do fastest) [net-new]
+- 1.1 Two operations (scalar multiplication, addition, geometry; the linear combination defined) [L001 quiver viz]
+- 1.2 Span and subspace (all combinations of a set sweep out a space; the column space where predictions live) [L002]
+- 1.3 Independence, basis, and the recipe (when a vector earns its place; coordinates are combination weights; the list was the recipe) [L003 are_independent]
+- 1.4 Length, angle, and the dot product (norm; orthogonality as the seed of projection and covariance) [L001]
+- 1.5 A dataset is a matrix of vectors (the Ames three-CSV merge; rows as samples, columns as feature vectors) [case-study 05-01 ingest]
+- 1.6 Summary and exercises
+
+Notation conventions live in the decisions log and a back-matter appendix, not
+here; this chapter teaches, it does not tabulate.
 
 ### 2. Matrices and Linear Transformations (~28 pp · strong)
 

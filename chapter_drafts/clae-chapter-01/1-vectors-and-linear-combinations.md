@@ -1,0 +1,181 @@
+<!-- SCAFFOLD. Write prose at each `> **BEAT:**` marker. Math, code, tables, and
+     figure specs are preloaded. Code is from the course (lesson noted) unless
+     marked [net-new]; [MEASURE] marks a real number to fill in. Delete BEAT
+     markers as you fill them. -->
+
+# Chapter 1: Vectors and Linear Combinations
+
+## 1.0 Hook: the axpy timing demo  [net-new]
+
+> **BEAT:** Cold open on the experiment. We compute `a*x + y` two ways, on ten million numbers, and time both. Two or three sentences, no preamble.
+
+```python
+import numpy as np
+n = 10_000_000; a = 2.5
+x = np.random.rand(n); y = np.random.rand(n)
+
+def by_hand(a, x, y):          # one entry at a time
+    out = np.empty(n)
+    for i in range(n):
+        out[i] = a * x[i] + y[i]
+    return out
+
+def vectorized(a, x, y):       # all at once
+    return a * x + y
+```
+
+| version | time |
+|---|---|
+| `by_hand` | ~3 s |
+| `vectorized` | ~20 ms |
+
+> **[MEASURE]** replace with real timings from a named machine.
+
+> **BEAT:** Same ten million numbers, a hundredfold gap. A gap that large is not an accident. Where does it come from?
+
+> **BEAT:** The reveal. NumPy hands `a*x + y` to BLAS `axpy` ("a x plus y"), the most-tuned routine in numerical computing, and it is a linear combination. The operation the hardware is built to do fastest is the operation the book is built on. (Hook and thesis in one breath.)
+
+> **BEAT:** The reconception and the triple. Least squares, PCA, and the Kalman filter are each a search for the right linear combination. Land on: learn to see linear combinations everywhere and the rest of the book is commentary.
+
+## 1.1 Two operations
+
+> **BEAT:** The two operations are the whole foundation. Scalar multiplication: every entry scales by `c`; geometry, the arrow stays on its line through the origin, only length and direction-sign change.
+
+$$c\mathbf{v} = (cv_1, cv_2, \ldots, cv_n)$$
+
+> **BEAT:** Addition: entrywise; geometry, the tip-to-tail rule.
+
+$$\mathbf{v} + \mathbf{w} = (v_1 + w_1, \ldots, v_n + w_n)$$
+
+```python
+# L001
+import matplotlib.pyplot as plt
+
+def plot_vector(v, color='blue', label=None):
+    plt.quiver(0, 0, v[0], v[1], angles='xy', scale_units='xy', scale=1,
+               color=color, label=label)
+
+def vector_addition(v1, v2):
+    plot_vector(v1, 'blue', 'v1'); plot_vector(v2, 'red', 'v2')
+    plot_vector(v1 + v2, 'green', 'v1 + v2')
+    plt.title('Vector Addition'); plt.legend(); plt.show()
+
+v1 = np.array([1, 2]); v2 = np.array([3, 1])
+vector_addition(v1, v2)
+```
+
+> **Figure 1.1** — `vector_addition(v1, v2)` output: `v1`, `v2`, and the tip-to-tail sum in green.
+
+> **BEAT:** Combine both operations into the linear combination `c*v + d*w`; name `c, d` the weights. This is the one move. Close by posing the question that drives 1.2: as the weights range over all values, what set of vectors do we get?
+
+$$c\mathbf{v} + d\mathbf{w}$$
+
+## 1.2 Span and subspace
+
+> **BEAT:** Fix `v` and `w`, let `c, d` run over all reals, collect every `c*v + d*w`. That set is the span. Same line if `v, w` are parallel; a whole plane if not. Two arrows, through nothing but scaling and adding, generate a two-dimensional space.
+
+```python
+# [net-new] all combinations of two vectors sweep out their span
+v = np.array([2, 1]); w = np.array([1, 3])
+C, D = np.meshgrid(np.linspace(-2, 2, 25), np.linspace(-2, 2, 25))
+span = C.ravel()[:, None] * v + D.ravel()[:, None] * w   # every c*v + d*w
+plt.scatter(span[:, 0], span[:, 1], s=4, alpha=0.4)
+plot_vector(v, 'blue', 'v'); plot_vector(w, 'red', 'w'); plt.legend(); plt.show()
+```
+
+> **Figure 1.2** — the cloud of `c*v + d*w` filling the plane spanned by `v` and `w`.
+
+> **BEAT:** The span is closed under both operations (scale or add things inside it, stay inside) and always contains the origin. A set with that property is a subspace. Span and subspace are two views of one object.
+
+> **BEAT:** The data tie. In a dataset the vectors are the feature columns; the subspace they span is the column space, every vector the features can build. Forward-ref: when we fit Ames price in Ch 11, the fitted prices live in the column space, no more and no less. Estimation, stated geometrically, is picking the point of the subspace that best accounts for the measurement.
+
+## 1.3 Independence, basis, and the recipe
+
+> **BEAT:** Toss a third vector into a plane spanned by two. Either it lies in the plane (already a combination of them, adds nothing, dependence) or it points out (its combinations fill 3-space, independence). Define linear independence: no vector is a combination of the others; equivalently, the only combination giving the zero vector is the all-zero one.
+
+```python
+# L002 -- a dependent set: c3 is a combination of c1, c2
+c1 = np.array([1, -1, 0]); c2 = np.array([0, 1, -1]); c3 = np.array([-1, 0, 1])
+print("-c1 + c2:", -c1 + c2)     # -> [-1  0  1] == c3, so c3 adds nothing new
+
+# L003 -- independence test by rank
+def are_independent(vectors):
+    matrix = np.column_stack(vectors)
+    return np.linalg.matrix_rank(matrix) == len(vectors)
+
+are_independent([c1, c2, c3])                                          # False
+are_independent([np.array([1,0,0]), np.array([0,1,0]), np.array([0,0,1])])  # True
+```
+
+> **BEAT:** Independence tells us when a vector earns its place. A basis is an independent set that spans (nothing wasted, nothing missing), the smallest kit whose combinations build the space. Every subspace has one; all bases have the same size, the dimension.
+
+> **BEAT:** The payoff. A basis spans, so every vector is a combination of it; it is independent, so that combination is unique. The unique weights are the coordinates. Then the standard-basis reveal:
+
+```python
+# [net-new] the list of numbers IS a linear combination of the standard basis
+e1, e2, e3 = np.eye(3)
+a, b, c = 5, -2, 7
+print(a*e1 + b*e2 + c*e3)        # -> [5. -2. 7.] == (a, b, c)
+```
+
+> **BEAT:** `(a, b, c)` was `a*e1 + b*e2 + c*e3` all along. The list was never the vector; it was the recipe, written in a basis so familiar we forgot it was a choice. Forward-ref: in Ch 2 a matrix forms a linear combination of its columns and the input vector is the recipe. We have already met the idea.
+
+## 1.4 Length, angle, and the dot product
+
+> **BEAT:** We can build vectors by combining them; to estimate we must measure them. The dot product multiplies matching entries and sums, one number out.
+
+$$\mathbf{v} \cdot \mathbf{w} = v_1 w_1 + v_2 w_2 + \cdots + v_n w_n$$
+
+```python
+# L001 formulas, realized in numpy
+v = np.array([3, 1]); w = np.array([2, 3])
+v @ w                       # dot product
+np.linalg.norm(v)           # length = sqrt(v @ v)
+np.degrees(np.arccos((v @ w) / (np.linalg.norm(v) * np.linalg.norm(w))))  # angle, degrees
+```
+
+> **BEAT:** Length is `sqrt(v . v)`, the Pythagorean distance from origin to tip. The dot product is symmetric and respects linear combinations in each slot, the compatibility with scale-and-add we will use without comment.
+
+$$\|\mathbf{v}\| = \sqrt{\mathbf{v}\cdot\mathbf{v}}, \qquad \cos\theta = \frac{\mathbf{v}\cdot\mathbf{w}}{\|\mathbf{v}\|\,\|\mathbf{w}\|}$$
+
+> **BEAT:** Orthogonality (dot product zero). Flag it now though the payoff is chapters away: when a measurement cannot be reached by any combination of our features, the closest reachable point leaves an error orthogonal to everything reachable. That one condition is least squares (Ch 11); the same dot product on centered data is covariance (Ch 6).
+
+## 1.5 A dataset is a matrix of vectors
+
+> **BEAT:** One vector is one record; a dataset is many, stacked. The Ames data ships split across three files (zoning, listing, sale) joined on `Id` into one matrix. The real on-ramp: data from three sources, one matrix.
+
+```python
+# case-study 05-01 ingest
+import pandas as pd
+zoning  = pd.read_csv('data/zoning.csv')
+listing = pd.read_csv('data/listing.csv')
+sale    = pd.read_csv('data/sale.csv')          # SalePrice (the target) lives here
+
+housing = pd.merge(zoning, listing, on='Id')
+housing = pd.merge(housing, sale,   on='Id').set_index('Id')
+housing.shape                                    # (1460, 80) -- 1460 homes, 80 features
+```
+
+> **BEAT:** Two readings of the matrix `X`. Across the rows: each row is a point in `R^n`, one home among all the others, the cloud from the Introduction. Down the columns: each column is a vector in `R^m`, one feature across all `m` homes.
+
+```python
+housing.loc[2]                                   # row 2: a sample (one home)
+numeric = housing.select_dtypes(include='number')
+numeric['GrLivArea']                             # a column: one feature over 1460 homes
+```
+
+> **BEAT:** The column reading connects to everything we built: feature columns are vectors, their span is the column space, their linear combinations are exactly the predictions a linear model can make. Note categoricals (neighborhood, roof style) become numeric vectors later (Ch 2 standardization, Ch 6 covariance). Book-wide convention: rows = samples, columns = features. Forward-ref: in Ch 2 the matrix stops being a container and becomes an action.
+
+## 1.6 Summary and exercises
+
+> **BEAT:** One-idea recap in your voice. A vector is a thing you scale and add; the act is the linear combination; span, subspace, basis, the recipe, the dot product, and the data matrix all fell out of taking that act seriously. End on the question the book answers: of all the linear combinations available, which one is the estimate, and how do we find it?
+
+Exercises (seed, expand):
+
+> **EX 1.1:** time `by_hand` vs `vectorized` axpy on your machine; explain the gap in terms of `axpy`.
+
+> **EX 1.2:** given three vectors, decide independence two ways (by hand, then `are_independent`).
+
+> **EX 1.3:** load Ames; report the data-matrix shape; pull one row (a home) and one column (a feature); identify which features are categorical.
+
+> **EX 1.4:** pick two Ames numeric features; compute the angle between their centered columns; relate near-0 / near-90 degrees to correlation (forward-ref Ch 6).

@@ -3,14 +3,16 @@ title: "CLAE Source Coverage by Chapter"
 type: reference
 status: active
 created: "2026-06-24"
-updated: "2026-06-25"
+updated: "2026-06-26"
 ---
 
 # Source Coverage by Chapter
 
 Rewritten 2026-06-25 after book-wide Source Assembly (the per-chapter maps
 `chapter_notes/clae-chapter-NN-source-map.md`). The earlier version's tags were
-optimistic; this reflects what the source actually contains.
+optimistic; this reflects what the source actually contains. A full read of all 14
+math lessons and 48 case-study notebooks (2026-06-26) added the per-chapter
+runnable-code inventory below.
 
 Level: **adapt** = real usable source for the mechanics (still needs rewrite and
 re-anchoring); **partial** = thin source, significant net-new; **scratch** =
@@ -80,6 +82,47 @@ adapt-the-mechanics, write-the-payload.
 - **tracking** (to author): linear-Gaussian constant-velocity state-space, GT
   AI-for-Robotics style. The Estimator-arc dataset for Ch 12-14. See the decision
   in `clae-book-decisions.md`.
+
+## Runnable code inventory (ground truth, full read 2026-06-26)
+
+Where each chapter's runnable code actually lives, after a full read of all 14 math
+lessons and 48 case-study notebooks. The math lessons (L001-L014) are toy-matrix and
+iris; they give mechanics plus small reusable helpers. The real-data, runnable
+computation lives in the case-study notebooks. The book's distinctive authoring task
+is **welding the from-scratch numerical derivation onto Ames**: the course's
+from-scratch covariance / PCA / SVD code runs on iris / ball-on-spring / wholesale,
+while the Ames pipeline uses sklearn (no hand SVD or eigendecomposition anywhere).
+Computing covariance, PCA, and least squares on the Ames data matrix by hand (numpy)
+is net-new and is the computational spine of the book.
+
+| Ch | Lessons (mechanics + helpers) | Case-study notebooks (runnable, real data) | Key reusable artifacts |
+|---|---|---|---|
+| 1 | L001 (add/scale/subtract, dot product; `plot_vector`/`vector_addition` quiver helpers), L002 (column picture; difference matrix `[[1,0,0],[-1,1,0],[0,-1,1]]`), L003 (`are_independent` rank test) | 05-01 ingest (three-CSV `pd.merge` on `Id` to a 1460x80 data matrix; target `SalePrice` in `sale.csv`) | `plot_vector`/`vector_addition`; row-vs-column `Ax` loop; `are_independent`; `load_data()` |
+| 2 | L002 (column picture, `Ax=b`, invertibility, `np.linalg.solve`; difference matrix), L005 (transformation = matrix; `points @ A.T`) | 05-06 preprocessing (standardize/center as a transform) | row-vs-col `Ax` loop; `plot_vectors` (3D); `plot_transformation` |
+| 3 | L007 (eigen: char-poly **2x2-only, determinant-free, bespoke "dependency trick"**; eigenspaces/multiplicity; LU; diagonalization) | - | meshgrid `points @ A.T` eigen viz (little other code) |
+| 4-5 | L009 (random-vector-as-DataFrame-row; `E[AX]=AE[X]`, `Cov(AX)=A Cov(X) A^T` with `np.allclose` checks; confidence ellipse) | 05-02 impute (column means), 05-04 ANOVA group means (conditional-mean hook) | mean/cov-transform verification; ellipse code |
+| 6 | L010 (covariance, PSD proofs, signal/noise via eigenvalue ratio; `compare_covariance`, `simulation_study`), L011 (standardization to correlation) | 05-05 Ames `numeric_df.corr()` + masked heatmap; wholesale 04-06 (correlation matrix); **pca-tutorial 04** (covariance from `X_c.T@X_c/(n-1)`, TSS, ddof); **pca-tutorial 06** (cov /(n-1) vs corr /n, `np.testing` proofs) | `.corr()`+mask; `X_c.T@X_c/(n-1)`; cov-vs-corr scaling |
+| 8 | - | **wholesale 04-05** (10,000-trial Monte-Carlo CLT, sample-mean convergence), 04-04 (z-score standardization), 04-03 (sampling variability vs n) | the CLT simulation loop; z-score line |
+| 9 | L012 (`np.linalg.svd`, `full_matrices=False`; verification block `U^T U=I`, reconstruction, `s**2/(n-1)`=cov eigenvalues, `V`=eigvecs(`X^T X`); SVD-from-eigh; "square-root pattern" `sigma=sqrt(lambda)`) | - (no SVD or eig on Ames anywhere) | `np.linalg.svd` + verification; SVD-from-eigh |
+| 10 | L010/L012 (cov->PCA, SVD) | **pca-tutorial 06** (PCA = eigendecomp of population covariance; 5-step algorithm; `assert_array_almost_equal(pca.components_.T, eig(X_c.T@X_c/n))`), 02 (geometric: principal axes = max-variance directions; projection/inverse_transform), 05 (eig of cov, SNR, change of basis), 08 (scree, cumulative variance, scaling-dependence), 07 (loadings, sign convention); 05-08 sklearn `PCA(8)` on Ames; wholesale 04-09 (sklearn PCA across variants) | `np.linalg.eig(X.cov())` with proofs; `explained_variance_ratio_`; scree |
+| 11 | L004 (over/underdetermined; four subspaces; `np.linalg.lstsq` + residual norm; `decompose_solution` via `pinv`) | 05-10 (normal equation `beta=(X^T X)^{-1} X^T y` in LaTeX), **05-11** (Ridge/Lasso on `dataset_2`: closed form `np.linalg.inv(X.T@X+alpha*I)@X.T@y`, GridSearchCV, coefficient paths), 05-13 benchmark (mean baseline) | `lstsq`+residuals; ridge closed-form; the Ames OLS/ridge fit |
+| 12-14 | - | - | no source; write from scratch on the `tracking` dataset |
+
+Notes:
+
+- **pca-tutorial is a fully-expanded dir, not a zip.** Notebook 06 is the single best
+  artifact in the corpus (PCA from first principles with passing `np.testing`
+  assertions); notebook 04 is the cleanest first-principles covariance.
+- **Three divergent `plot_vector` copies** across L001/L002/L004 (2D quiver, 3D, a
+  labeled variant); unify on one figure helper book-wide.
+- **L007 eigen is 2x2-only** with a determinant-free derivation ("we would be unlikely
+  to do this for anything of higher dimension"); Ch 3 must generalize to
+  `det(A - lambda I)=0`.
+- **Dated code to modernize on lift:** `sns.distplot` -> `histplot`/`displot`;
+  `sklearn.externals.six`/`joblib` in `lib/preprocessing.py`; one undefined
+  `fit_and_score` in wholesale 04-12.
+- **Ch 12-14 confirmed unsourced** (no course or notebook material); written entirely
+  on the `tracking` dataset.
 
 ## The shape of the work
 
