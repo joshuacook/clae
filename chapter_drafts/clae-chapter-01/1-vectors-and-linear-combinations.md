@@ -7,11 +7,11 @@
 
 ## 1.0 Hook: linear combinations, and why they are fast
 
-Modern artificial intelligence rests on a single, almost embarrassingly simple operation: scale a vector by a number, and add it to another vector. That is the whole of the operation. The libraries that perform it ten billion times a second call it **axpy**, for "a x plus y." This book calls it the **linear combination**. Everything else, the layers and the attention heads and the billions of parameters and the warehouses of silicon, is structure built around this one move. The plain timber the whole edifice hangs on is $a\mathbf{x} + \mathbf{y}$.
+Modern artificial intelligence rests on a single, almost embarrassingly simple operation: scale a vector by a number, and add it to another vector. That is the whole of the operation. The libraries that perform it ten billion times a second call it **axpy**, for "a x plus y." This book calls it the **linear combination**. Everything else, the layers and the attention heads and the billions of parameters and the warehouses of silicon, is structure built around this one move. The plain timber the whole edifice hangs on is axpy.
 
 That it is foundational you might take on faith. That it is also the operation your computer runs faster than almost anything else, you should not. Let me show you what I mean. NumPy is not math in Python. Python is a high-level wrapper around C, and NumPy is a high-level wrapper around the compiled numerical libraries beneath it, BLAS chief among them, that the whole numerical stack rests on, the models we train and run included. When you write NumPy you are writing a short note that says: have the fast code do this.
 
-We will compute one thing, $a\mathbf{x} + \mathbf{y}$, where $\mathbf{x}$ and $\mathbf{y}$ hold ten million numbers and $a$ is a single scalar. We compute it two ways and time both: a pure-Python list comprehension over the entries, and NumPy's vectorized expression.
+We will compute axpy itself, on real arrays: two vectors `x` and `y` of ten million numbers, and a single scalar `a`. We compute it two ways and time both: a pure-Python list comprehension over the entries, and NumPy's vectorized expression.
 
 ```python
 import numpy as np
@@ -23,15 +23,15 @@ def vectorized(a, x, y):    # NumPy, the whole array at once
     return a * x + y
 ```
 
-> **Figure 1.0** [render once compute lands]. Wall-clock time of `by_hand` vs `vectorized` for $a\mathbf{x}+\mathbf{y}$, swept over `n` on a logspace from $10^3$ to $10^8$, log-log axes. Expect `by_hand` to climb linearly and `vectorized` to sit about two orders of magnitude below it.
+> **Figure 1.0** [render once compute lands]. Wall-clock time of `by_hand` vs `vectorized` for axpy, swept over `n` on a logspace from $10^3$ to $10^8$, log-log axes. Expect `by_hand` to climb linearly and `vectorized` to sit about two orders of magnitude below it.
 
 Both return the same numbers; they do not take the same time. The Python loop climbs in a straight line and runs on the order of a hundred times slower. **[MEASURE]** real factor and machine, from the run. A gap that large is worth chasing.
 
 The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy's `a * x + y` skips every bit of that per-entry overhead: the whole array goes to a compiled loop the interpreter never re-enters. That is where the hundredfold goes. It is a software win, not a hardware trick.
 
-The operation that compiled loop is built around has a name: **axpy**, for "a x plus y." It is one of the most carefully tuned routines in numerical computing, and at the very bottom $a\mathbf{x} + \mathbf{y}$ is a single hardware instruction, the fused multiply-add, that modern processors run many of at once. So it is software the whole way down to one operation the silicon was built to do in a single step: scale, and add.
+The operation that compiled loop is built around is axpy, and it is among the most carefully tuned routines in numerical computing. At the very bottom axpy is a single hardware instruction, the fused multiply-add, that modern processors run many of at once. So it is software the whole way down to one operation the silicon was built to do in a single step: scale, and add.
 
-So look again at the operation we opened with. To scale a vector by a number and add it to another is to form a linear combination, and you have just watched your machine treat it as the most important thing it knows how to do. That is not a coincidence. We poured decades of engineering into $a\mathbf{x} + \mathbf{y}$ precisely because nearly everything we wanted to compute was built out of it. Least squares finds the combination of features closest to a price; principal component analysis finds the combinations that carry the most variation; the Kalman filter blends a prediction and a measurement into one combination and calls it an estimate. Learn to see linear combinations everywhere, and the rest of the book is commentary.
+So look again at the operation we opened with. To scale a vector by a number and add it to another is to form a linear combination, and you have just watched your machine treat it as the most important thing it knows how to do. That is not a coincidence. We poured decades of engineering into axpy precisely because nearly everything we wanted to compute was built out of it. Least squares finds the combination of features closest to a price; principal component analysis finds the combinations that carry the most variation; the Kalman filter blends a prediction and a measurement into one combination and calls it an estimate. Learn to see linear combinations everywhere, and the rest of the book is commentary.
 
 ## 1.1 Two operations
 
