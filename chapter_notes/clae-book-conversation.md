@@ -55,3 +55,28 @@ not that everything *is* one (same caveat as softmax in §1.0).
 **Open to Josh:** react to the "who chooses the weights" arc as the book's spine;
 if affirmed, per-chapter notes get seeded from this entry (Ch 5, 6, 7, 8, 12, 14
 each have a one-sentence identity above).
+
+## 2026-07-10 (cont.) — Affirmations and directions
+
+**Affirmed by Josh:**
+
+- "The plot is the weights" — yes. The four-part arc is the book's spine and the
+  acceptance test for chapters (each must upgrade the objects or advance the
+  weights story).
+- "Who chooses the weights" — yes, and Josh's framing, verbatim (Part III epigraph
+  candidate): *"It's the supervised learning problem — when you're in high school
+  you're given f(x) and x and asked to compute y. Now you're given X and y and
+  asked to compute [f]."* The inversion: the answer sheet is given, the function
+  becomes the unknown.
+- Gaussian-as-fixed-point showmanship — approved: "let's go for showmanship."
+- Josh's energy rises through the Part II identities ("getting more and more
+  excited as I read, like chapter 7"); Ch 6's Σ-as-answer-key drew "I have to
+  hear more about this (excited voice)" — these identities are landing, keep them.
+
+**Named challenge (Ch 5):** "axpy passes through expectation untouched" is the
+headline, and Josh named the design problem: *"How to make this property come
+alive."* Tracked in `clae-chapter-05-conversation.md`.
+
+**Direction:** the arc talk is "too high level — the devil is in the details.
+Start at the beginning" — after capturing this session. Next move: begin the
+detailed conversational pass at Ch 1.
