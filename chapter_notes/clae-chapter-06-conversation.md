@@ -36,3 +36,8 @@ ambitious ways of interrogating it.
 
 **Grounding note:** dot-product-of-centered-columns view already planted in §1.4;
 the Ames numeric columns are the natural demo matrix.
+
+**Standing instruction (Josh, 2026-07-10):** he was excited about this material
+but deliberately deferred it — "I'm not going to dig in … but you should capture
+that so that when we get there, you remember my excitement." When Ch 6 drafting
+begins, reopen this file first and bring the energy back.

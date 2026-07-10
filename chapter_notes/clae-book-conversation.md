@@ -80,3 +80,43 @@ alive."* Tracked in `clae-chapter-05-conversation.md`.
 **Direction:** the arc talk is "too high level — the devil is in the details.
 Start at the beginning" — after capturing this session. Next move: begin the
 detailed conversational pass at Ch 1.
+
+## 2026-07-10 (cont. 2) — The audience, the mission, and Josh's story
+
+**Audience, refined (Josh):** someone who has taken linear algebra before, "maybe
+more than once," and "either never got excited about linear algebra or lost that
+excitement." Not a competence level — a relationship to the subject. The book's
+promise to them: **re-enchantment, not review.**
+
+**The mission (Josh, near-verbatim):** "how do I show that to someone who never
+had that, or remind someone that did have that, that it's missing from their
+life."
+
+**Josh's story (preface candidate — his call whether it goes in the book, first
+person):** taught rigorous proof-based geometry — "really taught geometry-type
+proofs, taught it in a rigorous way" — in Spanish, in schools where most students
+were behind, using proof as "a way to bridge some of that loss they had
+experienced by having bad teachers." Deeply shaped by Paul Lockhart's *A
+Mathematician's Lament*: "the way we teach math is as if we make students copy
+sheet music for 10 years before we play them a song" — and he taught against
+that. Then at 37, back to school for a second bachelor's in applied math,
+someone showed him **Strang**: "the most difficult class I've ever taken. I
+didn't think I was gonna make it. I thought this is the end for me — this
+quixotic quest ends here — I shouldn't have gone back to school." It became his
+favorite class, "the foundation of my second professional career," and "a
+subject where I would sit with friends over a beer and discuss it."
+
+**The register ceiling (Josh, verbatim — the book is allowed to reach this
+high):** "the principles of linearity are the coolest things ever — like, since
+Euclid, since the five postulates. These are fundamental truths of the nature of
+existence."
+
+**Breiman connection (Josh):** the supervised-learning inversion (given X and y,
+compute f) connects to Leo Breiman, "Statistical Modeling: The Two Cultures"
+(2001) — specifically the **algorithmic/black-box school**. Part III / Ch 11
+anchor; note Breiman too was writing to re-enchant a stuck discipline. Filed in
+`clae-chapter-11-conversation.md`.
+
+**Process note (Josh):** when he flags excitement about a future chapter, capture
+it and *remember it on arrival* — don't dig in early. Ch 6's Σ excitement is so
+marked.
