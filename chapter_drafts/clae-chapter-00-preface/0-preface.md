@@ -7,7 +7,7 @@
 
 The first quiz came back with a five on it. Five out of twenty-five, in a linear algebra night class at Santa Barbara City College, 2013. I was thirty-seven years old, back in school for a second bachelor's degree, this one in applied mathematics, and I remember the thought exactly: this is the end for me. This quixotic quest ends here. What it would have ended to, I couldn't have said. There was no other plan. Oblivion.
 
-The class let out at eight and took Jim with it. I stayed, quiz flat on the desk, working back through everything I had gotten wrong, and when I looked up it was ten o'clock. Nobody watched me do it. The deciding was the staying.
+The class let out at eight and took my professor Jim Kruideneur with it. I stayed, quiz flat on the desk, working back through everything I had gotten wrong, and when I looked up it was ten o'clock. Nobody watched me do it. The deciding was the staying.
 
 What made that night strange is that I was not new to any of this. I had taught high school geometry, real geometry, two-column proofs, in Spanish, to students the system had been failing for years. Paul Lockhart says we teach mathematics the way we would teach music if we made children copy sheet music for a decade and never played them a song.[^lockhart] I had built a teaching life against that sentence. Then I sat down in a community college linear algebra class and drowned anyway.
 
