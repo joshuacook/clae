@@ -2,8 +2,8 @@
      his, verbatim with mechanical fixes only). The route/Lockhart paragraph is
      Claude's fresh draft answering Josh's design NOTE; redline freely.
      Companion cell: clae-code/ch00/preface.ipynb (canonical 0.0031).
-     SPELLING FLAG: Kruidenier / Kruideneur / Kruideneir have all appeared;
-     using Josh's latest (Kruideneir) pending his final confirm. -->
+     Spelling CONFIRMED by Josh (2026-07-11): Kruideneir.
+     Year deliberately omitted (Josh: "not important"). -->
 
 # Preface
 
@@ -11,7 +11,7 @@
 
 Out of twenty-five.
 
-I was thirty-seven years old taking a night class in linear algebra at Santa Barbara City College. After ten years as high school geometry teacher, I had decided that if I can teach math, I can do math. This was the beginning of that quest. Staring at the 5, I was sure it was over.
+I was thirty-seven years old taking a night class in linear algebra at Santa Barbara City College. After ten years as a high school geometry teacher, I had decided that if I can teach math, I can do math. This was the beginning of that quest. Staring at the 5, I was sure it was over.
 
 The class let out at eight and took Jim[^jim] with it. I stayed and decoded this mystic art in which Jim was attempting to initiate us ... Linearity.
 

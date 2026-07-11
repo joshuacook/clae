@@ -176,3 +176,10 @@ anyone played me the song" — his verdict: "Too cute." Cut; the paragraph now
 ends on the plain blow ("…I was the one who had spent a decade copying sheet
 music") and the song callback stays reserved for the closing promise. All
 three codified as standing rules in agreements/ai-tells.md.
+
+**Rulings (Josh, 2026-07-11):** surname is **Kruideneir** (confirmed; earlier
+Kruidenier/Kruideneur variants are wrong — internal notes predating this keep
+the old spelling, the manuscript is what matters). The article gets fixed
+("as a high school geometry teacher" — so verbatim-means-verbatim, but he
+takes fixes when he asks for them). The 2013 date stays out: "Year not
+important."
