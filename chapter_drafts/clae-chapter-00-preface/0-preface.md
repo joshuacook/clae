@@ -1,6 +1,6 @@
 <!-- PREFACE v3.2 (affirmed via the co-writing channel, 2026-07-11; committed on
      sync). Both texture gaps resolved from Josh's answers ("oblivion"; "Jim
-     left at 8") — those two renderings are fresh and await his redline in
+     left at 8"); those two renderings are fresh and await his redline in
      scribe. Companion cell: clae-code/ch00/preface.ipynb (canonical 0.0031). -->
 
 # Preface

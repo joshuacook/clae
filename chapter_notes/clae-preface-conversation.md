@@ -90,3 +90,8 @@ scribe. Bundled fixes applied on commit: Lockhart citation completed (Bellevue
 Literary Press, 2009), 18.06 OCW linked, ai-tells scan clean. v3.2 also brought
 the Strang-tradition paragraph (determinants way / Axler's audacity / "Strang
 found the third way, and found it first … This book is written in his church").
+
+**Correction (Josh, via scribe redline 2026-07-11): the year is 2013**, not
+the ~2012 earlier notes inferred. His edit landed mid-sync on the v1 text;
+merged into v3.2's opening sentence ("at Santa Barbara City College, 2013").
+First scribe redline of the new era, for the record.
