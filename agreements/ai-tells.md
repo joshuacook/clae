@@ -84,6 +84,17 @@ Anchors: §1.0 as edited by Josh; his verbatim quotes in
   machine will print different numbers; the shape of the gap will not."
 - **Enthusiasm shown by exactness,** not exclamation points. (Exception: a
   quoted "Like what?" is his; keep quoted energy verbatim.)
+- **The fragment cold open** (from his own preface rewrite, 2026-07-11):
+  "5. / Out of twenty-five." Two fragments, then the scene.
+- **One-word sentence bursts** for overwhelm or inventory: "Spans. Bases.
+  Linear Combinations."
+- **The footnote as a joke with a payoff:** "no one called him Professor
+  Kruideneir, or even Professor K. We called him Jim."
+- **Self-aware irony, one per scene, dry:** "My route to higher math was
+  ironically non-linear."
+- **Concrete scene furniture over abstraction:** the janitor and the trash
+  can, not "late into the evening."
+- **One-line charters:** "if I can teach math, I can do math."
 - **Narrator stance:** an initiate showing you openly, not a magician hoarding
   ("It was no secret").
 
