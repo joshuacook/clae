@@ -91,3 +91,19 @@ Net assessment: Ch 3 is adapt-on-the-mechanics (3.1-3.3, 3.7, all 2x2) but
 net-new-on-the-payload (3.4 spectral theorem, 3.5 power iteration, 3.6 capstone).
 The "strong" tag reflects L7 existing, not L7 being sufficient; ILA ch08 contributes
 nothing.
+
+## Addendum (2026-07-11): 2015-paper loot for Ch 3
+
+- Running example: eigenvectors of the second difference matrix ARE sines;
+  eigenvalues 2 − 2cos(kπ/(n+1)). Computed fact + analytic formula, NO
+  representation theory (symmetry ruled OUT 2026-07-11).
+- Exhibit: the analytic-vs-LAPACK eigensolver race, including the n=100 upset
+  ("This last result is astounding" is the quotable verdict sentence).
+- §3.5: the power method.
+- DFW footnote stock: imaginary-time propagation / seven-solver benchmark.
+- Zernike (2014): visual-basis figure candidate here or Ch 1.3.
+- K is already planted: Ch 2 closes with "the second difference matrix K is
+  carrying a set of [eigenvectors] you already know by name."
+
+Source: Cook, *Computational Methods in Molecular Quantum Mechanics*, Leanpub
+2016. Full reuse cleared.

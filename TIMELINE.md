@@ -19,8 +19,15 @@ The crunch is Jun 23–Aug 1: the entire 14-chapter draft in ~6 weeks, with the
 net-new estimation chapters (Ch 5, 8, 12–14) being the hardest writing, not
 course adaptation.
 
-Process note (2026-06-25): each chapter now opens with a Source Assembly step (per
-`agreements/writing-process.md`); drafting starts at **Ch 2**, and **Ch 1**
-(skim-first reference) plus the **Introduction** are written last, after the
-chapters that fix the notation. The week-by-week rows above predate this reorder
-and will be refreshed.
+Process note (2026-07-11, supersedes 2026-06-25): the skim-first plan for Ch 1
+is **dead**. Ch 1 ("Vectors and Linear Combinations") was written first, as the
+must-read foundation, and stands drafted alongside the preface and Ch 2. The
+**Introduction's fate is still open** (whether it exists separately from the
+preface): do not draft it until decided. Production model as of 2026-07-11:
+Claude drafts finished prose, Josh edits (see `agreements/ai-tells.md` and the
+CLAE section of `agreements/writing-process.md`).
+
+State against the schedule (2026-07-11): preface drafted (v3.1 text pending
+re-post from the mobile channel), Ch 1 drafted, Ch 2 drafted. Next per the
+table: Ch 3–4 (Ch 3 inherits the 2015-paper loot: second-difference
+eigenvectors are sines, the analytic-vs-LAPACK race, the power method).

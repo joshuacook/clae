@@ -82,3 +82,32 @@ Anchors: §1.0 as edited by Josh; his verbatim quotes in
   quoted "Like what?" is his; keep quoted energy verbatim.)
 - **Narrator stance:** an initiate showing you openly, not a magician hoarding
   ("It was no secret").
+
+## Voice additions mined from Josh's prior papers (2026-07-11)
+
+From *Computational Methods in Molecular Quantum Mechanics* (2015) and *The
+Zernike Polynomials* (2014):
+
+- **Verdict sentences after a measurement.** State the number, then pass
+  judgment on it in a short sentence: "This last result is astounding."
+- **The courteous hand-wave, with a wink.** When skipping rigor, say so with
+  manners: "Please understand that we are liberal with our implicit
+  understanding…" Aligns with the assume-GE policy.
+- **In-line editorial self-critique.** He audits his own work in the text: "I
+  am not pleased with this particular test… It is very 'numerical'." Honest,
+  disarming, keep it.
+- **Antique verbs as spice,** sparingly: "behoove."
+- **Constructive genesis framing.** Explain objects by how they were built:
+  "created by subtracting lower order polynomials to create this orthogonality
+  relationship."
+- **Stack-consciousness as identity.** He cares which layer of the software
+  stack a thing happens in, and jokes about it (Leanpub bio: "always willing to
+  discuss orthogonality or to explain why Fortran is the language of the future
+  over a warm or cold beverage").
+
+Blocklist additions from the same papers (his old academic habits he has since
+shed; do not resurrect):
+
+- **Passive result-reporting:** "It is shown that…"
+- **"We have written the following function"** throat-clearing before code.
+  Show the code; let it introduce itself.

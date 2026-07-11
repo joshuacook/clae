@@ -218,3 +218,22 @@ disambiguated, the dangling imputation pointer repointed, notation conventions
 locked (above), and Ch 7/8 budgets reconciled. Architecture verified sound
 (symmetric seeds/callbacks, clean boundaries, uniform voice). Next: section-level
 work, starting with Ch 2 (section notes+outlines, then draft).
+
+## 2026-07-11 — Decisions synced from the co-writing channel
+
+- **Ch 1 skim-first is SUPERSEDED.** The 2026-06-25 decision (Ch 1 written last
+  as a skim reference) is dead. Ch 1 = "Vectors and Linear Combinations,"
+  written first, must-read. The Introduction's fate is OPEN; do not draft it.
+- **Symmetry is OUT of scope ("That's a future topic," Josh).** No
+  shift-invariance or commutator explanations anywhere; Singer stays framed as
+  basis wonder, not representation theory. Deliberate exclusion.
+- **DFW footnotes are the standing rule.** Digressions draft as footnotes;
+  "collect collect collect" now, curate at publication. The AlphaTensor
+  footnote in §1.0 is the register.
+- **Assume Gaussian elimination** (recorded 2026-07-10, repeated here for the
+  log): use it, never teach it; hand-wave axioms with a wink.
+- **Prior-paper reuse is cleared.** Josh's *Computational Methods in Molecular
+  Quantum Mechanics* (Leanpub 2016, CSUN Chem 451, Eloranta lab) and *The
+  Zernike Polynomials* (2014) are his own unpublished-in-journals work:
+  "we can completely reuse any and all of it." Citation form pinned in
+  chapter_notes/clae-chapter-02-source-map.md.

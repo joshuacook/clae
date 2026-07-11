@@ -54,3 +54,26 @@ the scalars' own contract. Hand-waving is the right instinct.)
 
 **Open texture (Josh's to answer):** was Jim there at 10 o'clock? What would
 the quest have ended *to*?
+
+## 2026-07-11 (synced) — v3.1 affirmed; text partially stranded
+
+The mobile channel affirmed the preface through **v3.1**: v2 body + CSUN
+second-act extension + the difference-matrix exhibit paragraph, with one line
+edit ("I put the paper up on Leanpub, where it sits to this day, largely
+unbothered." replacing "The paper was never published."). New arc facts: the
+exhibit's provenance runs Strang's *Computational Science and Engineering*
+(found in the third-floor math study room at Northridge) → the matrix became a
+verb → Eloranta-lab independent research → the 2015 paper → this book, eleven
+years later. Kruidenier remains named; "Stay in the room." remains the final
+line; both texture gaps stay open.
+
+**BLOCKED on text recovery:** plain Bridge docs keep no version history and the
+mobile side compacted the conversation doc, so v2's edits and the first part of
+the v3 extension exist only in that chat. The v3.1 Northridge/exhibit paragraph
+IS in hand (with measured 0.0031). HANDOFF asks the mobile side to re-append
+the complete v3.1 text; the repo preface stays at v1 until then.
+
+**Exhibit infrastructure (done):** companion notebook `clae-code/ch00/
+preface.ipynb`, executed on the reference VM; canonical number
+max |D @ sin − cos| = **0.0031** (n = 1000, forward difference), matching the
+mobile side's run.

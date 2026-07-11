@@ -71,3 +71,11 @@ gap is the residual, planted 200 pages before its name) → §1.3 basis &
 coordinates ("the list was never the vector") → §1.4–1.6 per scaffold.
 Everything else is footnote stock; the spine doesn't feel their weight. The
 §1.3 "recipe" payoff may want the beer-table language.
+
+## 2026-07-11 (synced) — three confirms, applied
+
+Josh ("Yes yes row"): (a) **span-of-the-question is §1.2 material** — the
+at-most-a-plane paragraph is now in the draft ("You were never supposed to see
+the ambient space"); (b) **DFW footnotes standing**; (c) **row picture first,
+column picture as the §1.5 payoff** — the draft already reads in that order.
+Ch 1 stands as drafted; skim-first officially superseded in the decisions log.

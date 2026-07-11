@@ -20,3 +20,11 @@ Josh read it during the SBCC ODEs era, off-syllabus.
 **From the axpy-reach session (2026-07-10):** `A^k x = Σ cᵢ λᵢᵏ vᵢ` — powers of
 a matrix stay a weighted combination forever; only the weights evolve. Eigen is
 "the weights' time-evolution" chapter in the plot-is-the-weights arc.
+
+## 2026-07-11 (synced) — the chapter inherits the 2015 loot
+
+See the source-map addendum: second-difference eigenvectors are sines (running
+example), the analytic-vs-LAPACK race (exhibit), power method (§3.5). The
+particle-in-a-box placement question (Ch 2 verb vs Ch 3 payload vs both) is
+still OPEN with Josh; Ch 2's draft plants K and teases "eigenvectors you
+already know by name," which leans toward Ch 3 carrying the payload.

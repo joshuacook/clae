@@ -58,3 +58,17 @@ invertibility + light column/null space, deferring the four subspaces to Ch 11.
 Net assessment: Ch 2 is adapt-heavy on 2.1, 2.2, and 2.4; net-new on 2.3 and
 composition; reframe on 2.5. Strong source overall, but less turnkey than the
 "strong" tag implies, and section 2.3 is a genuine write-from-scratch.
+
+## Addendum (2026-07-11): the 2015 paper joins the source set
+
+| Outline section | Source | Provides | Verdict |
+|---|---|---|---|
+| 2.1 (the verb) | Cook, *Computational Methods in Molecular Quantum Mechanics* (Leanpub 2016) | `secondDiff` + the difference-matrix-as-derivative, with the author's own provenance | adapt; now the verb section's centerpiece exhibit |
+
+Citation (pinned, affirmed): Joshua Cook, *Computational Methods in Molecular
+Quantum Mechanics*, Leanpub, 2016 (submitted toward Chemistry 451, CSUN),
+https://leanpub.com/computationalmethodsinmolecularquantummechanics
+
+STATUS 2026-07-11: Ch 2 drafted in full
+(`chapter_drafts/clae-chapter-02/2-matrices-and-linear-transformations.md`,
+companion `clae-code/ch02/ch02.ipynb`, real numbers).

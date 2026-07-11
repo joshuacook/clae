@@ -143,3 +143,18 @@ hoarding not.
 **Preface: GO** (arc complete — see `clae-preface-conversation.md`; scaffold at
 `chapter_drafts/clae-chapter-00-preface/0-preface.md`). Ch 1 lead: Option B
 (see `clae-chapter-01-conversation.md`; scaffold updated).
+
+## 2026-07-11 (synced from the mobile channel)
+
+- **Structure/passion split (Josh, verbatim): "over there is where it gets
+  structure and over here is where it gets passion"** — claude-code = repo,
+  numbers, structure; the claude.ai chat = passion drafting with Josh.
+- **Symmetry is OUT** ("That's a future topic") — recorded in the decisions
+  log. Singer stays basis-wonder.
+- **DFW footnotes: standing rule** ("collect collect collect").
+- **Prior papers cleared and looted** — see source/coverage-by-chapter.md
+  addendum; voice mined into agreements/ai-tells.md (verdict sentences,
+  courteous hand-wave, self-critique, "behoove", constructive genesis,
+  stack-consciousness; blocklist: "It is shown that", "We have written the
+  following function").
+- **Ch 2 drafted in full** per work order; preface v3.1 pending text re-post.

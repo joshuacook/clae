@@ -133,3 +133,23 @@ Notes:
 The estimation half (Ch 5, 7, 8, 12-14) is where the book is genuinely written, not
 adapted. Strong-looking front chapters still need their worked examples rebuilt on
 Ames. Per-chapter detail and mismatches: the source maps.
+
+## Prior-paper sources (added 2026-07-11)
+
+Two self-published papers by the author, full reuse cleared:
+
+- **Cook, *Computational Methods in Molecular Quantum Mechanics*, Leanpub,
+  2016** (written 2015 toward CSUN Chem 451, Jussi Eloranta's lab). Loot:
+  `secondDiff` + boundary conditions (Ch 2, the verb section); eigenvectors of
+  the second difference are sines, eigenvalues 2 − 2cos(kπ/(n+1)) (Ch 3
+  running example); analytic-vs-LAPACK eigensolver race incl. the n=100 upset
+  (Ch 3 exhibit); power method (§3.5); imaginary-time / seven-solver benchmark
+  (DFW footnote stock). Cited at the preface provenance beat and wherever the
+  loot lands.
+- **Cook, *The Zernike Polynomials*, 2014** (Leanpub; verify listing when
+  placed). Loot: visual-basis figure candidate (Ch 1.3 or Ch 3);
+  subtract-lower-orders construction = Gram–Schmidt in the wild (Ch 11 QR
+  footnote candidate).
+
+Scope guard: symmetry/representation-theory content in the 2015 paper is OUT
+(2026-07-11 ruling).
