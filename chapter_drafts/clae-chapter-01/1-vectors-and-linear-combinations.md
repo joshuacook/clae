@@ -67,9 +67,42 @@ The operation that compiled loop is built around is axpy, and it is among the mo
 
 So look again at the operation we opened with. To scale a vector by a number and add it to another is to form a linear combination, and you have just watched your machine treat it as the most important thing it knows how to do. That is not a coincidence. We poured decades of engineering into axpy precisely because nearly everything we wanted to compute was built out of it. Least squares finds the combination of features closest to a price; principal component analysis finds the combinations that carry the most variation; the Kalman filter blends a prediction and a measurement into one combination and calls it an estimate. Learn to see linear combinations everywhere, and the rest of the book is commentary.
 
-## 1.1 Two operations
+## 1.1 Two operations, one contract
 
-> **BEAT:** Start with the geometry, first and loud. Scalar multiplication is stretching: multiply a vector by `c` and its arrow grows or shrinks along its own line through the origin, flipping to point backward when `c` is negative. Only after the picture, the algebra: every entry scales by `c`.
+<!-- PLACEHOLDER OPENING LINE — Josh (2026-07-10): "First line the hardest.
+     Maybe it emerges as we write." Do not draft it for him. -->
+
+> **BEAT (the contract):** Closure is the price of admission. Make a set of simple assumptions closed under vector addition and scalar multiplication and you inherit an entire suite of powerful strategies: regression, eigen dynamics, Fourier, and (Ch 3) electron orbitals are a basis. Gesture at the eight vector-space axioms and hand-wave, per book policy: state the contract, play the song. (Beer-table language in `chapter_notes/clae-chapter-01-conversation.md`.)
+
+> **BEAT (the claim on the table):** Put the Ames columns down. Estimation only ever says one sentence: `SalePrice ≈ w1·GrLivArea + w2·OverallQual + …` — and that sentence is axpy. The weights are unknown. The book exists to earn them.
+
+```python
+import pandas as pd
+
+zoning  = pd.read_csv('data/zoning.csv')
+listing = pd.read_csv('data/listing.csv')
+sale    = pd.read_csv('data/sale.csv')          # SalePrice (the target) lives here
+housing = pd.merge(zoning, listing, on='Id')
+housing = pd.merge(housing, sale, on='Id').set_index('Id')
+
+X = housing[['GrLivArea', 'OverallQual']].to_numpy(float)
+y = housing['SalePrice'].to_numpy(float)
+
+w, *_ = np.linalg.lstsq(X, y, rcond=None)        # the unearned answer
+print('w:', np.round(w, 2))
+print(f'house {housing.index[1]}: actual {y[1]:,.0f}   predicted {(X @ w)[1]:,.0f}')
+```
+
+```text
+w: [   51.87 17604.21]
+house 2: actual 181,500   predicted 171,085
+```
+
+> **BEAT (the unearned answer):** There they are: $51.87 per square foot, $17,604 per quality point — delivered by a function you did not build and do not yet deserve. By Chapter 11 you will have built it yourself. Play the song before teaching the instrument; the reader has called `lstsq` professionally — the mystery was never the answer, it's why it works.
+
+Now the two operations the contract is made of.
+
+> **BEAT:** Geometry first for each. Scalar multiplication is stretching: multiply a vector by `c` and its arrow grows or shrinks along its own line through the origin, flipping to point backward when `c` is negative. Only after the picture, the algebra: every entry scales by `c`.
 
 $$c\mathbf{v} = (cv_1, cv_2, \ldots, cv_n)$$
 
@@ -108,7 +141,7 @@ vector_addition(np.array([1, 2]), np.array([3, 1]))
 
 > **Figure 1.3.** `vector_addition(v1, v2)`: `v1` and `v2` from the origin, with `v2` carried to the tip of `v1` (faded), and the tip-to-tail sum `v1 + v2` in green.
 
-> **BEAT:** Combine both operations into the linear combination `c*v + d*w`; name `c, d` the weights. This is the one move. Close by posing the question that drives 1.2: as the weights range over all values, what set of vectors do we get?
+> **BEAT:** Combine both operations into the linear combination `c*v + d*w`; name `c, d` the weights. This is the one move — and the reader has already seen this sentence: it is the Ames claim from the top of the section. Close by posing the question that drives 1.2: as the weights range over all values, what set of vectors do we get?
 
 $$c\mathbf{v} + d\mathbf{w}$$
 
@@ -129,7 +162,7 @@ plot_vector(v, 'blue', 'v'); plot_vector(w, 'red', 'w'); plt.legend(); plt.show(
 
 > **BEAT:** The span is closed under both operations (scale or add things inside it, stay inside) and always contains the origin. A set with that property is a subspace. Span and subspace are two views of one object.
 
-> **BEAT:** The data tie. In a dataset the vectors are the feature columns; the subspace they span is the column space, every vector the features can build. Forward-ref: when we fit Ames price in Ch 11, the fitted prices live in the column space, no more and no less. Estimation, stated geometrically, is picking the point of the subspace that best accounts for the measurement.
+> **BEAT:** The data tie — and the plot advancing. In a dataset the vectors are the feature columns; the subspace they span is the column space, every vector the features can build. Now the 1.1 question sharpens: can `GrLivArea` and `OverallQual` reach `SalePrice`? Almost never exactly — `y` is not in the plane the two columns span, and the gap between `y` and the closest reachable point is the residual, planted here 200 pages before its name. Forward-ref: when we fit Ames price in Ch 11, the fitted prices live in the column space, no more and no less; estimation, stated geometrically, is picking the point of the subspace that best accounts for the measurement. (The two-feature version is drawable exactly — span-of-the-question, pending Josh's affirm.)
 
 ## 1.3 Independence, basis, and the recipe
 

@@ -17,3 +17,23 @@ to re-enchant a stuck discipline, which is this book's mission for its reader.
 **From the axpy-reach session:** Ch 11 is where the weights stop being given and
 are first *earned* — chosen by geometry: the combination of X's columns closest
 to y, with orthogonality doing the choosing. (Ch 12 re-earns them by statistics.)
+
+## 2026-07-10 (synced 2026-07-11) — this chapter is the conversion image
+
+**Confirmed:** Strang's Chapter 4 projection picture is THE image that converted
+the author in 2012 — Josh, verbatim: "4 is WHERE IT CLICKED where I cracked my
+knuckles and said « I see you Gil »." The preface tells the moment; this chapter
+IS the drawing. They hold hands across the book — the chapter should knowingly
+land the same picture the preface promised.
+
+**Projection is the regression (Josh: "So the column picture is that the
+projection is the regression ?" — confirmed):** ŷ = the shadow of y on
+span(feature columns); residual = the perpendicular (why residuals ⊥ fitted
+values); normal equations = orthogonality conditions; **the weights are the
+COORDINATES of the projection** — "regression as discovering the weights" and
+"the projection is the regression" are the same sentence in two registers. Row
+picture: the same computation reads as a hyperplane through a point cloud. One
+computation, two stories; the column story is the enchanted one.
+
+**Payoff planted in Ch 1 (Option B):** the unearned `lstsq` cell — "by Chapter
+11 you will have built it yourself." This chapter pays that debt.

@@ -120,3 +120,26 @@ anchor; note Breiman too was writing to re-enchant a stuck discipline. Filed in
 **Process note (Josh):** when he flags excitement about a future chapter, capture
 it and *remember it on arrival* — don't dig in early. Ch 6's Σ excitement is so
 marked.
+
+## 2026-07-11 — Synced from the claude.ai channel (2026-07-10 session)
+
+**Book policy — ASSUME GAUSSIAN ELIMINATION (affirmed):** use it, don't teach
+it. Josh: "strang NEEDS to teach that. I think our book needs to assume Gaussian
+elimination and use it but not teach it." Same instinct for axioms: state
+closure, gesture at the eight vector-space axioms, hand-wave, move on. This book
+states the contract and plays the song.
+
+**Working method — DFW footnotes (pending explicit confirm):** Josh: "maybe we
+**David foster Wallace this book** … now we can just **collect collect
+collect**." Digressions draft as footnotes, curated at publication, tagged for
+triage; the AlphaTensor footnote in §1.0 is the register. Current footnote
+stock: trig magic, Singer kinship, {sin,cos}-first-basis, numpy/pandas
+row-vs-column memory layout.
+
+**Narrator stance (book-wide):** "It was no secret" — the narrator is an
+initiate showing you openly, not a magician hoarding. Showmanship allowed;
+hoarding not.
+
+**Preface: GO** (arc complete — see `clae-preface-conversation.md`; scaffold at
+`chapter_drafts/clae-chapter-00-preface/0-preface.md`). Ch 1 lead: Option B
+(see `clae-chapter-01-conversation.md`; scaffold updated).

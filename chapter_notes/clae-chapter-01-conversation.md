@@ -22,3 +22,52 @@ must keep the promise at ground level.
 
 **Open:** Josh to riff §1.1 in his own words (whiteboard, sharp colleague, twelve
 years rusty — what do you actually say first?). Capture as near-prose here.
+
+## 2026-07-10 (claude.ai session, synced 2026-07-11) — Option B, the contract, the two pictures
+
+**Ch 1 lead — OPTION B, AFFIRMED (scaffold updated 2026-07-11):** Ch 1 leads
+with regression by leading with the QUESTION in pure axpy vocabulary — the Ames
+columns on the table, estimation's one sentence (`SalePrice ≈ w1·GrLivArea +
+w2·OverallQual + …`, which IS axpy), weights unknown, the book exists to earn
+them — AND shows the unearned answer: one `np.linalg.lstsq` cell, real numbers
+(w = 51.87, 17604.21; house 2 actual 181,500 / predicted 171,085), "delivered
+by a function you did not build and do not yet deserve; by Chapter 11 you will
+have built it yourself." Play the song before teaching the instrument; the
+reader has called lstsq professionally — the mystery was never the answer, it's
+why it works.
+
+**§1.1 reframe — contract first, arrows after (affirmed):** closure under the
+two operations is the price of admission; honoring it buys the suite
+(regression, eigen dynamics, Fourier, orbitals). The beer-table verbatim lives
+in `clae-preface-conversation.md`.
+
+**The opening line:** Josh, verbatim: "Honestly I don't know. First line the
+hardest. Maybe it emerges as we write." Scaffold carries a PLACEHOLDER; do not
+invent his voice.
+
+**The two pictures (row/column duality — in-flight, reader order OPEN):** Josh:
+"One axis per house or a house space with the axes being the features?" Row
+picture = each house a point in feature space R^d (where humans live); column
+picture = each feature a vector in observation space R^n (where estimation
+lives; projection IS regression; the weights are the coordinates of the
+shadow). Josh on the label: "isn't a label like a low dimensional embedding of
+the house space?" — sale price as a linear functional (row) / the label vector
+approximately in the span of the feature columns (column). Same fact,
+transposed.
+
+**Josh's honest phenomenology (design constraint):** "it's not landing for
+« a column of data »" — nobody sees R^1460. Resolution offered (Josh: "I like
+this a lot," explicit affirm as §1.2 material still pending): the
+**span-of-the-question principle** — any two vectors, in R^1460 or R^googol,
+span at most a plane; the reach is bounded by ingredient count, not ambient
+dimension; the drawing on the page is exact, not a metaphor. The reversal is
+the teach: standard books say "two vectors in R³ span a plane"; CLAE says "two
+vectors in R^1460 STILL span only a plane — you were never supposed to see the
+ambient space."
+
+**Ch 1 narrative spine (re-grounded):** §1.0 axpy hook → §1.1 contract + the
+question + the unearned answer → §1.2 span = the reach of the operation (the
+gap is the residual, planted 200 pages before its name) → §1.3 basis &
+coordinates ("the list was never the vector") → §1.4–1.6 per scaffold.
+Everything else is footnote stock; the spine doesn't feel their weight. The
+§1.3 "recipe" payoff may want the beer-table language.
