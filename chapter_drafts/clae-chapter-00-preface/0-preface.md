@@ -3,7 +3,8 @@
      Claude's fresh draft answering Josh's design NOTE; redline freely.
      Companion cell: clae-code/ch00/preface.ipynb (canonical 0.0031).
      Spelling CONFIRMED by Josh (2026-07-11): Kruideneir.
-     Year deliberately omitted (Josh: "not important"). -->
+     Year deliberately omitted (Josh: "not important").
+     Words: 1138 prose / 1253 total (auto: tools/wordcount.py) -->
 
 # Preface
 

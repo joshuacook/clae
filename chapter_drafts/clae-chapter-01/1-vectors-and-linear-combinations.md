@@ -1,6 +1,7 @@
 <!-- DRAFT (Claude, 2026-07-11) for Josh's edit. §1.0 is Josh's text, untouched.
      Companion notebook: clae-code/ch01/ch01.ipynb produces every figure and
-     number here. -->
+     number here.
+     Words: 2820 prose / 3445 total (auto: tools/wordcount.py) -->
 
 # Chapter 1: Vectors and Linear Combinations
 

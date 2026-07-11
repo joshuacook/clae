@@ -1,7 +1,8 @@
 <!-- DRAFT (Claude, 2026-07-11) for Josh's edit, per the 2026-07-11 work order.
      Companion notebook: clae-code/ch02/ch02.ipynb produces every figure and
      number here. Two open items are PROPOSED in comments (2.3 example, 2.5
-     categorical depth), not resolved. -->
+     categorical depth), not resolved.
+     Words: 2949 prose / 3650 total (auto: tools/wordcount.py) -->
 
 # Chapter 2: Matrices and Linear Transformations
 
