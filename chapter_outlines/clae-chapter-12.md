@@ -89,3 +89,8 @@ section are in the source map.
 - **12.4:** decide whether to re-state the Ch 7.4 conditional-Gaussian formula in full or reference it; lean toward a one-line restatement so the equivalence is self-contained.
 - **Sequencing:** this chapter depends on Ch 5.4 and Ch 7.4 (both scratch/partial) being outlined first, and on Ch 11 shipping first in Part III. Do not draft 12.1/12.4 prose until the seeds exist.
 - **Budget check:** 5 + 6 + 6 + 5 + 5 + 7 + 2 = 36 pp.
+
+## Amendment (2026-07-11)
+
+Budget re-set to **~40 pp** per the macro rulings + rebalance (decisions log,
+2026-07-11 night). Scope: +4 pp absorbs the "estimation secretly began in Ch 5" reveal.

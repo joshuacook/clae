@@ -104,3 +104,8 @@ language.
 - 4.4: pick the specific A for the Ames mean-transform worked example (a small, interpretable feature combination, not a whitening matrix, to avoid leaking Ch 6/Ch 10 material).
 - 4.6: decide how the simulator specifies spread without a covariance matrix (lean: independent per-feature draws with stated per-feature scales; flag explicitly that correlated draws wait for Ch 6/Ch 7).
 - 4.7: confirm the exact repointing of L9 P2 to the mean-only, Ames version once the problem set is drafted.
+
+## Amendment (2026-07-11)
+
+Budget re-set to **~20 pp** per the macro rulings + rebalance (decisions log,
+2026-07-11 night). Scope: the book/s shortest chapter; contract-first ("a random vector is a vector whose entries you have not observed yet"); measure theory hand-waved with the courteous wink.

@@ -268,3 +268,32 @@ work, starting with Ch 2 (section notes+outlines, then draft).
   scripting.
 - **2.3 projection example: generic line AFFIRMED**; the Ames projection is
   held for Ch 11.
+
+## 2026-07-11 (night) — Anatomy, Introduction spec, macro rulings
+
+- **CHAPTER ANATOMY + PROOF TRIAGE (approved):** see
+  `agreements/chapter-anatomy.md`. MOTIVATE → DEFINE (boxed, numbered,
+  instantiated) → WORK BY HAND → STATE (PROVE / SKETCH / VERIFY+CITE, always
+  disclosed) → RUN (measured number, verdict) → FOOTNOTES; close = exit state
+  + tiered exercises (pencil/keyboard/bridge) + FURTHER TREKS. Epistemology
+  sentence lives in the Introduction: computational verification is evidence,
+  not proof. Ch 1 and Ch 2 retrofitted 2026-07-11; all future chapters follow
+  from the start.
+- **INTRODUCTION SPEC (approved):** 0.1 The Question · 0.2 The Map · 0.3 The
+  Contract · 0.4 How This Book States Things · 0.5 What We Assume. Drafted
+  late. Full spec in `chapter_notes/clae-introduction-conversation.md`.
+- **LENGTH CALIBRATION (standing):** ~250–300 words-equivalent per page;
+  28 pp ≈ 7,500–8,000 words; book ≈ 115–120k. Drafts to budget from now on.
+- **MACRO RULINGS (Josh: "This all sounds good"):**
+  (a) **Ch 6 is Part II's mini-capstone** (Σ as the answer key, staged with
+  capstone showmanship; the deferred Σ-excitement flag is hereby revived).
+  (b) **Estimation secretly begins in Ch 5** (one-hot group means played as
+  E[Y|X] is already the best guess; Ch 12 gets the reveal).
+  (c) **Ch 4 is the book's shortest chapter** (contract-first: a random
+  vector is a vector whose entries you haven't observed yet; measure theory
+  hand-waved with the courteous wink). Budget 28 → **20 pp**.
+  (d) **Ch 14 is pure Kalman** (one chapter, one thing: the whole book
+  computes its gain, one axpy per tick, on generate_tracking.py data).
+- **BUDGET REBALANCE (claude-code's final proposal per 5c):** Ch 4 28→20,
+  Ch 6 32→**36**, Ch 12 36→**40**, Ch 14 34→**30** (pure-Kalman scope shed).
+  Net −4 pp banked as schedule buffer.

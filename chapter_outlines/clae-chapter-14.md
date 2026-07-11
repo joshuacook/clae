@@ -88,3 +88,8 @@ the chapter threads it from open to capstone.
 - 14.3: decide the depth of the matrix-inversion-lemma derivation for RLS (lean: state it and connect to Ch 11, do not re-derive the lemma in full).
 - 14.6: confirm the capstone uses the full 200-step track or a featured sub-window; lean toward a sub-window for figure clarity with the full track in code.
 - Budget check: 6 + 5 + 6 + 4 + 4 + 6 + 3 = 34 pp.
+
+## Amendment (2026-07-11)
+
+Budget re-set to **~30 pp** per the macro rulings + rebalance (decisions log,
+2026-07-11 night). Scope: PURE KALMAN. Shed the advanced/modern-applications sprawl; one chapter, one thing: the gain, one axpy per tick, on generate_tracking.py data.

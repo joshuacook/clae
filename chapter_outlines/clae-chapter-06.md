@@ -98,3 +98,8 @@ budgets sum to ~32 pp. Source verdicts per section are in the source map.
 - 6.4 / 6.6: confirm the stock_returns block split convention (cols 1-5 vs 6-10) and the exact illustrative-not-literal disclaimer wording; decide whether to normalize the cross-covariance to a cross-correlation matrix in the worked example or keep it as raw cross-covariance.
 - 6.5: decide how much of the unbiasedness derivation to show vs state (lean: show the n-1 argument once, defer the convergence simulation entirely to Ch 8).
 - 6.3: confirm correlation is presented strictly as a result, with the standardization mechanics referenced back to Ch 2.5, not re-derived.
+
+## Amendment (2026-07-11)
+
+Budget re-set to **~36 pp** per the macro rulings + rebalance (decisions log,
+2026-07-11 night). Scope: Part II mini-capstone; stage Var(c^T X) = c^T Sigma c with capstone showmanship.

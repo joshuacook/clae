@@ -48,3 +48,10 @@ When covariance/correlation arrive: show correlation's invariance to the
 scaling choice — the correlation matrix of Z equals the correlation matrix of
 the raw numerics (and of X_g's numeric block); scaling by 1 sd or 2 sd cancels
 in ρ. One cell, plants trust in the two-matrix convention.
+
+## 2026-07-11 (night) — macro ruling: Part II's MINI-CAPSTONE (+4 pp → ~36)
+
+Σ as the answer key for every linear combination gets capstone staging: Part
+II's summit between the Ch 3 orbitals high and the Ch 9 SVD payoff. **The
+deferred Σ-excitement flag is officially revived — it has arrived.** Reopen
+this file's 2026-07-10 entry when drafting and bring the energy.

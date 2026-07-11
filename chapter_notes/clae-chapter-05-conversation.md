@@ -31,3 +31,9 @@ which sets up orthogonality-in-expectation for Ch 12.
 Ch 2 §2.5 plants: regress a price on an indicator alone and the earned weight
 is a group mean — this chapter's bridge between estimation and expectation.
 Pay it off when drafting.
+
+## 2026-07-11 (night) — macro ruling: estimation secretly begins here
+
+The one-hot group-means beat is played as "E[Y|X] is already the best
+guess": the reader estimates, two parts early, unannounced. No fanfare in
+this chapter; Ch 12 owns the reveal.
