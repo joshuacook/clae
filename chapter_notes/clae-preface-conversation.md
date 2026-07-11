@@ -123,3 +123,43 @@ direct edits, all addressed:
 **Spelling flag:** Josh's edit wrote "Kruideneur"; his original mobile quote
 and all prior notes say "Kruidenier." Normalized to Kruidenier; confirm with
 Josh which is right before print.
+
+## 2026-07-11 (later) — Josh rewrote the opening himself (v4)
+
+His paragraphs 1–5, verbatim (mechanical fixes only: "5\." escaped so markdown
+doesn't render a list; \footnote{} converted to [^jim]). Voice moves to learn
+from, now in ai-tells: the fragment cold open ("5. / Out of twenty-five."),
+one-word sentence bursts ("Spans. Bases. Linear Combinations."), the footnote
+as a joke with a payoff ("no one called him Professor Kruideneir... We called
+him Jim"), self-aware irony ("My route to higher math was ironically
+non-linear"), concrete scene detail (the janitor and the trash can), "I was
+swimming" (not drowning), "if I can teach math, I can do math" as the quest's
+one-line charter. Note: his rewrite drops the 2013 date and the
+quixotic/oblivion material; his text wins.
+
+**His design NOTE (verbatim, preserved):** "I'm not sure where to go here ...
+for one Geometry is the outlier in high school math much like Linear Algebra
+is the outlier in lower division university math so there's something there
+... I don't know if I need to crow about my story teaching in difficult
+schools ... this section needs to serve narrative of the prelude and it is
+important to explain how I got here and then Lockhart comes out of nowhere
+... and how will Lockhart serve both the prelude and the book at large ...
+who is Lockhart and how are we not even mentioning his Lament"
+
+**Claude's answer, drafted into v4 (his to redline):** the outlier parallel IS
+the bridge (geometry = the one HS course that reasons; linalg = the outlier of
+the lower division; "I had chosen the outlier on purpose" explains why a
+geometry teacher is the one who goes back at 37). Don't crow: "South Los
+Angeles" + one clause carries the setting; the narrative-bearing detail is the
+structure-vs-rigor tension, which IS the Lament lived. Lockhart named in text
+with the Lament's title + who he is (research mathematician who left the
+university to teach children); the hinge line: "the Lament reads differently
+once you are the student. Staring at that 5, I was the one who had spent a
+decade copying sheet music. The night class was the first time anyone played
+me the song" — ties Lockhart to the quiz, resolves the teacher/student
+confusion as a feature, and sets up the closing promise ("nobody ever played
+you the song"), which is how the Lament serves the whole book.
+
+**Spelling, third variant:** footnote says "Kruideneir" (twice, deliberate).
+History: Kruidenier (mobile quote) → Kruideneur (first scribe edit) →
+Kruideneir (this rewrite). Using Kruideneir; MUST confirm before print.

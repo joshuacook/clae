@@ -1,15 +1,25 @@
-<!-- PREFACE v3.2 (affirmed via the co-writing channel, 2026-07-11; committed on
-     sync). Both texture gaps resolved from Josh's answers ("oblivion"; "Jim
-     left at 8"); those two renderings are fresh and await his redline in
-     scribe. Companion cell: clae-code/ch00/preface.ipynb (canonical 0.0031). -->
+<!-- PREFACE v4 (2026-07-11): Josh rewrote the opening himself (paras 1-5 are
+     his, verbatim with mechanical fixes only). The route/Lockhart paragraph is
+     Claude's fresh draft answering Josh's design NOTE; redline freely.
+     Companion cell: clae-code/ch00/preface.ipynb (canonical 0.0031).
+     SPELLING FLAG: Kruidenier / Kruideneur / Kruideneir have all appeared;
+     using Josh's latest (Kruideneir) pending his final confirm. -->
 
 # Preface
 
-The first quiz came back with a five on it. Five out of twenty-five, in a linear algebra night class at Santa Barbara City College, 2013. I was thirty-seven years old, back in school for a second bachelor's degree, this one in applied mathematics, and I remember the thought exactly: this is the end for me. This quixotic quest ends here. What it would have ended to, I couldn't have said. There was no other plan. Oblivion.
+5\.
 
-The class let out at eight and took my professor, Jim Kruidenier, with it. I stayed, quiz flat on the desk, working back through everything I had gotten wrong, and when I looked up it was ten o'clock. Nobody watched me do it. That was the decision.
+Out of twenty-five.
 
-Before I was a student in that room, I had been a teacher. I taught high school geometry to students the system had been failing for years. Real geometry, two-column proofs, in Spanish. Paul Lockhart, a research mathematician who left the university to teach children, says we teach mathematics the way we would teach music if we made children copy sheet music for a decade and never played them a song.[^lockhart] I had built a teaching life against that sentence. Then, at thirty-seven, I sat down on the student's side of the desk and drowned anyway.
+I was thirty-seven years old, taking a night class in linear algebra at Santa Barbara City College. After ten years as a high school geometry teacher, I had decided that if I can teach math, I can do math. This was the beginning of that quest. Staring at the 5, I was sure it was over.
+
+The class let out at eight and took Jim[^jim] with it. I stayed and decoded this mystic art in which Jim was attempting to initiate us ... Linearity.
+
+[^jim]: Professor Jim Kruideneir, twenty-five-year veteran of the SBCC math department. But no one called him Professor Kruideneir, or even Professor K. We called him Jim.
+
+I was swimming. Spans. Bases. Linear Combinations. I sat in that desk well after the janitor had emptied the trash can, working through everything I had gotten wrong. It was well into the night when I walked to the car to head home.
+
+My route to higher math was ironically non-linear. The ten teaching years were in South Los Angeles, some of the toughest classrooms in the country, where the demand was structure and stability, and rigor too often paid for them. Geometry is the outlier of high school mathematics, the one course where students are asked to reason rather than compute, the way linear algebra is the outlier of the lower division. I had chosen the outlier on purpose. Somewhere in those years I read Paul Lockhart's *A Mathematician's Lament*, a working mathematician's essay on what school does to his subject.[^lockhart] Lockhart says we teach mathematics the way we would teach music if we made children copy sheet music for a decade and never played them a song. I recognized my own classroom in the accusation and did what I could against it: real geometry, two-column proofs, in Spanish. But the Lament reads differently once you are the student. Staring at that 5, I was the one who had spent a decade copying sheet music. The night class was the first time anyone played me the song.
 
 [^lockhart]: Paul Lockhart, *A Mathematician's Lament: How School Cheats Us Out of Our Most Fascinating and Imaginative Art Form*, Bellevue Literary Press, 2009. The essay circulated informally from 2002 before Devlin talked him into the book.
 
