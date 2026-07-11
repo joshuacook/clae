@@ -19,8 +19,8 @@
    very first quiz; "It was a night class that was over at eight. I sat in the
    room until 10 o'clock trying to figure out the answer to everything I've
    gotten wrong." ~2012 (dated by Josh against family milestones; details kept
-   out of the public repo) — alone in it, no family stakes; **do not invent any.** He
-   never decided to stay in the degree; he stayed in the room.
+   out of the public repo) — alone in it, no family stakes; **don't invent
+   any.** He never decided to stay in the degree; he stayed in the room.
 3. The click: "**basis was the jewel**" — cross-domain, in the moment: waves
    physics concurrent ("linear combinations in waves -> Fourier??"), the same
    word *basis* naming sinusoids and coordinate vectors. NOT Gaussian
