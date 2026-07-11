@@ -1,0 +1,18 @@
+steps:
+  - name: 'texlive/texlive:latest'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd render
+        pdflatex -interaction=nonstopmode book.tex || true
+        pdflatex -interaction=nonstopmode book.tex || true
+        pdflatex -interaction=nonstopmode book.tex
+        ls -la book.pdf
+artifacts:
+  objects:
+    location: 'gs://cooksfleet-apps_cloudbuild/clae-render/'
+    paths: ['render/book.pdf', 'render/book.log']
+options:
+  logging: CLOUD_LOGGING_ONLY
+timeout: '1200s'

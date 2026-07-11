@@ -1,0 +1,52 @@
+% CLAE Springer-dress render (draft preview; SNmono per Springer template)
+\documentclass[graybox,envcountchap,envcountsame,sectrefs]{SNmono}
+
+\usepackage{type1cm}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage[bottom]{footmisc}
+\usepackage{amsmath,amssymb}
+\usepackage{newtxtext}
+\usepackage[varvw]{newtxmath}
+\usepackage[hidelinks]{hyperref}
+
+\spnewtheorem{definition}[theorem]{Definition}{\bfseries}{\rmfamily}
+\spnewtheorem{proposition}[theorem]{Proposition}{\bfseries}{\itshape}
+
+% pandoc emits \tightlist and \pandocbounded in some versions
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\providecommand{\passthrough}[1]{#1}
+
+\makeindex
+
+\begin{document}
+
+\author{Joshua Cook}
+\title{Computational Linear Algebra for Estimation}
+\subtitle{A Python Approach to Signal Processing and Data Analysis}
+\maketitle
+
+\frontmatter
+
+\preface
+\input{preface}
+
+\tableofcontents
+
+\mainmatter
+
+\begin{partbacktext}
+\part{Linear Algebra Foundations}
+\noindent The one operation, its reach, its minimal kit, and the matrix as a
+verb. Part I builds the vocabulary the whole book speaks: linear combinations,
+the subspaces they generate, and the transformations that honor them.
+\end{partbacktext}
+
+\input{ch01}
+\input{ch02}
+
+\backmatter
+
+\end{document}

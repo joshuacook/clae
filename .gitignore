@@ -14,3 +14,4 @@ __pycache__/
 *.out
 *.toc
 __pycache__/
+.render/
