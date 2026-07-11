@@ -104,6 +104,26 @@ BOOK OUTLINE
     └──────────────────────────────────────────────────────────┘
 ```
 
+## CLAE production model (2026-07-11 modification — supersedes beats for CLAE)
+
+For CLAE only, the drafting step works differently from the generic flow below:
+
+1. **Conversational co-writing feeds the notes.** Josh and Claude converse
+   (Claude Code session or the claude.ai Manifest channel); Claude captures the
+   substance as dated entries in `chapter_notes/clae-*-conversation.md`, with
+   Josh's phrasings quoted verbatim.
+2. **Claude drafts finished prose.** `chapter_drafts/` is "the current state of
+   the book": readable chapters, no scaffold beats. Claude writes from the
+   conversation notes, source maps, and outline, under `agreements/ai-tells.md`
+   (mandatory blocklist + positive voice spec).
+3. **Josh edits.** Scribe block edits and `>>` comments, or claude.ai channel
+   reactions. Claude integrates, and folds what the diffs teach about voice
+   back into `ai-tells.md`.
+
+The scaffold-with-beats pattern (Claude preloads math/code/figures + BEAT
+markers, Josh writes prose into them) is retired for CLAE. Lens passes, Source
+Assembly, and the style gates below still apply.
+
 ## Source Assembly (CLAE source-first modification)
 
 CLAE is source-heavy (course lessons, case studies, project-1, and the prior-work

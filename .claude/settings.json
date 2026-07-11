@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": ["Bash", "Edit", "Write", "MultiEdit", "Read", "Glob", "Grep", "WebFetch", "WebSearch", "mcp__bridge", "mcp__claude_ai_Bridge", "mcp__claude_ai_Linear", "mcp__playwright"],
+    "deny": [
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(python3.13:*)",
+      "Bash(uv run:*)",
+      "Bash(/usr/bin/python3:*)",
+      "Bash(/opt/miniconda3/bin/python:*)",
+      "Bash(/home/joshua/.local/share/clae-sci/.venv/bin/python:*)",
+      "Bash(/home/joshua/.local/share/clae-sci/.venv/bin/python3:*)",
+      "Bash(/home/joshua/.local/share/clae-sci/.venv/bin/python3.13:*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [{"hooks": [{"type": "command", "command": "/home/joshua/.local/bin/worklog-mirror.sh", "timeout": 15}]}]
+  }
+}
