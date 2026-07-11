@@ -79,3 +79,14 @@ at-most-a-plane paragraph is now in the draft ("You were never supposed to see
 the ambient space"); (b) **DFW footnotes standing**; (c) **row picture first,
 column picture as the §1.5 payoff** — the draft already reads in that order.
 Ch 1 stands as drafted; skim-first officially superseded in the decisions log.
+
+## 2026-07-11 (night) — retrofitted to the anatomy
+
+14 numbered items (Defs 1.1-1.4, 1.6-1.7, 1.9, 1.12, 1.14; Props 1.5, 1.8,
+1.10, 1.11, 1.13), proofs per triage (closure PROVE teaches the pattern;
+unique-recipe PROVE; bases-same-size SKETCH; span-of-question SKETCH;
+Cauchy-Schwarz SKETCH + VERIFIED on Ames: |a.b| = 14,123,976 <= 14,645,262,
+ratio 0.9644 = the raw cosine between GrLivArea and OverallQual). Four
+hand-worked (pencil axpy; span membership (4,7) = 1v + 2w; the dependent
+triple by hand, incl. an honest caught-mistake beat; angle 37.9 degrees).
+12 tiered exercises; treks (Strang/OCW, Axler, Lockhart, Singer, BLAS 1979).

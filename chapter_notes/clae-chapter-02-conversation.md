@@ -46,3 +46,18 @@ $21,426, one regression, one denomination. Gelman 2008 cited with the
 p = 1/2 → sd = 1/2 footnote (plants p(1−p) for Ch 10). 2.3 comment RESOLVED:
 generic line affirmed, Ames projection held for Ch 11. Particle-in-a-box
 ruling still open (claude.ai making the Ch 3 case).
+
+## 2026-07-11 (night) — retrofitted to the anatomy
+
+Lead: Prop 2.2 (matrices ARE the linear transformations; columns are where
+the basis vectors land; two-line constructive proof closing the 1.3 recipe
+loop). 16 numbered items; HONESTY box (standardization is affine; T(0)=0
+violated by the shift). Hand-work: R(90) by columns; project (3,4) onto (2,1)
+= (4,2) integer-clean; the 1.2 membership question revealed as a system.
+Props: two-views PROVE; composition SKETCH; rotation-composition VERIFY (+ex 5
+completes); running-sums VERIFY + telescoping; projection PROVE; null-space
+PROVE; invertibility SKETCH. 12 tiered exercises incl. the Ch 3 bridge (K on
+sin(3x) vs random: meet an eigenvector) and the dummy-trap-by-hand (ex 11).
+Treks: CSE, the 2015 Leanpub paper, Gelman 2008, Harris et al. NumPy Nature
+paper. Jim-website footnote also grafted into preface v4 (archive.org
+citation per the never-print-a-parked-domain rule).

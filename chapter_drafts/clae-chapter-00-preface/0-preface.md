@@ -4,7 +4,7 @@
      Companion cell: clae-code/ch00/preface.ipynb (canonical 0.0031).
      Spelling CONFIRMED by Josh (2026-07-11): Kruideneir.
      Year deliberately omitted (Josh: "not important").
-     Words: 1138 prose / 1253 total (auto: tools/wordcount.py) -->
+     Words: 1180 prose / 1303 total (auto: tools/wordcount.py)-->
 
 # Preface
 
@@ -26,7 +26,9 @@ My route to higher math was ironically non-linear. Before I was a student of Jim
 
 Jim is a mystic steeped in the ways of Gilbert Strang, and if that name is new to you, it names a tradition. Strang taught linear algebra at MIT for six decades. His filmed lectures are available free on [MIT OpenCourseWare](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/) and have probably taught this subject to more people than any classroom on earth.
 
-There have long been two ways to teach a first course in linear algebra. One way runs on determinants; you compute your way through a semester and the geometry never quite arrives. The audacious way is Sheldon Axler's *Linear Algebra Done Right*, a beautiful second course wearing the title of a first one, which banishes determinants nearly to the last page. But Axler's way is Strang's way wearing a confrontational title, and Strang found it first: start from the columns, build the subspaces, let geometry and computation carry the argument, and keep the determinants in the drawer until they earn their keep. That is the whole creed. Pictures before procedures, actions before formulas, nothing hidden from the congregation. This book is written in that church, and Jim taught from inside it, everything in the open, nothing held back for the initiated. I never met Strang. I met Jim.
+There have long been two ways to teach a first course in linear algebra. One way runs on determinants; you compute your way through a semester and the geometry never quite arrives. The audacious way is Sheldon Axler's *Linear Algebra Done Right*, a beautiful second course wearing the title of a first one, which banishes determinants nearly to the last page. But Axler's way is Strang's way wearing a confrontational title, and Strang found it first: start from the columns, build the subspaces, let geometry and computation carry the argument, and keep the determinants in the drawer until they earn their keep. That is the whole creed. Pictures before procedures, actions before formulas, nothing hidden from the congregation. This book is written in that church, and Jim taught from inside it, everything in the open, nothing held back for the initiated.[^jimsite] I never met Strang. I met Jim.
+
+[^jimsite]: The receipts survive. Jim's course site posted every lecture twice, blank notes and completed notes, plus an archive of every old exam. The domain, mathjimk.com, has since gone dark, but the Internet Archive holds a copy: [web.archive.org/web/20180806081310/http://mathjimk.com/](https://web.archive.org/web/20180806081310/http://mathjimk.com/) (captured August 6, 2018).
 
 That semester I was also taking waves in physics, and partway through the term the same word surfaced in both rooms: basis. In Jim's room, the vectors underneath a list of coordinates. In the physics room, the sinusoids underneath a Fourier series. One word, both rooms meaning exactly the same thing by it, neither having asked the other's permission. Basis was the jewel. I would like to report a slow dawning. What I remember is more like being let in on something.
 
