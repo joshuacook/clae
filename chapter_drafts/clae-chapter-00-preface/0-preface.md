@@ -11,15 +11,15 @@
 
 Out of twenty-five.
 
-I was thirty-seven years old, taking a night class in linear algebra at Santa Barbara City College. After ten years as a high school geometry teacher, I had decided that if I can teach math, I can do math. This was the beginning of that quest. Staring at the 5, I was sure it was over.
+I was thirty-seven years old taking a night class in linear algebra at Santa Barbara City College. After ten years as high school geometry teacher, I had decided that if I can teach math, I can do math. This was the beginning of that quest. Staring at the 5, I was sure it was over.
 
 The class let out at eight and took Jim[^jim] with it. I stayed and decoded this mystic art in which Jim was attempting to initiate us ... Linearity.
 
-[^jim]: Professor Jim Kruideneir, twenty-five-year veteran of the SBCC math department. But no one called him Professor Kruideneir, or even Professor K. We called him Jim.
+[^jim]: Professor Jim Kruideneir 25 year veteran of the SBCC math department, but no one called him Professor Kruideneir or even Professor K, we called him Jim.
 
 I was swimming. Spans. Bases. Linear Combinations. I sat in that desk well after the janitor had emptied the trash can, working through everything I had gotten wrong. It was well into the night when I walked to the car to head home.
 
-My route to higher math was ironically non-linear. The ten teaching years were in South Los Angeles, some of the toughest classrooms in the country, where the demand was structure and stability, and rigor too often paid for them. Geometry is the outlier of high school mathematics, the one course where students are asked to reason rather than compute, the way linear algebra is the outlier of the lower division. I had chosen the outlier on purpose. Somewhere in those years I read Paul Lockhart's *A Mathematician's Lament*, a working mathematician's essay on what school does to his subject.[^lockhart] Lockhart says we teach mathematics the way we would teach music if we made children copy sheet music for a decade and never played them a song. I recognized my own classroom in the accusation and did what I could against it: real geometry, two-column proofs, in Spanish. But the Lament reads differently once you are the student. Staring at that 5, I was the one who had spent a decade copying sheet music. The night class was the first time anyone played me the song.
+My route to higher math was ironically non-linear. Before I was a student of Jim's (and an acolyte of Strang's), I had been a teacher of high school geometry in South Los Angeles, some of the toughest classrooms in the country, where the focus was often structure and stability at the expense of rigor. Geometry is the outlier of high school mathematics, the one course where students are asked to reason rather than compute, the way linear algebra is the outlier of the lower division. I had chosen the outlier on purpose. Somewhere in those years I read Paul Lockhart's *A Mathematician's Lament*, a working mathematician's essay on what school does to his subject.[^lockhart] Lockhart says we teach mathematics the way we would teach music if we made children copy sheet music for a decade and never played them a song. I recognized my own classroom in the accusation and did what I could against it: real geometry, two-column proofs, in Spanish. But the Lament reads differently once you are the student. Staring at that 5, I was the one who had spent a decade copying sheet music.
 
 [^lockhart]: Paul Lockhart, *A Mathematician's Lament: How School Cheats Us Out of Our Most Fascinating and Imaginative Art Form*, Bellevue Literary Press, 2009. The essay circulated informally from 2002 before Devlin talked him into the book.
 

@@ -163,3 +163,16 @@ you the song"), which is how the Lament serves the whole book.
 **Spelling, third variant:** footnote says "Kruideneir" (twice, deliberate).
 History: Kruidenier (mobile quote) → Kruideneur (first scribe edit) →
 Kruideneir (this rewrite). Using Kruideneir; MUST confirm before print.
+
+## 2026-07-11 (correction round) — verbatim means verbatim
+
+Josh's corrections on the v4 integration, all applied: (1) his rewrite was
+intended VERBATIM and Claude had smoothed it (added an article, repunctuated
+the footnote, reworked the route sentence) — his exact text restored,
+including "After ten years as high school geometry teacher" and the footnote's
+original comma rhythm; (2) "Spans. Bases. Linear Combinations." lands as is —
+"blows, not notes for you to fill in"; (3) "The night class was the first time
+anyone played me the song" — his verdict: "Too cute." Cut; the paragraph now
+ends on the plain blow ("…I was the one who had spent a decade copying sheet
+music") and the song callback stays reserved for the closing promise. All
+three codified as standing rules in agreements/ai-tells.md.

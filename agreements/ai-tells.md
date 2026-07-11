@@ -95,6 +95,21 @@ Anchors: §1.0 as edited by Josh; his verbatim quotes in
 - **Concrete scene furniture over abstraction:** the janitor and the trash
   can, not "late into the evening."
 - **One-line charters:** "if I can teach math, I can do math."
+
+## Handling Josh's own prose (standing rules, 2026-07-11)
+
+- **Verbatim means verbatim.** When Josh writes or rewrites prose, it is final
+  text. Do not smooth grammar, add articles, repunctuate, or normalize his
+  footnotes. The only permitted touches are markdown-mechanical (escaping
+  "5\." so it doesn't render as a list, converting \footnote{} syntax).
+- **His bursts are blows, not notes.** "Spans. Bases. Linear Combinations."
+  lands as is; short fragments in his text are punches, never placeholders
+  for Claude to expand.
+- **The cuteness threshold.** A hinge line that winks at its own cleverness is
+  "too cute" (his verdict on "The night class was the first time anyone
+  played me the song"). End on the plain blow instead ("…I was the one who
+  had spent a decade copying sheet music."). Callbacks may resolve quietly at
+  the end of the book, not preen mid-page.
 - **Narrator stance:** an initiate showing you openly, not a magician hoarding
   ("It was no secret").
 
