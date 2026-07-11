@@ -3,7 +3,7 @@
 
 # Preface
 
-The first quiz came back with a five on it. Five out of twenty-five, in a linear algebra night class at Santa Barbara City College. The class let out at eight. I sat in that room until ten o'clock trying to figure out the answer to everything I had gotten wrong.
+The first quiz came back with a five on it. Five out of twenty-five, in a linear algebra night class at Santa Barbara City College, 2013. The class let out at eight. I sat in that room until ten o'clock trying to figure out the answer to everything I had gotten wrong.
 
 I was thirty-seven years old. I had gone back to school for a second bachelor's degree, this one in applied mathematics, and that quiz was the first hard evidence that I had made a terrible mistake. I remember the thought precisely: this is the end for me. This quixotic quest ends here.
 
