@@ -9,7 +9,7 @@ The first quiz came back with a five on it. Five out of twenty-five, in a linear
 
 The class let out at eight and took my professor Jim Kruideneur with it. I stayed, quiz flat on the desk, working back through everything I had gotten wrong, and when I looked up it was ten o'clock. Nobody watched me do it. The deciding was the staying ##note: Awkward AI metaphor. Hidden not this that##. 
 
-I had taught high school geometry, real geometry, two-column proofs, in Spanish, to students the system had been failing for years. Paul Lockhart says we teach mathematics the way we would teach music if we made children copy sheet music for a decade and never played them a song.[^lockhart] I had built a teaching life against that sentence. Then I sat down in a community college linear algebra class and drowned anyway.
+I had taught high school geometry, real geometry, two-column proofs, in Spanish #n this sentence has a lot of commas is this was necessary? #n, to students the system had been failing for years. Paul Lockhart says we teach mathematics the way we would teach music if we made children copy sheet music for a decade and never played them a song.[^lockhart] I had built a teaching life against that sentence. Then I sat down in a community college linear algebra class and drowned anyway.
 
 [^lockhart]: Paul Lockhart, *A Mathematician's Lament: How School Cheats Us Out of Our Most Fascinating and Imaginative Art Form*, Bellevue Literary Press, 2009. The essay circulated informally from 2002 before Devlin talked him into the book.
 
