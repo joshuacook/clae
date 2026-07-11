@@ -21,6 +21,10 @@ it. When Josh's edits reveal a new tell, add it here.
 - **Perfectly parallel bullet lists in prose contexts.** If it can be a
   paragraph, it's a paragraph.
 - **Bold-term-then-definition rhythm** repeated more than the material demands.
+- **Chiasmus / "the X-ing was the Y-ing"** ("the deciding was the staying").
+  Josh's catch (first scribe redline, 2026-07-11): "Awkward AI metaphor.
+  Hidden not this that." The contrastive epigram is the not-X-but-Y tell in
+  formalwear. Say the plain version: "That was the decision."
 
 ## Vocabulary (never)
 

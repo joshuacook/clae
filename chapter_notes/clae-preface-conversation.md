@@ -95,3 +95,31 @@ found the third way, and found it first … This book is written in his church")
 the ~2012 earlier notes inferred. His edit landed mid-sync on the v1 text;
 merged into v3.2's opening sentence ("at Santa Barbara City College, 2013").
 First scribe redline of the new era, for the record.
+
+## 2026-07-11 (late) — first real redline session, processed
+
+Josh's scribe notes use his own inline syntax: `##n: comment ##`. Six notes +
+direct edits, all addressed:
+
+1. "The deciding was the staying" → **"That was the decision."** His note:
+   "Awkward AI metaphor. Hidden not this that." Pattern added to ai-tells
+   (chiasmus = not-X-but-Y in formalwear).
+2. Comma pile-up in the geometry sentence → restructured to end punchy:
+   "Real geometry, two-column proofs, in Spanish."
+3. "Paul Lockhart ##n who?##" → added appositive: "a research mathematician
+   who left the university to teach children" (mirrors Josh's own arc).
+4. "am I a teacher or a student? I'm confused" → new paragraph opener
+   "Before I was a student in that room, I had been a teacher." + closes
+   "sat down on the student's side of the desk and drowned anyway."
+5. "Axler's way is Strang's way without the confrontational title" (dictated;
+   rendered with the title on Axler's side) → "But Axler's way is Strang's
+   way wearing a confrontational title, and Strang found it first."
+6. "more on the church less on the priests" → creed expanded ("That is the
+   whole creed. Pictures before procedures, actions before formulas, nothing
+   hidden from the congregation."), priest biography trimmed, Jim's intro
+   moved to para 2 per his direct edit ("took my professor, Jim Kruidenier,
+   with it").
+
+**Spelling flag:** Josh's edit wrote "Kruideneur"; his original mobile quote
+and all prior notes say "Kruidenier." Normalized to Kruidenier; confirm with
+Josh which is right before print.
