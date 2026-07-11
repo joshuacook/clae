@@ -37,3 +37,13 @@ computation, two stories; the column story is the enchanted one.
 
 **Payoff planted in Ch 1 (Option B):** the unearned `lstsq` cell — "by Chapter
 11 you will have built it yourself." This chapter pays that debt.
+
+## 2026-07-11 — beats planted from Ch 2
+
+- **One coefficient currency:** regressions here run on X_g (Gelman matrix,
+  exits Ch 2); every coefficient is dollars per typical contrast, numerics and
+  indicators alike (Ch 2's demo: 59,792 / 87,300 / 21,426).
+- **Dummy trap as null-space hygiene:** a full indicator block sums to the
+  ones vector; with an intercept, the design matrix has a null space. Ch 2
+  planted it; this chapter teaches the hygiene (drop a level or drop the
+  intercept) as applied null-space reasoning, not ritual.

@@ -1,5 +1,10 @@
 # Chapter 1 as a Shorts series — "Linear algebra, recomputed"
 
+> **STATUS (2026-07-11): parked.** Deprioritized to a prose-generation
+> contingency; no production-format decision was made and no further scripts
+> get written for now. The plan below is preserved as-is for whenever the
+> book work wants a promotional or teaching spinoff.
+
 **Audience.** People who already took linear algebra and know the words — span, basis, dot
 product — but learned it abstractly (axioms/proofs) or through an ML/"kernel" lens, and never
 got the constructive, geometric, *runnable* picture. We assume the vocabulary and sell the

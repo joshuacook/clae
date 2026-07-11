@@ -173,12 +173,6 @@ residual . u = -2.220446049250313e-16
 
 Look at Figure 2.3 for a moment longer than it seems to deserve. A vector, the closest point to it inside a subspace, and a perpendicular residual: that is the entire geometry of least squares in Chapter 11, and the directions PCA hunts for in Chapter 10 are the lines that catch the most shadow. Rotation and scaling build intuition. Projection is load-bearing.
 
-<!-- PROPOSAL (2.3 open item): the worked example above projects onto a generic
-     line u = (2, 1). The alternative is to project onto the direction of an
-     actual Ames feature column now, which lands harder but requires the
-     centered-column machinery we don't have until Ch 6. Recommend keeping the
-     generic line here and letting Ch 11 do the Ames projection. Josh to rule. -->
-
 ## 2.4 Systems: running the verb backwards
 
 Every question so far ran forward: given $\mathbf{x}$, compute $A\mathbf{x}$. Estimation runs the other way. Given the output $\mathbf{b}$, what input produced it? The equation $A\mathbf{x} = \mathbf{b}$ asks, in column language: which recipe of $A$'s columns makes $\mathbf{b}$? Chapter 1 already gave the solvability condition its name. A recipe exists exactly when $\mathbf{b}$ lies in the span of the columns, the column space.
@@ -215,14 +209,13 @@ $$z = \frac{x - \mu}{\sigma}$$
 
 Every standardized column is centered at zero with standard deviation one, so a step of one in any of them means the same thing: one standard deviation of that feature. The scaling half is an honest linear transformation, a diagonal matrix with $1/\sigma_j$ down the diagonal. The centering half is a shift, and a shift is not linear: it moves the origin, which no matrix can do. The bookkeeping term for linear-plus-shift is **affine**, and this is the one place in the chapter we bend the contract knowingly. Chapter 6 will center everything in sight anyway, because covariance lives in deviations from the mean; standardization is that chapter's front porch.
 
-Some Ames features are words rather than numbers, neighborhood and roof style among them. The standard move is **one-hot encoding**: give each category its own indicator column, a one where the category holds and zeros elsewhere, so a categorical feature becomes a small block of vectors. We will encode them when a computation actually needs them, and not before.
+Some Ames features are words rather than numbers, neighborhood and roof style among them. Words honor the contract the same way everything else does: give each category its own **indicator column**, a one where the category holds and zeros elsewhere, and a categorical feature becomes a small block of vectors. The move is called **one-hot encoding**, and it is the contract doing its quiet work again: once a word is a vector, every tool in this book applies to it. Two consequences are planted here and paid off later. Regress a price on an indicator alone and the weight you earn is a group mean, which is Chapter 5's bridge between estimation and expectation. And a full block of indicators always sums to the all-ones vector, a built-in dependence that puts a vector in the null space of any design matrix carrying them all; that trap, and the hygiene for it, is Chapter 11 business.
 
-<!-- PROPOSAL (2.5 open item): categorical handling is held to this one
-     paragraph, per the source map's "lean minimal" recommendation. If Josh
-     wants the one-hot block shown on real Ames columns (Neighborhood is the
-     natural demo), it fits in 2.6 as one cell. Josh to rule. -->
+Indicators also expose a seam in standardization. An indicator is already on a natural scale: zero or one, a category flip. Divide it by its standard deviation and you wreck the interpretation for no gain. Andrew Gelman's resolution is to leave the indicators alone and move the numerics to meet them: center each numeric feature and divide by **two** standard deviations, so that a one-unit change in a scaled numeric spans a typical contrast, low to high, the same size of move as flipping an indicator.[^gelman] That gives the book its second convention, and the two leave this chapter side by side. The matrix $Z$ holds the numerics at one standard deviation, mean zero and unit scale, and feeds the covariance work of Chapters 6 and 10. The **Gelman design matrix** $X_g$ holds the numerics at two standard deviations with the indicators raw, and feeds the regressions of Chapter 11, where every coefficient will speak one currency: dollars per typical contrast.
 
-## 2.6 Implementation: a covariance-ready Ames
+[^gelman]: Andrew Gelman, "Scaling regression inputs by dividing by two standard deviations," *Statistics in Medicine* 27(15), 2008, pp. 2865–2873. The factor of two is not numerology: a binary variable split evenly between its two values has standard deviation one half, so a zero-to-one flip is a two-standard-deviation move. Dividing the numerics by two puts them on the indicator's scale rather than the other way around.
+
+## 2.6 Implementation: a covariance-ready Ames, twice
 
 The companion notebook carries the full pipeline; here are the moves that matter. Load the three Ames files, keep the complete numeric columns, and standardize the matrix in two lines:
 
@@ -259,7 +252,38 @@ weights, dollars per standard deviation:
 
 The raw weights said living area dominates. The standardized weights say the opposite: one standard deviation of overall quality moves the price about $45,000, half again as much as a standard deviation of living area. Standardization did not change the model; it changed what the weights mean, from dollars per unit to dollars per typical variation, and the story inverted. This is the cheapest important lesson in applied linear algebra: before you compare weights, ask what units they are wearing.
 
-The chapter's exit state is the matrix `Z`: 1,460 homes, thirty-three standardized features, every column mean-zero and unit-scale. Chapter 6 will take dot products between its columns and call them covariances. The data is ready before the theory arrives.
+The second convention gets built in the same breath. Scale the numerics by two standard deviations, one-hot the categorical columns, and keep the indicators raw:
+
+```python
+Xg_num = (X.to_numpy(float) - mu) / (2 * sigma)
+cats = housing.select_dtypes(exclude='number')
+indicators = pd.get_dummies(cats)   # every level, raw 0/1
+X_g = np.column_stack([Xg_num, indicators.to_numpy(float)])
+```
+
+```text
+Z  : (1460, 33)   numerics at 1 sd (covariance-ready)
+X_g: (1460, 284)  numerics at 2 sd + indicators raw
+```
+
+Thirty-three numeric columns and 251 indicators: the words cost more columns than the numbers. The payoff of the two-standard-deviation move is that a regression can now mix the two kinds of feature and the coefficients still compare. Price against scaled living area, scaled quality, and the raw central-air indicator:
+
+```python
+central_air = (housing['CentralAir'] == 'Y').to_numpy(float)
+Ades = np.column_stack([np.ones(len(y)), Xg_num[:, g], central_air])
+w, *_ = np.linalg.lstsq(Ades, y, rcond=None)
+```
+
+```text
+intercept        :    160,889
+GrLivArea  (2 sd):     59,792
+OverallQual(2 sd):     87,300
+CentralAir (flip):     21,426
+```
+
+Read all three the same way: a typical contrast in this input moves the price by this many dollars. A typical swing in living area is worth about $60,000, in overall quality about $87,000, and having central air about $21,000. One currency, numerics and words alike. That is what $X_g$ is for.
+
+The chapter's exit state is both matrices. $Z$: 1,460 homes, thirty-three standardized features, every column mean-zero and unit-scale, waiting for Chapter 6 to take dot products between its columns and call them covariances. $X_g$: the same homes with their words encoded, every coefficient pre-denominated in dollars per typical contrast, waiting for Chapter 11. The data is ready before the theory arrives, twice.
 
 ## 2.7 Summary and exercises
 

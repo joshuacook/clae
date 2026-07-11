@@ -25,3 +25,9 @@ property; the chapter succeeds or fails on making it feel like the headline.
 **Connection forward:** E linear → E[Ax] = A E[x] (the matrix passes through),
 centering, and eventually conditional expectation as projection (the L² view) —
 which sets up orthogonality-in-expectation for Ch 12.
+
+## 2026-07-11 — beat planted from Ch 2
+
+Ch 2 §2.5 plants: regress a price on an indicator alone and the earned weight
+is a group mean — this chapter's bridge between estimation and expectation.
+Pay it off when drafting.

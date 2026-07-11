@@ -160,6 +160,8 @@ outlines have minor drift to reconcile against this at drafting.
 | Cross-covariance blocks | Sigma_XX, Sigma_XY, Sigma_YY |
 | Correlation | rho_ij (coefficient), R (matrix) |
 | Data matrix | X (rows = samples) |
+| Standardized numerics (1 sd, covariance-ready; exits Ch 2) | Z |
+| Gelman design matrix (numerics / 2 sd, indicators raw; exits Ch 2) | X_g |
 | Second-moment / Gram matrix | M = X-transpose X |
 | SVD | A = U S V-transpose; singular values sigma_i on diag(S) |
 | Eigenvalue / singular-value link | lambda_i = sigma_i^2 / (n-1) for the sample covariance |
@@ -237,3 +239,32 @@ work, starting with Ch 2 (section notes+outlines, then draft).
   Zernike Polynomials* (2014) are his own unpublished-in-journals work:
   "we can completely reuse any and all of it." Citation form pinned in
   chapter_notes/clae-chapter-02-source-map.md.
+
+## 2026-07-11 (evening) — Rulings from the passion pass
+
+- **INTRODUCTION: RESOLVED — it lives, expanded, dual-nature, drafted late.**
+  Supersedes the open question. (a) The computational contract: every
+  figure/number from public runnable code; the stack (NumPy → BLAS/LAPACK);
+  pinned environment + canonical commit; repo/notebook navigation; Z and X_g
+  introduced by name; the assume-GE clause and declared hand-waves. (b) The
+  narrative trailhead: the estimation question in plain English; Ames as a
+  character; the four-part map ("the plot is the weights" previewed); the
+  Breiman inversion. Register boundary: Introduction = English + map; Ch 1 =
+  axpy vocabulary + the unearned lstsq. Drafted late, once notation and
+  environment pins are final.
+- **TWO-MATRIX CONVENTION (exits Ch 2).** Z = numerics standardized to 1 sd
+  (covariance-ready, feeds Ch 6/10). X_g = the Gelman design matrix, numerics
+  centered and divided by 2 sd, indicators raw (one coefficient currency,
+  feeds Ch 11). Citation: Gelman, "Scaling regression inputs by dividing by
+  two standard deviations," Statistics in Medicine 27(15), 2008. Symbols added
+  to the notation table. Categorical three-beat arc: 2.5 contract framing →
+  Ch 5 group means → Ch 11 dummy trap as null-space hygiene.
+- **CH 10 DEVICE: Shlens's three-noisy-cameras structure, metronome
+  phenomenon.** One-dimensional beam angle observed as six pixel coordinates;
+  PCA recovers the beat ("the song was one-dimensional"). Cite Shlens,
+  "A Tutorial on Principal Component Analysis," arXiv:1404.1100. Attribution:
+  a_pca_tutorial = Josh's code, Shlens's device.
+- **SHORTS: parked** as a prose-generation contingency; no format decision; no
+  scripting.
+- **2.3 projection example: generic line AFFIRMED**; the Ames projection is
+  held for Ch 11.

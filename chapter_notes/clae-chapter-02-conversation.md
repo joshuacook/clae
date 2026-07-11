@@ -34,3 +34,15 @@ the contract; the 1.1-weights-inverted payoff (GrLivArea $29,344/σ vs
 OverallQual $45,415/σ). Two open items PROPOSED in draft comments: 2.3 example
 (recommend generic line now, Ames projection in Ch 11); 2.5 categorical depth
 (recommend the one paragraph). Exit state: Z, covariance-ready.
+
+## 2026-07-11 (evening sync) — two-matrix convention + rulings applied
+
+2.5/2.6 rebuilt: categorical three-beat arc planted (2.5 contract framing →
+Ch 5 group means → Ch 11 dummy trap as null-space hygiene); BOTH matrices now
+exit the chapter — Z (numerics, 1 sd) and X_g (Gelman: numerics / 2 sd,
+indicators raw; 1460 × 284 on Ames). One-currency demo, real numbers:
+GrLivArea $59,792 and OverallQual $87,300 per 2-sd contrast, CentralAir flip
+$21,426, one regression, one denomination. Gelman 2008 cited with the
+p = 1/2 → sd = 1/2 footnote (plants p(1−p) for Ch 10). 2.3 comment RESOLVED:
+generic line affirmed, Ames projection held for Ch 11. Particle-in-a-box
+ruling still open (claude.ai making the Ch 3 case).

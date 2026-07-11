@@ -27,7 +27,11 @@ preface): do not draft it until decided. Production model as of 2026-07-11:
 Claude drafts finished prose, Josh edits (see `agreements/ai-tells.md` and the
 CLAE section of `agreements/writing-process.md`).
 
-State against the schedule (2026-07-11): preface drafted (v3.1 text pending
-re-post from the mobile channel), Ch 1 drafted, Ch 2 drafted. Next per the
-table: Ch 3–4 (Ch 3 inherits the 2015-paper loot: second-difference
-eigenvectors are sines, the analytic-vs-LAPACK race, the power method).
+State against the schedule (2026-07-11, second update): preface at v3.2
+(committed; texture gaps resolved), Ch 1 drafted, Ch 2 drafted and revised
+(two-matrix convention: Z + the Gelman X_g). The **Introduction lives**
+(ruled 2026-07-11): expanded, dual-nature (computational contract + narrative
+trailhead), **drafted late**, after the chapters fix notation and the
+environment pins are known. Next per the table: Ch 3–4 (Ch 3 inherits the
+2015-paper loot: second-difference eigenvectors are sines, the
+analytic-vs-LAPACK race, the power method).

@@ -41,3 +41,10 @@ the Ames numeric columns are the natural demo matrix.
 but deliberately deferred it — "I'm not going to dig in … but you should capture
 that so that when we get there, you remember my excitement." When Ch 6 drafting
 begins, reopen this file first and bring the energy back.
+
+## 2026-07-11 — compare-as-we-go beat (two-matrix convention)
+
+When covariance/correlation arrive: show correlation's invariance to the
+scaling choice — the correlation matrix of Z equals the correlation matrix of
+the raw numerics (and of X_g's numeric block); scaling by 1 sd or 2 sd cancels
+in ρ. One cell, plants trust in the two-matrix convention.

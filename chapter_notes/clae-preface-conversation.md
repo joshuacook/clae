@@ -77,3 +77,16 @@ the complete v3.1 text; the repo preface stays at v1 until then.
 preface.ipynb`, executed on the reference VM; canonical number
 max |D @ sin − cos| = **0.0031** (n = 1000, forward difference), matching the
 mobile side's run.
+
+## 2026-07-11 (evening sync) — v3.2 committed
+
+The standing no-compaction rule worked: v3.2 arrived complete and is now the
+committed preface. Texture gaps RESOLVED from Josh's rapid-fire answers,
+verbatim: what would the quest have ended to — "I don't know … oblivion";
+was Jim there at 10 — "no, Ji[m] left at 8." The two fresh renderings ("There
+was no other plan. Oblivion." / "The class let out at eight and took Jim with
+it. … Nobody watched me do it.") are claude.ai's and await Josh's redline in
+scribe. Bundled fixes applied on commit: Lockhart citation completed (Bellevue
+Literary Press, 2009), 18.06 OCW linked, ai-tells scan clean. v3.2 also brought
+the Strang-tradition paragraph (determinants way / Axler's audacity / "Strang
+found the third way, and found it first … This book is written in his church").
