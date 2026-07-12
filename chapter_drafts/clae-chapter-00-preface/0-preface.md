@@ -4,7 +4,7 @@
      three ways shown, TikZ projection figure, uniqueness paragraph MOVED to
      Ch 1, Singer to a footnote, honesty beat resolved (he saw it and said it).
      Companion cell: clae-code/ch00/preface.ipynb (canonical 0.0031).
-     Words: 1972 prose / 2217 total (auto: tools/wordcount.py) -->
+     Words: 2021 prose / 2274 total (auto: tools/wordcount.py)-->
 
 # Preface
 
@@ -116,7 +116,7 @@ Feed it a sampled sine and it hands back the cosine, wrong in the third decimal,
 
 I carried that into an independent research project in Jussi Eloranta's quantum chemistry lab, where the Schrödinger equation for a particle in a box collapsed into a matrix eigenproblem and the eigenvectors came out as sines. The waves room again, years later, now as a theorem.
 
-I spent that semester racing my own eigensolvers against LAPACK and writing up the results. Eleven years later, that write-up grew into the book you are holding. The class that nearly ended me had become the foundation of a second career, and the kind of subject I would argue about with friends over a beer.
+I spent that semester racing my own eigensolvers against LAPACK and writing up the results. The write-up did not sit still. It became a course bearing something akin to this book's title, Linear Algebra and Estimation Theory, which I taught at Caltech and taught again at UCLA. Eleven years after that night at the city college, the course grew into the book you are holding. The class that nearly ended me had become the foundation of a second career, and the kind of subject I would argue about with friends over a beer.
 
 &nbsp;
 
