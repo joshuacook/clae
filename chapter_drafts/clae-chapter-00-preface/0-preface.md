@@ -34,7 +34,7 @@ And matrix multiplication, which Strang teaches three ways. Take one small produ
 
 $$AB = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix} = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}$$
 
-Entry by entry, each number is a row dotted with a column: the $19$ is $(1, 2) \cdot (5, 7) = 5 + 14$. Column by column, $A$ acts on each column of $B$: the first column of $AB$ is $5\begin{psmallmatrix}1\\3\end{psmallmatrix} + 7\begin{psmallmatrix}2\\4\end{psmallmatrix} = \begin{psmallmatrix}19\\43\end{psmallmatrix}$. And as a sum of outer products, column times row, the matrix built from rank-one slabs:
+Entry by entry, each number is a row dotted with a column: the $19$ is $(1, 2) \cdot (5, 7) = 5 + 14$. Column by column, $A$ acts on each column of $B$: the first column of $AB$ is $5$ copies of $(1, 3)$ plus $7$ copies of $(2, 4)$, which lands on $(19, 43)$. And as a sum of outer products, column times row, the matrix built from rank-one slabs:
 
 $$\begin{bmatrix} 1 \\ 3 \end{bmatrix}\begin{bmatrix} 5 & 6 \end{bmatrix} + \begin{bmatrix} 2 \\ 4 \end{bmatrix}\begin{bmatrix} 7 & 8 \end{bmatrix} = \begin{bmatrix} 5 & 6 \\ 15 & 18 \end{bmatrix} + \begin{bmatrix} 14 & 16 \\ 28 & 32 \end{bmatrix} = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}$$
 
