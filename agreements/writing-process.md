@@ -537,3 +537,22 @@ cat intro.md 1.1-*.md 1.2-*.md ... | \
 ## Applying the Process Across the Ecosystem
 
 The process is the same for all four books. The lens sets may differ per book (the textbook's lenses may weight pedagogical rigor differently than the Pro book's), but the structure (draft, pass 1, pass 2, diagram pass, author review, post-review lens pass, build validation, PDF rendering) is invariant.
+
+## Lenses in the text (CLAE, ruled 2026-07-12)
+
+The lens system above governs review passes. In CLAE the lenses also live in
+the prose itself, and they MEAN something: "they are songs," not checkboxes.
+No reductive glosses, no mandatory coverage of every lens at every concept.
+Two duties only:
+
+1. **Use the appropriate lens(es)** for each move (geometry, algebra,
+   computation, data).
+2. **Name the lens being used, in the text, at each move** ("through the
+   geometric lens, scaling is stretching").
+
+Lineage (bank this; it shapes Introduction 0.4): the practice descends from
+Algebra 1's multiple representations (plot / function / table / pattern) and
+its brother guess-and-check, "both examples of pedagogical genius and both
+poopooed by the determinant obsessed gatekeepers." Guess-and-check IS
+claim-then-check, which is how this book supports claims (cf. the power
+method, which is guess-and-check made an algorithm).

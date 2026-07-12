@@ -141,3 +141,66 @@ shed; do not resurrect):
 - **Passive result-reporting:** "It is shown that…"
 - **"We have written the following function"** throat-clearing before code.
   Show the code; let it introduce itself.
+
+## THE APHORISM TIC (ruled 2026-07-12 — the big one)
+
+The self-pleased closer: a sentence that exists to admire its own compression.
+Josh's inked pass of Ch 1 yellow-flagged 25 of them (yellow = AI voice). The
+full inventory, verbatim, as negative exemplars. The BEAT under each may
+survive; the DELIVERY may not.
+
+1. "the shape of the gap will not."
+2. "Learn to see linear combinations everywhere, and the rest of the book is
+   commentary."
+3. "Hold that last one; it returns in Section 1.5 with money attached."
+4. "But there is no reason you should wait two hundred pages to hear the song"
+5. "and do not yet deserve."
+6. "Most readers of this book have called lstsq or one of its cousins
+   professionally; the mystery was never getting the answer, it is why the
+   answer works and when to trust it."
+7. "This chapter starts the collection."
+8. "you have the only move this book ever makes:"
+9. "You have seen this sentence before; it priced a house a page ago."
+10. "so the machine never gets to hide the mechanism from you"
+11. "the mechanism is this one."
+12. "The set we just built has structure worth naming."
+13. "and it teaches the pattern every closure proof in this book follows"
+14. "One more thing before the data, because it decides whether you can trust
+    your own drawings."
+15. "You were never supposed to see the ambient space"
+16. "and the name is two hundred pages away;"
+17. "The two phrasings are the same test worn two ways:"
+18. "and the equivalence closes."
+19. "Independence tells us when a vector earns its place. Now for the kit
+    that has no freeloaders and no gaps."
+20. "nothing wasted, nothing missing."
+21. "Instantiate it by hand before the machine does."
+22. "we will lean on that compatibility constantly and mostly without comment"
+23. "and the one sentence estimation ever says at the top of it."
+24. "A basis is the minimal kit" / "which is what a list of numbers secretly
+    was all along." / "and hands us orthogonality" (three flags, one summary
+    paragraph)
+25. "You exit this chapter holding:" / "the minimal kit and" / "Chapter 2
+    takes the matrix out of storage and runs it." (three flags, one exit
+    paragraph)
+
+**BLUE exemplar (liked, write toward this):** "the reach of the operation is
+bounded by the number of ingredients."
+
+## More standing rules (ruled 2026-07-12)
+
+- **Definition economy.** "Definitions require an economy of language. As few
+  and as simple words required for rigor."
+- **Footnotes over parentheticals.** A parenthetical aside that runs past a
+  few words is a footnote wearing the wrong clothes. Move it down.
+- **Code: well-named functions over comments.** `list_comp_in_python` needs
+  no comment; `by_hand  # pure Python` did. Delete comments a good name makes
+  redundant.
+- **Preview-closer ban (confirmed).** No section may end by advertising a
+  future chapter's payoff as its exit line.
+- **No line-broken inline code.** If an expression matters enough to risk a
+  line break, it is display math.
+- **Proofs are the Strang way** (see chapter-anatomy.md): witness + one-breath
+  reason; arguments to footnotes/citations; no ∎, no "Proof." headers, no
+  proof-pattern meta-teaching. "Proofs are just gatekeeping" when performed
+  in the text.

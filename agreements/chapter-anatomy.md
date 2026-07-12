@@ -13,30 +13,49 @@ Every concept moves through the same six stations, in order:
    sentence after the box points at a concrete instance the reader has
    already met. Markdown form: a blockquote opening with
    `**Definition N.k (name).**` (one shared counter per chapter for
-   definitions and propositions).
+   definitions and claims). **Definition economy (ruled 2026-07-12):**
+   "Definitions require an economy of language. As few and as simple words
+   required for rigor."
+
+2b. **NAME THE LENS.** Every move announces which lens it is looking
+   through (geometry, algebra, computation, data), in the text, per the
+   lens rules in `writing-process.md`. Lenses are songs, not checkboxes:
+   use the appropriate one(s) and say so; no reductive glosses, no
+   mandatory coverage of all four.
 3. **WORK IT BY HAND.** At least once per load-bearing concept, pencil
    arithmetic small enough to check at a desk: a 2×2 system, a dot product
    on integer vectors, one projection. The reader must feel the mechanism
    before the machine hides it.
-4. **STATE IT.** The numbered result (`**Proposition N.k (name).**`, boxed
-   like definitions), with its proof-triage mark (below).
+4. **STATE IT.** The numbered result (`**Claim N.k (name).**`, boxed like
+   definitions). Never "Proposition," never "Theorem" (ruled 2026-07-12:
+   "Yes to claim!"). How claims get supported is the Strang way (below).
 5. **RUN IT.** The computational realization: a cell from the companion
    notebook, a measured number, and a verdict sentence about the number.
 6. **FOOTNOTES.** Digressions collect at the unit's edge per the DFW rule;
    provenance, history, stack-consciousness, deep cuts.
 
-## Proof triage (always disclosed)
+## Supporting claims: the Strang way (ruled 2026-07-12, supersedes proof triage)
 
-Every stated result carries exactly one mark:
+In the main text a claim is supported the way Strang supports one: state it,
+**witness it** (a small case the reader can check at a desk, plus the
+companion-notebook run at real scale), and give the one-breath reason in
+plain prose where the reason is cheap. Fuller arguments live in DFW-register
+**footnotes** or in **citations** to complete treatments. Never in the text:
+∎ blocks, "Proof." headers, or proof-pattern meta-teaching ("this teaches
+the pattern every closure proof follows"). Proofs-as-ritual are gatekeeping;
+this book is not for the gatekeepers.
 
-- **PROVE** — full proof in the text, ending ∎. Reserved for short proofs
-  that teach (closure checks, uniqueness by subtraction, idempotence).
-- **SKETCH** — the idea in a paragraph, honestly labeled *Sketch.*, with a
-  citation to a complete treatment.
-- **VERIFY + CITE** — demonstrated computationally at real scale, labeled
-  *Verified computationally; proof in [citation].* The Introduction carries
-  the epistemology sentence once for the whole book: computational
-  verification is evidence, not proof.
+The old triage vocabulary survives only as the footnote/citation decision:
+a cheap complete argument goes in a footnote; a real theorem gets a
+citation; a computational demonstration gets the run and the standing
+epistemology sentence (Introduction 0.4): computational verification is
+evidence, not proof.
+
+**The footnote-about-footnotes.** The book declares this policy once, in a
+footnote attached to the first Claim (or in Introduction 0.4), in Josh's
+register: the arguments are in the footnotes and the references, not because
+they do not matter, but because the text is for the reader, not for the
+gatekeepers behind subscript fiddliness.
 
 ## The chapter close
 
@@ -48,9 +67,10 @@ Three fixtures, in order:
   - *(pencil)* — by hand, checkable at a desk;
   - *(keyboard)* — notebook work, real data, measured answers;
   - *(bridge → Ch N)* — reaches into a named future chapter and says so.
-- **FURTHER TREKS.** Pointers out of the book (Strang 18.06/CSE, Axler,
-  Lockhart, Singer, BLAS lineage, the author's Leanpub papers), each with
-  one sentence on why the trek is worth it.
+- **FURTHER TREKS — end of book only (ruled 2026-07-12).** Chapters do NOT
+  carry treks sections. Per-chapter trek stock accumulates in
+  `chapter_notes/clae-treks-stock.md` and consolidates into one annotated
+  reading trail in the back matter.
 
 ## Register guards
 
