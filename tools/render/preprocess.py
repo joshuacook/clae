@@ -26,7 +26,7 @@ def box(m):
     return (f'ZZBEGINZZ{kind}ZZ {m.group(2)} ZZENDTITLEZZ\n\n'
             f'{m.group(3)}\n\nZZCLOSEZZ{kind}ZZ')
 
-text = re.sub(r'^> \*\*(Definition|Proposition) \d+\.\d+ \(([^)]+)\)\.\*\* (.+)$',
+text = re.sub(r'^> \*\*(Definition|Claim) \d+\.\d+ \(([^)]+)\)\.\*\* (.+)$',
               box, text, flags=re.M)
 
 # figure image + caption blockquote -> marker paragraph; path kept out of pandoc

@@ -1,0 +1,20 @@
+% shared preamble for CLAE SNmono renders
+\usepackage{type1cm}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage[bottom]{footmisc}
+\usepackage{amsmath,amssymb}
+\usepackage{newtxtext}
+\usepackage[varvw]{newtxmath}
+\usepackage[hidelinks]{hyperref}
+
+% the class ships an unnumbered starred claim; replace with a numbered one
+\makeatletter
+\let\claim\relax \let\endclaim\relax
+\makeatother
+\spnewtheorem{claim}[theorem]{Claim}{\bfseries}{\itshape}
+
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\providecommand{\passthrough}[1]{#1}

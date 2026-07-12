@@ -2,7 +2,8 @@
      from Ch 1 as its opening beat; Proposition -> Claim; treks moved to the
      end-of-book stock. Full census pass waits for Josh's Ch 2 ink; the Proof
      blocks below convert to Strang-way at that pass.
-     Companion notebook: clae-code/ch02/ch02.ipynb. -->
+     Companion notebook: clae-code/ch02/ch02.ipynb.
+     Words: 4480 prose / 5216 total (auto: tools/wordcount.py) -->
 
 # Chapter 2: Matrices and Linear Transformations
 

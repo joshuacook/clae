@@ -4,7 +4,7 @@
      Companion cell: clae-code/ch00/preface.ipynb (canonical 0.0031).
      Spelling: Kruidenier, per the SBCC catalog and directory (verified 2026-07-12).
      Year deliberately omitted (Josh: "not important").
-     Words: 1180 prose / 1303 total (auto: tools/wordcount.py)-->
+     Words: 1347 prose / 1473 total (auto: tools/wordcount.py)-->
 
 # Preface
 

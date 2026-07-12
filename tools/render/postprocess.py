@@ -12,10 +12,10 @@ tex = open(tex_path).read()
 figs = json.load(open(figmap_path))
 
 # theorem-style boxes
-tex = re.sub(r'ZZBEGINZZ(definition|proposition)ZZ\s*(.*?)\s*ZZENDTITLEZZ',
+tex = re.sub(r'ZZBEGINZZ(definition|claim)ZZ\s*(.*?)\s*ZZENDTITLEZZ',
              lambda m: '\\begin{%s}[%s]' % (m.group(1), m.group(2)),
              tex, flags=re.S)
-tex = re.sub(r'ZZCLOSEZZ(definition|proposition)ZZ', r'\\end{\1}', tex)
+tex = re.sub(r'ZZCLOSEZZ(definition|claim)ZZ', r'\\end{\1}', tex)
 
 # figures
 def fig(m):

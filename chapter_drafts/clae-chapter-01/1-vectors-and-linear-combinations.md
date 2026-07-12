@@ -2,7 +2,8 @@
      Propositions; Strang-way support (arguments in footnotes); lenses named;
      the 25 yellow rewrites; 1.4 redesigned; data-matrix section moved to Ch 2.
      Companion notebook: clae-code/ch01/ch01.ipynb produces every figure and
-     number here. -->
+     number here.
+     Words: 4158 prose / 4732 total (auto: tools/wordcount.py) -->
 
 # Chapter 1: Vectors and Linear Combinations
 

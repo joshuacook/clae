@@ -1,0 +1,19 @@
+steps:
+  - name: 'texlive/texlive:latest'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd render
+        for f in one_preface one_ch01 one_ch02; do
+          pdflatex -interaction=nonstopmode $f.tex || true
+          pdflatex -interaction=nonstopmode $f.tex || true
+        done
+        ls -la one_*.pdf
+artifacts:
+  objects:
+    location: 'gs://cooksfleet-apps_cloudbuild/clae-render/'
+    paths: ['render/one_preface.pdf', 'render/one_ch01.pdf', 'render/one_ch02.pdf']
+options:
+  logging: CLOUD_LOGGING_ONLY
+timeout: '1200s'
