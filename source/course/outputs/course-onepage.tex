@@ -1,0 +1,149 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[margin=0.5in, includeheadfoot, footskip=133pt]{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{unicode-math}
+\usetikzlibrary{arrows,arrows.meta,calc,positioning}
+
+% Define Caltech orange color
+\definecolor{caltechorange}{RGB}{255, 108, 12}
+
+% Define tightlist command
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Section formatting
+\titleformat{\section}
+  {\normalfont\Huge\bfseries}{}{0em}{}
+\titlespacing*{\section}
+  {0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+% Subsection formatting - no numbers
+\titleformat{\subsection}
+  {\normalfont\Large\bfseries}{}{0em}{}
+\titlespacing*{\subsection}
+  {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% Subsubsection formatting - no numbers  
+\titleformat{\subsubsection}
+  {\normalfont\large\bfseries}{}{0em}{}
+\titlespacing*{\subsubsection}
+  {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% Page style
+\pagestyle{fancy}
+\fancyhf{}
+
+% Header setup
+\fancyhead[L]{%
+    \includegraphics[height=1cm]{templates/caltech_logo.png}
+}
+\fancyhead[C]{%
+    {\color{gray}\small Center for Technology \\ Management Education}
+}
+\fancyhead[R]{%
+    {\color{gray}\small\href{https://ctme.caltech.edu}{ctme.caltech.edu}}
+}
+
+% Add padding after header
+\setlength{\headheight}{50pt}
+\setlength{\headsep}{2em}
+
+% Force fancy style on first page
+\AtBeginDocument{\thispagestyle{fancy}}
+
+% Footer
+
+\cfoot{
+\begin{tabular}{p{8in}}
+  1200 E California Blvd • MC 121-79 • Pasadena, California 91125 • 626.395.4042 • execed@caltech.edu
+  \\ \ 
+  \\ \ 
+\end{tabular}
+}
+
+
+% List formatting
+\setlist{nosep}  % Remove vertical spacing between list items
+\setlist[itemize]{leftmargin=*}  % Align bullet points with left margin
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=caltechorange,
+    filecolor=caltechorange,
+    urlcolor=caltechorange,
+    citecolor=caltechorange
+}
+
+% Document
+\begin{document}
+
+\section{Linear Algebra and Estimation
+Theory}\label{linear-algebra-and-estimation-theory}
+
+\paragraph{Course Details:}
+
+\textbf{Title:} Linear Algebra and Estimation Theory\\
+\textbf{Duration:} 10 weeks\\
+\textbf{Lecturers:} TBD\\
+\textbf{Format:} Live-remote, twice weekly 90-minute lectures\\
+\textbf{Start:} January 7, 2025
+
+\paragraph{Course Description:}
+
+This course covers. foundational concepts in linear algebra as they
+relate to estimation techniques. It equips participants with the
+mathematical tools necessary for applications in signal processing,
+communications, and data analysis. Participants will delve into
+essential topics such as random vectors, covariance matrices, linear
+transformations, and Gaussian random variables. Through interactive
+exercises and real-world examples, students will gain practical insights
+into the analytical frameworks critical to engineering and applied
+sciences.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Note:} I am assuming that you are using an LLM to help you
+  with your work in this course.
+\end{itemize}
+
+\paragraph{Learning Outcomes:}
+
+\begin{itemize}
+\tightlist
+\item
+  Master the principles of vector spaces, matrices, and linear
+  transformations
+\item
+  Understand and apply the properties of random vectors and covariance
+  matrices
+\item
+  Derive and utilize correlation and cross-correlation matrices in data
+  analysis
+\item
+  Perform linear transformations and interpret their effects on data
+\item
+  Apply the Central Limit Theorem and Law of Large Numbers in estimation
+  contexts
+\item
+  Calculate and interpret expectations, variances, and covariance for
+  multivariable functions
+\item
+  Design and evaluate linear estimators using minimum mean square error
+  (MMSE) techniques
+\item
+  Develop analytical skills for practical applications in signal
+  processing and communications
+\end{itemize}
+
+\end{document}

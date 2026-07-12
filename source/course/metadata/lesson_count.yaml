@@ -1,0 +1,7 @@
+count: 20
+rationale: Given the course duration of 10 weeks with twice-weekly 90-minute lectures,
+  there are 20 sessions available. This aligns well with the 8 learning outcomes,
+  allowing approximately 2-3 sessions per outcome. This allows sufficient time for
+  in-depth explanation, interactive exercises, real-world examples, and review of
+  complex topics such as linear transformations, covariance matrices, and MMSE estimation
+  techniques.

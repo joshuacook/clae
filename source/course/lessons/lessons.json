@@ -1,0 +1,102 @@
+{
+    "lessons": [
+        {
+            "number": 1,
+            "title": "Introduction to vector spaces and basic linear algebra concepts",
+            "lesson_md_file": "data/linalg/lessons/001/001_math.md",
+            "colab_file": "data/linalg/lessons/001/001_colab.md"
+        },
+        {
+            "number": 2,
+            "title": "Matrix operations and their geometric interpretations",
+            "lesson_md_file": "data/linalg/lessons/002/002_math.md",
+            "colab_file": "data/linalg/lessons/002/002_colab.md"
+        },
+        {
+            "number": 3,
+            "title": "Linear transformations and their matrix representations",
+            "lesson_md_file": "data/linalg/lessons/003/003_math.md",
+            "colab_file": "data/linalg/lessons/003/003_colab.md"
+        },
+        {
+            "number": 4,
+            "title": "Basis, span, and linear independence",
+            "lesson_md_file": "data/linalg/lessons/004/004_math.md",
+            "colab_file": "data/linalg/lessons/004/004_colab.md"
+        },
+        {
+            "number": 5,
+            "title": "Matrix inverse and solving linear systems",
+            "lesson_md_file": "data/linalg/lessons/005/005_math.md",
+            "colab_file": "data/linalg/lessons/005/005_colab.md"
+        },
+        {
+            "number": 6,
+            "title": "Orthogonality and projections"
+        },
+        {
+            "number": 7,
+            "title": "Eigenvalues and eigenvectors fundamentals",
+            "lesson_md_file": "data/linalg/lessons/007/007_math.md",
+            "colab_file": "data/linalg/lessons/007/007_colab.md"
+        },
+        {
+            "number": 8,
+            "title": "Matrix decompositions and diagonalization"
+        },
+        {
+            "number": 9,
+            "title": "Random Vectors and Their Statistical Properties",
+            "lesson_md_file": "data/linalg/lessons/009/009_math.md",
+            "colab_file": "data/linalg/lessons/009/009_colab.md"
+        },
+        {
+            "number": 10,
+            "title": "Covariance Matrices: Theory and Estimation",
+            "lesson_md_file": "data/linalg/lessons/010/010_math.md",
+            "colab_file": "data/linalg/lessons/010/010_colab.md"
+        },
+        {
+            "number": 11,
+            "title": "Feature Scaling and Variable Importance",
+            "lesson_md_file": "data/linalg/lessons/011/011_math.md",
+            "colab_file": "data/linalg/lessons/011/011_colab.md"
+        },
+        {
+            "number": 12,
+            "title": "Singular Value Decomposition and Covariance Analysis",
+            "lesson_md_file": "data/linalg/lessons/012/012_math.md",
+            "colab_file": "data/linalg/lessons/012/012_colab.md"
+        },
+        {
+            "number": 13,
+            "title": "Principal Component Analysis (PCA) Foundations",
+            "lesson_md_file": "data/linalg/lessons/013/013_math.md",
+            "colab_file": "data/linalg/lessons/013/013_colab.md"
+        },
+        {
+            "number": 14,
+            "title": "Principal Component Analysis (PCA) Implementation",
+            "lesson_md_file": "data/linalg/lessons/014/014_math.md",
+            "colab_file": "data/linalg/lessons/014/014_colab.md"
+        },
+        {
+        },
+        {
+            "number": 17,
+            "title": "Introduction to estimation theory and the Central Limit Theorem"
+        },
+        {
+            "number": 18,
+            "title": "Law of Large Numbers and convergence concepts"
+        },
+        {
+            "number": 19,
+            "title": "Linear estimator design principles"
+        },
+        {
+            "number": 20,
+            "title": "Minimum mean square error (MMSE) estimation"
+        }
+    ]
+}

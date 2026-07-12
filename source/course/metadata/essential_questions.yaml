@@ -1,0 +1,46 @@
+questions:
+
+- aligned_outcomes:
+  - Master the principles of vector spaces, matrices, and linear transformations
+  - Understand and apply the properties of random vectors and covariance matrices
+  big_ideas:
+  - Abstraction
+  - Structure
+  question: How can we represent real-world phenomena, such as signal processing or
+    financial markets, using the abstract structures of linear algebra?
+  rationale: This question encourages students to connect the abstract tools of linear
+    algebra to tangible applications, fostering deeper understanding and motivating
+    further exploration.
+- aligned_outcomes:
+  - Derive and utilize correlation and cross-correlation matrices in data analysis
+  - Perform linear transformations and interpret their effects on data
+  big_ideas:
+  - Data Analysis
+  - Representation
+  question: Given a dataset, how can we choose the most appropriate linear transformation
+    to reveal hidden patterns or simplify the data while minimizing information loss?
+  rationale: This emphasizes the importance of choosing the right tools for analysis
+    and understanding the impact of transformations on data interpretation.
+- aligned_outcomes:
+  - Apply the Central Limit Theorem and Law of Large Numbers in estimation contexts
+  - Calculate and interpret expectations, variances, and covariance for multivariable
+    functions
+  big_ideas:
+  - Inference
+  - Uncertainty
+  question: How can we use our understanding of probability and statistics to make
+    reliable predictions from noisy or incomplete data?
+  rationale: This question explores the fundamental challenge of estimation and the
+    role of statistical principles in managing uncertainty.
+- aligned_outcomes:
+  - Design and evaluate linear estimators using minimum mean square error (MMSE) techniques
+  - Develop analytical skills for practical applications in signal processing and
+    communications
+  big_ideas:
+  - Optimization
+  - Modeling
+  question: What are the trade-offs between different estimation methods, and how
+    do we choose the best approach for a given real-world problem?
+  rationale: This question prompts critical thinking about model selection and the
+    practical constraints of estimation in real-world scenarios.
+unit_name: Linear Algebra and Estimation Theory

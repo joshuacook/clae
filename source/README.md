@@ -40,3 +40,12 @@ is grounded by the Ames notebooks (the multivariate-normal theory is still net-n
 
 Secondary repos scanned and skipped (no estimation/LA content): `CSDS`,
 `GT_ML_Project_1`, `ucla-eda-course`, `case_studies_in_data_science`, `redhat`.
+
+## source/course/ — the taught course (added 2026-07-12)
+
+The full instructional content of the Caltech CTME linear algebra course:
+lessons 001–014 (math notes + colab notes + session PDFs), the three case
+studies (pca-tutorial, ames, wholesale-customer), syllabus, course metadata,
+and one-pagers. Student assessments are deliberately absent and must never be
+added (PII). This is the primary source corpus the book adapts;
+`coverage-by-chapter.md` maps it to chapters.

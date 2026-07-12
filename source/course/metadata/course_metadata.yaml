@@ -1,0 +1,24 @@
+description: This course covers. foundational concepts in linear algebra as they relate
+  to estimation techniques. It equips participants with the mathematical tools necessary
+  for applications in signal processing, communications, and data analysis. Participants
+  will delve into essential topics such as random vectors, covariance matrices, linear
+  transformations, and Gaussian random variables. Through interactive exercises and
+  real-world examples, students will gain practical insights into the analytical frameworks
+  critical to engineering and applied sciences.  
+duration:
+  units: weeks
+  value: 10
+format: Live-remote, twice weekly 90-minute lectures
+learning_outcomes:
+
+- Master the principles of vector spaces, matrices, and linear transformations
+- Understand and apply the properties of random vectors and covariance matrices
+- Derive and utilize correlation and cross-correlation matrices in data analysis
+- Perform linear transformations and interpret their effects on data
+- Apply the Central Limit Theorem and Law of Large Numbers in estimation contexts
+- Calculate and interpret expectations, variances, and covariance for multivariable
+  functions
+- Design and evaluate linear estimators using minimum mean square error (MMSE) techniques
+- Develop analytical skills for practical applications in signal processing and communications
+start: January 7, 2025
+title: Linear Algebra and Estimation Theory

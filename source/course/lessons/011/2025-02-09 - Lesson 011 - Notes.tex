@@ -1,0 +1,388 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[margin=1in, includeheadfoot, footskip=133pt]{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{unicode-math}
+\usetikzlibrary{arrows,arrows.meta,calc,positioning}
+
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+
+% Define Caltech orange color
+\definecolor{caltechorange}{RGB}{255, 108, 12}
+
+% Define tightlist command
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Section formatting
+\titleformat{\section}
+  {\normalfont\Huge\bfseries}{}{0em}{}
+\titlespacing*{\section}
+  {0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+% Subsection formatting - no numbers
+\titleformat{\subsection}
+  {\normalfont\Large\bfseries}{}{0em}{}
+\titlespacing*{\subsection}
+  {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% Subsubsection formatting - no numbers  
+\titleformat{\subsubsection}
+  {\normalfont\large\bfseries}{}{0em}{}
+\titlespacing*{\subsubsection}
+  {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+% Page style
+\pagestyle{fancy}
+\fancyhf{}
+
+% Footer setup
+\cfoot{\thepage}
+
+% Header setup
+\fancyhead[L]{%
+    \includegraphics[height=1cm]{templates/caltech-ctme-logo.png}
+}
+\fancyhead[R]{%
+    {\color{gray}\small\href{https://ctme.caltech.edu}{ctme.caltech.edu}}
+}
+
+% Add padding after header
+\setlength{\headheight}{50pt}
+\setlength{\headsep}{2em}
+
+% Force fancy style on first page
+\AtBeginDocument{\thispagestyle{fancy}}
+
+
+
+% List formatting
+\setlist{nosep}  % Remove vertical spacing between list items
+\setlist[itemize]{leftmargin=*}  % Align bullet points with left margin
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=caltechorange,
+    filecolor=caltechorange,
+    urlcolor=caltechorange,
+    citecolor=caltechorange
+}
+
+% Document
+\begin{document}
+
+\section{Feature Scaling and Variable
+Importance}\label{feature-scaling-and-variable-importance}
+
+\subsection{1. Why Scale Features?}\label{why-scale-features}
+
+\subsubsection{1.1 Motivation: A Logistic Regression
+Example}\label{motivation-a-logistic-regression-example}
+
+Consider predicting heart disease using two variables: - Age (years):
+typically 20-80 - Cholesterol (mg/dL): typically 150-300
+
+Without scaling:
+
+\begin{verbatim}
+# Simulated data
+age = np.random.uniform(20, 80, 1000)        # age in years
+chol = np.random.uniform(150, 300, 1000)     # cholesterol in mg/dL
+# True relationship: equal importance
+y = 1/(1 + np.exp(-(0.5*(age-50)/30 + 0.5*(chol-225)/75)))
+y = (np.random.random(1000) < y).astype(int)
+
+# Fit logistic regression
+from sklearn.linear_model import LogisticRegression
+model_raw = LogisticRegression()
+model_raw.fit(np.column_stack([age, chol]), y)
+print("Raw coefficients:", model_raw.coef_[0])
+# Output: [-0.02, 0.005] # Cholesterol appears less important!
+\end{verbatim}
+
+With scaling:
+
+\begin{verbatim}
+# Scale features to zero mean, unit variance
+age_scaled = (age - 50)/30     # (x - mean)/std
+chol_scaled = (chol - 225)/75  # (x - mean)/std
+
+model_scaled = LogisticRegression()
+model_scaled.fit(np.column_stack([age_scaled, chol_scaled]), y)
+print("Scaled coefficients:", model_scaled.coef_[0])
+# Output: [0.5, 0.5] # Now we see equal importance!
+\end{verbatim}
+
+Key insights: 1. Without scaling: cholesterol's coefficient looks tiny
+2. With scaling: true relationship becomes clear 3. Both variables
+equally affect disease risk 4. Scaling reveals actual variable
+importance
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{templates/011/scaling_effect.png}}
+\caption{Effect of scaling on logistic regression}
+\end{figure}
+
+The plots above show: - Left: Raw data with very different scales -
+Right: Scaled data reveals true relationship - Colors indicate disease
+presence/absence - Notice how decision boundary is clearer in scaled
+space
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{templates/011/coefficient_comparison.png}}
+\caption{Coefficient comparison}
+\end{figure}
+
+The bar plot shows: - Raw coefficients are hard to compare - Scaled
+coefficients reveal equal importance - Without scaling, we might wrongly
+ignore cholesterol
+
+Notes: - The true relationship uses scaled variables internally (note
+the /30 and /75) - Coefficients in logistic regression show log-odds
+impact - Age range: 60 years (20-80) - Cholesterol range: 150 mg/dL
+(150-300) - Without scaling, a 1-unit change in cholesterol (1 mg/dL)
+appears less important than a 1-unit change in age (1 year) - After
+scaling, both variables are in standard deviation units, making
+coefficients directly comparable
+
+\subsubsection{1.2 Common Scaling Methods}\label{common-scaling-methods}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Standardization (Z-score)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Remove mean
+  \item
+    Scale to unit variance
+  \item
+    Properties and use cases
+  \end{itemize}
+\item
+  Min-Max Scaling
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Scale to {[}0,1{]} range
+  \item
+    When to use
+  \item
+    Limitations
+  \end{itemize}
+\item
+  Robust Scaling
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Using median and quartiles
+  \item
+    Handling outliers
+  \item
+    Trade-offs
+  \end{itemize}
+\end{enumerate}
+
+\subsection{2. Mathematical Properties of
+Scaling}\label{mathematical-properties-of-scaling}
+
+\subsubsection{2.1 Linear Transformations}\label{linear-transformations}
+
+\begin{itemize}
+\tightlist
+\item
+  Scaling as diagonal matrix
+\item
+  Effect on distances
+\item
+  Preservation of relationships
+\end{itemize}
+
+\subsubsection{2.2 Impact on Statistics}\label{impact-on-statistics}
+
+\begin{itemize}
+\tightlist
+\item
+  Mean and variance
+\item
+  Correlation coefficients
+\item
+  Covariance structure
+\end{itemize}
+
+\subsubsection{2.3 Numerical
+Considerations}\label{numerical-considerations}
+
+\begin{itemize}
+\tightlist
+\item
+  Condition number
+\item
+  Numerical stability
+\item
+  Computational efficiency
+\end{itemize}
+
+\subsection{3. Measuring Variable
+Importance}\label{measuring-variable-importance}
+
+\subsubsection{3.1 Variance-Based Methods}\label{variance-based-methods}
+
+\begin{itemize}
+\tightlist
+\item
+  Total variance contribution
+\item
+  Explained variance ratio
+\item
+  Limitations of variance alone
+\end{itemize}
+
+\subsubsection{3.2 Correlation Analysis}\label{correlation-analysis}
+
+\begin{itemize}
+\tightlist
+\item
+  Pairwise correlations
+\item
+  Multiple correlation
+\item
+  Partial correlation
+\end{itemize}
+
+\subsubsection{3.3 Feature Selection}\label{feature-selection}
+
+\begin{itemize}
+\tightlist
+\item
+  Filter methods
+\item
+  Wrapper methods
+\item
+  Embedded methods
+\end{itemize}
+
+\subsection{4. Practical Applications}\label{practical-applications}
+
+\subsubsection{4.1 When to Scale}\label{when-to-scale}
+
+\begin{itemize}
+\tightlist
+\item
+  Distance-based algorithms
+\item
+  Gradient-based optimization
+\item
+  Feature comparison
+\end{itemize}
+
+\subsubsection{4.2 When Not to Scale}\label{when-not-to-scale}
+
+\begin{itemize}
+\tightlist
+\item
+  Interpretability requirements
+\item
+  Natural relationships
+\item
+  Categorical variables
+\end{itemize}
+
+\subsubsection{4.3 Implementation
+Considerations}\label{implementation-considerations}
+
+\begin{itemize}
+\tightlist
+\item
+  Pipeline design
+\item
+  Cross-validation
+\item
+  Test set handling
+\end{itemize}
+
+\subsection{Practice Problems}\label{practice-problems}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Scaling Analysis
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Compare different scaling methods
+  \item
+    Analyze impact on specific algorithms
+  \item
+    Interpret results
+  \end{itemize}
+\item
+  Variable Importance
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Rank features by importance
+  \item
+    Compare different metrics
+  \item
+    Justify choices
+  \end{itemize}
+\item
+  Implementation
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Write scaling functions
+  \item
+    Handle edge cases
+  \item
+    Validate results
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Key Takeaways}\label{key-takeaways}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Scaling is crucial for fair comparison
+\item
+  Different methods suit different needs
+\item
+  Consider context when choosing method
+\item
+  Always validate scaling impact
+\end{enumerate}
+
+\end{document}

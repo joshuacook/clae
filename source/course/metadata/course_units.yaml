@@ -1,0 +1,21 @@
+units:
+
+- name: Foundations of Linear Algebra
+  description: This unit introduces fundamental concepts of linear algebra, focusing
+    on vector spaces, matrices, and linear transformations. Students will learn how
+    to represent and manipulate data using these tools, laying the groundwork for
+    their application in estimation theory.
+  number_of_lessons: 7
+- name: Random Vectors and Estimation
+  description: This unit delves into the core concepts of estimation theory, covering
+    random vectors, covariance matrices, and their properties. Students will learn
+    how to model and analyze uncertainty in data, a crucial skill for developing effective
+    estimators.
+  number_of_lessons: 7
+- name: Advanced Estimation Techniques and Applications
+  description: This unit explores advanced topics in estimation theory, including
+    Gaussian distributions, the Law of Large Numbers, the Central Limit Theorem, and
+    least squares estimation. Students will apply these concepts to real-world problems
+    in signal processing and communications, culminating in a final project where
+    they design a simple estimation model.
+  number_of_lessons: 6

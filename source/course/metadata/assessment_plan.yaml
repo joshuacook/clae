@@ -1,0 +1,172 @@
+assessments:
+  - id: "quiz-1"
+    title: "Vector Spaces and Matrix Operations"
+    type: "quiz"
+    description: "Assessment of fundamental vector space concepts and matrix operations"
+    weight: 5
+    timing: "Week 2"
+    unit: 1
+    learning_outcomes:
+      - "Master the principles of vector spaces, matrices, and linear transformations"
+    group_weight: 20
+  - id: "quiz-2" 
+    title: "Linear Transformations and Eigendecomposition"
+    type: "quiz"
+    description: "Assessment of advanced linear algebra concepts"
+    weight: 5
+    timing: "Week 4"
+    unit: 1
+    learning_outcomes:
+      - "Master the principles of vector spaces, matrices, and linear transformations"
+      - "Perform linear transformations and interpret their effects on data"
+    group_weight: 20
+  - id: "quiz-3"
+    title: "Random Vectors and Covariance"
+    type: "quiz"
+    description: "Assessment of statistical concepts"
+    weight: 5
+    timing: "Week 6"
+    unit: 2
+    learning_outcomes:
+      - "Understand and apply the properties of random vectors and covariance matrices"
+      - "Derive and utilize correlation and cross-correlation matrices in data analysis"
+    group_weight: 20
+  - id: "quiz-4"
+    title: "Advanced Estimation Concepts"
+    type: "quiz"
+    description: "Assessment of estimation theory concepts"
+    weight: 5
+    timing: "Week 9"
+    unit: 3
+    learning_outcomes:
+      - "Apply the Central Limit Theorem and Law of Large Numbers in estimation contexts"
+      - "Design and evaluate linear estimators using minimum mean square error (MMSE) techniques"
+    group_weight: 20
+  - id: "project-1"
+    title: "Principal Component Analysis - From Intuition to Implementation"
+    type: "authentic"
+    description: "Team project on PCA development and implementation"
+    weight: 30
+    timing: "Weeks 5-6"
+    unit: 2
+    learning_outcomes:
+      - "Master the principles of vector spaces, matrices, and linear transformations"
+      - "Understand and apply the properties of random vectors and covariance matrices"
+      - "Derive and utilize correlation and cross-correlation matrices in data analysis"
+      - "Perform linear transformations and interpret their effects on data"
+    group_weight: 60
+  - id: "project-2"
+    title: "Advanced Linear Estimator Design and Application Project"
+    type: "authentic"
+    description: "Culminating team project on estimator design and implementation"
+    weight: 30
+    timing: "Weeks 8-9"
+    unit: 3
+    learning_outcomes:
+      - "Apply the Central Limit Theorem and Law of Large Numbers in estimation contexts"
+      - "Calculate and interpret expectations, variances, and covariance for multivariable functions"
+      - "Design and evaluate linear estimators using minimum mean square error (MMSE) techniques"
+      - "Develop analytical skills for practical applications in signal processing and communications"
+    group_weight: 60
+  - id: "lab-1"
+    title: "Vector Spaces and Data Representation"
+    type: "lab"
+    description: "Hands-on implementation of vector operations"
+    weight: 2.5
+    timing: "Week 1"
+    unit: 1
+    learning_outcomes:
+      - "Master the principles of vector spaces, matrices, and linear transformations"
+    group_weight: 20
+  - id: "lab-2"
+    title: "Linear Transformations and Visualization"
+    type: "lab"
+    description: "Practical implementation of transformations"
+    weight: 2.5
+    timing: "Week 2"
+    unit: 1
+    learning_outcomes:
+      - "Master the principles of vector spaces, matrices, and linear transformations"
+      - "Perform linear transformations and interpret their effects on data"
+    group_weight: 20
+  - id: "lab-3"
+    title: "Eigendecomposition Foundations"
+    type: "lab"
+    description: "Implementation of eigenvalue concepts"
+    weight: 2.5
+    timing: "Week 3"
+    unit: 1
+    learning_outcomes:
+      - "Master the principles of vector spaces, matrices, and linear transformations"
+    group_weight: 20
+  - id: "lab-4"
+    title: "Statistical Foundations and Data Preparation"
+    type: "lab"
+    description: "Implementation of basic statistics"
+    weight: 2.5
+    timing: "Week 4"
+    unit: 2
+    learning_outcomes:
+      - "Understand and apply the properties of random vectors and covariance matrices"
+    group_weight: 20
+  - id: "lab-5"
+    title: "Covariance Analysis and Visualization"
+    type: "lab"
+    description: "Implementation of covariance analysis"
+    weight: 2.5
+    timing: "Week 5"
+    unit: 2
+    learning_outcomes:
+      - "Understand and apply the properties of random vectors and covariance matrices"
+      - "Derive and utilize correlation and cross-correlation matrices in data analysis"
+    group_weight: 20
+  - id: "lab-6"
+    title: "Mini-PCA Implementation"
+    type: "lab"
+    description: "Implementation of PCA concepts"
+    weight: 2.5
+    timing: "Week 6"
+    unit: 2
+    learning_outcomes:
+      - "Understand and apply the properties of random vectors and covariance matrices"
+      - "Perform linear transformations and interpret their effects on data"
+    group_weight: 20
+  - id: "lab-7"
+    title: "Advanced Statistical Methods"
+    type: "lab"
+    description: "Implementation of advanced statistics"
+    weight: 2.5
+    timing: "Week 7"
+    unit: 3
+    learning_outcomes:
+      - "Calculate and interpret expectations, variances, and covariance for multivariable functions"
+      - "Apply the Central Limit Theorem and Law of Large Numbers in estimation contexts"
+    group_weight: 20
+  - id: "lab-8"
+    title: "MMSE Implementation"
+    type: "lab"
+    description: "Implementation of MMSE concepts"
+    weight: 2.5
+    timing: "Week 8"
+    unit: 3
+    learning_outcomes:
+      - "Design and evaluate linear estimators using minimum mean square error (MMSE) techniques"
+      - "Develop analytical skills for practical applications in signal processing and communications"
+    group_weight: 20
+
+total_weight: 100
+
+submission_requirements: |
+  All assignments must be submitted as Pandoc Markdown files (.md) with:
+  
+  - Mathematical equations using LaTeX syntax
+  - Code blocks with syntax highlighting
+  - Figures and tables
+  - Citations and references
+
+evaluation_criteria:
+  - Accuracy and completeness of solutions
+  - Clarity of explanations and justifications
+  - Application of concepts to real-world problems
+  - Quality of implementation and analysis
+  - Effective communication of results

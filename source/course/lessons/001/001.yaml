@@ -1,0 +1,15 @@
+name: "Vector Spaces Fundamentals"
+unit: "Foundations of Linear Algebra"
+number: 1
+description: "Introduction to vector spaces and their properties, focusing on geometric interpretation and basic operations."
+prerequisites: "Basic linear algebra concepts from undergraduate mathematics"
+learning_objectives:
+  - title: "Define Vector Spaces"
+    bloom_level: "UNDERSTAND"
+    bloom_activity: "DEFINE"
+  - title: "Perform Vector Operations"
+    bloom_level: "APPLY"
+    bloom_activity: "CALCULATE"
+  - title: "Visualize Vector Operations"
+    bloom_level: "ANALYZE"
+    bloom_activity: "ANALYZE"
