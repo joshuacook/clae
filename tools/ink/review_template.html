@@ -43,6 +43,7 @@
     <textarea id="anchor" rows="2"></textarea>
   </div>
   <div id="actions">
+    <button id="back" style="flex:0.5;background:#1e293b;color:#94a3b8;border:1px solid #334155">←</button>
     <button id="flag">flag</button>
     <button id="ok">✓ correct → next</button>
   </div>
@@ -71,10 +72,21 @@ function show() {
       r.color.toUpperCase() + ' = ' + r.meaning + '</b>' : '';
   document.getElementById('chips').innerHTML =
     'p.' + r.page + ' · ' + r.kind + ' · ' + r.mark_type + hl +
-    ' · conf ' + (r.confidence ?? 1).toFixed(2) + (r.unreadable ? ' · [?]' : '');
+    ' · conf ' + (r.confidence ?? 1).toFixed(2) + (r.unreadable ? ' · [?]' : '') + (r.verdict ? ' · <b style="color:#34d399">' + r.verdict + '</b>' : '');
   document.getElementById('txt').value = r.transcription || '';
   document.getElementById('anchor').value = r.anchor_text || '';
   card.classList.remove('fly');
+}
+function saveEdits() {
+  const r = DATA[i];
+  r.transcription = document.getElementById('txt').value;
+  r.anchor_text = document.getElementById('anchor').value;
+}
+function back() {
+  if (i === 0) return;
+  saveEdits();
+  i--;
+  show();
 }
 function save(status) {
   const r = DATA[i];
@@ -89,6 +101,7 @@ function next(status) {
 }
 document.getElementById('ok').onclick = () => next('approved');
 document.getElementById('flag').onclick = () => next('flagged');
+document.getElementById('back').onclick = back;
 let x0 = null;
 card.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive:true});
 card.addEventListener('touchend', e => {
@@ -96,10 +109,12 @@ card.addEventListener('touchend', e => {
   const dx = e.changedTouches[0].clientX - x0;
   x0 = null;
   if (dx > 90) next('approved');
+  else if (dx < -90) back();
 }, {passive:true});
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' && document.activeElement.tagName !== 'TEXTAREA')
-    next('approved');
+  if (document.activeElement.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowRight') next('approved');
+  if (e.key === 'ArrowLeft') back();
 });
 function finish() {
   card.style.display = 'none';
