@@ -41,7 +41,7 @@ MARKS_SCHEMA = {
                                            "circle", "underline",
                                            "strikethrough", "arrow",
                                            "bracket", "caret-insert",
-                                           "other"]},
+                                           "new-paragraph", "other"]},
                     "location": {"type": "STRING",
                                  "description": "where on the page, briefly"},
                     "bbox": {"type": "ARRAY", "items": {"type": "INTEGER"},
@@ -79,6 +79,16 @@ Enumerate EVERY handwritten mark on the page, top to bottom. For each mark:
 Do not skip small marks. Do not merge distinct notes. Do not include yellow
 or blue highlighting (handled separately); DO include handwriting layered on
 top of highlights.
+
+The author uses standard proofreading marks; recognize them:
+- a pilcrow (a P-like symbol with double stem, often written before a
+  sentence) = mark_type "new-paragraph": start a new paragraph at the anchor.
+- a caret (^ below or above the line) = "caret-insert": insert the written
+  words at the anchor point.
+- a looped line through text = "strikethrough": delete the anchor text.
+- when a note connects to its target by an ARROW, the anchor is the text at
+  the arrow's HEAD, not the text near where the note is written; follow the
+  arrow.
 
 Full printed page text:
 {page_text}
@@ -152,7 +162,7 @@ def extract(pdf_path, out, project, location, model, name=None):
                      & ((a[..., 0] + a[..., 1]) / 2 - a[..., 2] > 40)
             else:
                 cm = mask & (a[..., 2] > 130) & (a[..., 2] - a[..., 0] > 30)
-            merged = ndimage.binary_dilation(cm, np.ones((9, 25)))
+            merged = ndimage.binary_dilation(cm, np.ones((51, 71)))
             labels, n = ndimage.label(merged)
             words = page.get_text('words')
             for i in range(1, n + 1):
@@ -162,10 +172,15 @@ def extract(pdf_path, out, project, location, model, name=None):
                 ys, xs = np.where(region)
                 hy0, hy1 = ys.min() / SCALE, ys.max() / SCALE
                 hx0, hx1 = xs.min() / SCALE, xs.max() / SCALE
-                sel = [w[4] for w in words
-                       if hx0 - 2 < (w[0] + w[2]) / 2 < hx1 + 2
-                       and hy0 - 2 < (w[1] + w[3]) / 2 < hy1 + 2]
-                text = ' '.join(sel)
+                hits = []
+                for w in words:
+                    ox = max(0, min(w[2], hx1 + 2) - max(w[0], hx0 - 2))
+                    oy = max(0, min(w[3], hy1 + 2) - max(w[1], hy0 - 2))
+                    area = max(1e-9, (w[2] - w[0]) * (w[3] - w[1]))
+                    if ox * oy / area >= 0.35:
+                        hits.append(w)
+                hits.sort(key=lambda w: (w[5], w[6], w[7]))
+                text = ' '.join(w[4] for w in hits)
                 records.append({
                     'page': pno, 'kind': 'highlight', 'color': color,
                     'transcription': '',
