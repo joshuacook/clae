@@ -1,0 +1,18 @@
+steps:
+  - name: 'python:3.12-slim'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        pip install --quiet pymupdf pillow numpy scipy google-genai
+        python extract_ink.py --pdf inked.pdf --out inkout \
+          --project $PROJECT_ID --location global --model ${_MODEL}
+substitutions:
+  _MODEL: 'gemini-3.1-pro'
+artifacts:
+  objects:
+    location: 'gs://cooksfleet-apps_cloudbuild/clae-ink/'
+    paths: ['inkout/census.md', 'inkout/census.json', 'inkout/contact_sheet.html']
+options:
+  logging: CLOUD_LOGGING_ONLY
+timeout: '1800s'
