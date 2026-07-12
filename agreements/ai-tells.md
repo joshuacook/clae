@@ -204,3 +204,18 @@ bounded by the number of ingredients."
   reason; arguments to footnotes/citations; no ∎, no "Proof." headers, no
   proof-pattern meta-teaching. "Proofs are just gatekeeping" when performed
   in the text.
+
+## From the preface v5 ink (2026-07-12)
+
+- **The colon tic.** "Colons starting to replace emdashes" (Josh). The em-dash
+  ban squeezed the same rhetorical move into colons: "X: the Y, the Z,
+  everything except W." Same disease, new punctuation. His fix: "can you just
+  write a second sentence?" Write the second sentence.
+- **Flagged prose never resurfaces.** Josh: "I just flagged these as bad prose
+  and here they are again" — v5 reused sentences yellow-flagged in v4. Once a
+  phrase is yellow-flagged, it is dead in ALL future drafts, not just the one
+  under review. Check new drafts against prior flags.
+- **"Too cheeky"** joins "too cute": a promise that winks ("by Chapter 10 you
+  will hear a full symphony") gets tempered to the plain promise.
+- **SHOW, don't tell** is ink-enforceable: if prose describes a computation
+  ("make triangles, then climb down them"), show the computation.

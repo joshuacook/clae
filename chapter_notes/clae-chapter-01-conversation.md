@@ -107,3 +107,14 @@ machine, C-S demoted to named fact + footnote + kept Ames cell); 1.5 = summary
 + 11 tiered exercises; treks to stock. §1.0 AI-era paragraphs rewritten for
 outsiders; BLAS/LAPACK + PyTorch/TensorFlow/CUDA named; functions renamed.
 Standing: the §1.1 opening line is still Josh's to write ("Not here yet").
+
+## 2026-07-12 — INCOMING from the preface ink (load-bearing transfer)
+
+Josh (preface v5 ink, #49): the uniqueness-licenses-guess-and-check paragraph
+"goes in chapter 1. This is load bearing." Text to place during the Ch 1 ink
+pass (Jim's first lecture: uniqueness first, because uniqueness is a license;
+find a candidate however you like, verify it, uniqueness does the rest; "This
+book runs on that license"). Also (#45/46): "Has ch. 1 read the preface?
+Especially this. Ch. 1 needs to read this line!!" — the creed line (Pictures
+before procedures, actions before formulas, nothing hidden from the
+congregation) must visibly govern Ch 1's voice.
