@@ -44,12 +44,16 @@ MARKS_SCHEMA = {
                                            "other"]},
                     "location": {"type": "STRING",
                                  "description": "where on the page, briefly"},
+                    "bbox": {"type": "ARRAY", "items": {"type": "INTEGER"},
+                             "description": "[ymin, xmin, ymax, xmax] of the "
+                                            "handwritten mark in the FIRST "
+                                            "image, normalized 0-1000"},
                     "confidence": {"type": "NUMBER"},
                     "unreadable": {"type": "BOOLEAN"},
                 },
                 "required": ["transcription", "anchor_text", "anchor_kind",
                              "mark_type", "location", "confidence",
-                             "unreadable"],
+                             "unreadable", "bbox"],
             },
         }
     },
@@ -124,6 +128,7 @@ def extract(pdf_path, out, project, location, model):
                     'anchor_kind': 'page-global',
                     'mark_type': 'marginal-note', 'location': 'typed note',
                     'confidence': 1.0, 'unreadable': False, 'order': 0,
+                    'band': (0, 1),
                 })
 
         pm_ink = page.get_pixmap(dpi=DPI, annots=True)
@@ -169,6 +174,7 @@ def extract(pdf_path, out, project, location, model):
                     'location': f'y~{int(hy0)}pt',
                     'confidence': 1.0, 'unreadable': not bool(text),
                     'order': int(ys.min()),
+                    'band': (int(ys.min()), int(ys.max())),
                     'meaning': ('ai speak (poorly written)'
                                 if color == 'yellow' else 'well written'),
                 })
@@ -189,8 +195,11 @@ def extract(pdf_path, out, project, location, model):
             ),
         )
         for j, m in enumerate(json.loads(resp.text)['marks']):
+            bb = m.get('bbox') or [0, 0, 1000, 1000]
+            y0 = int(bb[0] / 1000 * with_ink.height)
+            y1 = int(bb[2] / 1000 * with_ink.height)
             m.update({'page': pno, 'kind': 'handwriting', 'color': 'ink',
-                      'order': 10000 + j})
+                      'order': 10000 + j, 'band': (y0, y1)})
             records.append(m)
 
     records.sort(key=lambda r: (r['page'], r['order']))
@@ -245,7 +254,45 @@ def extract(pdf_path, out, project, location, model):
             f'</div>')
     parts.append('</body></html>')
     open(f'{out}/contact_sheet.html', 'w').write(''.join(parts))
-    print(f'{len(records)} marks; {len(ask)} on the ask-Josh list')
+    # card crops: full-width bands with generous context
+    os.makedirs(f'{out}/cards', exist_ok=True)
+    pages_px = {}
+    for pno in range(1, len(doc) + 1):
+        path = f'{out}/pages/p{pno}.png'
+        if os.path.exists(path):
+            pages_px[pno] = Image.open(path)
+    for i, r in enumerate(records, 1):
+        img = pages_px.get(r['page'])
+        if img is None:
+            r['card'] = None
+            continue
+        y0, y1 = r.get('band', (0, img.height))
+        pad = 170
+        top = max(0, y0 - pad)
+        bot = min(img.height, y1 + pad)
+        band = img.crop((0, top, img.width, bot))
+        if band.width > 1300:
+            band = band.resize((1300, int(band.height * 1300 / band.width)))
+        name = f'card_{i}.png'
+        band.save(f'{out}/cards/{name}')
+        r['card'] = name
+    review_records = []
+    for i, r in enumerate(records, 1):
+        d = {k: r.get(k) for k in
+             ('page', 'kind', 'color', 'transcription', 'anchor_text',
+              'anchor_kind', 'mark_type', 'location', 'confidence',
+              'unreadable', 'meaning')}
+        d['n'] = i
+        d['img'] = (base64.b64encode(
+            open(f'{out}/cards/{r["card"]}', 'rb').read()).decode()
+            if r.get('card') else '')
+        review_records.append(d)
+    tpl = open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            'review_template.html')).read()
+    open(f'{out}/review.html', 'w').write(
+        tpl.replace('/*DATA*/', json.dumps(review_records))
+           .replace('/*NAME*/', os.path.basename(pdf_path).rsplit('.', 1)[0]))
+    print(f'{len(records)} marks; {len(ask)} on the ask-Josh list; review app written')
 
 
 if __name__ == '__main__':

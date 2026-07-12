@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>ink review</title>
+<style>
+  body { margin:0; font-family:-apple-system,system-ui,sans-serif;
+         background:#0f172a; color:#e2e8f0; }
+  #bar { padding:10px 14px; font-size:14px; color:#94a3b8; display:flex;
+         justify-content:space-between; align-items:center; }
+  #card { margin:0 10px; background:#1e293b; border-radius:14px;
+          overflow:hidden; transition:transform .18s, opacity .18s; }
+  #card.fly { transform:translateX(120vw) rotate(8deg); opacity:0; }
+  #card img { width:100%; display:block; background:#fff; }
+  .pad { padding:12px 14px; }
+  .chips { font-size:12px; color:#94a3b8; margin-bottom:8px; }
+  .chips b.y { color:#facc15; } .chips b.b { color:#60a5fa; }
+  textarea { width:100%; box-sizing:border-box; background:#0f172a;
+             color:#e2e8f0; border:1px solid #334155; border-radius:8px;
+             padding:8px; font-size:15px; font-family:inherit; }
+  label { font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+          color:#64748b; display:block; margin:8px 0 3px; }
+  #actions { display:flex; gap:10px; padding:14px; }
+  button { flex:1; padding:14px; border:0; border-radius:12px;
+           font-size:16px; font-weight:600; }
+  #ok { background:#059669; color:#fff; }
+  #flag { background:#334155; color:#e2e8f0; flex:0.5; }
+  #done { display:none; padding:40px 20px; text-align:center; }
+  #done button { width:100%; background:#059669; color:#fff; margin-top:16px; }
+  .hint { font-size:12px; color:#64748b; text-align:center; padding-bottom:14px; }
+</style>
+</head>
+<body>
+<div id="bar"><span id="prog"></span><span id="title">ink review</span></div>
+<div id="card">
+  <img id="img" alt="mark">
+  <div class="pad">
+    <div class="chips" id="chips"></div>
+    <label>annotation (edit if wrong)</label>
+    <textarea id="txt" rows="3"></textarea>
+    <label>anchor (the printed text it grounds to)</label>
+    <textarea id="anchor" rows="2"></textarea>
+  </div>
+  <div id="actions">
+    <button id="flag">flag</button>
+    <button id="ok">✓ correct → next</button>
+  </div>
+  <div class="hint">swipe right = correct · edit first if needed</div>
+</div>
+<div id="done">
+  <h2 id="donemsg"></h2>
+  <p id="stats"></p>
+  <button id="submit">submit verified census</button>
+  <p id="result"></p>
+</div>
+<script>
+const DATA = /*DATA*/;
+const ENDPOINT = 'https://scribe-383336560782.us-east1.run.app/api/ink';
+const TOKEN = 'ba515fc2bde475ddccb5b89d699d9f169d6bcb22';
+const NAME = '/*NAME*/';
+let i = 0;
+const card = document.getElementById('card');
+function show() {
+  if (i >= DATA.length) return finish();
+  const r = DATA[i];
+  document.getElementById('prog').textContent = (i+1) + ' / ' + DATA.length;
+  document.getElementById('img').src = r.img ? 'data:image/png;base64,' + r.img : '';
+  const hl = r.kind === 'highlight'
+    ? ' · <b class="' + (r.color === 'yellow' ? 'y' : 'b') + '">' +
+      r.color.toUpperCase() + ' = ' + r.meaning + '</b>' : '';
+  document.getElementById('chips').innerHTML =
+    'p.' + r.page + ' · ' + r.kind + ' · ' + r.mark_type + hl +
+    ' · conf ' + (r.confidence ?? 1).toFixed(2) + (r.unreadable ? ' · [?]' : '');
+  document.getElementById('txt').value = r.transcription || '';
+  document.getElementById('anchor').value = r.anchor_text || '';
+  card.classList.remove('fly');
+}
+function save(status) {
+  const r = DATA[i];
+  r.transcription = document.getElementById('txt').value;
+  r.anchor_text = document.getElementById('anchor').value;
+  r.verdict = status;
+}
+function next(status) {
+  save(status);
+  card.classList.add('fly');
+  setTimeout(() => { i++; show(); }, 190);
+}
+document.getElementById('ok').onclick = () => next('approved');
+document.getElementById('flag').onclick = () => next('flagged');
+let x0 = null;
+card.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive:true});
+card.addEventListener('touchend', e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0;
+  x0 = null;
+  if (dx > 90) next('approved');
+}, {passive:true});
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' && document.activeElement.tagName !== 'TEXTAREA')
+    next('approved');
+});
+function finish() {
+  card.style.display = 'none';
+  const ok = DATA.filter(r => r.verdict === 'approved').length;
+  const fl = DATA.filter(r => r.verdict === 'flagged').length;
+  document.getElementById('done').style.display = 'block';
+  document.getElementById('donemsg').textContent = 'all cards reviewed';
+  document.getElementById('stats').textContent =
+    ok + ' approved · ' + fl + ' flagged';
+}
+document.getElementById('submit').onclick = async () => {
+  const out = DATA.map(({img, ...r}) => r);
+  const res = document.getElementById('result');
+  res.textContent = 'submitting…';
+  try {
+    const resp = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify({token: TOKEN, name: NAME, records: out}),
+    });
+    res.textContent = resp.ok ? '✓ filed to the repo — tell Claude to sync'
+                              : 'failed: HTTP ' + resp.status;
+  } catch (e) { res.textContent = 'failed: ' + e; }
+};
+show();
+</script>
+</body>
+</html>
