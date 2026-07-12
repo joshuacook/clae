@@ -157,12 +157,13 @@ def extract(pdf_path, out, project, location, model, name=None):
         # highlights: deterministic, color-masked regions -> printed words
         for color in ('yellow', 'blue'):
             if color == 'yellow':
-                cm = mask & (a[..., 0] > 150) & (a[..., 1] > 120) \
-                     & (a[..., 2] < 140) \
-                     & ((a[..., 0] + a[..., 1]) / 2 - a[..., 2] > 40)
+                cm = mask & (a[..., 0] > 190) & (a[..., 1] > 165) \
+                     & (a[..., 2] < 150) \
+                     & (a[..., 0] + a[..., 1] - 2 * a[..., 2] > 140)
             else:
-                cm = mask & (a[..., 2] > 130) & (a[..., 2] - a[..., 0] > 30)
-            merged = ndimage.binary_dilation(cm, np.ones((51, 71)))
+                cm = mask & (a[..., 2] > 160) & (a[..., 2] - a[..., 0] > 50) \
+                     & (a[..., 2] - a[..., 1] > 40)
+            merged = ndimage.binary_dilation(cm, np.ones((35, 61)))
             labels, n = ndimage.label(merged)
             words = page.get_text('words')
             for i in range(1, n + 1):
