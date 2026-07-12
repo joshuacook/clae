@@ -273,9 +273,9 @@ def extract(pdf_path, out, project, location, model, name=None):
         band = img.crop((0, top, img.width, bot))
         if band.width > 1300:
             band = band.resize((1300, int(band.height * 1300 / band.width)))
-        name = f'card_{i}.jpg'
-        band.convert('RGB').save(f'{out}/cards/{name}', quality=80)
-        r['card'] = name
+        card_name = f'card_{i}.jpg'
+        band.convert('RGB').save(f'{out}/cards/{card_name}', quality=80)
+        r['card'] = card_name
     review_records = []
     for i, r in enumerate(records, 1):
         d = {k: r.get(k) for k in
