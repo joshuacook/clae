@@ -13,7 +13,7 @@ substitutions:
 artifacts:
   objects:
     location: 'gs://cooksfleet-apps_cloudbuild/clae-ink/'
-    paths: ['inkout/census.md', 'inkout/census.json', 'inkout/contact_sheet.html', 'inkout/review.html']
+    paths: ['inkout/census.md', 'inkout/census.json', 'inkout/contact_sheet.html', 'inkout/review.html', 'inkout/cards/**']
 options:
   logging: CLOUD_LOGGING_ONLY
 timeout: '1800s'

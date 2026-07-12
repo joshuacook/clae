@@ -283,9 +283,6 @@ def extract(pdf_path, out, project, location, model, name=None):
               'anchor_kind', 'mark_type', 'location', 'confidence',
               'unreadable', 'meaning')}
         d['n'] = i
-        d['img'] = (base64.b64encode(
-            open(f'{out}/cards/{r["card"]}', 'rb').read()).decode()
-            if r.get('card') else '')
         review_records.append(d)
     tpl = open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             'review_template.html')).read()

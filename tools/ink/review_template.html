@@ -56,7 +56,7 @@
 </div>
 <script>
 const DATA = /*DATA*/;
-const ENDPOINT = 'https://scribe-383336560782.us-east1.run.app/api/ink';
+const ENDPOINT = '/api/ink';
 const TOKEN = 'ba515fc2bde475ddccb5b89d699d9f169d6bcb22';
 const NAME = '/*NAME*/';
 let i = 0;
@@ -65,7 +65,7 @@ function show() {
   if (i >= DATA.length) return finish();
   const r = DATA[i];
   document.getElementById('prog').textContent = (i+1) + ' / ' + DATA.length;
-  document.getElementById('img').src = r.img ? 'data:image/jpeg;base64,' + r.img : '';
+  document.getElementById('img').src = '/api/ink-card/' + r.n + '?k=' + TOKEN;
   const hl = r.kind === 'highlight'
     ? ' · <b class="' + (r.color === 'yellow' ? 'y' : 'b') + '">' +
       r.color.toUpperCase() + ' = ' + r.meaning + '</b>' : '';
