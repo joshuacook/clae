@@ -297,3 +297,28 @@ work, starting with Ch 2 (section notes+outlines, then draft).
 - **BUDGET REBALANCE (claude-code's final proposal per 5c):** Ch 4 28→20,
   Ch 6 32→**36**, Ch 12 36→**40**, Ch 14 34→**30** (pure-Kalman scope shed).
   Net −4 pp banked as schedule buffer.
+
+## 2026-07-12 — RETROFIT-2 (the inked census, ~52 marks, all ruled)
+
+- **Proofs: the Strang way.** State, witness (small + companion scale),
+  one-breath reason in prose; fuller arguments in DFW-register footnotes or
+  citations. ∎ blocks, "Proof." headers, and proof-pattern meta-teaching are
+  dead in the text. The policy is declared in the book's
+  footnote-about-footnotes (Claim 1.5's footnote). Ch 1 converted; Ch 2's
+  Proof blocks convert at its full ink pass.
+- **Proposition → CLAIM, book-wide.** Definitions stay Definitions.
+- **Lenses in the text:** use the appropriate lens and NAME it at each move;
+  lineage banked (multiple representations + guess-and-check).
+- **§1.5 (data matrix) MOVED to Ch 2's opening beat.** Ch 1 now closes at 1.5
+  Summary; Ch 2 opens container-then-verb; Definition 2.1 = data-matrix
+  conventions; all Ch 2 items renumbered (+1) and renamed.
+- **Further treks → end of book** (chapter_notes/clae-treks-stock.md).
+- **Particle-in-a-box → Ch 3** (bridge exercise stays in Ch 2).
+- **The aphorism tic:** 25 yellow items inventoried verbatim in ai-tells.md;
+  all rewritten in the Ch 1 retrofit. Definition economy, footnotes over
+  parentheticals, well-named functions over comments, preview-closer ban,
+  no line-broken inline code: all standing.
+- **Kruidenier** spelling verified against the SBCC catalog (not Kruideneir);
+  Keith Devlin identified in the Lockhart footnote (Devlin's Angle, 2008).
+- Notebook functions renamed: list_comp_in_python / vectorized_in_numpy;
+  new dependent-triple figure (Fig 1.5); timing re-run (60x this run).

@@ -1,25 +1,44 @@
-<!-- DRAFT (retrofitted to agreements/chapter-anatomy.md, 2026-07-11).
-     Companion notebook: clae-code/ch02/ch02.ipynb produces every figure and
-     number here. Target ~28 pp. Open with Josh: 2.5 categorical depth
-     (held to one paragraph + honesty box; say the word for a one-hot demo
-     cell in 2.6).
-     Words: 4440 prose / 5156 total (auto: tools/wordcount.py) -->
+<!-- DRAFT (RETROFIT-2 knock-ons, 2026-07-12): receives the data-matrix section
+     from Ch 1 as its opening beat; Proposition -> Claim; treks moved to the
+     end-of-book stock. Full census pass waits for Josh's Ch 2 ink; the Proof
+     blocks below convert to Strang-way at that pass.
+     Companion notebook: clae-code/ch02/ch02.ipynb. -->
 
 # Chapter 2: Matrices and Linear Transformations
 
 ## 2.1 The matrix is a verb
 
-Chapter 1 ended with a matrix full of houses: 1,460 rows, eighty columns, a container. Containers are the smaller half of the story. Multiply a matrix by a vector and the matrix does something to it: stretches it, turns it, flattens it, differentiates it. A matrix is a verb, and this chapter is about learning to read the verb.
+Chapter 1 built a matrix to ask its question and never once looked at the thing itself. Look now. One vector is one record; a dataset is many records stacked, and the stack is a matrix. The Ames data ships as three files, zoning, listing, and sale, joined on a shared `Id` into the single object Chapter 1 called `housing`. Its shape:
+
+```python
+housing.shape
+```
+
+```text
+(1460, 80)
+```
+
+Through the data lens, a data matrix reads two ways, and both matter. Across the rows: each row is one home, a single point in an eighty-dimensional feature space, one dot in a cloud of 1,460. Down the columns: each column is one feature measured across every home, a vector with 1,460 entries. The column reading is the one Chapter 1 lived in: feature columns are vectors, their span is the column space, and their combinations are every prediction a linear model can make.
+
+```python
+housing.loc[2]
+numeric = housing.select_dtypes(include='number')
+numeric['GrLivArea']
+```
+
+> **Definition 2.1 (data-matrix conventions).** In this book a data matrix $X$ has **rows as samples** and **columns as features**: $X$ is $m \times n$ for $m$ observations of $n$ features. The target vector is $\mathbf{y}$, one entry per sample. A feature column is a vector in $\mathbb{R}^m$; a sample row is a point in $\mathbb{R}^n$.
+
+Some features, neighborhood and roof style among them, are words rather than numbers; they become vectors in Section 2.5. And all of this, the container, is the smaller half of what a matrix is. Multiply a matrix by a vector and the matrix does something to it: stretches it, turns it, flattens it, differentiates it. A matrix is a verb, and this chapter is about learning to read the verb.
 
 The actions in question are exactly the ones that honor Chapter 1's contract.
 
-> **Definition 2.1 (linear transformation).** A function $T$ from vectors to vectors is a **linear transformation** when it respects both operations at once: $T(c\mathbf{x} + d\mathbf{y}) = c\,T(\mathbf{x}) + d\,T(\mathbf{y})$ for all vectors $\mathbf{x}, \mathbf{y}$ and weights $c, d$.
+> **Definition 2.2 (linear transformation).** A function $T$ from vectors to vectors is a **linear transformation** when it respects both operations at once: $T(c\mathbf{x} + d\mathbf{y}) = c\,T(\mathbf{x}) + d\,T(\mathbf{y})$ for all vectors $\mathbf{x}, \mathbf{y}$ and weights $c, d$.
 
 In words: a linear transformation never disturbs a linear combination. Transform the ingredients and the recipe carries over untouched. The doubling map $T(\mathbf{x}) = 2\mathbf{x}$ qualifies; so does rotation about the origin; so does the derivative-taker you are about to meet. Squaring every entry does not (double the input and the output quadruples), and neither does shifting every entry by one (it moves the origin, and Section 2.5 will have to answer for that).
 
 Here is the fact this chapter stands on, and it deserves its box early.
 
-> **Proposition 2.2 (matrices are the linear transformations).** Every matrix gives a linear transformation via $T(\mathbf{x}) = A\mathbf{x}$, and every linear transformation on $\mathbb{R}^n$ is given by exactly one matrix: the matrix whose $j$-th column is $T(\mathbf{e}_j)$, the image of the $j$-th standard basis vector. **The columns of $A$ are where the basis vectors land.**
+> **Claim 2.3 (matrices are the linear transformations).** Every matrix gives a linear transformation via $T(\mathbf{x}) = A\mathbf{x}$, and every linear transformation on $\mathbb{R}^n$ is given by exactly one matrix: the matrix whose $j$-th column is $T(\mathbf{e}_j)$, the image of the $j$-th standard basis vector. **The columns of $A$ are where the basis vectors land.**
 
 *Proof.* Chapter 1.3 showed that every $\mathbf{x}$ is a recipe in the standard basis: $\mathbf{x} = x_1\mathbf{e}_1 + \cdots + x_n\mathbf{e}_n$, with the entries as the weights. Apply $T$ and use linearity: $T(\mathbf{x}) = x_1 T(\mathbf{e}_1) + \cdots + x_n T(\mathbf{e}_n)$. That is a linear combination of the fixed vectors $T(\mathbf{e}_j)$ with weights $x_j$; stack those fixed vectors as the columns of a matrix $A$ and the right-hand side is $A\mathbf{x}$ by definition of the product. Conversely $\mathbf{x} \mapsto A\mathbf{x}$ is linear because combinations pass through it slotwise. ∎
 
@@ -70,9 +89,9 @@ $K$ applied to a sine returns the negative of the sine, to six decimal places, w
 
 ## 2.2 One product, two views
 
-Chapter 1 read a data matrix two ways, across the rows and down the columns. The matrix-vector product reads two ways too, and you should be fluent in both.
+The matrix-vector product reads two ways, just as the data matrix did, and you should be fluent in both.
 
-> **Definition 2.3 (matrix-vector product, both views).** For an $m \times n$ matrix $A$ with columns $\mathbf{a}_1, \ldots, \mathbf{a}_n$ and rows $\mathbf{r}_1, \ldots, \mathbf{r}_m$, the product $A\mathbf{x}$ is: **by columns**, the linear combination $x_1\mathbf{a}_1 + \cdots + x_n\mathbf{a}_n$; **by rows**, the vector whose $i$-th entry is the dot product $\mathbf{r}_i \cdot \mathbf{x}$.
+> **Definition 2.4 (matrix-vector product, both views).** For an $m \times n$ matrix $A$ with columns $\mathbf{a}_1, \ldots, \mathbf{a}_n$ and rows $\mathbf{r}_1, \ldots, \mathbf{r}_m$, the product $A\mathbf{x}$ is: **by columns**, the linear combination $x_1\mathbf{a}_1 + \cdots + x_n\mathbf{a}_n$; **by rows**, the vector whose $i$-th entry is the dot product $\mathbf{r}_i \cdot \mathbf{x}$.
 
 Instantiate it on the small example
 
@@ -80,7 +99,7 @@ $$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix}, \qquad \mathbf{x} =
 
 By rows, each output entry is a dot product: the first row gives $1 \cdot 7 + 2 \cdot 8 = 23$, the second $3 \cdot 7 + 4 \cdot 8 = 53$, the third $5 \cdot 7 + 6 \cdot 8 = 83$. By columns, the output is one linear combination: $7(1,3,5) + 8(2,4,6) = (7, 21, 35) + (16, 32, 48) = (23, 53, 83)$. Same sixteen multiplications, same answer, different story.
 
-> **Proposition 2.4 (the two views agree).** The row view and the column view compute the same vector.
+> **Claim 2.5 (the two views agree).** The row view and the column view compute the same vector.
 
 *Proof.* Entry $i$ of the column view is $\sum_j x_j (\mathbf{a}_j)_i = \sum_j x_j A_{ij}$. Entry $i$ of the row view is $\mathbf{r}_i \cdot \mathbf{x} = \sum_j A_{ij} x_j$. The sums are identical term by term. ∎
 
@@ -109,17 +128,17 @@ The row view is how you compute by hand, one entry at a time. The column view is
 
 Multiplying two matrices answers a natural question: what single action equals doing $B$, then doing $A$?
 
-> **Definition 2.5 (matrix-matrix product).** The product $AB$ is the matrix whose $j$-th column is $A$ applied to the $j$-th column of $B$. It is built precisely so that $(AB)\mathbf{x} = A(B\mathbf{x})$ for every $\mathbf{x}$: the matrix of the composed transformation.
+> **Definition 2.6 (matrix-matrix product).** The product $AB$ is the matrix whose $j$-th column is $A$ applied to the $j$-th column of $B$. It is built precisely so that $(AB)\mathbf{x} = A(B\mathbf{x})$ for every $\mathbf{x}$: the matrix of the composed transformation.
 
-> **Proposition 2.6 (composition works).** With $AB$ as defined, $(AB)\mathbf{x} = A(B\mathbf{x})$ for all $\mathbf{x}$, and matrix multiplication is associative.
+> **Claim 2.7 (composition works).** With $AB$ as defined, $(AB)\mathbf{x} = A(B\mathbf{x})$ for all $\mathbf{x}$, and matrix multiplication is associative.
 
 *Sketch.* $B\mathbf{x}$ is a combination of $B$'s columns with recipe $\mathbf{x}$; apply $A$ and linearity carries the recipe onto the vectors $A\mathbf{b}_j$, which are the columns of $AB$. Associativity is then inherited from function composition, which never cared about parentheses. Write out the double sum once in your life (exercise 4); after that, trust the functions. ∎
 
-Composition is why the order matters and why $AB \neq BA$ in general: rotate then stretch is a different verb than stretch then rotate. And composition is where a high school memory pays off. Work one rotation by hand first: the ninety-degree rotation sends $\mathbf{e}_1 = (1, 0)$ straight up to $(0, 1)$ and sends $\mathbf{e}_2 = (0, 1)$ to $(-1, 0)$, so by Proposition 2.2 its matrix is those two images stacked as columns. One picture, two columns, no algebra.
+Composition is why the order matters and why $AB \neq BA$ in general: rotate then stretch is a different verb than stretch then rotate. And composition is where a high school memory pays off. Work one rotation by hand first: the ninety-degree rotation sends $\mathbf{e}_1 = (1, 0)$ straight up to $(0, 1)$ and sends $\mathbf{e}_2 = (0, 1)$ to $(-1, 0)$, so by Claim 2.3 its matrix is those two images stacked as columns. One picture, two columns, no algebra.
 
-> **Proposition 2.7 (rotations compose by adding angles).** $R(a)\,R(b) = R(a+b)$ for the $2 \times 2$ rotation matrices $R(t) = \begin{bmatrix} \cos t & -\sin t \\ \sin t & \cos t \end{bmatrix}$.
+> **Claim 2.8 (rotations compose by adding angles).** $R(a)\,R(b) = R(a+b)$ for the $2 \times 2$ rotation matrices $R(t) = \begin{bmatrix} \cos t & -\sin t \\ \sin t & \cos t \end{bmatrix}$.
 
-*Verified computationally below; exercise 5 completes the proof by direct multiplication, and the entries that fall out are the angle-sum identities.*[^trig]
+*Verified computationally below; exercise 5 completes the argument by direct multiplication, and the entries that fall out are the angle-sum identities.*[^trig]
 
 ```python
 def R(t):
@@ -142,15 +161,15 @@ Zero to machine precision. The verdict: two rotations are one rotation, and the 
 
 Three named matrices round out the toolkit.
 
-> **Definition 2.8 (identity matrix).** The **identity** $I$ has ones on the diagonal and zeros elsewhere; it is the verb that does nothing, $I\mathbf{x} = \mathbf{x}$. (Check it with Proposition 2.2: it sends every $\mathbf{e}_j$ to itself, so its columns are the standard basis.)
+> **Definition 2.9 (identity matrix).** The **identity** $I$ has ones on the diagonal and zeros elsewhere; it is the verb that does nothing, $I\mathbf{x} = \mathbf{x}$. (Check it with Claim 2.3: it sends every $\mathbf{e}_j$ to itself, so its columns are the standard basis.)
 
-> **Definition 2.9 (transpose).** The **transpose** $A^\mathsf{T}$ swaps rows for columns: $(A^\mathsf{T})_{ij} = A_{ji}$. Its deeper meaning waits for the dot product's return in Chapter 6; for now it is notation you will see constantly.
+> **Definition 2.10 (transpose).** The **transpose** $A^\mathsf{T}$ swaps rows for columns: $(A^\mathsf{T})_{ij} = A_{ji}$. Its deeper meaning waits for the dot product's return in Chapter 6; for now it is notation you will see constantly.
 
-> **Definition 2.10 (inverse).** A square matrix $A$ is **invertible** when there is a matrix $A^{-1}$ with $A^{-1}A = I$: an undo. Applying $A$ and then $A^{-1}$ is the verb that does nothing.
+> **Definition 2.11 (inverse).** A square matrix $A$ is **invertible** when there is a matrix $A^{-1}$ with $A^{-1}A = I$: an undo. Applying $A$ and then $A^{-1}$ is the verb that does nothing.
 
 The difference matrix makes the inverse concrete. What undoes taking differences? Taking running sums.
 
-> **Proposition 2.11 (the inverse of differencing is summing).** The inverse of the $3 \times 3$ first-difference matrix is the lower triangle of ones: the running-sum matrix.
+> **Claim 2.12 (the inverse of differencing is summing).** The inverse of the $3 \times 3$ first-difference matrix is the lower triangle of ones: the running-sum matrix.
 
 *Verified below; the sketch is one word: telescoping. The $i$-th running sum of the differences of $\mathbf{x}$ collapses to $x_i$, because every intermediate term enters once with each sign.*
 
@@ -188,13 +207,13 @@ S = np.diag([2.0, 0.5])                    # scaling
 
 Rotation preserves lengths and angles; it moves points without distorting anything. Scaling stretches each axis by its own factor; the diagonal entries are the factors. Both are useful, and both are warmups. The third panel is the one this book runs on.
 
-> **Definition 2.12 (orthogonal projection onto a line).** The **projection** onto the line of a nonzero vector $\mathbf{u}$ sends each vector to its closest point on that line, its shadow. Its matrix is $P = \dfrac{\mathbf{u}\mathbf{u}^\mathsf{T}}{\mathbf{u}^\mathsf{T}\mathbf{u}}$.
+> **Definition 2.13 (orthogonal projection onto a line).** The **projection** onto the line of a nonzero vector $\mathbf{u}$ sends each vector to its closest point on that line, its shadow. Its matrix is $P = \dfrac{\mathbf{u}\mathbf{u}^\mathsf{T}}{\mathbf{u}^\mathsf{T}\mathbf{u}}$.
 
 Work one by hand before trusting the formula. Project $\mathbf{v} = (3, 4)$ onto the line of $\mathbf{u} = (2, 1)$. The recipe inside $P$ is: dot, normalize, rescale. First $\mathbf{u} \cdot \mathbf{v} = 6 + 4 = 10$ and $\mathbf{u} \cdot \mathbf{u} = 5$. The shadow is $\frac{10}{5}\mathbf{u} = 2\mathbf{u} = (4, 2)$. The leftover is $\mathbf{v} - (4, 2) = (-1, 2)$, and its dot product with $\mathbf{u}$ is $-2 + 2 = 0$. The shadow lies on the line; the leftover is perpendicular to it; integer arithmetic throughout.
 
-That hand computation just previewed both halves of the proposition.
+That hand computation just previewed both halves of the claim.
 
-> **Proposition 2.13 (what makes a projection a projection).** $P^2 = P$ (projecting twice is projecting once), and for every $\mathbf{v}$ the residual $\mathbf{v} - P\mathbf{v}$ is orthogonal to $\mathbf{u}$.
+> **Claim 2.14 (what makes a projection a projection).** $P^2 = P$ (projecting twice is projecting once), and for every $\mathbf{v}$ the residual $\mathbf{v} - P\mathbf{v}$ is orthogonal to $\mathbf{u}$.
 
 *Proof.* Since $\mathbf{u}^\mathsf{T}\mathbf{u}$ is a scalar, $P^2 = \dfrac{\mathbf{u}(\mathbf{u}^\mathsf{T}\mathbf{u})\mathbf{u}^\mathsf{T}}{(\mathbf{u}^\mathsf{T}\mathbf{u})^2} = \dfrac{\mathbf{u}\mathbf{u}^\mathsf{T}}{\mathbf{u}^\mathsf{T}\mathbf{u}} = P$. For the residual, $\mathbf{u}^\mathsf{T}(\mathbf{v} - P\mathbf{v}) = \mathbf{u}^\mathsf{T}\mathbf{v} - \dfrac{(\mathbf{u}^\mathsf{T}\mathbf{u})(\mathbf{u}^\mathsf{T}\mathbf{v})}{\mathbf{u}^\mathsf{T}\mathbf{u}} = 0$. ∎
 
@@ -225,7 +244,7 @@ $$\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}\begin{bmatrix} c \\ d \end{bmatri
 
 and the substitution you ran, $d = 4 - 2c$ into the second equation, delivered $c = 1$, $d = 2$. Solving a system is finding the recipe; you knew this maneuver before it had a matrix wrapped around it.
 
-The difference matrix behaves perfectly. Its columns are independent, they span all of three-dimensional space, every $\mathbf{b}$ is reachable, and the recipe is unique: run the sums. For $\mathbf{b} = (1, 3, 5)$ the recipe is $\mathbf{x} = (1, 4, 9)$, as Proposition 2.11 computed. One recipe for every target is invertibility, Definition 2.10, seen from the output side.
+The difference matrix behaves perfectly. Its columns are independent, they span all of three-dimensional space, every $\mathbf{b}$ is reachable, and the recipe is unique: run the sums. For $\mathbf{b} = (1, 3, 5)$ the recipe is $\mathbf{x} = (1, 4, 9)$, as Claim 2.12 computed. One recipe for every target is invertibility, Definition 2.11, seen from the output side.
 
 Now change one entry and watch the behavior collapse. Make the matrix cyclic, so each output entry is a difference and the differences wrap around:
 
@@ -243,21 +262,21 @@ rank of A3: 3   rank of C: 2
 
 $C$ crushes the vector $(3, 3, 3)$ to zero, and it crushes every constant vector the same way: shift a sequence by a constant and its wrapped differences never notice. So $C$ cannot be undone; the constant is gone, and no matrix can recover information that was destroyed. The set of everything a matrix crushes deserves a name.
 
-> **Definition 2.14 (null space).** The **null space** of $A$ is the set of all vectors it sends to zero: every $\mathbf{x}$ with $A\mathbf{x} = \mathbf{0}$.
+> **Definition 2.15 (null space).** The **null space** of $A$ is the set of all vectors it sends to zero: every $\mathbf{x}$ with $A\mathbf{x} = \mathbf{0}$.
 
-> **Proposition 2.15 (the null space is a subspace).** For any matrix $A$, the null space of $A$ is a subspace.
+> **Claim 2.16 (the null space is a subspace).** For any matrix $A$, the null space of $A$ is a subspace.
 
-*Proof.* The three checks of Proposition 1.5's pattern. $A\mathbf{0} = \mathbf{0}$, so the origin is in. If $A\mathbf{x} = \mathbf{0}$ then $A(c\mathbf{x}) = cA\mathbf{x} = \mathbf{0}$. If $A\mathbf{x} = A\mathbf{y} = \mathbf{0}$ then $A(\mathbf{x} + \mathbf{y}) = \mathbf{0} + \mathbf{0} = \mathbf{0}$. Closed both ways. ∎
+*Proof.* The same three checks as Claim 1.5. $A\mathbf{0} = \mathbf{0}$, so the origin is in. If $A\mathbf{x} = \mathbf{0}$ then $A(c\mathbf{x}) = cA\mathbf{x} = \mathbf{0}$. If $A\mathbf{x} = A\mathbf{y} = \mathbf{0}$ then $A(\mathbf{x} + \mathbf{y}) = \mathbf{0} + \mathbf{0} = \mathbf{0}$. Closed both ways. ∎
 
 For our cyclic $C$, the null space is the line of constant vectors, a one-dimensional subspace, and its existence is exactly what broke invertibility.
 
-> **Proposition 2.16 (invertibility and the null space).** A square matrix is invertible exactly when its null space is $\{\mathbf{0}\}$.
+> **Claim 2.17 (invertibility and the null space).** A square matrix is invertible exactly when its null space is $\{\mathbf{0}\}$.
 
-*Sketch.* If something nonzero is crushed to zero, two different inputs share an output (add the crushed vector to any input), and no undo can tell them apart. If nothing but zero is crushed, the columns are independent; $n$ independent columns in $\mathbb{R}^n$ span everything by the dimension count of Proposition 1.11, and every target then has exactly one recipe. That assignment of recipe to target is the inverse. Chapter 11 completes the accounting alongside the other two subspaces waiting there. ∎
+*Sketch.* If something nonzero is crushed to zero, two different inputs share an output (add the crushed vector to any input), and no undo can tell them apart. If nothing but zero is crushed, the columns are independent; $n$ independent columns in $\mathbb{R}^n$ span everything by the dimension count of Claim 1.10, and every target then has exactly one recipe. That assignment of recipe to target is the inverse. Chapter 11 completes the accounting alongside the other two subspaces waiting there. ∎
 
 The geometry says the same thing in one look: $C$'s three columns lie in a common plane, so their span is that plane and not all of space. A target off the plane, $(1, 3, 5)$ for instance, has no recipe at all; a target on the plane has infinitely many, because you can slide any constant vector into $\mathbf{x}$ for free. Reach (the column space) and crush (the null space) are two sides of one accounting, and the rank computation above measures the reach: 3 of 3 for the difference matrix, 2 of 3 for the cyclic one.
 
-One more pair of names before moving to data. When a system has more equations than unknowns, more measurements than recipe entries, it is **overdetermined**: generally nothing satisfies every equation, and the best we can do is get close. That regime is least squares, Chapter 11. When it has fewer independent directions than it has coordinates, the data is secretly lower-dimensional and the game is finding the directions that matter. That regime is principal component analysis, Chapter 10. The two regimes of estimation are the two ways $A\mathbf{x} = \mathbf{b}$ can fail to be square.
+One more pair of names before returning to the data. When a system has more equations than unknowns, more measurements than recipe entries, it is **overdetermined**: generally nothing satisfies every equation, and the best we can do is get close. That regime is least squares, Chapter 11. When it has fewer independent directions than it has coordinates, the data is secretly lower-dimensional and the game is finding the directions that matter. That regime is principal component analysis, Chapter 10. The two regimes of estimation are the two ways $A\mathbf{x} = \mathbf{b}$ can fail to be square.
 
 ## 2.5 Standardization is a transformation
 
@@ -269,9 +288,9 @@ $$z = \frac{x - \mu}{\sigma}$$
 
 Every standardized column is centered at zero with standard deviation one, so a step of one in any of them means the same thing: one standard deviation of that feature.
 
-**Honesty box.** Standardization is not a linear transformation, and this book will not pretend otherwise. The scaling half is honestly linear: dividing each column by its $\sigma$ is multiplication by a diagonal matrix. But the centering half shifts every vector by a constant, and a shift moves the origin, which violates the contract's quietest clause: every linear transformation sends $\mathbf{0}$ to $\mathbf{0}$ (set $c = d = 0$ in Definition 2.1). The name for linear-plus-shift is **affine**. This is the one place in the chapter we bend the contract, we do it knowingly, and Chapter 6 will center everything in sight anyway, because covariance lives in deviations from the mean. Standardization is that chapter's front porch.
+**Honesty box.** Standardization is not a linear transformation, and this book will not pretend otherwise. The scaling half is honestly linear: dividing each column by its $\sigma$ is multiplication by a diagonal matrix. But the centering half shifts every vector by a constant, and a shift moves the origin, which violates the contract's quietest clause: every linear transformation sends $\mathbf{0}$ to $\mathbf{0}$ (set $c = d = 0$ in Definition 2.2). The name for linear-plus-shift is **affine**. This is the one place in the chapter we bend the contract, we do it knowingly, and Chapter 6 will center everything in sight anyway, because covariance lives in deviations from the mean. Standardization is that chapter's front porch.
 
-Some Ames features are words rather than numbers, neighborhood and roof style among them. Words honor the contract the same way everything else does: give each category its own **indicator column**, a one where the category holds and zeros elsewhere, and a categorical feature becomes a small block of vectors. The move is called **one-hot encoding**, and it is the contract doing its quiet work again: once a word is a vector, every tool in this book applies to it. Two consequences are planted here and paid off later. Regress a price on an indicator alone and the weight you earn is a group mean, which is Chapter 5's bridge between estimation and expectation. And a full block of indicators always sums to the all-ones vector, a built-in dependence that puts a vector in the null space of any design matrix carrying them all; that trap, and the hygiene for it, is Chapter 11 business, and you now own the vocabulary it will be settled in (Definition 2.14).
+The word-features from Section 2.1 honor the contract the same way everything else does: give each category its own **indicator column**, a one where the category holds and zeros elsewhere, and a categorical feature becomes a small block of vectors. The move is called **one-hot encoding**, and it is the contract doing its quiet work again: once a word is a vector, every tool in this book applies to it. Two consequences are planted here and paid off later. Regress a price on an indicator alone and the weight you earn is a group mean, which is Chapter 5's bridge between estimation and expectation. And a full block of indicators always sums to the all-ones vector, a built-in dependence that puts a vector in the null space of any design matrix carrying them all; that trap, and the hygiene for it, is Chapter 11 business, and you now own the vocabulary it will be settled in (Definition 2.15).
 
 Indicators also expose a seam in standardization. An indicator is already on a natural scale: zero or one, a category flip. Divide it by its standard deviation and you wreck the interpretation for no gain. Andrew Gelman's resolution is to leave the indicators alone and move the numerics to meet them: center each numeric feature and divide by **two** standard deviations, so that a one-unit change in a scaled numeric spans a typical contrast, low to high, the same size of move as flipping an indicator.[^gelman] That gives the book its second convention, and the two leave this chapter side by side. The matrix $Z$ holds the numerics at one standard deviation, mean zero and unit scale, and feeds the covariance work of Chapters 6 and 10. The **Gelman design matrix** $X_g$ holds the numerics at two standard deviations with the indicators raw, and feeds the regressions of Chapter 11, where every coefficient will speak one currency: dollars per typical contrast.
 
@@ -279,7 +298,7 @@ Indicators also expose a seam in standardization. An indicator is already on a n
 
 ## 2.6 Implementation: a covariance-ready Ames, twice
 
-The companion notebook carries the full pipeline; here are the moves that matter. Load the three Ames files, keep the complete numeric columns, and standardize the matrix in two lines:
+The companion notebook carries the full pipeline; here are the moves that matter. Keep the complete numeric columns and standardize the matrix in two lines:
 
 ```python
 mu = X.mean().to_numpy()
@@ -349,30 +368,21 @@ The chapter's exit state is both matrices. $Z$: 1,460 homes, thirty-three standa
 
 ## 2.7 Summary and exercises
 
-A matrix is a verb, and Proposition 2.2 is why the verb is knowable: its columns are where the basis vectors land, so multiplying by it forms a linear combination of the columns with the input as the recipe. Everything else in the chapter was learning to read what the verb does. The collection so far: differencing (a derivative), running sums (its undo, Proposition 2.11), rotation (composing by added angles, Proposition 2.7), scaling, projection (idempotent with an orthogonal residual, Proposition 2.13, and load-bearing for Chapters 10 and 11), and standardization (the affine move that makes weights comparable, bent contract disclosed). Running the verb backwards is a system $A\mathbf{x} = \mathbf{b}$: solvable exactly when the target is in the column space, uniquely when the null space is trivial (Propositions 2.15, 2.16).
-
-You exit this chapter holding: the transformation-matrix dictionary of Proposition 2.2, both product views, five named verbs and two named inverses, the reach-and-crush accounting of column space and null space, and two data matrices, $Z$ and $X_g$, staged for Chapters 6 and 11 respectively.
+A matrix is a container and a verb, and Claim 2.3 is why the verb is knowable: its columns are where the basis vectors land, so multiplying by it forms a linear combination of the columns with the input as the recipe. Everything else in the chapter was learning to read what the verb does. The collection so far: differencing (a derivative), running sums (its undo, Claim 2.12), rotation (composing by added angles, Claim 2.8), scaling, projection (idempotent with an orthogonal residual, Claim 2.14, and load-bearing for Chapters 10 and 11), and standardization (the affine move that makes weights comparable, bent contract disclosed). Running the verb backwards is a system $A\mathbf{x} = \mathbf{b}$: solvable exactly when the target is in the column space, uniquely when the null space is trivial (Claims 2.16, 2.17).
 
 Chapter 3 asks the question this chapter set up. Most verbs tangle directions together; a rotation moves every vector off itself. But some directions, for some matrices, come out of the action merely stretched. Those directions are the eigenvectors, and the second difference matrix $K$ is carrying a set of them you already know by name.
 
 **Exercises**
 
 1. *(pencil)* Compute `A3 @ x` for `x = (1, 4, 9)` both ways: rows as dot products, columns as a combination. Confirm you recover `(1, 3, 5)`.
-2. *(pencil)* The reflection across the horizontal axis sends $(x_1, x_2)$ to $(x_1, -x_2)$. Use Proposition 2.2 to write its matrix without any algebra: where do $\mathbf{e}_1$ and $\mathbf{e}_2$ land?
+2. *(pencil)* The reflection across the horizontal axis sends $(x_1, x_2)$ to $(x_1, -x_2)$. Use Claim 2.3 to write its matrix without any algebra: where do $\mathbf{e}_1$ and $\mathbf{e}_2$ land?
 3. *(keyboard)* Build the forward-difference matrix `D` for `n = 10_000` and measure `max |D @ sin - cos|` again. The grid tightened tenfold; what happened to the error, and why?
-4. *(pencil)* Write out $(AB)\mathbf{x}$ and $A(B\mathbf{x})$ as double sums for $2 \times 2$ matrices and confirm they match, completing the sketch of Proposition 2.6. Once in a lifetime suffices.
-5. *(pencil)* Multiply $R(a)R(b)$ symbolically and identify the trig identities that fall out, completing the proof of Proposition 2.7.
-6. *(pencil)* Show that $P = \mathbf{u}\mathbf{u}^\mathsf{T}/(\mathbf{u}^\mathsf{T}\mathbf{u})$ is symmetric ($P^\mathsf{T} = P$), the property Proposition 2.13 did not use. One line, using $(\mathbf{u}\mathbf{u}^\mathsf{T})^\mathsf{T} = \mathbf{u}\mathbf{u}^\mathsf{T}$.
+4. *(pencil)* Write out $(AB)\mathbf{x}$ and $A(B\mathbf{x})$ as double sums for $2 \times 2$ matrices and confirm they match, completing the sketch of Claim 2.7. Once in a lifetime suffices.
+5. *(pencil)* Multiply $R(a)R(b)$ symbolically and identify the trig identities that fall out, completing the argument of Claim 2.8.
+6. *(pencil)* Show that $P = \mathbf{u}\mathbf{u}^\mathsf{T}/(\mathbf{u}^\mathsf{T}\mathbf{u})$ is symmetric ($P^\mathsf{T} = P$), the property Claim 2.14 did not use. One line, using $(\mathbf{u}\mathbf{u}^\mathsf{T})^\mathsf{T} = \mathbf{u}\mathbf{u}^\mathsf{T}$.
 7. *(pencil)* Project $(1, 5)$ onto the line of $(2, 1)$ by hand: dot, normalize, rescale. Then verify the residual is orthogonal.
 8. *(pencil)* Find a nonzero vector in the null space of `C` other than `(3, 3, 3)`, and describe the whole null space in one sentence.
 9. *(keyboard)* Confirm computationally that `C`'s null space is one-dimensional: compute `np.linalg.matrix_rank(C)` and use rank + nullity = number of columns (take the identity on faith until Chapter 11).
 10. *(keyboard)* Standardize three Ames features of your choosing and refit the 1.1 regression with all three. Which feature moves the price most per standard deviation? Did the raw weights predict that ranking?
 11. *(keyboard)* Build `X_g`'s indicator block for `Neighborhood` alone with `pd.get_dummies`, and confirm the block's columns sum to the all-ones vector. You have exhibited the Chapter 11 dummy trap with your own hands; say which definition of this chapter the trap lives in.
 12. *(keyboard, bridge → Ch 3)* Apply `K` to a sampled sine, `np.sin(3 * x)`, and to a random vector of the same length. Compare each output to its input: which one came back as a scaled copy of itself, and by what factor? You have just met an eigenvector; Chapter 3 makes it official.
-
-**Further treks**
-
-- Gilbert Strang, *Computational Science and Engineering*: the book built around $K$, and the reason this one exists. Its first chapter gives the second-difference matrix a whole life.
-- Joshua Cook, *Computational Methods in Molecular Quantum Mechanics*, Leanpub, 2016: the author's own first walk through $K$'s eigenproblem, quantum flavored, racing hand-built eigensolvers against LAPACK.
-- Andrew Gelman, "Scaling regression inputs by dividing by two standard deviations," *Statistics in Medicine* 27(15), 2008: the four-page argument behind $X_g$.
-- Charles R. Harris et al., "Array programming with NumPy," *Nature* 585, 2020: how the array you have been multiplying actually lives in memory, from the people who built it.

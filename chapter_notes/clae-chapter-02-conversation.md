@@ -61,3 +61,12 @@ sin(3x) vs random: meet an eigenvector) and the dummy-trap-by-hand (ex 11).
 Treks: CSE, the 2015 Leanpub paper, Gelman 2008, Harris et al. NumPy Nature
 paper. Jim-website footnote also grafted into preface v4 (archive.org
 citation per the never-print-a-parked-domain rule).
+
+## 2026-07-12 — RETROFIT-2 knock-ons (light)
+
+Receives the data-matrix material as its opening beat (container arrives,
+then the verb; Definition 2.1 = conventions). All items renumbered +1;
+Proposition → Claim; Ch 1 cross-refs updated (Claim 1.5, Claim 1.10); treks
+to stock. Proof blocks intentionally NOT yet converted to Strang-way: that
+happens at the full pass when Josh's Ch 2 ink arrives. Column-space treatment
+now unambiguously Ch 2 material (resolves ink #36).

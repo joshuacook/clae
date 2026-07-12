@@ -2,13 +2,13 @@
      his, verbatim with mechanical fixes only). The route/Lockhart paragraph is
      Claude's fresh draft answering Josh's design NOTE; redline freely.
      Companion cell: clae-code/ch00/preface.ipynb (canonical 0.0031).
-     Spelling CONFIRMED by Josh (2026-07-11): Kruideneir.
+     Spelling: Kruidenier, per the SBCC catalog and directory (verified 2026-07-12).
      Year deliberately omitted (Josh: "not important").
      Words: 1180 prose / 1303 total (auto: tools/wordcount.py)-->
 
 # Preface
 
-5\.
+Five.
 
 Out of twenty-five.
 
@@ -16,13 +16,19 @@ I was thirty-seven years old taking a night class in linear algebra at Santa Bar
 
 The class let out at eight and took Jim[^jim] with it. I stayed and decoded this mystic art in which Jim was attempting to initiate us ... Linearity.
 
-[^jim]: Professor Jim Kruideneir 25 year veteran of the SBCC math department, but no one called him Professor Kruideneir or even Professor K, we called him Jim.
+[^jim]: Professor Jim Kruidenier 25 year veteran of the SBCC math department, but no one called him Professor Kruidenier or even Professor K, we called him Jim.
 
 I was swimming. Spans. Bases. Linear Combinations. I sat in that desk well after the janitor had emptied the trash can, working through everything I had gotten wrong. It was well into the night when I walked to the car to head home.
 
-My route to higher math was ironically non-linear. Before I was a student of Jim's (and an acolyte of Strang's), I had been a teacher of high school geometry in South Los Angeles, some of the toughest classrooms in the country, where the focus was often structure and stability at the expense of rigor. Geometry is the outlier of high school mathematics, the one course where students are asked to reason rather than compute, the way linear algebra is the outlier of the lower division. I had chosen the outlier on purpose. Somewhere in those years I read Paul Lockhart's *A Mathematician's Lament*, a working mathematician's essay on what school does to his subject.[^lockhart] Lockhart says we teach mathematics the way we would teach music if we made children copy sheet music for a decade and never played them a song. I recognized my own classroom in the accusation and did what I could against it: real geometry, two-column proofs, in Spanish. But the Lament reads differently once you are the student. Staring at that 5, I was the one who had spent a decade copying sheet music.
+&nbsp;
 
-[^lockhart]: Paul Lockhart, *A Mathematician's Lament: How School Cheats Us Out of Our Most Fascinating and Imaginative Art Form*, Bellevue Literary Press, 2009. The essay circulated informally from 2002 before Devlin talked him into the book.
+My route to higher math was ironically non-linear. Before I was a student of Jim's (and an acolyte of Strang's), I had been a teacher of high school geometry in South Los Angeles, some of the toughest classrooms in the country, where the focus was often structure and stability at the expense of rigor.
+
+Geometry is the outlier of high school mathematics, the one course where students are asked to reason rather than compute. In the same way linear algebra is the outlier of the lower division. The rest of the high school sequence is a pipeline: algebra into precalculus into calculus, every course a taller stack of procedures than the one before, every answer a number at the end of a computation. Geometry interrupts the pipeline. For one year the question changes from what is the value to why is this true, and the answer is an argument you build and defend. Then the pipeline resumes, three semesters of calculus deep into the university, procedures all the way, until linear algebra interrupts it again: the first course where the objects have structure, the claims want reasons, and what a thing is matters more than how to evaluate it. Same interruption, two shelves apart. I had taught the first outlier for a decade. I had come back to school, though I could not have said this at the time, looking for the second one. I had chosen the outlier on purpose, both times.
+
+Somewhere in those teaching years I read Paul Lockhart's *A Mathematician's Lament*, a working mathematician's essay on what school does to his subject.[^lockhart] Lockhart says we teach mathematics the way we would teach music if we made children copy sheet music for a decade and never played them a song. I recognized my own classroom in the accusation and did what I could against it: real geometry, two-column proofs, in Spanish. But the Lament reads differently once you are the student. Staring at that 5, I was the one who had spent a decade copying sheet music.
+
+[^lockhart]: Paul Lockhart, *A Mathematician's Lament: How School Cheats Us Out of Our Most Fascinating and Imaginative Art Form*, Bellevue Literary Press, 2009. The essay circulated privately from 2002 until Keith Devlin, who wrote the MAA's Devlin's Angle column, published it there in 2008 and talked Lockhart into the book.
 
 Jim is a mystic steeped in the ways of Gilbert Strang, and if that name is new to you, it names a tradition. Strang taught linear algebra at MIT for six decades. His filmed lectures are available free on [MIT OpenCourseWare](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/) and have probably taught this subject to more people than any classroom on earth.
 

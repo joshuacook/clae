@@ -28,3 +28,10 @@ example), the analytic-vs-LAPACK race (exhibit), power method (§3.5). The
 particle-in-a-box placement question (Ch 2 verb vs Ch 3 payload vs both) is
 still OPEN with Josh; Ch 2's draft plants K and teases "eigenvectors you
 already know by name," which leans toward Ch 3 carrying the payload.
+
+## 2026-07-12 — RULED: particle-in-a-box lives here
+
+The Ch 2-vs-Ch 3 placement question is settled: Ch 3 carries the payload
+(eigenvectors of K are sines; eigenvalues 2 − 2cos(kπ/(n+1)); quantization
+read off the spectrum; Singer cited at the orbitals moment; power method in
+§3.5). Ch 2 keeps only the bridge exercise (K on sin(3x) vs a random vector).

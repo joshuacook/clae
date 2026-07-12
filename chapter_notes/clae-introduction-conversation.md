@@ -19,3 +19,15 @@ the unearned lstsq.
   proof); exercise tiers; the footnote culture.
 - **0.5 WHAT WE ASSUME.** Prerequisites; the assume-GE clause; declared
   hand-waves, delivered with the courteous wink.
+
+## 2026-07-12 — 0.4 grows (RETROFIT-2 rulings)
+
+Introduction 0.4 now also carries: the Claim vocabulary and how claims are
+supported (the Strang way: witness + one-breath reason; arguments in
+footnotes/references); the epistemology sentence; THE LENS PRACTICE (lenses
+named in text; they are songs, not checkboxes) with its two lineages (Algebra
+1 multiple representations: plot/function/table/pattern; and guess-and-check,
+"both examples of pedagogical genius and both poopooed by the determinant
+obsessed gatekeepers"; guess-and-check IS claim-then-check, cf. the power
+method); and the footnote-about-footnotes policy declaration (first instance
+lives at Claim 1.5's footnote; Introduction may restate).

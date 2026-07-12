@@ -90,3 +90,20 @@ ratio 0.9644 = the raw cosine between GrLivArea and OverallQual). Four
 hand-worked (pencil axpy; span membership (4,7) = 1v + 2w; the dependent
 triple by hand, incl. an honest caught-mistake beat; angle 37.9 degrees).
 12 tiered exercises; treks (Strang/OCW, Axler, Lockhart, Singer, BLAS 1979).
+
+## 2026-07-12 — RETROFIT-2 applied
+
+The inked census executed: 25 yellow aphorisms rewritten; Claims (1.5, 1.8,
+1.10) with Strang-way support; footnote-about-footnotes at Claim 1.5; lenses
+named throughout; 1.1 retitled "The Contract" with displayed closure
+Properties and the axpy-spell line; Ames real entrance + expanded
+SalePrice-as-axpy bridge + explicit-axpy prediction cell; eight axioms named
+in the footnote w/ Axler cite; AlphaTensor footnote dropped, GPU footnote
+added; 1.2 opens on the driving question, degenerate span in text, meshgrid =
+"every", hovering-tip geometry ahead of the reach beat; 1.3 slim definitions,
+dependence shown in a display + Fig 1.5 (new), matrix_rank cut; 1.4 redesigned
+(unit-circle lead, magnitude×direction, dot product as direction-agreement
+machine, C-S demoted to named fact + footnote + kept Ames cell); 1.5 = summary
++ 11 tiered exercises; treks to stock. §1.0 AI-era paragraphs rewritten for
+outsiders; BLAS/LAPACK + PyTorch/TensorFlow/CUDA named; functions renamed.
+Standing: the §1.1 opening line is still Josh's to write ("Not here yet").
