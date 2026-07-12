@@ -60,7 +60,24 @@ const DATA = /*DATA*/;
 const ENDPOINT = '/api/ink';
 const TOKEN = 'ba515fc2bde475ddccb5b89d699d9f169d6bcb22';
 const NAME = '/*NAME*/';
+const KEY = 'ink-' + NAME;
 let i = 0;
+function persist() {
+  localStorage.setItem(KEY, JSON.stringify({
+    i, records: DATA.map(r => ({n: r.n, transcription: r.transcription,
+                                anchor_text: r.anchor_text, verdict: r.verdict}))
+  }));
+}
+try {
+  const saved = JSON.parse(localStorage.getItem(KEY));
+  if (saved && saved.records) {
+    for (const sr of saved.records) {
+      const r = DATA.find(d => d.n === sr.n);
+      if (r) Object.assign(r, sr);
+    }
+    i = Math.min(saved.i || 0, DATA.length - 1);
+  }
+} catch (e) {}
 const card = document.getElementById('card');
 function show() {
   if (i >= DATA.length) return finish();
@@ -85,6 +102,7 @@ function saveEdits() {
 function back() {
   if (i === 0) return;
   saveEdits();
+  persist();
   i--;
   show();
 }
@@ -96,6 +114,7 @@ function save(status) {
 }
 function next(status) {
   save(status);
+  persist();
   card.classList.add('fly');
   setTimeout(() => { i++; show(); }, 190);
 }
@@ -135,10 +154,13 @@ document.getElementById('submit').onclick = async () => {
       headers: {'Content-Type': 'text/plain'},
       body: JSON.stringify({token: TOKEN, name: NAME, records: out}),
     });
+    if (resp.ok) localStorage.removeItem(KEY);
     res.textContent = resp.ok ? '✓ filed to the repo — tell Claude to sync'
                               : 'failed: HTTP ' + resp.status;
   } catch (e) { res.textContent = 'failed: ' + e; }
 };
+document.getElementById('txt').addEventListener('input', () => { saveEdits(); persist(); });
+document.getElementById('anchor').addEventListener('input', () => { saveEdits(); persist(); });
 show();
 </script>
 </body>
