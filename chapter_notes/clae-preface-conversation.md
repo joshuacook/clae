@@ -183,3 +183,68 @@ the old spelling, the manuscript is what matters). The article gets fixed
 ("as a high school geometry teacher" — so verbatim-means-verbatim, but he
 takes fixes when he asks for them). The 2013 date stays out: "Year not
 important."
+
+## 2026-07-12 — Preface ink, VERIFIED (Josh, card-by-card in the review app)
+
+Canonical source: `chapter_notes/clae-preface-2026-07-12-r3-ink-verified.md`
+(33 approved / 15 flagged; flags = duplicates and wordless constituent marks).
+The design substance, organized:
+
+**Page-1 sequencing problem (typed note):** three ideas demand proper
+exploration and sequencing: (1) the quiz failure as a way to motivate what
+WON'T be covered in the book; (2) the geometry connection to linear algebra;
+(3) the nonlinear journey.
+
+**The Quixote spine arrives (Josh's ink):** "my newly acquired Pythonic Lance
+dashed by a windmill named after Strang's three ways to view matrix
+multiplication" (caret at "was sure it was over"); "these are not the right
+blows delivered to our brave adult student knight" (the current 'Spans. Bases.
+Linear Combinations.' beat is the WRONG blows); "something about the ballads
+of data science heraldry" (at the quest charter). Design note #10: "where are
+Strang's three ways? Should they go in the preface? chapter one? The preface
+should lightly cover topics we won't cover in the chapters ... the three views
+of matrix multiplication, GAUSSIAN elimination ... we can tell it in the
+narrative by making it the windmills of the preface."
+
+**Structural verdicts:** "We also need to resolve Lockhart vs. the running
+threads from page one." · "Especially since then we flip back to
+Jim/Strang/mysticism -- we're all over the place!! (the music (Lockhart) vs
+mysticism flip flop)" · Lockhart work order: "do a proper reading of Lockhart,
+get the full thesis of his book then deliver the main statement - then at a
+high level ground it in this text i.e. PCA as the symphony." · The
+next-year paragraph "should be three or four paragraphs. How did it
+specifically return in each of these three or four things?" · The I-see-you-Gil
+beat "returns out of nowhere. It's a good beat ... I don't mean remove it I
+mean, fill in the blanks." · The Northridge/CSE beat: "Good beat but go
+deeper. It connects to forTran. It connects to numerical recipes." · The
+Feed-it paragraph: "way too many beats in one paragraph I added like four
+paragraph symbols." · The closing question: "This is the question, but
+there's no set up. The question arrives as a non sequitur" / "this IS THE
+QUESTION but it arrives unearned."
+
+**Inserts (carets):** "given that once there my path was an obsession with
+LINEARITY" (into "My route to higher math was ironically non-linear.
+Before..."); "REFERENCE EUCLID & SIDE ANGLE SIDE" (at "answer is an argument
+you build and defend"); new paragraph at "Same interruption, two shelves
+apart." "Incomplete -- more steps on the journey" (the South LA paragraph).
+
+**Yellow (ai speak, rewrite):** the "Same interruption ... both times."
+outlier-expansion passage; "was the one who had spent a decade copying sheet
+music."; "I never met Strang. I met Jim."; "and fourteen chapters on what
+that". **Blue (well written):** "promise to stay closed under them," (flagged
+for span — likely covers "This book asks for less. Two operations and a
+promise to stay closed under them,").
+
+**Smaller:** "Compute" is a good word: "The DETERMINANT people never left the
+other track." · "is it 'the geometry' or is it 'truth'?" (at "the geometry
+never quite arrives") · "does this subject have a more 'official' name. Of
+note: it leaves the computation of Newton for the intuition of Fourier" (at
+waves) · "Did physics say this or did I see it?" (at basis) · "BTW a way to
+ground uniqueness is to introduce solution uniqueness in lecture one. That's
+what Jim did. So if you have proven uniqueness and you find the solution then
+you are done." · orbitals: "I forget the name of the polynomials we use in
+orbitals" (answer when ruling: the associated Legendre polynomials in the
+spherical harmonics, plus Laguerre for the radial part).
+
+**Status:** census verified and filed; RULING PASS NEXT (sequencing +
+yellow rewrites + inserts), then an execution work order back to claude-code.
