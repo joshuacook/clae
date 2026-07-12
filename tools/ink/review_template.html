@@ -65,7 +65,7 @@ function show() {
   if (i >= DATA.length) return finish();
   const r = DATA[i];
   document.getElementById('prog').textContent = (i+1) + ' / ' + DATA.length;
-  document.getElementById('img').src = r.img ? 'data:image/png;base64,' + r.img : '';
+  document.getElementById('img').src = r.img ? 'data:image/jpeg;base64,' + r.img : '';
   const hl = r.kind === 'highlight'
     ? ' · <b class="' + (r.color === 'yellow' ? 'y' : 'b') + '">' +
       r.color.toUpperCase() + ' = ' + r.meaning + '</b>' : '';

@@ -107,7 +107,7 @@ def classify_color(rgb):
     return 'ink'
 
 
-def extract(pdf_path, out, project, location, model):
+def extract(pdf_path, out, project, location, model, name=None):
     os.makedirs(out, exist_ok=True)
     os.makedirs(f'{out}/pages', exist_ok=True)
     doc = fitz.open(pdf_path)
@@ -273,8 +273,8 @@ def extract(pdf_path, out, project, location, model):
         band = img.crop((0, top, img.width, bot))
         if band.width > 1300:
             band = band.resize((1300, int(band.height * 1300 / band.width)))
-        name = f'card_{i}.png'
-        band.save(f'{out}/cards/{name}')
+        name = f'card_{i}.jpg'
+        band.convert('RGB').save(f'{out}/cards/{name}', quality=80)
         r['card'] = name
     review_records = []
     for i, r in enumerate(records, 1):
@@ -291,7 +291,7 @@ def extract(pdf_path, out, project, location, model):
                             'review_template.html')).read()
     open(f'{out}/review.html', 'w').write(
         tpl.replace('/*DATA*/', json.dumps(review_records))
-           .replace('/*NAME*/', os.path.basename(pdf_path).rsplit('.', 1)[0]))
+           .replace('/*NAME*/', name or os.path.basename(pdf_path).rsplit('.', 1)[0]))
     print(f'{len(records)} marks; {len(ask)} on the ask-Josh list; review app written')
 
 
@@ -302,5 +302,6 @@ if __name__ == '__main__':
     p.add_argument('--project', default='cooksfleet-apps')
     p.add_argument('--location', default='global')
     p.add_argument('--model', default='gemini-3.1-pro-preview')
+    p.add_argument('--name', default=None)
     a = p.parse_args()
-    extract(a.pdf, a.out, a.project, a.location, a.model)
+    extract(a.pdf, a.out, a.project, a.location, a.model, a.name)

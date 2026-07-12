@@ -5,10 +5,11 @@ steps:
       - '-c'
       - |
         pip install --quiet pymupdf pillow numpy scipy google-genai
-        python extract_ink.py --pdf inked.pdf --out inkout \
+        python extract_ink.py --pdf inked.pdf --out inkout --name ${_NAME} \
           --project $PROJECT_ID --location global --model ${_MODEL}
 substitutions:
   _MODEL: 'gemini-3.1-pro-preview'
+  _NAME: 'census'
 artifacts:
   objects:
     location: 'gs://cooksfleet-apps_cloudbuild/clae-ink/'
