@@ -83,7 +83,7 @@ function show() {
   if (i >= DATA.length) return finish();
   const r = DATA[i];
   document.getElementById('prog').textContent = (i+1) + ' / ' + DATA.length;
-  document.getElementById('img').src = '/api/ink-card/' + r.n + '?k=' + TOKEN;
+  document.getElementById('img').src = '/api/ink-card/' + NAME + '/' + r.n + '?k=' + TOKEN;
   const hl = r.kind === 'highlight'
     ? ' · <b class="' + (r.color === 'yellow' ? 'y' : 'b') + '">' +
       r.color.toUpperCase() + ' = ' + r.meaning + '</b>' : '';
