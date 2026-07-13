@@ -538,17 +538,30 @@ cat intro.md 1.1-*.md 1.2-*.md ... | \
 
 The process is the same for all four books. The lens sets may differ per book (the textbook's lenses may weight pedagogical rigor differently than the Pro book's), but the structure (draft, pass 1, pass 2, diagram pass, author review, post-review lens pass, build validation, PDF rendering) is invariant.
 
-## Lenses in the text (CLAE, ruled 2026-07-12)
+## Lenses in the text (CLAE, ruled 2026-07-12; revised same day, double-census rulings)
 
 The lens system above governs review passes. In CLAE the lenses also live in
 the prose itself, and they MEAN something: "they are songs," not checkboxes.
 No reductive glosses, no mandatory coverage of every lens at every concept.
-Two duties only:
+
+**The lenses are introduced in the preface** (ruling 1, 2026-07-12). The
+lens framework gets its serious introduction there, joining the windmills
+as front-matter equipment. Chapters USE lenses the reader inherited from
+the front matter; they never re-introduce the framework (continuity rule:
+every chapter drafts as if the reader arrived through the preface).
+Introduction 0.4's disclosure points back at the preface rather than
+carrying the introduction itself.
+
+Two duties in the chapters:
 
 1. **Use the appropriate lens(es)** for each move (geometry, algebra,
    computation, data).
-2. **Name the lens being used, in the text, at each move** ("through the
-   geometric lens, scaling is stretching").
+2. **Mark every lens switch with the margin tag** (ruling 2, 2026-07-12):
+   a small-caps margin note at the switch point, `\lensmark{geometric}` /
+   `algebraic` / `computational` / `data`, rendered via the command in
+   tools/render/spreamble.tex. Naming the lens in the sentence remains
+   welcome where it reads naturally; the margin tag is the formal switch,
+   book-wide.
 
 Lineage (bank this; it shapes Introduction 0.4): the practice descends from
 Algebra 1's multiple representations (plot / function / table / pattern) and

@@ -219,3 +219,27 @@ bounded by the number of ingredients."
   will hear a full symphony") gets tempered to the plain promise.
 - **SHOW, don't tell** is ink-enforceable: if prose describes a computation
   ("make triangles, then climb down them"), show the computation.
+
+## From the Ch 1 ink (2026-07-12)
+
+- **Yellow means the voice, not the ideas.** Josh: "yellow text doesn't mean
+  the ideas are bad. It means the voice is." A yellow-flagged passage keeps
+  its content and gets rewritten plainly; do not cut the idea to dodge the
+  flag.
+- **TWEE.** The knowing-cleverness register ("The famous title decodes to
+  something quieter: the linear combination is all you need"). Cousin of
+  too-cute and too-cheeky; the tell is prose that nudges the reader to
+  admire the observation.
+- **Corny originality.** "It's like we're trying to find an original way to
+  say an old and universal idea. DON'T." When the idea is old and universal
+  (closure, the vector-space axioms), say it the standard plain way; novelty
+  of phrasing on bedrock material reads as costume.
+- **Trite coinage.** Stock rented phrases: "price of admission," "the entire
+  price of admission." If a phrase arrives pre-owned, write the literal
+  sentence instead.
+- **Precise names over folksy stand-ins.** "re 'family', use precise
+  language. If you mean 'subspace' say 'subspace'."
+- **One name per concept.** Introducing "magnitude" and "direction" and then
+  keeping "length" and "angle" running in parallel gives "two words for each
+  for maximum confusion." Pick the pair; retire the synonyms (this book:
+  magnitude & direction).

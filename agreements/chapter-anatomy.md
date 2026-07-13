@@ -17,18 +17,24 @@ Every concept moves through the same six stations, in order:
    "Definitions require an economy of language. As few and as simple words
    required for rigor."
 
-2b. **NAME THE LENS.** Every move announces which lens it is looking
-   through (geometry, algebra, computation, data), in the text, per the
-   lens rules in `writing-process.md`. Lenses are songs, not checkboxes:
-   use the appropriate one(s) and say so; no reductive glosses, no
-   mandatory coverage of all four.
+2b. **MARK THE LENS.** The lens framework is introduced in the preface
+   (ruling 1, 2026-07-12); chapters use lenses the reader inherited.
+   Every lens switch is marked with the margin tag (ruling 2):
+   `\lensmark{geometric|algebraic|computational|data}` at the switch
+   point, book-wide (command in tools/render/spreamble.tex). Lenses are
+   songs, not checkboxes: use the appropriate one(s); no reductive
+   glosses, no mandatory coverage of all four.
 3. **WORK IT BY HAND.** At least once per load-bearing concept, pencil
    arithmetic small enough to check at a desk: a 2×2 system, a dot product
    on integer vectors, one projection. The reader must feel the mechanism
    before the machine hides it.
 4. **STATE IT.** The numbered result (`**Claim N.k (name).**`, boxed like
    definitions). Never "Proposition," never "Theorem" (ruled 2026-07-12:
-   "Yes to claim!"). How claims get supported is the Strang way (below).
+   "Yes to claim!"). **The box holds the claim AND its explanation**
+   (ruled 2026-07-12, census #75/#82: bare claim-box + loose one-breath
+   prose "reads as proof-lite with less clarity"): the witness and the
+   one-breath reason live inside the box with the statement, as one unit.
+   How claims get supported is the Strang way (below).
 5. **RUN IT.** The computational realization: a cell from the companion
    notebook, a measured number, and a verdict sentence about the number.
 6. **FOOTNOTES.** Digressions collect at the unit's edge per the DFW rule;
@@ -56,6 +62,28 @@ footnote attached to the first Claim (or in Introduction 0.4), in Josh's
 register: the arguments are in the footnotes and the references, not because
 they do not matter, but because the text is for the reader, not for the
 gatekeepers behind subscript fiddliness.
+
+## Display math and listings (ruled 2026-07-12, double-census)
+
+- **Every worked example and multi-step derivation is a numbered align**
+  (raw `\begin{align}` in the markdown; the Springer class numbers per
+  chapter), introduced by a sentence that says what the align shows.
+  Entrywise formulas alone are "not algebraic, this is fiddly bits":
+  the align carries the actual work, small numbers the reader can check.
+  Aligns are welcome in footnotes ("Don't be afraid of \align in
+  footnotes").
+- **Every code listing is numbered and titled**: a bold run-in line
+  `**Listing N.k (name).**` immediately before the block, plus
+  explanatory text that says what the listing does and points at any
+  figure it produces (census #74: "a long-running issue"). Preface
+  listings number P.1, P.2, …
+- **Code style:** type hints on function signatures, "but not
+  religiously" (census #18–20). NumPy only where it earns its place; a
+  three-line integer computation the reader can do in their head shows
+  the algebra, not `np.array` (census #91/#101).
+- **Figures:** no 3-D plots (census #97: "3D plots are not good
+  visuals"). Geometry drawings in TikZ; data plots in matplotlib from
+  the companion notebooks.
 
 ## The chapter close
 

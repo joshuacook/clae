@@ -16,6 +16,11 @@
 \makeatother
 \spnewtheorem{claim}[theorem]{Claim}{\bfseries}{\itshape}
 
+% lens-switch margin tag (ruling 2, 2026-07-12): \lensmark{geometric} etc.
+% \marginpar is fragile inside footnotes/floats; \marginnote is not.
+\usepackage{marginnote}
+\newcommand{\lensmark}[1]{\marginnote{\scriptsize\textsc{#1}}}
+
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \providecommand{\pandocbounded}[1]{#1}
 \providecommand{\passthrough}[1]{#1}
