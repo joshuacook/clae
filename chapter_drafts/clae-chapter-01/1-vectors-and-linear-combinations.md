@@ -124,7 +124,7 @@ The four lenses from the preface start work in this chapter, and the margin keep
 
 [^complex]: Real by decree, not by necessity. Everything in Part I works unchanged with complex entries, and $\mathbb{C}^n$ takes over when signal processing requires it in Chapter 13. Until then the reals carry the book.
 
-\lensmark{algebraic} Through the algebraic lens, a list. \lensmark{geometric} Through the geometric lens, an arrow from the origin, whenever $n$ is small enough to draw. You have already met vectors in $\mathbb{R}^{10{,}000{,}000}$: the arrays `x` and `y` of Section 1.0. A column of 1,460 sale prices is a vector in $\mathbb{R}^{1460}$.
+Through the algebraic lens, a list. Through the geometric lens, an arrow from the origin, whenever $n$ is small enough to draw. You have already met vectors in $\mathbb{R}^{10{,}000{,}000}$: the arrays `x` and `y` of Section 1.0. A column of 1,460 sale prices is a vector in $\mathbb{R}^{1460}$.
 
 > **Definition 1.4 (vector space, working version).** A **vector space** is a collection of vectors satisfying Properties 1 and 2.[^axioms]
 
