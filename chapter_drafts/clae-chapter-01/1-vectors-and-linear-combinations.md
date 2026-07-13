@@ -12,7 +12,7 @@
      drawing; the claim itself stays two-feature.
      Companion notebook: clae-code/ch01/ch01.ipynb produces every figure and
      number here.
-     Words: 5791 prose / 6362 total (auto: tools/wordcount.py)-->
+     Words: 5787 prose / 6361 total (auto: tools/wordcount.py)-->
 
 # Chapter 1: Vectors and Linear Combinations
 

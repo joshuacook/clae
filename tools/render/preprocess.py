@@ -20,13 +20,15 @@ text = re.sub(r'\A<!--.*?-->\s*', '', text, flags=re.S)
 # qed
 text = text.replace('∎', 'ZZQEDZZ')
 
-# definition / proposition blockquote boxes -> markers
+# definition / claim blockquote boxes -> markers (multi-paragraph: the box
+# holds the claim AND its explanation, ruled 2026-07-12)
 def box(m):
     kind = m.group(1).lower()
+    body = re.sub(r'^> ?', '', m.group(3), flags=re.M)
     return (f'ZZBEGINZZ{kind}ZZ {m.group(2)} ZZENDTITLEZZ\n\n'
-            f'{m.group(3)}\n\nZZCLOSEZZ{kind}ZZ')
+            f'{body}\n\nZZCLOSEZZ{kind}ZZ')
 
-text = re.sub(r'^> \*\*(Definition|Claim) \d+\.\d+ \(([^)]+)\)\.\*\* (.+)$',
+text = re.sub(r'^> \*\*(Definition|Claim) \d+\.\d+ \(([^)]+)\)\.\*\* (.+(?:\n> ?.*)*)',
               box, text, flags=re.M)
 
 # figure image + caption blockquote -> marker paragraph; path kept out of pandoc
