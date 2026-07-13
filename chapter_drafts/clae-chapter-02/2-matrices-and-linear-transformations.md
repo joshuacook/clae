@@ -6,9 +6,9 @@
      problem per concept in numbered aligns, claims boxed WITH reasons
      (Strang way, no Proof/∎), definitions before the claims that use them,
      existence-and-uniqueness named in 2.4, no cross-chapter figure refs
-     (re-shown), no "ingredients", no "spells". Lens margin tags per the
+     (re-shown), banned metaphors avoided. Lens margin tags per the
      current ruling; the pending lens discussion may revise the device.
-     Companion notebook: clae-code/ch02/ch02.ipynb — NEEDS A SYNC PASS to
+     Companion notebook: clae-code/ch02/ch02.ipynb NEEDS A SYNC PASS to
      the new listing splits (outputs unchanged).
      Words: 5636 prose / 6514 total (auto: tools/wordcount.py)-->
 
