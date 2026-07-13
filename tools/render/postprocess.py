@@ -11,11 +11,17 @@ section_zero = '--section-zero' in sys.argv
 tex = open(tex_path).read()
 figs = json.load(open(figmap_path))
 
-# theorem-style boxes
+# theorem-style boxes; claims get a literal drawn box (Josh, 2026-07-13
+# ink note 44: "Put claims and their reasoning literally in a box")
+def open_box(m):
+    kind, title = m.group(1), m.group(2)
+    env = '\\begin{%s}[%s]' % (kind, title)
+    return '\\begin{svgraybox}' + env if kind == 'claim' else env
+
 tex = re.sub(r'ZZBEGINZZ(definition|claim)ZZ\s*(.*?)\s*ZZENDTITLEZZ',
-             lambda m: '\\begin{%s}[%s]' % (m.group(1), m.group(2)),
-             tex, flags=re.S)
-tex = re.sub(r'ZZCLOSEZZ(definition|claim)ZZ', r'\\end{\1}', tex)
+             open_box, tex, flags=re.S)
+tex = tex.replace('ZZCLOSEZZclaimZZ', '\\end{claim}\\end{svgraybox}')
+tex = re.sub(r'ZZCLOSEZZ(definition)ZZ', r'\\end{\1}', tex)
 
 # figures
 def fig(m):
