@@ -63,6 +63,35 @@ register: the arguments are in the footnotes and the references, not because
 they do not matter, but because the text is for the reader, not for the
 gatekeepers behind subscript fiddliness.
 
+## Listing policy (Josh, 2026-07-13 ink — "we need policies for things like this")
+
+- **The listing line goes BEFORE its code block**, always: a bold run-in
+  `**Listing N.k (name).**` heading plus explanatory text that says what
+  the listing does and points at any figure it produces. Every listing,
+  every time, no exceptions (ch01 notes 11, 23, 25, 40).
+- **Definition and execution are separate listings** (ch01 notes 11, 41):
+  one listing defines the function(s), a second listing runs them. Never
+  fold a `def` and its invocation into one block where the split is
+  meaningful.
+- **Every figure has a listing** (ch01 note 34): if a figure appears, the
+  code that made it appears (or is explicitly pointed to).
+
+## Worked problems and TikZ (Josh, 2026-07-13 ink)
+
+- **At least one worked problem per concept** (ch01 note 53), pencil-scale,
+  in a numbered align.
+- **The geometric lens carries a TikZ diagram as often as possible**
+  (ch01 notes 22, 37, 39, 51). Geometric prose without a picture "lands
+  flat."
+- **Never reference a figure from another chapter — re-show it** (ch01
+  note 48).
+- **Clear transitions at every lens flip** (ch01 note 24): the margin tag
+  marks the switch; the prose must still hand off cleanly.
+- **Definitions come before the properties/claims that use them** (ch01
+  note 21), and definitions are tight, not loose (ch01 note 16).
+- **Claims and their reasoning go in a literal, visibly framed box**
+  (ch01 note 44) — the render must draw the frame, not just italicize.
+
 ## Display math and listings (ruled 2026-07-12, double-census)
 
 - **Every worked example and multi-step derivation is a numbered align**
