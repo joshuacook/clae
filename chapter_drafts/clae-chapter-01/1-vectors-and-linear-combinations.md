@@ -13,8 +13,8 @@
      circle defined formally, extended to n dimensions with Pythagoras, and
      walked into cosine similarity (57-61); CAUCHY-SCHWARZ DROPPED per note
      62, one naming footnote only (unit-circle-to-preface question stays
-     open for discussion); pink inventory deleted; "ingredients" purged
-     (56). Spells approved (ruling 5) and glued in chapter order (13, 17,
+     open for discussion); pink inventory deleted; note-56 metaphor purged.
+     Spells approved (ruling 5) and glued in chapter order (13, 17,
      19). Companion notebook: clae-code/ch01/ch01.ipynb NEEDS A SYNC PASS
      (fig_pred_vs_actual becomes fig_price_vs_sqft; C-S cell dropped;
      listing splits).
