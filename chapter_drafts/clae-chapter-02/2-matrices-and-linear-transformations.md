@@ -1,22 +1,21 @@
-<!-- DRAFT V2 (2026-07-13): brand-new pass ordered by Josh with the
-     preface-v6 + ch01 ink notes in hand (chapter_notes/preface-v6-ink-notes.md,
-     ch01-inkpass-ink-notes.md). Applies the 2026-07-13 policies: listing
-     heading + explanation BEFORE code, definition/execution split listings,
-     every figure has its listing, TikZ for the geometric lens, worked
-     problem per concept in numbered aligns, claims boxed WITH reasons
-     (Strang way, no Proof/∎), definitions before the claims that use them,
-     existence-and-uniqueness named in 2.4, no cross-chapter figure refs
-     (re-shown), banned metaphors avoided. Lens margin tags per the
-     current ruling; the pending lens discussion may revise the device.
+<!-- DRAFT V3 (2026-07-13): the ordered-rewrite pass, in sequence AFTER
+     preface v7 and ch01 V3 land, inheriting them. Deltas from V2: the
+     opening runs The Method's tour on the matrix (all four lenses,
+     algebraic beat added); COLUMN SPACE is now defined HERE (Definition
+     2.15, since ch01 V3 leaves it unnamed per notes 47-50), null-space
+     boxes renumbered 2.16-2.18; the projection unit reordered to the
+     creed (picture -> pencil -> formula last); existence/uniqueness tied
+     to Chapter 1's standing pair. All V2 policy work retained (split
+     listings, TikZ, boxed claims, worked aligns).
      Companion notebook: clae-code/ch02/ch02.ipynb NEEDS A SYNC PASS to
      the new listing splits (outputs unchanged).
-     Words: 5636 prose / 6514 total (auto: tools/wordcount.py)-->
+     Words: 5904 prose / 6777 total (auto: tools/wordcount.py)-->
 
 # Chapter 2: Matrices and Linear Transformations
 
 ## 2.1 The matrix is a verb
 
-Chapter 1 built a matrix to ask its question and never once looked at the thing itself. Look now, through each lens in turn.
+Chapter 1 opened on its first object by touring it through the four lenses. This chapter owes its object the same tour, so here is the matrix, seen four ways before anything happens to it.
 
 \lensmark{data} Through the data lens, a matrix is a dataset. One vector is one record. A dataset is many records stacked, and the stack is a matrix. The Ames data ships as three files, zoning, listing, and sale, joined on a shared `Id` into the single object Chapter 1 called `housing`.
 
@@ -37,7 +36,7 @@ The convention carries two readings, and both matter. Down the columns, each col
 
 Houses 1 through 5, plotted as points. Every row of the table is a point like these, in eighty dimensions instead of two, and the whole dataset is a cloud of 1,460 of them. One object, two readings: columns are the vectors of Chapter 1, rows are points in feature space.
 
-\lensmark{computational} **Listing 2.1 (the container, measured)** asks the assembled table for its shape and pulls one record and one feature, one read in each direction.
+\lensmark{algebraic} Through the algebraic lens, a matrix is a rectangular array of numbers, $m$ rows by $n$ columns, written $A$ with entries $A_{ij}$, row index first. The pencil rules for it are this chapter's subject. \lensmark{computational} And through the computational lens it is a two-dimensional array with a shape. **Listing 2.1 (the container, measured)** asks the assembled table for its shape and pulls one record and one feature, one read in each direction.
 
 ```python
 print(housing.shape)
@@ -51,7 +50,7 @@ col_gr = housing['GrLivArea']      # one feature: a vector in R^1460
 
 Some features, neighborhood and roof style among them, are words rather than numbers; they become vectors in Section 2.5. And all of this, the container, is the smaller half of what a matrix is. Multiply a matrix by a vector and the matrix does something to it. It stretches it, turns it, flattens it, differentiates it. A matrix is a verb, and this chapter is about learning to read the verb.
 
-The actions in question are exactly the ones that honor Chapter 1's two closure properties.
+The actions in question are exactly the ones that honor the two closure clauses of Chapter 1's Definition 1.4.
 
 > **Definition 2.2 (linear transformation).** A function $T$ from vectors to vectors is a **linear transformation** when $T(c\mathbf{x} + d\mathbf{y}) = c\,T(\mathbf{x}) + d\,T(\mathbf{y})$ for all vectors $\mathbf{x}, \mathbf{y}$ and weights $c, d$.
 
@@ -361,22 +360,22 @@ plt.show()
 
 > **Figure 2.2.** The unit circle under three verbs. Rotation turns it in place. Scaling stretches it into an ellipse, doubling one axis and halving the other. Projection flattens it onto a line.
 
-Rotation preserves magnitudes and directions' spacing; it moves points without distorting anything. Scaling stretches each axis by its own factor; the diagonal entries are the factors. Both are useful, and both are warmups. The third panel is the one this book runs on.
+Rotation preserves magnitudes and directions' spacing; it moves points without distorting anything. Scaling stretches each axis by its own factor; the diagonal entries are the factors. Both are useful, and both are warmups. The third panel is the one this book runs on, and per the creed it arrives picture first, pencil second, formula last.
 
-> **Definition 2.13 (orthogonal projection onto a line).** The **projection** onto the line of a nonzero vector $\mathbf{u}$ sends each vector to its closest point on that line, its shadow. Its matrix is $P = \dfrac{\mathbf{u}\mathbf{u}^\mathsf{T}}{\mathbf{u}^\mathsf{T}\mathbf{u}}$.
+\lensmark{geometric} The picture is a shadow. Stand a vector $\mathbf{v}$ near a line and drop it straight onto the line, perpendicularly, the way the noon sun drops a stick onto the ground. The landing point is the closest point of the line to $\mathbf{v}$.
 
-\lensmark{algebraic} Work one by hand before trusting the formula. Project $\mathbf{v} = (3, 4)$ onto the line of $\mathbf{u} = (2, 1)$. Dot, normalize, rescale:
+\lensmark{algebraic} The pencil work needs no formula, just the dot product from Chapter 1. Project $\mathbf{v} = (3, 4)$ onto the line of $\mathbf{u} = (2, 1)$. Score $\mathbf{v}$ against $\mathbf{u}$, calibrate by $\mathbf{u}$'s own score, and stretch $\mathbf{u}$ by the result:
 
 \begin{align}
 \mathbf{u} \cdot \mathbf{v} = 6 + 4 = 10, \qquad
 \mathbf{u} \cdot \mathbf{u} = 5, \qquad
-P\mathbf{v} = \frac{10}{5}\,\mathbf{u} = (4, 2)
+\frac{10}{5}\,\mathbf{u} = (4, 2)
 \end{align}
 
 The leftover is the residual, and it comes out perpendicular:
 
 \begin{align}
-\mathbf{v} - P\mathbf{v} = (3, 4) - (4, 2) = (-1, 2), \qquad
+\mathbf{v} - (4, 2) = (-1, 2), \qquad
 (-1, 2) \cdot (2, 1) = -2 + 2 = 0
 \end{align}
 
@@ -393,7 +392,11 @@ The leftover is the residual, and it comes out perpendicular:
 \end{tikzpicture}
 \end{center}
 
-The shadow lies on the line. The residual runs perpendicularly from the shadow up to $\mathbf{v}$. The hand computation just previewed both halves of the claim.
+The shadow lies on the line. The residual runs perpendicularly from the shadow up to $\mathbf{v}$. Only now, with the picture seen and the numbers worked, does the formula arrive, and it is nothing but the pencil recipe packed into a matrix.
+
+> **Definition 2.13 (orthogonal projection onto a line).** The **projection** onto the line of a nonzero vector $\mathbf{u}$ sends each vector to its closest point on that line, its shadow. Its matrix is $P = \dfrac{\mathbf{u}\mathbf{u}^\mathsf{T}}{\mathbf{u}^\mathsf{T}\mathbf{u}}$, so that $P\mathbf{v} = \dfrac{\mathbf{u} \cdot \mathbf{v}}{\mathbf{u} \cdot \mathbf{u}}\,\mathbf{u}$: score, calibrate, stretch.
+
+The hand computation above already previewed both halves of the claim.
 
 > **Claim 2.14 (what makes a projection a projection).** $P^2 = P$ (projecting twice is projecting once), and for every $\mathbf{v}$ the residual $\mathbf{v} - P\mathbf{v}$ is orthogonal to $\mathbf{u}$.
 >
@@ -434,9 +437,13 @@ Look at Figure 2.3 for a moment longer than it seems to deserve. A vector, the c
 
 ## 2.4 Systems: running the verb backwards
 
-Every question so far ran forward. Given $\mathbf{x}$, compute $A\mathbf{x}$. Estimation runs the other way. Given the output $\mathbf{b}$, what input produced it? The equation $A\mathbf{x} = \mathbf{b}$ asks, in column language, which recipe of $A$'s columns makes $\mathbf{b}$. Two questions hide inside it, and they are the two questions this book asks of every method it builds.
+Every question so far ran forward. Given $\mathbf{x}$, compute $A\mathbf{x}$. Estimation runs the other way. Given the output $\mathbf{b}$, what input produced it? The equation $A\mathbf{x} = \mathbf{b}$ asks, in column language, which recipe of $A$'s columns makes $\mathbf{b}$. Two questions hide inside it, and they are the standing pair this book first met at Chapter 1's membership solve.
 
-**Existence.** Is there any solution at all? In column language, a recipe exists exactly when $\mathbf{b}$ lies in the span of the columns, the column space.
+**Existence.** Is there any solution at all? In column language, a recipe exists exactly when $\mathbf{b}$ lies in the span of the columns, and that span has waited since Chapter 1 for its permanent name.
+
+> **Definition 2.15 (column space).** The **column space** of a matrix $A$ is the span of its columns: everything the verb $A\mathbf{x}$ can output, over every input. For a data matrix, it is the complete inventory of predictions the features can make.
+
+Chapter 1 ended its span section on the houses with exactly this object, unnamed: the span of `GrLivArea` and `OverallQual` is everything the two-weight claim can predict, and the true price column is not in it. Existence fails at housing scale, which is why estimation exists.
 
 **Uniqueness.** If a solution exists, is it the only one? Uniqueness is the license from Chapter 1: when the answer is one of a kind, any method that finds a candidate and verifies it has done the whole job.
 
@@ -469,15 +476,15 @@ rank of A3: 3   rank of C: 2
 
 $C$ crushes the vector $(3, 3, 3)$ to zero, and it crushes every constant vector the same way. Shift a sequence by a constant and its wrapped differences never notice. So $C$ cannot be undone. The constant is gone, and no matrix can recover information that was destroyed. The set of everything a matrix crushes deserves a name.
 
-> **Definition 2.15 (null space).** The **null space** of $A$ is the set of all vectors it sends to zero: every $\mathbf{x}$ with $A\mathbf{x} = \mathbf{0}$.
+> **Definition 2.16 (null space).** The **null space** of $A$ is the set of all vectors it sends to zero: every $\mathbf{x}$ with $A\mathbf{x} = \mathbf{0}$.
 
-> **Claim 2.16 (the null space is a subspace).** For any matrix $A$, the null space of $A$ is a subspace.
+> **Claim 2.17 (the null space is a subspace).** For any matrix $A$, the null space of $A$ is a subspace.
 >
 > The one-breath reason, the same three checks as Chapter 1's span claim: $A\mathbf{0} = \mathbf{0}$ puts the origin in; $A(c\mathbf{x}) = cA\mathbf{x} = \mathbf{0}$ keeps scaling in; $A(\mathbf{x} + \mathbf{y}) = \mathbf{0} + \mathbf{0}$ keeps addition in.
 
 For our cyclic $C$, the null space is the line of constant vectors, a one-dimensional subspace, and its existence is exactly what broke invertibility.
 
-> **Claim 2.17 (invertibility and the null space).** A square matrix is invertible exactly when its null space is $\{\mathbf{0}\}$.
+> **Claim 2.18 (invertibility and the null space).** A square matrix is invertible exactly when its null space is $\{\mathbf{0}\}$.
 >
 > The one-breath reason, in the language of the two questions: a nonzero crushed vector kills uniqueness, because adding it to any solution gives another solution with the same output. A trivial null space means the columns are independent, $n$ independent columns in $\mathbb{R}^n$ span everything, and existence and uniqueness both hold for every target. That assignment of recipe to target is the inverse.[^accounting]
 
@@ -501,7 +508,7 @@ Every standardized column is centered at zero with standard deviation one, so a 
 
 **Honesty box.** Standardization is not a linear transformation, and this book will not pretend otherwise. The scaling half is honestly linear, multiplication by a diagonal matrix. But the centering half shifts every vector by a constant, and a shift moves the origin, which violates the quietest consequence of Definition 2.2: every linear transformation sends $\mathbf{0}$ to $\mathbf{0}$ (set $c = d = 0$). The name for linear-plus-shift is **affine**. This is the one place in the chapter we bend the rules, we do it knowingly, and Chapter 6 will center everything in sight anyway, because covariance lives in deviations from the mean. Standardization is that chapter's front porch.
 
-The word-features from Section 2.1 enter the same machinery by a different door. Give each category its own **indicator column**, a one where the category holds and zeros elsewhere, and a categorical feature becomes a small block of vectors. The move is called **one-hot encoding**. Once a word is a vector, every tool in this book applies to it. Two consequences are planted here and paid off later. Regress a price on an indicator alone and the weight you earn is a group mean, which is Chapter 5's bridge between estimation and expectation. And a full block of indicators always sums to the all-ones vector, a built-in dependence that puts a vector in the null space of any design matrix carrying them all. That trap, and the hygiene for it, is Chapter 11 business, and you now own the vocabulary it will be settled in (Definition 2.15).
+The word-features from Section 2.1 enter the same machinery by a different door. Give each category its own **indicator column**, a one where the category holds and zeros elsewhere, and a categorical feature becomes a small block of vectors. The move is called **one-hot encoding**. Once a word is a vector, every tool in this book applies to it. Two consequences are planted here and paid off later. Regress a price on an indicator alone and the weight you earn is a group mean, which is Chapter 5's bridge between estimation and expectation. And a full block of indicators always sums to the all-ones vector, a built-in dependence that puts a vector in the null space of any design matrix carrying them all. That trap, and the hygiene for it, is Chapter 11 business, and you now own the vocabulary it will be settled in (Definition 2.16).
 
 Indicators also expose a seam in standardization. An indicator is already on a natural scale, zero or one, a category flip. Divide it by its standard deviation and you wreck the interpretation for no gain. Andrew Gelman's resolution is to leave the indicators alone and move the numerics to meet them. Center each numeric feature and divide by **two** standard deviations, so that a one-unit change in a scaled numeric spans a typical contrast, low to high, the same size of move as flipping an indicator.[^gelman] That gives the book its second convention, and the two leave this chapter side by side. The matrix $Z$ holds the numerics at one standard deviation, mean zero and unit scale, and feeds the covariance work of Chapters 6 and 10. The **Gelman design matrix** $X_g$ holds the numerics at two standard deviations with the indicators raw, and feeds the regressions of Chapter 11, where every coefficient will speak one currency: dollars per typical contrast.
 
@@ -588,7 +595,7 @@ The chapter's exit state is both matrices. $Z$: 1,460 homes, thirty-three standa
 
 ## 2.7 Summary and exercises
 
-A matrix is a container and a verb, and Claim 2.3 is why the verb is knowable. Its columns are where the basis vectors land, so multiplying by it forms a linear combination of the columns with the input as the recipe. Everything else in the chapter was learning to read what the verb does. The collection so far: differencing (a derivative, shown symbolically and at the machine), running sums (its undo, Claim 2.12), rotation (composing by added angles, Claim 2.8), scaling, projection (idempotent with an orthogonal residual, Claim 2.14, and load-bearing for Chapters 10 and 11), and standardization (the affine move that makes weights comparable, bent rules disclosed). Running the verb backwards is a system $A\mathbf{x} = \mathbf{b}$, and it splits into the book's two standing questions: existence ($\mathbf{b}$ in the column space) and uniqueness (a trivial null space, Claims 2.16 and 2.17).
+A matrix is a container and a verb, and Claim 2.3 is why the verb is knowable. Its columns are where the basis vectors land, so multiplying by it forms a linear combination of the columns with the input as the recipe. Everything else in the chapter was learning to read what the verb does. The collection so far: differencing (a derivative, shown symbolically and at the machine), running sums (its undo, Claim 2.12), rotation (composing by added angles, Claim 2.8), scaling, projection (idempotent with an orthogonal residual, Claim 2.14, and load-bearing for Chapters 10 and 11), and standardization (the affine move that makes weights comparable, bent rules disclosed). Running the verb backwards is a system $A\mathbf{x} = \mathbf{b}$, and it splits into the book's two standing questions: existence ($\mathbf{b}$ in the column space, Definition 2.15) and uniqueness (a trivial null space, Claims 2.17 and 2.18).
 
 Chapter 3 asks the question this chapter set up. Most verbs tangle directions together; a rotation moves every vector off itself. But some directions, for some matrices, come out of the action merely stretched. Those directions are the eigenvectors, and the second difference matrix $K$ is carrying a set of them you already know by name.
 
