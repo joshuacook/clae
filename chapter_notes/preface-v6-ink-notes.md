@@ -199,9 +199,13 @@ crescendo lands.
 
 ## Unnumbered color flags
 
+Color key (Josh, 2026-07-13): GREEN + number = numbered note. YELLOW =
+voice flag (rewrite the delivery, keep the idea). **PINK = DELETE THIS.**
+
 - YELLOW (p. vi): "and the lenses have names." — ties to the GLOBAL lens
   discussion.
 - YELLOW (p. vii): "and I said it."
 - YELLOW (p. ix): "The write-up did not sit still." (adjacent to 34)
-- PINK (p. ix): "You have your own five out of twenty-five somewhere. Stay
-  in the room." (adjacent to 38)
+- PINK = DELETE (p. ix): "You have your own five out of twenty-five
+  somewhere. Stay in the room." (adjacent to 38, consistent with it: the
+  current ending goes, and the second-half crescendo replaces it)

@@ -266,15 +266,23 @@ let's discuss. I say we drop Cauchy Schwartz altogether
 
 ## Unnumbered color flags
 
-- PINK (p.1): "and both names deserve their definitions up front."
-- PINK (p.2): "That is the bargain. You get the speed of the compiled code
+Color key (Josh, 2026-07-13): GREEN + number = numbered note. YELLOW =
+voice flag (rewrite the delivery, keep the idea). **PINK = DELETE THIS.**
+
+DELETE (pink):
+
+- (p.1) "and both names deserve their definitions up front."
+- (p.2) "That is the bargain. You get the speed of the compiled code
   without writing it."
-- YELLOW (p.4): "and you have just watched your machine treat it as the
-  most important thing it knows how to do."
-- PINK (p.4): "That is not a coincidence."
-- PINK (p.4): "The preface promised a song. These are the opening bars."
-- YELLOW (p.4): "What the two properties buy is out of all proportion to
-  what they cost."
-- PINK (p.10): "and the second ingredient bought nothing."
-- PINK (p.14): "The word will do quiet work for the rest of the book, so
-  it gets its footnote now."
+- (p.4) "That is not a coincidence."
+- (p.4) "The preface promised a song. These are the opening bars."
+- (p.10) "and the second ingredient bought nothing."
+- (p.14) "The word will do quiet work for the rest of the book, so it gets
+  its footnote now."
+
+Voice flags (yellow):
+
+- (p.4) "and you have just watched your machine treat it as the most
+  important thing it knows how to do."
+- (p.4) "What the two properties buy is out of all proportion to what they
+  cost."

@@ -243,3 +243,17 @@ bounded by the number of ingredients."
   keeping "length" and "angle" running in parallel gives "two words for each
   for maximum confusion." Pick the pair; retire the synonyms (this book:
   magnitude & direction).
+
+## Ink color key (Josh, 2026-07-13 — the numbered-highlight format)
+
+GREEN block + handwritten number = a numbered note (Josh types the notes
+and pastes them). YELLOW = voice flag: the delivery is AI-voiced, rewrite
+it, keep the idea. **PINK = DELETE THIS**, dead in all future drafts (the
+flagged-prose-never-resurfaces rule applies). The 2026-07-13 pink
+inventory, all retired: "and both names deserve their definitions up
+front" / "That is the bargain. You get the speed of the compiled code
+without writing it" / "That is not a coincidence" / "The preface promised
+a song. These are the opening bars" / "and the second ingredient bought
+nothing" / "The word will do quiet work for the rest of the book, so it
+gets its footnote now" / "You have your own five out of twenty-five
+somewhere. Stay in the room."
