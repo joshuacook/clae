@@ -77,9 +77,9 @@ print(f'factor:             {t_loop / t_vec:5.0f}x')
 ```
 
 ```text
-list comprehension:  6.21 s
-vectorized:           103 ms
-factor:                60x
+list comprehension:  6.09 s
+vectorized:            79 ms
+factor:                77x
 ```
 
 Both return the same numbers; they do not take the same time.[^machine] The list comprehension is dozens of times slower, and the gap only widens with $n$. Figure 1.1 sweeps the race across sizes.
@@ -185,7 +185,7 @@ Put the two operations together and the object of the book appears. Take $\mathb
 2\,(1, 2) + (3, 1) = (2, 4) + (3, 1) = (5, 5)
 \end{align}
 
-That is the arithmetic your machine ran ten million times in Section 1.0, once per entry, at sixty times your interpreter's speed.
+That is the arithmetic your machine ran ten million times in Section 1.0, once per entry, at seventy-seven times your interpreter's speed.
 
 ## 1.2 The claim on the table
 
