@@ -339,11 +339,7 @@ Take the plane spanned by two vectors and bring in a third. Either it lands in t
 
 > **Definition 1.8 (linear independence).** A set of vectors is **linearly independent** when none of them is a linear combination of the others.[^zerotest]
 
-[^zerotest]: The equivalent test, usually easier to run: the only combination equal to the zero vector is the one with every weight zero. The two phrasings convert by moving one vector across the equals sign,
-\begin{align}
-\mathbf{u} = c\,\mathbf{v} + d\,\mathbf{w} \quad\Longleftrightarrow\quad c\,\mathbf{v} + d\,\mathbf{w} - \mathbf{u} = \mathbf{0},
-\end{align}
-a combination-of-the-others on the left, a zero combination with a live weight (the $-1$ on $\mathbf{u}$) on the right.
+[^zerotest]: The equivalent test, usually easier to run: the only combination equal to the zero vector is the one with every weight zero. The two phrasings convert by moving one vector across the equals sign, $\mathbf{u} = c\,\mathbf{v} + d\,\mathbf{w} \;\Longleftrightarrow\; c\,\mathbf{v} + d\,\mathbf{w} - \mathbf{u} = \mathbf{0}$, a combination-of-the-others on the left, a zero combination with a live weight (the $-1$ on $\mathbf{u}$) on the right.
 
 \lensmark{algebraic} Both verdicts are pencil work, so render one of each. The pair $\mathbf{v} = (2, 1)$, $\mathbf{w} = (1, 3)$ is independent: set a combination to zero and elimination forces both weights to die,
 

@@ -6,7 +6,7 @@
      LENS INTRODUCTION as front-matter equipment; ruling 4 keeps the click
      beat without its theater; ruling 3 numbers the display math.
      Companion cell: clae-code/ch00/preface.ipynb (canonical 0.0031).
-     Words: 2355 prose / 2472 total (auto: tools/wordcount.py)-->
+     Words: 2355 prose / 2475 total (auto: tools/wordcount.py)-->
 
 # Preface
 
