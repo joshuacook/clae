@@ -63,12 +63,29 @@ register: the arguments are in the footnotes and the references, not because
 they do not matter, but because the text is for the reader, not for the
 gatekeepers behind subscript fiddliness.
 
-## Listing policy (Josh, 2026-07-13 ink — "we need policies for things like this")
+## Listing policy (Josh, 2026-07-13 ink; header form re-ruled 2026-07-14)
 
-- **The listing line goes BEFORE its code block**, always: a bold run-in
-  `**Listing N.k (name).**` heading plus explanatory text that says what
-  the listing does and points at any figure it produces. Every listing,
-  every time, no exceptions (ch01 notes 11, 23, 25, 40).
+- **The listing header is a STANDALONE header, nothing else in it.**
+  Josh, 2026-07-14: "listing as a header, that's it... there's no prose
+  in the header." The format, every listing, every time:
+
+  ```
+  <prose paragraph, which references the listing by number and explains
+  it if necessary>
+
+  **Listing N.k (name)**
+
+  <code block>
+  ```
+
+  The header is its own paragraph immediately above the code block, with
+  a blank line on both sides. NEVER run the listing name into the tail of
+  a prose paragraph (the 2026-07-13 drafts did exactly that and the
+  headers vanished into the prose — the failure Josh caught on the page).
+  No trailing period, no sentence after the name. Explanation lives in
+  the prose, before the header, referencing the listing by number.
+- Every code block gets one (ch01 notes 11, 23, 25, 40); output-only
+  text blocks are the sole exception.
 - **Definition and execution are separate listings** (ch01 notes 11, 41):
   one listing defines the function(s), a second listing runs them. Never
   fold a `def` and its invocation into one block where the split is
