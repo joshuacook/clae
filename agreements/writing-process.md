@@ -569,3 +569,84 @@ its brother guess-and-check, "both examples of pedagogical genius and both
 poopooed by the determinant obsessed gatekeepers." Guess-and-check IS
 claim-then-check, which is how this book supports claims (cf. the power
 method, which is guess-and-check made an algorithm).
+
+## The CLAE production process, merged (approved by Josh, 2026-07-14)
+
+This section is the operating merge of everything ruled through 2026-07-14.
+It extends the process above; where they differ, this section governs CLAE.
+
+### The review-lens roster (prose passes and ink passes share it)
+
+Five review lenses, one registry:
+
+- **STRUCTURE** — act/section order, where concepts are introduced, what
+  each section is for, transitions.
+- **LANGUAGE** — voice, register, the ai-tells blocklist, sentence
+  mechanics beyond what the grep sweep can catch.
+- **CONTINUITY** — has this document read the front matter and its
+  predecessors; promises kept; vocabulary consistent across chapters.
+- **MATH** — correctness, rigor at the ruled level, definition economy,
+  the Strang way honored.
+- **PEDAGOGY** — worked-example density, the creed's ordering (picture →
+  pencil → machine → data), whether a rusty practitioner can actually
+  follow.
+
+POLICY is not a lens. Policy compliance (listing form, figure captions,
+punctuation discipline, blocklist vocabulary) is the **mechanical grep
+sweep**, run before every commit of draft prose. A sweep is a checklist,
+not a judgment.
+
+### One registry, two application points
+
+The same five lenses apply at two places:
+
+1. **The machine's sequential lens passes** (the process above): drafts
+   pass through lens reviewers in sequence, twice.
+2. **Josh's ink**: every PDF delivered for ink DECLARES its review
+   lens(es), the census tags each note by lens, and documents graduate in
+   maturity order — STRUCTURE first, then MATH / PEDAGOGY / CONTINUITY,
+   LANGUAGE last. A document is not ready for a language pass until its
+   structure has survived one.
+
+The word "lens" serves both this review registry and the book's
+mathematical lenses (geometric/algebraic/computational/data). Qualify as
+"review lens" or "mathematical lens" wherever ambiguity is possible.
+
+### The policy sweep and the loop rule
+
+The generative track gains an explicit POLICY-SWEEP step after drafting
+and before rendering: grep for the mechanical rules (standalone listing
+headers, figure captions incl. TikZ, self-contained figure code,
+semicolons, non-list colons, em-dashes, blocklist vocabulary, pink
+inventory). **The loop rule: sweep failures regenerate the unit, they are
+never patched around.** A draft that fails the sweep goes back through
+generation for that unit, not through a cosmetic fix that leaves the
+generative habit intact.
+
+### The ink briefing (new duty, 2026-07-14)
+
+Josh: "I may need some direction from you when I'm doing my inking."
+Every PDF delivered for ink carries a ONE-PAGE BRIEFING as its cover:
+
+- the declared review lens(es) for this pass;
+- what this pass most needs judged;
+- the open questions specific to this document;
+- anything the last census left unresolved.
+
+claude.ai drafts briefing content at ruling passes; claude-code composes
+it onto the render. No PDF goes to ink without its briefing.
+
+### Standing disciplines (folded in)
+
+- **Verbatim capture.** Josh's spoken/typed prose is captured verbatim in
+  the conversation doc and is final text when placed (ai-tells rules).
+- **Baton discipline.** The HANDOFF doc is self-contained, names its
+  holder explicitly, and carries the TODO register as the single source
+  of truth for pending work.
+- **Drafts live in the conversation doc.** Proposed prose that is not yet
+  approved (inserts, alternative acts) lives in the conversation doc,
+  never in the chapter files.
+- **Paragraph outline per chapter.** Each live chapter maintains a
+  paragraph outline in chapter_notes/ (one line per paragraph, themed and
+  tagged), regenerated whenever the chapter is regenerated. It is the
+  structure-lens instrument.
