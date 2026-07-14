@@ -74,7 +74,18 @@ gatekeepers behind subscript fiddliness.
   fold a `def` and its invocation into one block where the split is
   meaningful.
 - **Every figure has a listing** (ch01 note 34): if a figure appears, the
-  code that made it appears (or is explicitly pointed to).
+  code that made it appears, and that code is SELF-CONTAINED within the
+  chapter (every name it uses is defined in a listing of the same
+  chapter). No helper may arrive from another chapter's code.
+- **Every code block is a headed listing** (re-ruled 2026-07-14 after
+  violations): no bare code blocks, period. Even a three-line
+  demonstration gets `**Listing N.k (name).**` and a sentence of
+  explanation. Output-only text blocks are the sole exception.
+- **Every figure has a caption and a number, TikZ included** (re-ruled
+  2026-07-14): in-text TikZ drawings are wrapped in a raw
+  `\begin{figure}[!htb] ... \caption{...} \end{figure}` environment, not
+  dropped inline in a `center` block. TikZ and matplotlib figures share
+  the chapter's figure counter in document order.
 
 ## Worked problems and TikZ (Josh, 2026-07-13 ink)
 

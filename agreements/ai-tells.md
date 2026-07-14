@@ -244,6 +244,21 @@ bounded by the number of ingredients."
   for maximum confusion." Pick the pair; retire the synonyms (this book:
   magnitude & direction).
 
+## Punctuation discipline (ruled 2026-07-14 — mechanical, grep before commit)
+
+- **Semicolons in prose are dead.** A semicolon joining two clauses is the
+  em-dash tic in a third costume. Split the sentence. The only survivors:
+  code, math, and semicolons separating true list items that contain
+  internal commas (rare; prefer restructuring).
+- **Colons only before genuine lists or displays.** "X: Y" where Y is a
+  single appositive or explanation is the colon tic. Allowed: a colon
+  introducing an enumeration of two or more items, a colon introducing a
+  display, the established label devices ("The one-breath reason:",
+  "Left:"/"Right:" in captions), and markdown/citation syntax.
+- **No colon headlines.** Section titles never take "Topic: subtitle" form.
+- **Run-ons:** any sentence stacking three or more independent moves gets
+  split. When in doubt, split.
+
 ## Ink color key (Josh, 2026-07-13 — the numbered-highlight format)
 
 GREEN block + handwritten number = a numbered note (Josh types the notes
