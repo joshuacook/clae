@@ -18,7 +18,7 @@
      19). Companion notebook: clae-code/ch01/ch01.ipynb NEEDS A SYNC PASS
      (fig_pred_vs_actual becomes fig_price_vs_sqft; C-S cell dropped;
      listing splits).
-     Words: 6591 prose / 7357 total (auto: tools/wordcount.py)-->
+     Words: 6800 prose / 7598 total (auto: tools/wordcount.py)-->
 
 # Chapter 1: Vectors and Linear Combinations
 
@@ -28,14 +28,16 @@ The preface christened four lenses. This book keeps its promises immediately, so
 
 \lensmark{geometric} Through the geometric lens, a vector is an arrow from the origin. The arrow $(2, 1)$ walks two east and one north:
 
-\begin{center}
+\begin{figure}[!htb]
+\centering
 \begin{tikzpicture}[scale=1.1]
   \draw[gray!40, ->] (-0.5,0) -- (3.0,0);
   \draw[gray!40, ->] (0,-0.5) -- (0,1.8);
   \draw[gray!25] (0,0) grid[step=1] (2.6,1.6);
   \draw[->, very thick] (0,0) -- (2,1) node[above right] {$(2, 1)$};
 \end{tikzpicture}
-\end{center}
+\caption{A vector through the geometric lens. The arrow $(2, 1)$ walks two east and one north from the origin.}
+\end{figure}
 
 \lensmark{algebraic} Through the algebraic lens, the same vector is an ordered list of numbers, an object with rules for pencil work.
 
@@ -45,7 +47,7 @@ The preface christened four lenses. This book keeps its promises immediately, so
 
 The arrow above is $(2, 1)$ in $\mathbb{R}^2$. Three dimensions work the same way with one more entry: $(1, 0, 2)$, $(3, -1, 4)$, and $(0, 0, 1)$ all live in $\mathbb{R}^3$, arrows in space instead of on a page. Past three dimensions the drawing gives out and the list keeps going.
 
-\lensmark{computational} Through the computational lens, a vector is an array, a contiguous block of memory the compiled libraries can run over at full speed.
+\lensmark{computational} Through the computational lens, a vector is an array, a contiguous block of memory the compiled libraries can run over at full speed. **Listing 1.1 (a vector in the machine)** puts one in $\mathbb{R}^2$ and one in $\mathbb{R}^3$ into memory.
 
 ```python
 import numpy as np
@@ -57,7 +59,7 @@ u = np.array([1, 0, 2])     # a vector in R^3
 
 One object, four appearances: an arrow, a list with rules, an array in memory, a column of measurements. Every concept in this book will make the same tour, the margin announcing each lens as it takes over, and the tour will always run in the creed's order where it can. Picture first, pencil second, machine third, houses last.
 
-Now the operation. Modern artificial intelligence rests on a single, simple move: scale a vector by a number, and add it to another vector.[^llm] That is the whole of the operation, and it carries both of its names into a definition.
+Now the operation. Modern artificial intelligence rests on a single, simple move. Scale a vector by a number, and add it to another vector.[^llm] That is the whole of the operation, and it carries both of its names into a definition.
 
 [^llm]: The claim is not rhetorical. A language model, underneath the chat window, is arithmetic at colossal scale: numbers organized into long lists, the lists scaled, the scaled lists added. Architectures turn over every few years and the operation does not. The recurrent networks that read text one word at a time carried a running summary forward, scaling what they held and adding what they read. The paper that retired them is titled "Attention Is All You Need," and attention is a weighted sum of vectors, which is Definition 1.2. The architecture died. The operation is still here.
 
@@ -67,11 +69,11 @@ Now the operation. Modern artificial intelligence rests on a single, simple move
 >
 > the vectors scaled by numbers and the results added. The numbers $c_1, \ldots, c_k$ are the **weights**.
 
-In $\mathbb{R}^3$, concretely: $2\,(1, 0, 2) + 3\,(3, -1, 4) = (2, 0, 4) + (9, -3, 12) = (11, -3, 16)$ is a linear combination of two vectors with weights $2$ and $3$, and $5\,(0, 0, 1)$ is a linear combination of one.
+Concretely, in $\mathbb{R}^3$, $2\,(1, 0, 2) + 3\,(3, -1, 4) = (2, 0, 4) + (9, -3, 12) = (11, -3, 16)$ is a linear combination of two vectors with weights $2$ and $3$, and $5\,(0, 0, 1)$ is a linear combination of one.
 
 > **Definition 1.3 (axpy).** For a number $a$ and vectors $\mathbf{x}$ and $\mathbf{y}$, **axpy** is the linear combination $a\mathbf{x} + \mathbf{y}$, one scaling and one addition.
 
-The strange name is a working credential. Deep in the compiled numerical libraries that every scientific computing stack calls down into, the routine that computes $a\mathbf{x} + \mathbf{y}$ has been named `axpy`, "a times x plus y," since the 1970s. When this book says axpy, it means the operation and it gestures at the machinery: the most heavily engineered few lines of arithmetic in numerical computing. The claim that axpy is foundational you have just read. The claim that your computer runs it faster than almost anything else it does is measurable, so the next section measures it.
+The strange name is a working credential. Deep in the compiled numerical libraries that every scientific computing stack calls down into, the routine that computes $a\mathbf{x} + \mathbf{y}$ has been named `axpy`, "a times x plus y," since the 1970s. When this book says axpy, it means the operation and it gestures at the machinery. That routine is the most heavily engineered few lines of arithmetic in numerical computing. The claim that axpy is foundational you have just read. The claim that your computer runs it faster than almost anything else it does is measurable, so the next section measures it.
 
 ## 1.1 In `axpy` we trust
 
@@ -82,7 +84,7 @@ a\,\mathbf{x} &= 2\,(1, 2, 3) = (2, 4, 6) \notag \\
 a\,\mathbf{x} + \mathbf{y} &= (2, 4, 6) + (10, 20, 30) = (12, 24, 36)
 \end{align}
 
-\lensmark{computational} That is everything axpy does. **Listing 1.1 (the same axpy, in NumPy)** hands the identical three-vector computation to the machine, which agrees.
+\lensmark{computational} That is everything axpy does. **Listing 1.2 (the same axpy, in NumPy)** hands the identical three-vector computation to the machine, which agrees.
 
 ```python
 a, x, y = 2, np.array([1, 2, 3]), np.array([10, 20, 30])
@@ -99,7 +101,7 @@ The machine's real advantage appears at scale, and NumPy is the doorway to it. N
 
 [^gpu]: The same shape repeats at the next layer of the stack, where the software tricks meet the hardware trick. PyTorch and TensorFlow are high-level wrappers around CUDA kernels running these same operations on graphics hardware, thousands of arithmetic units taking the entries in parallel. Everything in this book runs on an ordinary CPU, and every speedup you will see is software finding the silicon it already had.
 
-Now the measurement. The same expression on arrays too long for a pencil, two vectors of ten million entries, computed two ways with a clock on both. **Listing 1.2 (axpy two ways, defined)** writes each version as a function.
+Now the measurement. The same expression on arrays too long for a pencil, two vectors of ten million entries, computed two ways with a clock on both. **Listing 1.3 (axpy two ways, defined)** writes each version as a function.
 
 ```python
 import time
@@ -111,7 +113,7 @@ def vectorized_in_numpy(a: float, x: np.ndarray, y: np.ndarray) -> np.ndarray:
     return a * x + y
 ```
 
-**Listing 1.3 (the race)** runs both on the ten-million-entry arrays and prints the gap.
+**Listing 1.4 (the race)** runs both on the ten-million-entry arrays and prints the gap.
 
 ```python
 a = 2.5
@@ -134,22 +136,31 @@ vectorized:            79 ms
 factor:                77x
 ```
 
-Both return the same numbers; they do not take the same time.[^machine] The list comprehension is dozens of times slower, and the gap only widens with $n$. **Listing 1.4 (the race, swept)** runs the same contest across sizes from a thousand to ten million; Figure 1.1 is its output.
+Both return the same numbers. They do not take the same time.[^machine] The list comprehension is dozens of times slower, and the gap only widens with $n$. **Listing 1.5 (the race, swept)** runs the same contest across sizes from a thousand to ten million. Figure 1.2 is its output.
 
 [^machine]: Every figure and number in this book is produced by the companion notebooks at [github.com/joshuacook/clae-code](https://github.com/joshuacook/clae-code), run on a 4-vCPU cloud virtual machine with no GPU. Your own machine will print different numbers, and the gap will still be there, about this size.
 
 ```python
+def best(fn, a, x, y, reps: int = 3) -> float:
+    times = []
+    for _ in range(reps):
+        t0 = time.perf_counter(); fn(a, x, y)
+        times.append(time.perf_counter() - t0)
+    return min(times)
+
 ns = np.logspace(3, 7, 9).astype(int)
 t_loop = [best(list_comp_in_python, a, rng.random(n), rng.random(n)) for n in ns]
 t_vec  = [best(vectorized_in_numpy,  a, rng.random(n), rng.random(n)) for n in ns]
-plt.semilogx(ns, t_loop, 'o-'); plt.semilogx(ns, t_vec, 's-'); plt.show()
+plt.semilogx(ns, t_loop, 'o-')
+plt.semilogx(ns, t_vec, 's-')
+plt.show()
 ```
 
 ![axpy timing: loop vs vectorized](figures/fig_axpy_timing.png)
 
-> **Figure 1.1.** Wall-clock time of `list_comp_in_python` against `vectorized_in_numpy`, swept over $n$ from a thousand to ten million, with a log x-axis and a linear y-axis. The vectorized call stays flat against the floor while the list comprehension's cost climbs away.
+> **Figure 1.2.** Wall-clock time of `list_comp_in_python` against `vectorized_in_numpy`, swept over $n$ from a thousand to ten million, with a log x-axis and a linear y-axis. The vectorized call stays flat against the floor while the list comprehension's cost climbs away.
 
-The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators, and only underneath all of that does it finally multiply and add. NumPy skips every bit of that per-entry overhead: the whole array goes to a compiled loop the interpreter never re-enters. That is where the gap comes from. It is a software win, not a hardware trick.
+The loop is slow because Python is doing far more than arithmetic. For each of the ten million entries the interpreter resolves types, boxes and unboxes objects, checks bounds, and dispatches the operators. Only underneath all of that does it finally multiply and add. NumPy skips every bit of that per-entry overhead. The whole array goes to a compiled loop the interpreter never re-enters. That is where the gap comes from. It is a software win, not a hardware trick.
 
 The operation that compiled loop is built around is axpy, and at the very bottom axpy is a single hardware instruction, the fused multiply-add, that modern processors run many of at once. So it is software the whole way down to one operation the silicon was built to do in a single step: scale, and add.
 
@@ -165,17 +176,18 @@ The transition from one operation to a whole subject runs through a single agree
 >
 > **Closure under addition.** For every pair of vectors $\mathbf{v}$ and $\mathbf{w}$ in $S$, the vector $\mathbf{v} + \mathbf{w}$ is in $S$.
 
-[^axioms]: There is a bootstrap here, and it is worth seeing plainly. A vector space is the thing that stays closed when you scale and add; scaling and adding are the operations a vector space supports. The circle is not a flaw. It is the agreement: commit to objects with these two operations, and everything else in the book follows. The full definition adds eight axioms governing how the operations behave (addition commutes and associates; a zero vector exists; every vector has an additive inverse; scalar multiplication associates, distributes both ways, and respects 1). $\mathbb{R}^n$ satisfies all eight, every space in this book satisfies all eight, and we will not check them again. Sheldon Axler, *Linear Algebra Done Right*, ch. 1, gives the axioms a first-class treatment.
+[^axioms]: There is a bootstrap here, and it is worth seeing plainly. A vector space is the thing that stays closed when you scale and add, and scaling and adding are the operations a vector space supports. The circle is not a flaw. It is the agreement. Commit to objects with these two operations, and everything else in the book follows. The full definition adds eight axioms governing how the operations behave (addition commutes and associates, a zero vector exists, every vector has an additive inverse, and scalar multiplication associates, distributes both ways, and respects 1). $\mathbb{R}^n$ satisfies all eight, every space in this book satisfies all eight, and we will not check them again. Sheldon Axler, *Linear Algebra Done Right*, ch. 1, gives the axioms a first-class treatment.
 
-\lensmark{algebraic} Keep the two closure clauses and axpy comes free, because $a\mathbf{x} + \mathbf{y}$ is one application of each. Watch closure hand it over, symbolically and then on numbers. Scaling keeps $a\mathbf{x}$ in the vector space; addition then keeps the sum in too:
+\lensmark{algebraic} Keep the two closure clauses and axpy comes free, because $a\mathbf{x} + \mathbf{y}$ is one application of each. Watch closure hand it over, symbolically and then on numbers. Scaling keeps $a\mathbf{x}$ in the vector space. Addition then keeps the sum in too:
 
 \begin{align}
 \mathbf{x} \in S \;\Longrightarrow\; a\mathbf{x} \in S, \qquad\quad a\mathbf{x} \in S,\; \mathbf{y} \in S \;\Longrightarrow\; a\mathbf{x} + \mathbf{y} \in S
 \end{align}
 
-On numbers, in $\mathbb{R}^2$: $\mathbf{x} = (1, 2)$ and $\mathbf{y} = (3, 1)$ are in $\mathbb{R}^2$; so is $2\mathbf{x} = (2, 4)$; so is $2\mathbf{x} + \mathbf{y} = (5, 5)$. \lensmark{geometric} And in a picture, the whole demonstration is two arrows and a walk:
+On numbers, take $\mathbf{x} = (1, 2)$ and $\mathbf{y} = (3, 1)$ in $\mathbb{R}^2$. Then $2\mathbf{x} = (2, 4)$ is in $\mathbb{R}^2$. So is $2\mathbf{x} + \mathbf{y} = (5, 5)$. \lensmark{geometric} And in a picture, the whole demonstration is two arrows and a walk:
 
-\begin{center}
+\begin{figure}[!htb]
+\centering
 \begin{tikzpicture}[scale=0.85]
   \draw[gray!40, ->] (-0.5,0) -- (6.0,0);
   \draw[gray!40, ->] (0,-0.5) -- (0,5.6);
@@ -185,7 +197,8 @@ On numbers, in $\mathbb{R}^2$: $\mathbf{x} = (1, 2)$ and $\mathbf{y} = (3, 1)$ a
   \node[gray!90, above right] at (3.2,4.35) {$\mathbf{y}$, carried};
   \draw[->, very thick] (0,0) -- (5,5) node[above right] {$2\mathbf{x} + \mathbf{y} = (5,5)$};
 \end{tikzpicture}
-\end{center}
+\caption{Closure, drawn. Scale $\mathbf{x}$, carry $\mathbf{y}$ from its tip, and the combination $2\mathbf{x} + \mathbf{y}$ is the arrow to where you land. Every step stays in the vector space.}
+\end{figure}
 
 Scale $\mathbf{x}$, walk $\mathbf{y}$ from its tip, and the combination is the arrow to where you land. Every step stayed on the page, which is the picture's way of saying every step stayed in the vector space.
 
@@ -195,16 +208,18 @@ Repeat the two moves and every linear combination of vectors in $S$ lands in $S$
 
 Each operation now gets the full tour, picture first.
 
-\lensmark{geometric} Scalar multiplication is stretching. Multiply a vector by $c$ and its arrow grows or shrinks along its own line through the origin; a negative $c$ flips it to point the other way down the same line:
+\lensmark{geometric} Scalar multiplication is stretching. Multiply a vector by $c$ and its arrow grows or shrinks along its own line through the origin. A negative $c$ flips it to point the other way down the same line:
 
-\begin{center}
+\begin{figure}[!htb]
+\centering
 \begin{tikzpicture}[scale=0.9]
   \draw[gray!40, ->] (-2.6,-1.3) -- (5.4,2.7);
   \draw[->, very thick, gray] (0,0) -- (4,2) node[below right] {$2\mathbf{v}$};
   \draw[->, very thick] (0,0) -- (2,1) node[above left] {$\mathbf{v}$};
   \draw[->, very thick, gray!70] (0,0) -- (-2,-1) node[below left] {$-\mathbf{v}$};
 \end{tikzpicture}
-\end{center}
+\caption{Scalar multiplication is stretching. $\mathbf{v}$, $2\mathbf{v}$, and $-\mathbf{v}$ share one line through the origin.}
+\end{figure}
 
 \lensmark{algebraic} The pencil version is entrywise, small enough to do whole:
 
@@ -212,7 +227,7 @@ Each operation now gets the full tour, picture first.
 3\,(2, 1) = (3 \cdot 2,\; 3 \cdot 1) = (6, 3), \qquad\quad c\,\mathbf{v} = (c v_1,\, c v_2,\, \ldots,\, c v_n)
 \end{align}
 
-\lensmark{computational} The machine draws the same picture at whatever scale you ask. **Listing 1.5 (a vector-drawing helper, defined)** wraps matplotlib's arrow primitive.
+\lensmark{computational} The machine draws the same picture at whatever scale you ask. **Listing 1.6 (a vector-drawing helper, defined)** wraps matplotlib's arrow primitive.
 
 ```python
 import matplotlib.pyplot as plt
@@ -222,7 +237,7 @@ def plot_vector(v, color='blue', label=None):
                color=color, label=label)
 ```
 
-**Listing 1.6 (scalar multiples, drawn)** puts three multiples of one vector on the same axes; Figure 1.2 is its output.
+**Listing 1.7 (scalar multiples, drawn)** puts three multiples of one vector on the same axes. Figure 1.5 is its output.
 
 ```python
 v = np.array([2, 1])
@@ -234,15 +249,15 @@ plt.show()
 
 ![scalar multiplication](figures/fig_scalar_multiplication.png)
 
-> **Figure 1.2.** Scalar multiplication. `v`, `2v`, and `-v` all lie on the single line through the origin: multiplying by `c` slides the arrow along that line, and flips it to the far side when `c` is negative.
+> **Figure 1.5.** Scalar multiplication. `v`, `2v`, and `-v` all lie on the single line through the origin: multiplying by `c` slides the arrow along that line, and flips it to the far side when `c` is negative.
 
-\lensmark{geometric} Addition is tip to tail. Walk out along the first arrow; from where you land, walk out along the second; the sum is the single arrow from start to finish. The closure drawing above already showed it. \lensmark{algebraic} The pencil version is entrywise again:
+\lensmark{geometric} Addition is tip to tail. Walk out along the first arrow. From where you land, walk out along the second. The sum is the single arrow from start to finish. The closure drawing above already showed it. \lensmark{algebraic} The pencil version is entrywise again:
 
 \begin{align}
 (1, 2) + (3, 1) = (4, 3), \qquad\quad \mathbf{v} + \mathbf{w} = (v_1 + w_1,\, \ldots,\, v_n + w_n)
 \end{align}
 
-\lensmark{computational} **Listing 1.7 (tip to tail, drawn)** renders a sum with the helper from Listing 1.5; Figure 1.3 is its output.
+\lensmark{computational} **Listing 1.8 (tip to tail, drawn)** renders a sum with the helper from Listing 1.6. Figure 1.6 is its output.
 
 ```python
 v1, v2 = np.array([1, 2]), np.array([3, 1])
@@ -253,7 +268,7 @@ plt.show()
 
 ![vector addition: tip to tail](figures/fig_vector_addition.png)
 
-> **Figure 1.3.** `v1` and `v2` from the origin, with `v2` carried to the tip of `v1` (faded), and the tip-to-tail sum `v1 + v2` in green.
+> **Figure 1.6.** `v1` and `v2` from the origin, with `v2` carried to the tip of `v1` (faded), and the tip-to-tail sum `v1 + v2` in green.
 
 Put the two operations together and the object of the book appears. Take $\mathbf{v} = (1, 2)$ and $\mathbf{w} = (3, 1)$ and form the combination $2\mathbf{v} + \mathbf{w}$, scale first, then add:
 
@@ -269,7 +284,7 @@ That is the arithmetic your machine ran ten million times in Section 1.1, once p
 
 [^decock]: Dean De Cock, "Ames, Iowa: Alternative to the Boston Housing Data as an End of Semester Regression Project," *Journal of Statistics Education* 19(3), 2011. He assembled it to replace the worn-out Boston housing dataset. The data itself is a download away: the [Kaggle House Prices competition](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data) ships it as csv files, and the companion repository carries the copy this book uses.
 
-**Listing 1.8 (assembling the houses)** joins the three shipped files into one table.
+**Listing 1.9 (assembling the houses)** joins the three shipped files into one table.
 
 ```python
 import pandas as pd
@@ -283,9 +298,10 @@ housing = pd.merge(housing, sale, on='Id').set_index('Id')
 
 Through the data lens, a feature is a vector.[^observations] `GrLivArea`, the above-ground living area, is a column of 1,460 numbers, one per home, a vector in $\mathbb{R}^{1460}$. `OverallQual`, the assessor's one-to-ten quality rating, is another. And `SalePrice`, what a buyer actually paid, is a third. \lensmark{geometric} The rows read the other way. Each home is a point whose coordinates are its features, and two of those coordinates already draw:
 
-[^observations]: A column of observations as a single vector is the quiet front-loading of Part II. When Chapter 4 introduces random variables, a feature column will become a vector of realizations, and the geometry built here will apply to randomness unchanged. Nothing needs to be relearned; that is the point of building it this way.
+[^observations]: A column of observations as a single vector is the quiet front-loading of Part II. When Chapter 4 introduces random variables, a feature column will become a vector of realizations, and the geometry built here will apply to randomness unchanged. Nothing needs to be relearned, and that is the point of building it this way.
 
-\begin{center}
+\begin{figure}[!htb]
+\centering
 \begin{tikzpicture}[scale=1.0]
   \draw[->, gray] (0.6,0.9) -- (3.1,0.9) node[below left] {\scriptsize GrLivArea (thousand sq ft)};
   \draw[->, gray] (0.9,0.6) -- (0.9,3.4) node[above right=-2pt] {\scriptsize SalePrice (\$100k)};
@@ -294,9 +310,10 @@ Through the data lens, a feature is a vector.[^observations] `GrLivArea`, the ab
   \foreach \x in {1.0,1.5,2.0} \draw[gray!50] (\x,0.87) -- (\x,0.93) node[below=4pt] {\tiny \x};
   \foreach \y in {1.5,2.0,2.5,3.0} \draw[gray!50] (0.87,\y) -- (0.93,\y) node[left=4pt] {\tiny \y};
 \end{tikzpicture}
-\end{center}
+\caption{The first five homes as points in living-area-and-price space. A vector is a point in a vector space, and a dataset is a cloud of them.}
+\end{figure}
 
-The first five homes, plotted as points in living-area-and-price space. A vector is a point in a vector space, and a dataset is a cloud of them. Hold both readings, column-as-vector and row-as-point; Chapter 2 makes the pair official.
+The first five homes, plotted as points in living-area-and-price space. A vector is a point in a vector space, and a dataset is a cloud of them. Hold both readings, column-as-vector and row-as-point. Chapter 2 makes the pair official.
 
 Estimation makes one claim about the three feature vectors. Some scaled copy of the first, plus some scaled copy of the second, lands near the third:
 
@@ -304,7 +321,7 @@ Estimation makes one claim about the three feature vectors. Some scaled copy of 
 \texttt{SalePrice} \;\approx\; w_1 \cdot \texttt{GrLivArea} \;+\; w_2 \cdot \texttt{OverallQual}
 \end{align}
 
-Read the right-hand side against Definition 1.2. Two vectors, scaled by weights, added. The claim of estimation is that a linear combination of feature columns approximates the price column, and the entire question is which weights. **Listing 1.9 (asking for the weights)** gets the answer first and owes you the method.
+Read the right-hand side against Definition 1.2. Two vectors, scaled by weights, added. The claim of estimation is that a linear combination of feature columns approximates the price column, and the entire question is which weights. **Listing 1.10 (asking for the weights)** gets the answer first and owes you the method.
 
 ```python
 X = housing[['GrLivArea', 'OverallQual']].to_numpy(float)
@@ -343,7 +360,7 @@ The actual sale was \$181,500, a miss of \$10,415, within six percent. The opera
 | 9 | 1,774 | 7 | 215,247 | 129,900 | +85,347 |
 | 10 | 1,077 | 5 | 143,885 | 118,000 | +25,885 |
 
-Some misses are rounding errors on a house; some are the price of a car. Two features cannot know about a gutted interior or a bidding war. \lensmark{computational} **Listing 1.10 (the market, drawn)** plots every home in the same plane as the five-point drawing above, living area against actual sale price, with the model's predictions overlaid; Figure 1.4 is its output.
+Some misses are rounding errors on a house. Some are the price of a car. Two features cannot know about a gutted interior or a bidding war. \lensmark{computational} **Listing 1.11 (the market, drawn)** plots every home in the same plane as the five-point drawing above, living area against actual sale price, with the model's predictions overlaid. Figure 1.8 is its output.
 
 ```python
 pred = X @ w
@@ -355,7 +372,7 @@ plt.legend(); plt.show()
 
 ![price against living area, with predictions](figures/fig_price_vs_sqft.png)
 
-> **Figure 1.4.** Actual sale price against living area for all 1,460 homes, with the two-feature prediction overlaid. The predictions form a tight band, because a two-weight recipe can only vary so much; the actual market scatters around it, misses and all.
+> **Figure 1.8.** Actual sale price against living area for all 1,460 homes, with the two-feature prediction overlaid. The predictions form a tight band, because a two-weight recipe can only vary so much. The actual market scatters around it, misses and all.
 
 ## 1.4 Span and subspace
 
@@ -365,14 +382,16 @@ Hold $\mathbf{v}$ and $\mathbf{w}$ fixed, and let the weights range over every v
 
 \lensmark{geometric} The degenerate case first, drawn before computed. If $\mathbf{w}$ already lies on $\mathbf{v}$'s line, say $\mathbf{w} = 2\mathbf{v}$, then no combination ever leaves that line:
 
-\begin{center}
+\begin{figure}[!htb]
+\centering
 \begin{tikzpicture}[scale=0.85]
   \draw[gray!60, thick] (-2.2,-1.1) -- (5.2,2.6);
   \draw[->, very thick] (0,0) -- (2,1) node[above left] {$\mathbf{v}$};
   \draw[->, very thick, gray] (0,0) -- (4,2) node[above left] {$\mathbf{w} = 2\mathbf{v}$};
-  \node[gray, anchor=west] at (3.3,1.15) {\scriptsize the span: one line};
+  \node[gray, anchor=west] at (3.3,1.15) {\scriptsize the span, one line};
 \end{tikzpicture}
-\end{center}
+\caption{The degenerate case. With $\mathbf{w} = 2\mathbf{v}$, every combination stays on $\mathbf{v}$'s line, and the span is that line.}
+\end{figure}
 
 \lensmark{algebraic} The picture has an algebra, and the algebra is scalar multiplication in disguise:
 
@@ -382,16 +401,18 @@ c\,\mathbf{v} + d\,(2\mathbf{v}) = (c + 2d)\,\mathbf{v} = a\,\mathbf{v}, \qquad 
 
 Every combination collapses to a single stretch of $\mathbf{v}$. The span is $\mathbf{v}$'s line, and the second vector bought no new territory. \lensmark{geometric} But let $\mathbf{w}$ point off the line, and the combinations sweep out an entire plane:
 
-\begin{center}
+\begin{figure}[!htb]
+\centering
 \begin{tikzpicture}[scale=0.85]
   \fill[gray!12] (-2.4,-2.9) -- (2.6,-0.4) -- (4.4,3.4) -- (-0.6,0.9) -- cycle;
   \draw[->, very thick] (0,0) -- (2,1) node[below right] {$\mathbf{v}$};
   \draw[->, very thick, gray] (0,0) -- (1,3) node[above left] {$\mathbf{w}$};
-  \node[gray, anchor=west] at (2.3,2.6) {\scriptsize the span: a plane};
+  \node[gray, anchor=west] at (2.3,2.6) {\scriptsize the span, a plane};
 \end{tikzpicture}
-\end{center}
+\caption{The full case. With $\mathbf{w}$ off the line, the combinations sweep out an entire plane.}
+\end{figure}
 
-\lensmark{computational} The machine can draw the sweep by brute force, and NumPy has a function whose whole job is the word *every*. `meshgrid` takes a sweep of values for $c$ and a sweep for $d$ and crosses them, every $c$ paired with every $d$. **Listing 1.11 (the span sweeper, defined)** wraps the cross into a function.
+\lensmark{computational} The machine can draw the sweep by brute force, and NumPy has a function whose whole job is the word *every*. `meshgrid` takes a sweep of values for $c$ and a sweep for $d$ and crosses them, every $c$ paired with every $d$. **Listing 1.12 (the span sweeper, defined)** wraps the cross into a function.
 
 ```python
 def span_cloud(v: np.ndarray, w: np.ndarray, ax) -> None:
@@ -400,7 +421,7 @@ def span_cloud(v: np.ndarray, w: np.ndarray, ax) -> None:
     ax.scatter(cloud[:, 0], cloud[:, 1], s=4, alpha=0.4)
 ```
 
-**Listing 1.12 (both cases, swept)** runs the identical sweep twice, once with $\mathbf{w}$ on $\mathbf{v}$'s line and once off it; Figure 1.5 is its output, and it verifies both drawings.
+**Listing 1.13 (both cases, swept)** runs the identical sweep twice, once with $\mathbf{w}$ on $\mathbf{v}$'s line and once off it. Figure 1.11 is its output, and it verifies both drawings.
 
 ```python
 v = np.array([2, 1])
@@ -412,7 +433,7 @@ plt.show()
 
 ![the span, swept: degenerate and full](figures/fig_span_pair.png)
 
-> **Figure 1.5.** The same weight sweep, $c$ and $d$ each from $-2$ to $2$, crossed by `meshgrid`. Left: $\mathbf{w} = 2\mathbf{v}$, and every one of the 625 combinations lands on $\mathbf{v}$'s line. Right: $\mathbf{w} = (1, 3)$ points off the line, and the identical sweep fills a patch of plane. Widen the sweep and the patch grows without bound; the plane is what it is filling in.
+> **Figure 1.11.** The same weight sweep, $c$ and $d$ each from $-2$ to $2$, crossed by `meshgrid`. Left: $\mathbf{w} = 2\mathbf{v}$, and every one of the 625 combinations lands on $\mathbf{v}$'s line. Right: $\mathbf{w} = (1, 3)$ points off the line, and the identical sweep fills a patch of plane. Widen the sweep and the patch grows without bound; the plane is what it is filling in.
 
 Membership in a span is a concrete question, and it is this book's first meeting with its two standing questions. **Existence**: is $\mathbf{b} = (4, 7)$ in the span of $\mathbf{v} = (2, 1)$ and $\mathbf{w} = (1, 3)$ at all? **Uniqueness**: if it is, how many recipes reach it? \lensmark{algebraic} Both are pencil work. Asking for membership is asking for weights, $c\,\mathbf{v} + d\,\mathbf{w} = \mathbf{b}$, which written entrywise is a little linear system, which is windmill work from the preface:
 
@@ -423,29 +444,30 @@ Membership in a span is a concrete question, and it is this book's first meeting
 \qquad\Longrightarrow\qquad c = 1,\; d = 2
 \end{align}
 
-Elimination produced a candidate. Now check it directly: $1\,(2, 1) + 2\,(1, 3) = (2, 1) + (2, 6) = (4, 7)$. It verifies, so existence holds and the recipe is in hand. The check is not a formality. Verifying a candidate is a licensed method in this book, and the license, which is uniqueness, arrives with Claim 1.10. Membership questions are recipe questions.
+Elimination produced a candidate. Now check the candidate directly, $1\,(2, 1) + 2\,(1, 3) = (2, 1) + (2, 6) = (4, 7)$. It verifies, so existence holds and the recipe is in hand. The check is not a formality. Verifying a candidate is a licensed method in this book, and the license, which is uniqueness, arrives with Claim 1.10. Membership questions are recipe questions.
 
-> **Definition 1.6 (subspace).** A **subspace** is a set of vectors that contains the origin[^origin] and is closed under scaling and addition: a vector space living inside a larger one.
+> **Definition 1.6 (subspace).** A **subspace** is a set of vectors that contains the origin[^origin] and is closed under scaling and addition. It is a vector space living inside a larger one.
 
-[^origin]: Why the origin is not optional: scaling by $c = 0$ is allowed, and it sends every vector to $\mathbf{0}$. A set closed under scaling therefore already contains the origin, so demanding it costs nothing; what it buys is a shared anchor. Every subspace of $\mathbb{R}^n$ passes through one common point, and every drawing in this book hangs off it.
+[^origin]: Why the origin is not optional: scaling by $c = 0$ is allowed, and it sends every vector to $\mathbf{0}$. A set closed under scaling therefore already contains the origin, so demanding it costs nothing. What it buys is a shared anchor. Every subspace of $\mathbb{R}^n$ passes through one common point, and every drawing in this book hangs off it.
 
 > **Claim 1.7 (a span is a subspace).** The span of any set of vectors is a subspace.
 >
-> The one-breath reason: a scaled combination is a combination, a sum of two combinations is a combination, and all-zero weights give the origin.[^footnotes] Span and subspace are two descriptions of one object. Span builds it from a list of vectors; subspace states the property the built thing has.
+> The one-breath reason: a scaled combination is a combination, a sum of two combinations is a combination, and all-zero weights give the origin.[^footnotes] Span and subspace are two descriptions of one object. Span builds it from a list of vectors. Subspace states the property the built thing has.
 
-[^footnotes]: That breath was the whole argument, written small: $a(c\mathbf{v} + d\mathbf{w}) = (ac)\mathbf{v} + (ad)\mathbf{w}$, and two combinations add weight by weight. A note about this book's footnotes, since this is its first boxed claim: the fuller arguments live down here and in the references, on purpose. The text above is for you. It is not for the gatekeepers who keep mathematics behind subscript fiddliness, and a proof performed as ritual is gatekeeping; the preface's Jim had a word for it, waved off with the back of a hand. When a reason is cheap you will get it in a breath. When it is a real theorem you will get the name of someone who proved it properly.
+[^footnotes]: That breath was the whole argument, written small: $a(c\mathbf{v} + d\mathbf{w}) = (ac)\mathbf{v} + (ad)\mathbf{w}$, and two combinations add weight by weight. A note about this book's footnotes, since this is its first boxed claim: the fuller arguments live down here and in the references, on purpose. The text above is for you. It is not for the gatekeepers who keep mathematics behind subscript fiddliness, and a proof performed as ritual is gatekeeping. The preface's Jim had a word for it, waved off with the back of a hand. When a reason is cheap you will get it in a breath. When it is a real theorem you will get the name of someone who proved it properly.
 
-The drawings above are more general than they look, and that is their purpose. Two vectors span at most a plane, in three dimensions, in 1,460, in a googol: the reach of a span is set by how many vectors you combine, never by the size of the space they live in.[^precise] So every question this book asks about two vectors happens inside the at-most-a-plane they span, and a drawing on this page is exact for the 1,460-dimensional case. Nobody can picture $\mathbb{R}^{1460}$, and nobody needs to.
+The drawings above are more general than they look, and that is their purpose. Two vectors span at most a plane, in three dimensions, in 1,460, in a googol. The reach of a span is set by how many vectors you combine, never by the size of the space they live in.[^precise] So every question this book asks about two vectors happens inside the at-most-a-plane they span, and a drawing on this page is exact for the 1,460-dimensional case. Nobody can picture $\mathbb{R}^{1460}$, and nobody needs to.
 
 [^precise]: The precise statement is Claim 1.13, once dimension is on the table.
 
-\lensmark{data} On the houses, the span is the reachable set. The two feature columns `GrLivArea` and `OverallQual` span a subspace of $\mathbb{R}^{1460}$, and every prediction the two-weight claim of Section 1.3 can ever make, every choice of $w_1$ and $w_2$, lives inside that span. Existence, at housing scale: is the true price column in the span of the features? Section 1.3's misses already answered no. What to do about that no is the estimation question, and it waits for the machinery of Chapters 2 and 11.
+\lensmark{data} On the houses, the span is the reachable set. The two feature columns `GrLivArea` and `OverallQual` span a subspace of $\mathbb{R}^{1460}$, and every prediction the two-weight claim of Section 1.3 can ever make, every choice of $w_1$ and $w_2$, lives inside that span. Existence, at housing scale, asks whether the true price column is in the span of the features. Section 1.3's misses already answered no. What to do about that no is the estimation question, and it waits for the machinery of Chapters 2 and 11.
 
 ## 1.5 Independence, basis, and the recipe
 
-Take the plane spanned by two vectors and bring in a third. \lensmark{geometric} Either it lands in the plane, already reachable, and the span does not grow; or it points out of the plane, and combinations of the three fill space:
+Take the plane spanned by two vectors and bring in a third. \lensmark{geometric} Either it lands in the plane, already reachable, and the span does not grow. Or it points out of the plane, and combinations of the three fill space:
 
-\begin{center}
+\begin{figure}[!htb]
+\centering
 \begin{tikzpicture}[scale=0.8]
   \fill[gray!12] (-2.2,-1.4) -- (2.8,-1.4) -- (4.2,1.0) -- (-0.8,1.0) -- cycle;
   \draw[->, very thick] (0,0) -- (2,0.4) node[right] {$\mathbf{v}$};
@@ -453,11 +475,12 @@ Take the plane spanned by two vectors and bring in a third. \lensmark{geometric}
   \draw[->, very thick, gray] (0,0) -- (2.6,-0.5) node[right] {$\mathbf{u}$ in the plane};
   \draw[->, very thick, black!70] (0,0) -- (0.6,2.2) node[above] {$\mathbf{u}'$ out of it};
 \end{tikzpicture}
-\end{center}
+\caption{A third vector either lands in the plane the first two span, and the span does not grow, or points out of it, and combinations of the three fill space.}
+\end{figure}
 
 > **Definition 1.8 (linear independence).** A set of vectors is **linearly independent** when none of them is a linear combination of the others.[^zerotest]
 
-[^zerotest]: The equivalent test, usually easier to run: the only combination equal to the zero vector is the one with every weight zero. The two phrasings convert by moving one vector across the equals sign, exactly the maneuver the dependent-triple computation below performs in reverse.
+[^zerotest]: The equivalent test is usually easier to run. The only combination equal to the zero vector is the one with every weight zero. The two phrasings convert by moving one vector across the equals sign, exactly the maneuver the dependent-triple computation below performs in reverse.
 
 \lensmark{algebraic} Both verdicts are pencil work, so render one of each. The pair $\mathbf{v} = (2, 1)$, $\mathbf{w} = (1, 3)$ is independent. Set a combination to zero and elimination forces both weights to die:
 
@@ -474,7 +497,7 @@ Now bring in $\mathbf{u} = (4, 7)$. Section 1.4 already found the recipe $\mathb
 1\,\mathbf{v} + 2\,\mathbf{w} - 1\,\mathbf{u} = (2, 1) + (2, 6) - (4, 7) = (0, 0)
 \end{align}
 
-\lensmark{computational} **Listing 1.13 (the verdict, drawn)** reuses the span sweeper on $\mathbf{v}$ and $\mathbf{w}$ and draws $\mathbf{u}$ on top; Figure 1.6 is its output.
+\lensmark{computational} **Listing 1.14 (the verdict, drawn)** reuses the span sweeper on $\mathbf{v}$ and $\mathbf{w}$ and draws $\mathbf{u}$ on top. Figure 1.13 is its output.
 
 ```python
 v, w, u = np.array([2, 1]), np.array([1, 3]), np.array([4, 7])
@@ -488,7 +511,7 @@ ax.legend(); plt.show()
 
 ![the dependent third vector inside the span](figures/fig_span_membership.png)
 
-> **Figure 1.6.** The span cloud of $\mathbf{v} = (2,1)$ and $\mathbf{w} = (1,3)$ with the third vector $\mathbf{u} = (4,7)$ drawn on top. The tip of $\mathbf{u}$ sits inside the swept patch: it is reachable, the triple is dependent, and the span did not grow.
+> **Figure 1.13.** The span cloud of $\mathbf{v} = (2,1)$ and $\mathbf{w} = (1,3)$ with the third vector $\mathbf{u} = (4,7)$ drawn on top. The tip of $\mathbf{u}$ sits inside the swept patch. It is reachable, the triple is dependent, and the span did not grow.
 
 > **Definition 1.9 (basis, dimension).** A **basis** of a subspace is a linearly independent set that spans it. All bases of a given subspace have the same size,[^samesize] and that shared size is the subspace's **dimension**.
 
@@ -496,7 +519,7 @@ ax.legend(); plt.show()
 
 > **Claim 1.10 (unique recipe).** If $\mathbf{b}_1, \ldots, \mathbf{b}_k$ is a basis, every vector in its span is a combination of the basis in exactly one way.
 >
-> Witness it small. The set $\{(1, 0), (1, 1)\}$ is a basis of $\mathbb{R}^2$. To build $(3, 5)$, the second entry forces the weight on $(1, 1)$ to be $5$; the first entry then forces the weight on $(1, 0)$ to be $-2$. Forced twice over: no other recipe exists. The one-breath reason it always works: two different recipes for the same vector would subtract to a zero combination with nonzero weights, and independence forbids it.
+> Witness it small. The set $\{(1, 0), (1, 1)\}$ is a basis of $\mathbb{R}^2$. To build $(3, 5)$, the second entry forces the weight on $(1, 1)$ to be $5$. The first entry then forces the weight on $(1, 0)$ to be $-2$. Forced twice over, no other recipe exists. The one-breath reason it always works: two different recipes for the same vector would subtract to a zero combination with nonzero weights, and independence forbids it.
 
 Why this claim earns a box is a story about permission. Jim, the professor from the preface, opened his first lecture with uniqueness, before teaching us to solve anything. It seemed like a strange place to start. It is the perfect place to start, because uniqueness is a license. If the answer is one of a kind, then any way of finding it is legitimate, including the oldest and most poo-pooed method in mathematics, guess and check. Find a candidate however you like, verify it, and uniqueness does the rest. The membership check of Section 1.4 already ran on this license, and Claim 1.10 is what makes it legal. This book runs on it.
 
@@ -516,19 +539,20 @@ The list $(5, -2, 7)$ was $5\mathbf{e}_1 - 2\mathbf{e}_2 + 7\mathbf{e}_3$ all al
 
 > **Claim 1.13 (span of the question).** The span of $k$ vectors is a subspace of dimension at most $k$, whatever the dimension of the ambient space.[^ambient]
 >
-> The one-breath reason: if the $k$ vectors are independent they are a basis of their span, and the dimension is exactly $k$; if not, discarding dependent vectors one at a time never shrinks the span and only lowers the count, because a dependent vector was already a combination of the others.
+> The one-breath reason: if the $k$ vectors are independent they are a basis of their span, and the dimension is exactly $k$. If not, discarding dependent vectors one at a time never shrinks the span and only lowers the count, because a dependent vector was already a combination of the others.
 
-[^ambient]: **Ambient space**: the $\mathbb{R}^n$ the vectors happen to live in, as opposed to the subspace they generate. Two feature columns live in the ambient $\mathbb{R}^{1460}$ and generate an at-most-two-dimensional subspace; the 1,460 is the address, the 2 is the substance.
+[^ambient]: **Ambient space**: the $\mathbb{R}^n$ the vectors happen to live in, as opposed to the subspace they generate. Two feature columns live in the ambient $\mathbb{R}^{1460}$ and generate an at-most-two-dimensional subspace. The 1,460 is the address, and the 2 is the substance.
 
 ## 1.6 Magnitude, direction, and the dot product
 
 We can build vectors. To estimate we must also measure them, and the geometric lens goes first, on the object that catalogs direction itself.
 
-> **Definition 1.14 (unit vector, unit circle).** A **unit vector** is a vector of norm one. In $\mathbb{R}^2$ the unit vectors form the **unit circle**, $\{\mathbf{u} \in \mathbb{R}^2 : \|\mathbf{u}\| = 1\}$; in $\mathbb{R}^n$ they form the unit sphere. One unit vector exists for every direction, so the unit circle is the catalog of directions.
+> **Definition 1.14 (unit vector, unit circle).** A **unit vector** is a vector of norm one. In $\mathbb{R}^2$ the unit vectors form the **unit circle**, $\{\mathbf{u} \in \mathbb{R}^2 : \|\mathbf{u}\| = 1\}$. In $\mathbb{R}^n$ they form the unit sphere. One unit vector exists for every direction, so the unit circle is the catalog of directions.
 
 \lensmark{geometric} Every nonzero vector is a stretched copy of exactly one entry in the catalog. Take $\mathbf{v} = (3, 4)$. Its magnitude is the straight-line distance from origin to tip, the hypotenuse of a 3-4-5 right triangle, so 5. Divide the vector by its own magnitude and you land on the circle:
 
-\begin{center}
+\begin{figure}[!htb]
+\centering
 \begin{tikzpicture}[scale=1.35]
   \draw[gray!60] (0,0) circle (1);
   \draw[gray!40, ->] (-1.35,0) -- (1.6,0);
@@ -541,7 +565,8 @@ We can build vectors. To estimate we must also measure them, and the geometric l
   \node[anchor=west] at (0.62,0.66) {\scriptsize $(0.6, 0.8)$};
   \node[gray, anchor=north west] at (0.62,-0.62) {\scriptsize the unit circle};
 \end{tikzpicture}
-\end{center}
+\caption{The unit circle is the catalog of directions. Dividing $\mathbf{v} = (3,4)$ by its magnitude 5 lands on the catalog entry $(0.6, 0.8)$.}
+\end{figure}
 
 \lensmark{algebraic} In symbols and numbers:
 
@@ -553,7 +578,7 @@ Magnitude 5, direction $(0.6, 0.8)$. Every nonzero vector factors this way, and 
 
 > **Definition 1.15 (norm, magnitude and direction).** The **norm** of a vector is $\|\mathbf{v}\| = \sqrt{v_1^2 + \cdots + v_n^2}$, its magnitude. Every nonzero vector factors into magnitude times direction, $\mathbf{v} = \|\mathbf{v}\| \cdot \dfrac{\mathbf{v}}{\|\mathbf{v}\|}$, where the second factor is the unit vector carrying $\mathbf{v}$'s direction.
 
-Both halves of the picture extend to $n$ dimensions unchanged, and both extensions matter. The unit circle becomes the unit sphere in $\mathbb{R}^n$, still one unit vector per direction. And the norm formula is the Pythagorean theorem, applied $n - 1$ times: in $\mathbb{R}^3$ the diagonal of a box satisfies $\|\mathbf{v}\|^2 = v_1^2 + v_2^2 + v_3^2$, one right triangle across the floor and a second one up the wall, and each further dimension is one more right triangle. A feature column in $\mathbb{R}^{1460}$ has a magnitude and a direction in exactly this sense.
+Both halves of the picture extend to $n$ dimensions unchanged, and both extensions matter. The unit circle becomes the unit sphere in $\mathbb{R}^n$, still one unit vector per direction. And the norm formula is the Pythagorean theorem, applied $n - 1$ times. In $\mathbb{R}^3$ the diagonal of a box satisfies $\|\mathbf{v}\|^2 = v_1^2 + v_2^2 + v_3^2$, one right triangle across the floor and a second one up the wall. Each further dimension is one more right triangle. A feature column in $\mathbb{R}^{1460}$ has a magnitude and a direction in exactly this sense.
 
 Magnitude and direction is the vocabulary from here on, and the next instrument measures how much two directions agree.
 
@@ -561,7 +586,7 @@ Directions can also disagree completely. On the unit circle, $(1, 0)$ and $(0, 1
 
 > **Definition 1.16 (dot product, direction agreement, orthogonality).** The **dot product** of two vectors is $\mathbf{v} \cdot \mathbf{w} = v_1 w_1 + \cdots + v_n w_n$. For nonzero vectors, the **direction agreement** is the dot product of their unit vectors, $\cos\theta = \dfrac{\mathbf{v}}{\|\mathbf{v}\|} \cdot \dfrac{\mathbf{w}}{\|\mathbf{w}\|} = \dfrac{\mathbf{v}\cdot\mathbf{w}}{\|\mathbf{v}\|\,\|\mathbf{w}\|}$, where $\theta$ is the angle their directions enclose. Two vectors are **orthogonal** when their dot product is zero.
 
-Read the middle expression, because it is the unit circle doing its work. Strip both vectors down to their directions, two points on the circle, and dot those. Machine learning calls this exact number **cosine similarity** and runs on it daily; it is the unit circle's answer to how alike two things point.
+Read the middle expression, because it is the unit circle doing its work. Strip both vectors down to their directions, two points on the circle, and dot those. Machine learning calls this exact number **cosine similarity** and runs on it daily. It is the unit circle's answer to how alike two things point.
 
 \lensmark{geometric} Through the geometric lens the dot product is a direction-agreement machine. Two vectors pointing the same way score as high as their magnitudes allow. Orthogonal vectors score zero, each invisible to the other's measure. Opposite vectors score as negative as possible. Dividing by both magnitudes strips the machine's answer down to pure agreement, a number that never leaves $[-1, 1]$.[^cs]
 
@@ -575,7 +600,7 @@ Read the middle expression, because it is the unit circle doing its work. Strip 
 \cos\theta = \frac{9}{\sqrt{10}\,\sqrt{13}} = \frac{9}{\sqrt{130}} \approx 0.789
 \end{align}
 
-An agreement of 0.789, about 38 degrees between the two directions. Mostly agreeing. \lensmark{computational} **Listing 1.14 (the machine concurs)** runs the same three numbers.
+An agreement of 0.789, about 38 degrees between the two directions. Mostly agreeing. \lensmark{computational} **Listing 1.15 (the machine concurs)** runs the same three numbers.
 
 ```python
 v, w = np.array([3, 1]), np.array([2, 3])
@@ -588,7 +613,7 @@ print(score, round(agreement, 3), round(np.degrees(np.arccos(agreement))))
 9 0.789 38
 ```
 
-\lensmark{data} **Listing 1.15 (cosine similarity at housing scale)** points the same instrument at two real columns of 1,460 entries.
+\lensmark{data} **Listing 1.16 (cosine similarity at housing scale)** points the same instrument at two real columns of 1,460 entries.
 
 ```python
 a = housing['GrLivArea'].to_numpy(float)
@@ -601,9 +626,9 @@ print(f'direction agreement = {agreement:.4f}')
 direction agreement = 0.9644
 ```
 
-One number, and it is a finding: 0.9644 is the direction agreement between living area and overall quality across 1,460 homes. Bigger houses rate better, overwhelmingly. When Chapter 6 centers these columns and computes the same ratio, it will be called correlation.
+One number, and it is a finding. Living area and overall quality agree in direction at 0.9644 across 1,460 homes. Bigger houses rate better, overwhelmingly. When Chapter 6 centers these columns and computes the same ratio, it will be called correlation.
 
-Orthogonality is the case the book keeps returning to. A dot product of zero means two directions carry no information about each other, each invisible to the other's measure, and Chapter 11 will win its main result by finding the direction that is orthogonal to every miss at once. Direction agreement, measured; direction agreement zero, exploited.
+Orthogonality is the case the book keeps returning to. A dot product of zero means two directions carry no information about each other, each invisible to the other's measure. Chapter 11 will win its main result by finding the direction that is orthogonal to every miss at once. Direction agreement, measured. Direction agreement zero, exploited.
 
 ## 1.7 Summary and exercises
 
@@ -625,4 +650,4 @@ A few of these are quiz-shaped on purpose.
 8. *(keyboard, bridge → Ch 6)* Pick two numeric Ames features. Compute the direction agreement between their *centered* columns (subtract each column's mean first). Relate agreement near 1 and agreement near 0 to the idea of correlation.
 9. *(keyboard, bridge → Ch 11)* Rerun the `lstsq` cell from Section 1.3 with a third feature of your choosing added, and write the new prediction as an explicit three-term linear combination. Did house 2's miss shrink?
 10. *(pencil, bridge → Ch 2)* Write the two-feature claim $w_1 \cdot \texttt{GrLivArea} + w_2 \cdot \texttt{OverallQual}$ as a rectangular array of numbers multiplying a column of weights. Which part is the recipe? You have just invented the next chapter.
-11. *(keyboard)* Rebuild the right panel of Figure 1.5 with `w = 2 * v`, and describe what happens to the cloud. Which case of Section 1.4 did you just draw?
+11. *(keyboard)* Rebuild the right panel of Figure 1.11 with `w = 2 * v`, and describe what happens to the cloud. Which case of Section 1.4 did you just draw?
