@@ -9,7 +9,7 @@
      listings, TikZ, boxed claims, worked aligns).
      Companion notebook: clae-code/ch02/ch02.ipynb NEEDS A SYNC PASS to
      the new listing splits (outputs unchanged).
-     Words: 6025 prose / 6937 total (auto: tools/wordcount.py)-->
+     Words: 6065 prose / 6977 total (auto: tools/wordcount.py)-->
 
 # Chapter 2: Matrices and Linear Transformations
 
@@ -38,7 +38,9 @@ The convention carries two readings, and both matter. Down the columns, each col
 
 Houses 1 through 5, plotted as points. Every row of the table is a point like these, in eighty dimensions instead of two, and the whole dataset is a cloud of 1,460 of them. One object, two readings: columns are the vectors of Chapter 1, rows are points in feature space.
 
-\lensmark{algebraic} Through the algebraic lens, a matrix is a rectangular array of numbers, $m$ rows by $n$ columns, written $A$ with entries $A_{ij}$, row index first. The pencil rules for it are this chapter's subject. \lensmark{computational} And through the computational lens it is a two-dimensional array with a shape. **Listing 2.1 (the container, measured)** asks the assembled table for its shape and pulls one record and one feature, one read in each direction.
+\lensmark{algebraic} Through the algebraic lens, a matrix is a rectangular array of numbers, $m$ rows by $n$ columns, written $A$ with entries $A_{ij}$, row index first. The pencil rules for it are this chapter's subject. \lensmark{computational} And through the computational lens it is a two-dimensional array with a shape. Listing 2.1 asks the assembled table for its shape and pulls one record and one feature, one read in each direction.
+
+**Listing 2.1 (the container, measured)**
 
 ```python
 print(housing.shape)
@@ -115,7 +117,9 @@ D = \frac{1}{h}\begin{bmatrix} -1 & 1 & & \\ & -1 & 1 & \\ & & \ddots & \ddots \
 
 Look at the right-hand side. It is the difference quotient from the first week of calculus, the thing whose $h \to 0$ limit *defines* the derivative. The matrix is not approximating some formula that resembles differentiation. Row by row, it *is* differentiation, held at a finite step. Tighten the grid and the verb converges to the calculus.
 
-\lensmark{computational} **Listing 2.2 (building the derivative-taker)** constructs $D$ on a thousand-point grid over $[0, 2\pi]$.
+\lensmark{computational} Listing 2.2 constructs $D$ on a thousand-point grid over $[0, 2\pi]$.
+
+**Listing 2.2 (building the derivative-taker)**
 
 ```python
 import numpy as np
@@ -126,7 +130,9 @@ h = x[1] - x[0]
 D = (np.eye(n, k=1) - np.eye(n)) / h   # forward difference
 ```
 
-**Listing 2.3 (the verb, tested on a sine)** feeds $D$ a sampled sine and measures the worst error against the true derivative, the cosine.
+Listing 2.3 feeds $D$ a sampled sine and measures the worst error against the true derivative, the cosine.
+
+**Listing 2.3 (the verb, tested on a sine)**
 
 ```python
 err = np.abs(D @ np.sin(x) - np.cos(x))[:-1].max()
@@ -137,7 +143,9 @@ print(f'max |D @ sin - cos|: {err:.4f}')
 max |D @ sin - cos|: 0.0031
 ```
 
-Wrong in the third decimal, and the error shrinks as the grid tightens. Nothing happened except scaling and adding. The matrix took the derivative. **Listing 2.4 (drawing the derivative)** plots the input, the output, and the truth; Figure 2.3 is its output.
+Wrong in the third decimal, and the error shrinks as the grid tightens. Nothing happened except scaling and adding. The matrix took the derivative. Listing 2.4 plots the input, the output, and the truth; Figure 2.3 is its output.
+
+**Listing 2.4 (drawing the derivative)**
 
 ```python
 import matplotlib.pyplot as plt
@@ -152,7 +160,9 @@ plt.legend(); plt.show()
 
 > **Figure 2.3.** The input `sin(x)`, the output `D @ sin(x)`, and `cos(x)` dashed on top of it. The output sits on the cosine to within the width of the line.
 
-Apply the idea twice and you get the **second difference matrix** $K$, with $1, -2, 1$ down its diagonals, the discrete second derivative.[^provenance] **Listing 2.5 (the second difference matrix, built and tested)** constructs $K$ and applies it to the same sine.
+Apply the idea twice and you get the **second difference matrix** $K$, with $1, -2, 1$ down its diagonals, the discrete second derivative.[^provenance] Listing 2.5 constructs $K$ and applies it to the same sine.
+
+**Listing 2.5 (the second difference matrix, built and tested)**
 
 ```python
 K = (np.eye(n, k=1) - 2*np.eye(n) + np.eye(n, k=-1)) / h**2
@@ -200,7 +210,9 @@ Same sixteen multiplications, same answer, different story.
 >
 > The one-breath reason: entry $i$ of the column view is $\sum_j x_j A_{ij}$, entry $i$ of the row view is $\sum_j A_{ij} x_j$, and the sums are identical term by term.
 
-\lensmark{computational} **Listing 2.6 (the two views, defined)** writes each view as its own function, following the definition exactly.
+\lensmark{computational} Listing 2.6 writes each view as its own function, following the definition exactly.
+
+**Listing 2.6 (the two views, defined)**
 
 ```python
 def by_rows(A: np.ndarray, x: np.ndarray) -> np.ndarray:
@@ -210,7 +222,9 @@ def by_cols(A: np.ndarray, x: np.ndarray) -> np.ndarray:
     return sum(x[j] * A[:, j] for j in range(A.shape[1]))
 ```
 
-**Listing 2.7 (the two views, run)** checks both against NumPy's `@` on the worked example.
+Listing 2.7 checks both against NumPy's `@` on the worked example.
+
+**Listing 2.7 (the two views, run)**
 
 ```python
 A = np.array([[1, 2], [3, 4], [5, 6]])
@@ -270,7 +284,9 @@ Composition is why order matters and why $AB \neq BA$ in general. Rotate then st
 
 [^trig]: Multiply $R(a)R(b)$ out by hand and the entries are $\cos a \cos b - \sin a \sin b$ and $\sin a \cos b + \cos a \sin b$: the angle-sum identities. The trig identity sheet you memorized in high school is one matrix multiplication. If a teacher ever showed you how the whole sheet unfolds from the angle-sum formulas, they were doing linear algebra to you early.
 
-\lensmark{computational} **Listing 2.8 (the rotation matrix, defined)** builds $R(t)$ from its two columns.
+\lensmark{computational} Listing 2.8 builds $R(t)$ from its two columns.
+
+**Listing 2.8 (the rotation matrix, defined)**
 
 ```python
 def R(t: float) -> np.ndarray:
@@ -278,7 +294,9 @@ def R(t: float) -> np.ndarray:
                      [np.sin(t),  np.cos(t)]])
 ```
 
-**Listing 2.9 (two rotations are one rotation)** measures the difference between rotating twice and rotating once by the sum.
+Listing 2.9 measures the difference between rotating twice and rotating once by the sum.
+
+**Listing 2.9 (two rotations are one rotation)**
 
 ```python
 a, b = 0.7, 0.4
@@ -318,7 +336,9 @@ The original vector came back. Every intermediate term entered once with each si
 >
 > The one-breath reason is the word telescoping. The $i$-th running sum of the differences of $\mathbf{x}$ collapses to $x_i$, as the hand computation above just showed.
 
-\lensmark{computational} **Listing 2.10 (differencing, undone)** asks NumPy for the inverse and applies it.
+\lensmark{computational} Listing 2.10 asks NumPy for the inverse and applies it.
+
+**Listing 2.10 (differencing, undone)**
 
 ```python
 A3 = np.array([[1, 0, 0], [-1, 1, 0], [0, -1, 1]])  # difference
@@ -338,7 +358,9 @@ Differentiation and integration, inverse verbs, and you have known that since ca
 
 ## 2.3 Rotate, scale, project
 
-\lensmark{geometric} To read a verb you watch what it does. Feed the same input, the unit circle from Chapter 1, to three matrices and compare the outputs. **Listing 2.11 (three verbs, defined)** builds the circle and the three matrices.
+\lensmark{geometric} To read a verb you watch what it does. Feed the same input, the unit circle from Chapter 1, to three matrices and compare the outputs. Listing 2.11 builds the circle and the three matrices.
+
+**Listing 2.11 (three verbs, defined)**
 
 ```python
 t = np.linspace(0, 2*np.pi, 100)
@@ -349,7 +371,9 @@ S = np.diag([2.0, 0.5])                    # scaling
 # R(0.5) from Listing 2.8                   # rotation
 ```
 
-**Listing 2.12 (three verbs, watched)** applies each matrix to every point of the circle and draws the three outputs. Figure 2.5 is its output.
+Listing 2.12 applies each matrix to every point of the circle and draws the three outputs. Figure 2.5 is its output.
+
+**Listing 2.12 (three verbs, watched)**
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(12, 4))
@@ -415,7 +439,9 @@ $P^2 = \dfrac{\mathbf{u}(\mathbf{u}^\mathsf{T}\mathbf{u})\mathbf{u}^\mathsf{T}}{
 and
 $\mathbf{u}^\mathsf{T}(\mathbf{v} - P\mathbf{v}) = \mathbf{u}^\mathsf{T}\mathbf{v} - \dfrac{(\mathbf{u}^\mathsf{T}\mathbf{u})(\mathbf{u}^\mathsf{T}\mathbf{v})}{\mathbf{u}^\mathsf{T}\mathbf{u}} = 0$.
 
-\lensmark{computational} **Listing 2.13 (the projection properties, measured)** checks both properties at machine precision.
+\lensmark{computational} Listing 2.13 checks both properties at machine precision.
+
+**Listing 2.13 (the projection properties, measured)**
 
 ```python
 print('P @ P == P?  max diff:', np.abs(P @ P - P).max())
@@ -428,7 +454,9 @@ P @ P == P?  max diff: 1.1102230246251565e-16
 residual . u = -2.220446049250313e-16
 ```
 
-**Listing 2.14 (the shadow, drawn at scale)** renders the projection picture with the machine's numbers. Figure 2.7 is its output.
+Listing 2.14 renders the projection picture with the machine's numbers. Figure 2.7 is its output.
+
+**Listing 2.14 (the shadow, drawn at scale)**
 
 ```python
 def arrow(vec: np.ndarray, color: str, label: str) -> None:
@@ -472,7 +500,9 @@ Existence held, elimination found the candidate, the check verified it, and inde
 
 The difference matrix behaves perfectly. Its columns are independent, they span all of three-dimensional space, every $\mathbf{b}$ is reachable, and the recipe is unique. Run the sums. For $\mathbf{b} = (1, 3, 5)$ the recipe is $\mathbf{x} = (1, 4, 9)$, as Claim 2.12 computed. One recipe for every target is invertibility, Definition 2.11, seen from the output side.
 
-Now change one entry and watch the behavior collapse. Make the matrix cyclic, so each output entry is a difference and the differences wrap around. \lensmark{computational} **Listing 2.15 (the cyclic difference matrix, and what it destroys)** builds $C$ and feeds it a constant vector.
+Now change one entry and watch the behavior collapse. Make the matrix cyclic, so each output entry is a difference and the differences wrap around. \lensmark{computational} Listing 2.15 builds $C$ and feeds it a constant vector.
+
+**Listing 2.15 (the cyclic difference matrix, and what it destroys)**
 
 ```python
 C = np.array([[1, 0, -1], [-1, 1, 0], [0, -1, 1]])  # cyclic differences
@@ -528,7 +558,9 @@ Indicators also expose a seam in standardization. An indicator is already on a n
 
 ## 2.6 A covariance-ready Ames, twice
 
-The companion notebook carries the full pipeline. Here are the moves that matter. \lensmark{computational} **Listing 2.16 (standardizing the numerics)** keeps the complete numeric columns and standardizes the matrix in two lines, then makes the transformation prove itself.
+The companion notebook carries the full pipeline. Here are the moves that matter. \lensmark{computational} Listing 2.16 keeps the complete numeric columns and standardizes the matrix in two lines, then makes the transformation prove itself.
+
+**Listing 2.16 (standardizing the numerics)**
 
 ```python
 mu = X.mean().to_numpy()
@@ -543,7 +575,9 @@ column means after: 3.567435540277722e-14
 column stds after : 2.220446049250313e-16
 ```
 
-Thirty-three numeric features, all centered at zero to fourteen decimal places, all with standard deviation one to machine precision. The verification is the point. A transformation claims to put every column on one scale, so make it prove it. **Listing 2.17 (before and after, drawn)** plots four features on both scales; Figure 2.8 is its output.
+Thirty-three numeric features, all centered at zero to fourteen decimal places, all with standard deviation one to machine precision. The verification is the point. A transformation claims to put every column on one scale, so make it prove it. Listing 2.17 plots four features on both scales; Figure 2.8 is its output.
+
+**Listing 2.17 (before and after, drawn)**
 
 ```python
 fig, (raw, std) = plt.subplots(1, 2, figsize=(10, 4))
@@ -558,7 +592,9 @@ plt.show()
 
 > **Figure 2.8.** Four Ames features before and after standardization. Raw, LotArea's scale makes the others invisible. Standardized, all four occupy one comparable range.
 
-Now the payoff. **Listing 2.18 (the regression, rerun on shared units)** refits Chapter 1's regression on the standardized features, and the weights come back in one currency, dollars per standard deviation.
+Now the payoff. Listing 2.18 refits Chapter 1's regression on the standardized features, and the weights come back in one currency, dollars per standard deviation.
+
+**Listing 2.18 (the regression, rerun on shared units)**
 
 ```python
 g = [list(X.columns).index(c) for c in ('GrLivArea', 'OverallQual')]
@@ -576,7 +612,9 @@ weights, dollars per standard deviation:
 
 The raw weights said living area dominates. The standardized weights say the opposite. One standard deviation of overall quality moves the price about $45,000, half again as much as a standard deviation of living area. Standardization did not change the model. It changed what the weights mean, from dollars per unit to dollars per typical variation, and the story inverted. This is the cheapest important lesson in applied linear algebra. Before you compare weights, ask what units they are wearing.
 
-The second convention gets built in the same breath. **Listing 2.19 (the Gelman design matrix)** scales the numerics by two standard deviations, one-hot encodes the categorical columns, and keeps the indicators raw.
+The second convention gets built in the same breath. Listing 2.19 scales the numerics by two standard deviations, one-hot encodes the categorical columns, and keeps the indicators raw.
+
+**Listing 2.19 (the Gelman design matrix)**
 
 ```python
 Xg_num = (X.to_numpy(float) - mu) / (2 * sigma)
@@ -590,7 +628,9 @@ Z  : (1460, 33)   numerics at 1 sd (covariance-ready)
 X_g: (1460, 284)  numerics at 2 sd + indicators raw
 ```
 
-Thirty-three numeric columns and 251 indicators. The words cost more columns than the numbers. The payoff of the two-standard-deviation move is that a regression can mix the two kinds of feature and the coefficients still compare. **Listing 2.20 (one currency, numerics and words together)** prices against scaled living area, scaled quality, and the raw central-air indicator.
+Thirty-three numeric columns and 251 indicators. The words cost more columns than the numbers. The payoff of the two-standard-deviation move is that a regression can mix the two kinds of feature and the coefficients still compare. Listing 2.20 prices against scaled living area, scaled quality, and the raw central-air indicator.
+
+**Listing 2.20 (one currency, numerics and words together)**
 
 ```python
 central_air = (housing['CentralAir'] == 'Y').to_numpy(float)

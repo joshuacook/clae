@@ -18,7 +18,7 @@
      19). Companion notebook: clae-code/ch01/ch01.ipynb NEEDS A SYNC PASS
      (fig_pred_vs_actual becomes fig_price_vs_sqft; C-S cell dropped;
      listing splits).
-     Words: 6800 prose / 7598 total (auto: tools/wordcount.py)-->
+     Words: 6832 prose / 7630 total (auto: tools/wordcount.py)-->
 
 # Chapter 1: Vectors and Linear Combinations
 
@@ -47,7 +47,9 @@ The preface christened four lenses. This book keeps its promises immediately, so
 
 The arrow above is $(2, 1)$ in $\mathbb{R}^2$. Three dimensions work the same way with one more entry: $(1, 0, 2)$, $(3, -1, 4)$, and $(0, 0, 1)$ all live in $\mathbb{R}^3$, arrows in space instead of on a page. Past three dimensions the drawing gives out and the list keeps going.
 
-\lensmark{computational} Through the computational lens, a vector is an array, a contiguous block of memory the compiled libraries can run over at full speed. **Listing 1.1 (a vector in the machine)** puts one in $\mathbb{R}^2$ and one in $\mathbb{R}^3$ into memory.
+\lensmark{computational} Through the computational lens, a vector is an array, a contiguous block of memory the compiled libraries can run over at full speed. Listing 1.1 puts one in $\mathbb{R}^2$ and one in $\mathbb{R}^3$ into memory.
+
+**Listing 1.1 (a vector in the machine)**
 
 ```python
 import numpy as np
@@ -84,7 +86,9 @@ a\,\mathbf{x} &= 2\,(1, 2, 3) = (2, 4, 6) \notag \\
 a\,\mathbf{x} + \mathbf{y} &= (2, 4, 6) + (10, 20, 30) = (12, 24, 36)
 \end{align}
 
-\lensmark{computational} That is everything axpy does. **Listing 1.2 (the same axpy, in NumPy)** hands the identical three-vector computation to the machine, which agrees.
+\lensmark{computational} That is everything axpy does. Listing 1.2 hands the identical three-vector computation to the machine, which agrees.
+
+**Listing 1.2 (the same axpy, in NumPy)**
 
 ```python
 a, x, y = 2, np.array([1, 2, 3]), np.array([10, 20, 30])
@@ -101,7 +105,9 @@ The machine's real advantage appears at scale, and NumPy is the doorway to it. N
 
 [^gpu]: The same shape repeats at the next layer of the stack, where the software tricks meet the hardware trick. PyTorch and TensorFlow are high-level wrappers around CUDA kernels running these same operations on graphics hardware, thousands of arithmetic units taking the entries in parallel. Everything in this book runs on an ordinary CPU, and every speedup you will see is software finding the silicon it already had.
 
-Now the measurement. The same expression on arrays too long for a pencil, two vectors of ten million entries, computed two ways with a clock on both. **Listing 1.3 (axpy two ways, defined)** writes each version as a function.
+Now the measurement. The same expression on arrays too long for a pencil, two vectors of ten million entries, computed two ways with a clock on both. Listing 1.3 writes each version as a function.
+
+**Listing 1.3 (axpy two ways, defined)**
 
 ```python
 import time
@@ -113,7 +119,9 @@ def vectorized_in_numpy(a: float, x: np.ndarray, y: np.ndarray) -> np.ndarray:
     return a * x + y
 ```
 
-**Listing 1.4 (the race)** runs both on the ten-million-entry arrays and prints the gap.
+Listing 1.4 runs both on the ten-million-entry arrays and prints the gap.
+
+**Listing 1.4 (the race)**
 
 ```python
 a = 2.5
@@ -136,9 +144,11 @@ vectorized:            79 ms
 factor:                77x
 ```
 
-Both return the same numbers. They do not take the same time.[^machine] The list comprehension is dozens of times slower, and the gap only widens with $n$. **Listing 1.5 (the race, swept)** runs the same contest across sizes from a thousand to ten million. Figure 1.2 is its output.
+Both return the same numbers. They do not take the same time.[^machine] The list comprehension is dozens of times slower, and the gap only widens with $n$. Listing 1.5 runs the same contest across sizes from a thousand to ten million. Figure 1.2 is its output.
 
 [^machine]: Every figure and number in this book is produced by the companion notebooks at [github.com/joshuacook/clae-code](https://github.com/joshuacook/clae-code), run on a 4-vCPU cloud virtual machine with no GPU. Your own machine will print different numbers, and the gap will still be there, about this size.
+
+**Listing 1.5 (the race, swept)**
 
 ```python
 def best(fn, a, x, y, reps: int = 3) -> float:
@@ -227,7 +237,9 @@ Each operation now gets the full tour, picture first.
 3\,(2, 1) = (3 \cdot 2,\; 3 \cdot 1) = (6, 3), \qquad\quad c\,\mathbf{v} = (c v_1,\, c v_2,\, \ldots,\, c v_n)
 \end{align}
 
-\lensmark{computational} The machine draws the same picture at whatever scale you ask. **Listing 1.6 (a vector-drawing helper, defined)** wraps matplotlib's arrow primitive.
+\lensmark{computational} The machine draws the same picture at whatever scale you ask. Listing 1.6 wraps matplotlib's arrow primitive.
+
+**Listing 1.6 (a vector-drawing helper, defined)**
 
 ```python
 import matplotlib.pyplot as plt
@@ -237,7 +249,9 @@ def plot_vector(v, color='blue', label=None):
                color=color, label=label)
 ```
 
-**Listing 1.7 (scalar multiples, drawn)** puts three multiples of one vector on the same axes. Figure 1.5 is its output.
+Listing 1.7 puts three multiples of one vector on the same axes. Figure 1.5 is its output.
+
+**Listing 1.7 (scalar multiples, drawn)**
 
 ```python
 v = np.array([2, 1])
@@ -257,7 +271,9 @@ plt.show()
 (1, 2) + (3, 1) = (4, 3), \qquad\quad \mathbf{v} + \mathbf{w} = (v_1 + w_1,\, \ldots,\, v_n + w_n)
 \end{align}
 
-\lensmark{computational} **Listing 1.8 (tip to tail, drawn)** renders a sum with the helper from Listing 1.6. Figure 1.6 is its output.
+\lensmark{computational} Listing 1.8 renders a sum with the helper from Listing 1.6. Figure 1.6 is its output.
+
+**Listing 1.8 (tip to tail, drawn)**
 
 ```python
 v1, v2 = np.array([1, 2]), np.array([3, 1])
@@ -284,7 +300,9 @@ That is the arithmetic your machine ran ten million times in Section 1.1, once p
 
 [^decock]: Dean De Cock, "Ames, Iowa: Alternative to the Boston Housing Data as an End of Semester Regression Project," *Journal of Statistics Education* 19(3), 2011. He assembled it to replace the worn-out Boston housing dataset. The data itself is a download away: the [Kaggle House Prices competition](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data) ships it as csv files, and the companion repository carries the copy this book uses.
 
-**Listing 1.9 (assembling the houses)** joins the three shipped files into one table.
+Listing 1.9 joins the three shipped files into one table.
+
+**Listing 1.9 (assembling the houses)**
 
 ```python
 import pandas as pd
@@ -321,7 +339,9 @@ Estimation makes one claim about the three feature vectors. Some scaled copy of 
 \texttt{SalePrice} \;\approx\; w_1 \cdot \texttt{GrLivArea} \;+\; w_2 \cdot \texttt{OverallQual}
 \end{align}
 
-Read the right-hand side against Definition 1.2. Two vectors, scaled by weights, added. The claim of estimation is that a linear combination of feature columns approximates the price column, and the entire question is which weights. **Listing 1.10 (asking for the weights)** gets the answer first and owes you the method.
+Read the right-hand side against Definition 1.2. Two vectors, scaled by weights, added. The claim of estimation is that a linear combination of feature columns approximates the price column, and the entire question is which weights. Listing 1.10 gets the answer first and owes you the method.
+
+**Listing 1.10 (asking for the weights)**
 
 ```python
 X = housing[['GrLivArea', 'OverallQual']].to_numpy(float)
@@ -360,7 +380,9 @@ The actual sale was \$181,500, a miss of \$10,415, within six percent. The opera
 | 9 | 1,774 | 7 | 215,247 | 129,900 | +85,347 |
 | 10 | 1,077 | 5 | 143,885 | 118,000 | +25,885 |
 
-Some misses are rounding errors on a house. Some are the price of a car. Two features cannot know about a gutted interior or a bidding war. \lensmark{computational} **Listing 1.11 (the market, drawn)** plots every home in the same plane as the five-point drawing above, living area against actual sale price, with the model's predictions overlaid. Figure 1.8 is its output.
+Some misses are rounding errors on a house. Some are the price of a car. Two features cannot know about a gutted interior or a bidding war. \lensmark{computational} Listing 1.11 plots every home in the same plane as the five-point drawing above, living area against actual sale price, with the model's predictions overlaid. Figure 1.8 is its output.
+
+**Listing 1.11 (the market, drawn)**
 
 ```python
 pred = X @ w
@@ -412,7 +434,9 @@ Every combination collapses to a single stretch of $\mathbf{v}$. The span is $\m
 \caption{The full case. With $\mathbf{w}$ off the line, the combinations sweep out an entire plane.}
 \end{figure}
 
-\lensmark{computational} The machine can draw the sweep by brute force, and NumPy has a function whose whole job is the word *every*. `meshgrid` takes a sweep of values for $c$ and a sweep for $d$ and crosses them, every $c$ paired with every $d$. **Listing 1.12 (the span sweeper, defined)** wraps the cross into a function.
+\lensmark{computational} The machine can draw the sweep by brute force, and NumPy has a function whose whole job is the word *every*. `meshgrid` takes a sweep of values for $c$ and a sweep for $d$ and crosses them, every $c$ paired with every $d$. Listing 1.12 wraps the cross into a function.
+
+**Listing 1.12 (the span sweeper, defined)**
 
 ```python
 def span_cloud(v: np.ndarray, w: np.ndarray, ax) -> None:
@@ -421,7 +445,9 @@ def span_cloud(v: np.ndarray, w: np.ndarray, ax) -> None:
     ax.scatter(cloud[:, 0], cloud[:, 1], s=4, alpha=0.4)
 ```
 
-**Listing 1.13 (both cases, swept)** runs the identical sweep twice, once with $\mathbf{w}$ on $\mathbf{v}$'s line and once off it. Figure 1.11 is its output, and it verifies both drawings.
+Listing 1.13 runs the identical sweep twice, once with $\mathbf{w}$ on $\mathbf{v}$'s line and once off it. Figure 1.11 is its output, and it verifies both drawings.
+
+**Listing 1.13 (both cases, swept)**
 
 ```python
 v = np.array([2, 1])
@@ -497,7 +523,9 @@ Now bring in $\mathbf{u} = (4, 7)$. Section 1.4 already found the recipe $\mathb
 1\,\mathbf{v} + 2\,\mathbf{w} - 1\,\mathbf{u} = (2, 1) + (2, 6) - (4, 7) = (0, 0)
 \end{align}
 
-\lensmark{computational} **Listing 1.14 (the verdict, drawn)** reuses the span sweeper on $\mathbf{v}$ and $\mathbf{w}$ and draws $\mathbf{u}$ on top. Figure 1.13 is its output.
+\lensmark{computational} Listing 1.14 reuses the span sweeper on $\mathbf{v}$ and $\mathbf{w}$ and draws $\mathbf{u}$ on top. Figure 1.13 is its output.
+
+**Listing 1.14 (the verdict, drawn)**
 
 ```python
 v, w, u = np.array([2, 1]), np.array([1, 3]), np.array([4, 7])
@@ -600,7 +628,9 @@ Read the middle expression, because it is the unit circle doing its work. Strip 
 \cos\theta = \frac{9}{\sqrt{10}\,\sqrt{13}} = \frac{9}{\sqrt{130}} \approx 0.789
 \end{align}
 
-An agreement of 0.789, about 38 degrees between the two directions. Mostly agreeing. \lensmark{computational} **Listing 1.15 (the machine concurs)** runs the same three numbers.
+An agreement of 0.789, about 38 degrees between the two directions. Mostly agreeing. \lensmark{computational} Listing 1.15 runs the same three numbers.
+
+**Listing 1.15 (the machine concurs)**
 
 ```python
 v, w = np.array([3, 1]), np.array([2, 3])
@@ -613,7 +643,9 @@ print(score, round(agreement, 3), round(np.degrees(np.arccos(agreement))))
 9 0.789 38
 ```
 
-\lensmark{data} **Listing 1.16 (cosine similarity at housing scale)** points the same instrument at two real columns of 1,460 entries.
+\lensmark{data} Listing 1.16 points the same instrument at two real columns of 1,460 entries.
+
+**Listing 1.16 (cosine similarity at housing scale)**
 
 ```python
 a = housing['GrLivArea'].to_numpy(float)

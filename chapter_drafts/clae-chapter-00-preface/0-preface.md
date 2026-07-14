@@ -10,7 +10,7 @@
      replaces the pink-deleted closing. UCLA first, bodies of work, fifteen
      years (notes 34-35). Visible draft-notes carry notes 1 and 5 (held, not
      acted on). Companion cell: clae-code/ch00/preface.ipynb.
-     Words: 3616 prose / 3784 total (auto: tools/wordcount.py)-->
+     Words: 3620 prose / 3788 total (auto: tools/wordcount.py)-->
 
 # Preface
 
@@ -172,7 +172,9 @@ The claim sounds like a metaphor, so do the computation symbolically and watch i
 (D\mathbf{x})_i \;=\; \frac{-\,x_i + x_{i+1}}{h} \;=\; \frac{f(t_i + h) - f(t_i)}{h}
 \end{equation}
 
-The right-hand side is the difference quotient from the first week of calculus, the expression whose $h \to 0$ limit defines the derivative. The matrix is not imitating differentiation. Row by row, at a finite step, it *is* differentiation. Multiply by $D$ and you have differentiated. **Listing P.1 (the derivative-taker, built)** constructs $D$ on a thousand-point grid over $[0, 2\pi]$.
+The right-hand side is the difference quotient from the first week of calculus, the expression whose $h \to 0$ limit defines the derivative. The matrix is not imitating differentiation. Row by row, at a finite step, it *is* differentiation. Multiply by $D$ and you have differentiated. Listing P.1 constructs $D$ on a thousand-point grid over $[0, 2\pi]$.
+
+**Listing P.1 (the derivative-taker, built)**
 
 ```python
 import numpy as np
@@ -182,7 +184,9 @@ h = x[1] - x[0]
 D = (np.eye(1000, k=1) - np.eye(1000)) / h    # -1 and 1 down the diagonals
 ```
 
-**Listing P.2 (the verb, tested)** applies $D$ to a sampled sine and measures the worst gap between the output and the true derivative, the cosine. If the symbolic computation above is right, the gap should be small and should shrink with $h$.
+Listing P.2 applies $D$ to a sampled sine and measures the worst gap between the output and the true derivative, the cosine. If the symbolic computation above is right, the gap should be small and should shrink with $h$.
+
+**Listing P.2 (the verb, tested)**
 
 ```python
 np.abs(D @ np.sin(x) - np.cos(x))[:-1].max()
