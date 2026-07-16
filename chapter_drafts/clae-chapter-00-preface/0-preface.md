@@ -1,4 +1,10 @@
-<!-- PREFACE v7 (2026-07-13): the ordered-rewrite pass. Inputs: the 38-note
+<!-- PREFACE v8 (2026-07-16): the ruled-objectives pass (board:
+     chapter_notes/clae-objectives-ruled-2026-07-16.md). NEW measurement
+     act (P5: unit circle, magnitude x direction, cosine similarity,
+     orthogonality; correlation promise -> Ch 7); the D act slims to
+     witness weight (capability now Ch 2's); forward references
+     renumbered to the 15-chapter plan.
+     Prior header (v7): Inputs: the 38-note
      census (chapter_notes/preface-v6-ink-notes.md) + the lens rulings
      (creed christens the lenses; ordering law; mysticism register approved
      as beats). Structural: Strang/church act moved EARLY (note 16); the
@@ -10,7 +16,7 @@
      replaces the pink-deleted closing. UCLA first, bodies of work, fifteen
      years (notes 34-35). Visible draft-notes carry notes 1 and 5 (held, not
      acted on). Companion cell: clae-code/ch00/preface.ipynb.
-     Words: 3620 prose / 3788 total (auto: tools/wordcount.py)-->
+     Words: 3914 prose / 4120 total (auto: tools/wordcount.py)-->
 
 # Preface
 
@@ -98,9 +104,44 @@ The third way is as a sum of outer products, column of $A$ times row of $B$, the
 \begin{bmatrix} 1 \\ 3 \end{bmatrix}\begin{bmatrix} 5 & 6 \end{bmatrix} + \begin{bmatrix} 2 \\ 4 \end{bmatrix}\begin{bmatrix} 7 & 8 \end{bmatrix} = \begin{bmatrix} 5 & 6 \\ 15 & 18 \end{bmatrix} + \begin{bmatrix} 14 & 16 \\ 28 & 32 \end{bmatrix} = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}
 \end{equation}
 
-Each slab is one column of $A$ spread across one row of $B$, the simplest matrices there are, and the product is their sum. This way looks exotic and pays the deepest dividends. It is how Chapter 9 will read the singular value decomposition, a matrix taken apart into its slabs, largest first.
+Each slab is one column of $A$ spread across one row of $B$, the simplest matrices there are, and the product is their sum. This way looks exotic and pays the deepest dividends. It is how Chapter 10 will read the singular value decomposition, a matrix taken apart into its slabs, largest first.
 
 One product, three readings, and the quiz that opened this preface was asking for all three. That is the whole of the machinery this book assumes. Elimination will be used and never taught again. The three ways will be named when needed and never drilled. The quest in this book begins where that quiz ended, with what the machinery means.
+
+&nbsp;
+
+The last piece of equipment is a measuring instrument. Every vector has a magnitude and a direction, and the pair is easiest to see on the object that catalogs directions.
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}[scale=1.35]
+  \draw[gray!60] (0,0) circle (1);
+  \draw[gray!40, ->] (-1.35,0) -- (1.6,0);
+  \draw[gray!40, ->] (0,-1.2) -- (0,1.5);
+  \draw[->, very thick] (0,0) -- (1.05,1.4) node[above right] {$\mathbf{v} = (3,4)$};
+  \fill (0.6,0.8) circle (1.3pt);
+  \node[anchor=west] at (0.62,0.66) {\scriptsize $(0.6, 0.8)$};
+  \node[gray, anchor=north west] at (0.62,-0.62) {\scriptsize the unit circle};
+\end{tikzpicture}
+\caption{The unit circle is the catalog of directions. Dividing $\mathbf{v} = (3,4)$ by its magnitude 5 lands on the catalog entry $(0.6, 0.8)$.}
+\end{figure}
+
+The vectors of magnitude one form the unit circle, one vector for every direction there is. Take $\mathbf{v} = (3, 4)$. Its magnitude is the straight-line distance from origin to tip, the hypotenuse of a 3-4-5 right triangle, so 5. Divide the vector by its own magnitude and you land on the circle:
+
+\begin{equation}
+(3, 4) = 5 \cdot (0.6,\, 0.8), \qquad\quad \sqrt{0.6^2 + 0.8^2} = \sqrt{0.36 + 0.64} = 1
+\end{equation}
+
+Magnitude 5, direction $(0.6, 0.8)$. Every nonzero vector factors this way, and the factorization is the whole geometry of a vector.
+
+Directions can agree or disagree, and one small machine measures how much. The **dot product** multiplies two vectors entry by entry and adds the results. Feed it two directions straight off the circle and the score it returns is the cosine of the angle between them, a pure agreement number that never leaves $[-1, 1]$. Worked once, on $(3, 1)$ and $(2, 3)$:
+
+\begin{equation}
+(3, 1) \cdot (2, 3) = 6 + 3 = 9, \qquad\quad
+\cos\theta = \frac{9}{\sqrt{10}\,\sqrt{13}} \approx 0.789
+\end{equation}
+
+Mostly agreeing. Machine learning calls this number cosine similarity and runs on it daily. Two scores matter most in this book. Agreement one means the same direction. Agreement zero means a right angle, each direction invisible to the other's measure, and the word for it is **orthogonal**. Hold that word. The drawing this preface is building toward runs on it. And when a later chapter centers two columns of data and computes this same agreement, the number will be called correlation. Chapter 7 does that to house prices.
 
 &nbsp;
 
@@ -116,7 +157,7 @@ Somewhere in those teaching years, I read Paul Lockhart's *A Mathematician's Lam
 
 His famous figure is musical. Imagine teaching music by making children copy sheet music for a decade, grading their clefs and their stem directions, and never once playing them a song. I recognized my own classroom in the accusation, and I fought it with real geometry and two-column proofs. But the Lament reads differently once you are the student. Staring at that 5, the decade of sheet music was mine.
 
-Here is the part of the story I got lucky on. Jim's classroom was not a bookkeeping class. Jim would wave his hands at a page of subscript-fiddly manipulation and say, derisively, "bookkeeping," and then draw the picture instead. The tradition he taught from had absorbed the Lament's lesson long before the Lament was written. Nobody had played me the song either, until then. This book intends to play the song. Chapter 10 is the symphony.
+Here is the part of the story I got lucky on. Jim's classroom was not a bookkeeping class. Jim would wave his hands at a page of subscript-fiddly manipulation and say, derisively, "bookkeeping," and then draw the picture instead. The tradition he taught from had absorbed the Lament's lesson long before the Lament was written. Nobody had played me the song either, until then. This book intends to play the song. Chapter 11 is the symphony.
 
 [^lockhart]: Paul Lockhart, *A Mathematician's Lament: How School Cheats Us Out of Our Most Fascinating and Imaginative Art Form*, Bellevue Literary Press, 2009. The essay circulated privately from 2002 until Keith Devlin, who wrote the MAA's Devlin's Angle column, published it there in 2008 and talked Lockhart into the book.
 
@@ -130,9 +171,9 @@ Basis was the jewel, and it kept resurfacing. The next year Jim marched us throu
 
 By the time I transferred to Cal State Northridge, partial differential equations felt almost easy, and I could finally say why. Every technique in the course was the same move. Expand the unknown in the right basis, and watch the equation fall apart.[^complex] Off syllabus, the jewel went atomic: electron orbitals are built from a basis too, Laguerre polynomials dressed in spherical harmonics.[^singer] Which combination of basis states is this electron.
 
-[^complex]: If you want your noodle properly baked, the most natural basis for real oscillations is built from complex exponentials, $e^{i\omega t}$, imaginary numbers doing the honest work behind every real wave. Chapter 13 cashes this in.
+[^complex]: If you want your noodle properly baked, the most natural basis for real oscillations is built from complex exponentials, $e^{i\omega t}$, imaginary numbers doing the honest work behind every real wave. Chapter 14 cashes this in.
 
-[^singer]: The whole story of that basis is told through one atom in Stephanie Frank Singer, *Linearity, Symmetry, and Prediction in the Hydrogen Atom*, Springer, 2005. I read it off syllabus that year, and it sits behind Chapter 3 of this book.
+[^singer]: The whole story of that basis is told through one atom in Stephanie Frank Singer, *Linearity, Symmetry, and Prediction in the Hydrogen Atom*, Springer, 2005. I read it off syllabus that year, and it sits behind Chapter 4 of this book.
 
 &nbsp;
 
@@ -154,7 +195,7 @@ Strang's chapter 4 is orthogonality, and there is a drawing in it. A vector floa
 \caption{The drawing this book is written toward. A vector $\mathbf{b}$ floats above a subspace, and the perpendicular drop finds the nearest reachable point $\mathbf{p}$. Chapter 11 builds everything in it.}
 \end{figure}
 
-That is the picture that converted me, and I can now say what the conversion was. Everything in the pipeline, and all of the windmill review above, lives in a world where the right answer exists and your job is to compute it. The drawing lives in a different world. The vector $\mathbf{b}$ is not in the sheet. No combination reaches it. The right answer does not exist, and the question becomes which reachable answer is best. That question has a name, estimation, and it is the other subject of this book. Of course the conversion happened at this drawing. After a lifetime of compute-the-right-answer, the first honest look at best-you-can-do lands like a door opening. This book has one destination, and it is that drawing. You will meet it in Chapter 11.
+That is the picture that converted me, and I can now say what the conversion was. Everything in the pipeline, and all of the windmill review above, lives in a world where the right answer exists and your job is to compute it. The drawing lives in a different world. The vector $\mathbf{b}$ is not in the sheet. No combination reaches it. The right answer does not exist, and the question becomes which reachable answer is best. That question has a name, estimation, and it is the other subject of this book. Of course the conversion happened at this drawing. After a lifetime of compute-the-right-answer, the first honest look at best-you-can-do lands like a door opening. This book has one destination, and it is that drawing. You will meet it in Chapter 12.
 
 &nbsp;
 
@@ -166,15 +207,9 @@ A derivative, on a grid, is a matrix:
 D = \frac{1}{h}\begin{bmatrix} -1 & 1 & & \\ & -1 & 1 & \\ & & \ddots & \ddots \\ & & & -1 \end{bmatrix}
 \end{equation}
 
-The claim sounds like a metaphor, so do the computation symbolically and watch it stop being one. Sample a function $f$ at points a distance $h$ apart, so that $x_i = f(t_i)$, and read off entry $i$ of $D\mathbf{x}$:
+Each row of $D$ takes the difference of two neighboring samples and divides by the step, which is the difference quotient with the limit not yet taken. Chapter 2 makes that sentence precise and earns it. What converted the sentence from a metaphor into my daily work was watching it run. Listing P.1 builds $D$ on a thousand-point grid over $[0, 2\pi]$, feeds it a sampled sine, and measures the worst gap between the output and the true derivative, the cosine.
 
-\begin{equation}
-(D\mathbf{x})_i \;=\; \frac{-\,x_i + x_{i+1}}{h} \;=\; \frac{f(t_i + h) - f(t_i)}{h}
-\end{equation}
-
-The right-hand side is the difference quotient from the first week of calculus, the expression whose $h \to 0$ limit defines the derivative. The matrix is not imitating differentiation. Row by row, at a finite step, it *is* differentiation. Multiply by $D$ and you have differentiated. Listing P.1 constructs $D$ on a thousand-point grid over $[0, 2\pi]$.
-
-**Listing P.1 (the derivative-taker, built)**
+**Listing P.1 (the matrix that took a derivative)**
 
 ```python
 import numpy as np
@@ -182,13 +217,7 @@ import numpy as np
 x = np.linspace(0, 2*np.pi, 1000)
 h = x[1] - x[0]
 D = (np.eye(1000, k=1) - np.eye(1000)) / h    # -1 and 1 down the diagonals
-```
 
-Listing P.2 applies $D$ to a sampled sine and measures the worst gap between the output and the true derivative, the cosine. If the symbolic computation above is right, the gap should be small and should shrink with $h$.
-
-**Listing P.2 (the verb, tested)**
-
-```python
 np.abs(D @ np.sin(x) - np.cos(x))[:-1].max()
 ```
 
@@ -196,7 +225,7 @@ np.abs(D @ np.sin(x) - np.cos(x))[:-1].max()
 0.0031
 ```
 
-Wrong in the third decimal on a thousand points, and tightening the grid shrinks it. The prediction held. The matrix took the derivative.
+Wrong in the third decimal on a thousand points, and tightening the grid shrinks it. The matrix took the derivative.
 
 I carried that into an independent research project in Jussi Eloranta's quantum chemistry lab, where the Schrödinger equation for a particle in a box collapsed into a matrix eigenproblem and the eigenvectors came out as sines. The waves room again, years later, now as a theorem. Which combination of eigenvectors is the ground state. I spent that semester racing my own eigensolvers against LAPACK, the compiled library at the bottom of the numerical stack, and writing up the results.
 
