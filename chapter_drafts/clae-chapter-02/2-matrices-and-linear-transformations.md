@@ -14,7 +14,7 @@
      Companion notebook: clae-code/ch02/ch02.ipynb NEEDS REGENERATION
      (rotation + 2.6 cells out, composition cell in, geometric_effects
      goes 2-panel).
-     Words: 5231 prose / 5991 total (auto: tools/wordcount.py)-->
+     Words: 5231 prose / 5994 total (auto: tools/wordcount.py)-->
 
 # Chapter 2: Matrices and Linear Transformations
 

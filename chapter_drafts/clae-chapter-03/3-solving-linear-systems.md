@@ -12,7 +12,7 @@
      Companion notebook: clae-code/ch03/ch03.ipynb TO BE CREATED
      (LU verify, solve residual, two-house exact solve, lstsq, miss
      table, fig_price_vs_sqft).
-     Words: 3031 prose / 3486 total (auto: tools/wordcount.py)-->
+     Words: 3035 prose / 3493 total (auto: tools/wordcount.py)-->
 
 # Chapter 3: Solving Linear Systems
 
