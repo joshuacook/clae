@@ -1,4 +1,9 @@
-<!-- DRAFT V3 (2026-07-13): the ordered-rewrite pass. Inputs: the 62-note
+<!-- DRAFT V4 (2026-07-16): the ruled-objectives pass (board:
+     chapter_notes/clae-objectives-ruled-2026-07-16.md). Section 1.3 slims
+     to the data beat (regression claim -> Ch 3's door); section 1.6
+     (measurement) moves to the preface; one arc: combinations -> span ->
+     basis -> coordinates; forward refs renumbered to the 15-chapter plan.
+     Prior header (V3): Inputs: the 62-note
      census (chapter_notes/ch01-inkpass-ink-notes.md) + lens rulings.
      Structural: NEW 1.0 "The Method" opens the chapter (ruling 3: what a
      vector IS in each lens before anything else; notes 3, 20, 21); LLM
@@ -18,7 +23,7 @@
      19). Companion notebook: clae-code/ch01/ch01.ipynb NEEDS A SYNC PASS
      (fig_pred_vs_actual becomes fig_price_vs_sqft; C-S cell dropped;
      listing splits).
-     Words: 6832 prose / 7630 total (auto: tools/wordcount.py)-->
+     Words: 5391 prose / 6106 total (auto: tools/wordcount.py)-->
 
 # Chapter 1: Vectors and Linear Combinations
 
@@ -43,7 +48,7 @@ The preface christened four lenses. This book keeps its promises immediately, so
 
 > **Definition 1.1 (vector).** A **vector** is an ordered list of $n$ real numbers,[^complexnote] $\mathbf{v} = (v_1, \ldots, v_n)$. The set of all such vectors is $\mathbb{R}^n$.
 
-[^complexnote]: Real by decree, not by necessity. Everything in Part I works unchanged with complex entries, and $\mathbb{C}^n$ takes over when signal processing requires it in Chapter 13. Until then the reals carry the book.
+[^complexnote]: Real by decree, not by necessity. Everything in Part I works unchanged with complex entries, and $\mathbb{C}^n$ takes over when signal processing requires it in Chapter 14. Until then the reals carry the book.
 
 The arrow above is $(2, 1)$ in $\mathbb{R}^2$. Three dimensions work the same way with one more entry: $(1, 0, 2)$, $(3, -1, 4)$, and $(0, 0, 1)$ all live in $\mathbb{R}^3$, arrows in space instead of on a page. Past three dimensions the drawing gives out and the list keeps going.
 
@@ -212,7 +217,7 @@ On numbers, take $\mathbf{x} = (1, 2)$ and $\mathbf{y} = (3, 1)$ in $\mathbb{R}^
 
 Scale $\mathbf{x}$, walk $\mathbf{y}$ from its tip, and the combination is the arrow to where you land. Every step stayed on the page, which is the picture's way of saying every step stayed in the vector space.
 
-Repeat the two moves and every linear combination of vectors in $S$ lands in $S$. Two clauses in, the whole of Definition 1.2 out. And what the two clauses buy is out of all proportion to their price, because linearity is the assumption behind every incantation this book will teach. Assume it, and here are the spells, in the order the book casts them: axpy at compiled speed (this chapter), the fact that electron orbitals are a basis (Chapter 3), the directions that carry a dataset's variation (Chapter 10), regression (Chapter 11), and Fourier analysis (Chapter 13). Each one is the same small set of moves applied to a new family of objects that kept the two clauses.
+Repeat the two moves and every linear combination of vectors in $S$ lands in $S$. Two clauses in, the whole of Definition 1.2 out. And what the two clauses buy is out of all proportion to their price, because linearity is the assumption behind every incantation this book will teach. Assume it, and here are the spells, in the order the book casts them: axpy at compiled speed (this chapter), the fact that electron orbitals are a basis (Chapter 4), the directions that carry a dataset's variation (Chapter 11), regression (Chapter 12), and Fourier analysis (Chapter 14). Each one is the same small set of moves applied to a new family of objects that kept the two clauses.
 
 ### Scaling and adding, drawn
 
@@ -294,9 +299,9 @@ Put the two operations together and the object of the book appears. Take $\mathb
 
 That is the arithmetic your machine ran ten million times in Section 1.1, once per entry, at seventy-seven times your interpreter's speed.
 
-## 1.3 The claim on the table
+## 1.3 The houses
 
-\lensmark{data} Now the data lens, and a dataset to point it at. The **Ames housing data** holds 1,460 home sales from Ames, Iowa, assembled by Dean De Cock from the county assessor's office.[^decock] Each sale carries eighty features, square footage, overall quality, roof style, neighborhood, alongside each home's actual sale price. It is the running dataset of this book, and every estimation idea between here and Chapter 14 gets tried against these houses. The move we just practiced on arrows is about to price real estate.
+\lensmark{data} Now the data lens, and a dataset to point it at. The **Ames housing data** holds 1,460 home sales from Ames, Iowa, assembled by Dean De Cock from the county assessor's office.[^decock] Each sale carries eighty features, square footage, overall quality, roof style, neighborhood, alongside each home's actual sale price. It is the running dataset of this book, and every estimation idea between here and Chapter 15 gets tried against these houses.
 
 [^decock]: Dean De Cock, "Ames, Iowa: Alternative to the Boston Housing Data as an End of Semester Regression Project," *Journal of Statistics Education* 19(3), 2011. He assembled it to replace the worn-out Boston housing dataset. The data itself is a download away: the [Kaggle House Prices competition](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data) ships it as csv files, and the companion repository carries the copy this book uses.
 
@@ -316,7 +321,7 @@ housing = pd.merge(housing, sale, on='Id').set_index('Id')
 
 Through the data lens, a feature is a vector.[^observations] `GrLivArea`, the above-ground living area, is a column of 1,460 numbers, one per home, a vector in $\mathbb{R}^{1460}$. `OverallQual`, the assessor's one-to-ten quality rating, is another. And `SalePrice`, what a buyer actually paid, is a third. \lensmark{geometric} The rows read the other way. Each home is a point whose coordinates are its features, and two of those coordinates already draw:
 
-[^observations]: A column of observations as a single vector is the quiet front-loading of Part II. When Chapter 4 introduces random variables, a feature column will become a vector of realizations, and the geometry built here will apply to randomness unchanged. Nothing needs to be relearned, and that is the point of building it this way.
+[^observations]: A column of observations as a single vector is the quiet front-loading of Part II. When Chapter 5 introduces random variables, a feature column will become a vector of realizations, and the geometry built here will apply to randomness unchanged. Nothing needs to be relearned, and that is the point of building it this way.
 
 \begin{figure}[!htb]
 \centering
@@ -333,68 +338,7 @@ Through the data lens, a feature is a vector.[^observations] `GrLivArea`, the ab
 
 The first five homes, plotted as points in living-area-and-price space. A vector is a point in a vector space, and a dataset is a cloud of them. Hold both readings, column-as-vector and row-as-point. Chapter 2 makes the pair official.
 
-Estimation makes one claim about the three feature vectors. Some scaled copy of the first, plus some scaled copy of the second, lands near the third:
-
-\begin{align}
-\texttt{SalePrice} \;\approx\; w_1 \cdot \texttt{GrLivArea} \;+\; w_2 \cdot \texttt{OverallQual}
-\end{align}
-
-Read the right-hand side against Definition 1.2. Two vectors, scaled by weights, added. The claim of estimation is that a linear combination of feature columns approximates the price column, and the entire question is which weights. Listing 1.10 gets the answer first and owes you the method.
-
-**Listing 1.10 (asking for the weights)**
-
-```python
-X = housing[['GrLivArea', 'OverallQual']].to_numpy(float)
-y = housing['SalePrice'].to_numpy(float)
-
-w, *_ = np.linalg.lstsq(X, y, rcond=None)
-print('w:', np.round(w, 2))
-```
-
-```text
-w: [   51.87 17604.21]
-```
-
-About $51.87 per square foot of living area and about $17,604 per point of overall quality, delivered by `np.linalg.lstsq`. Chapter 11 builds that function from parts.
-
-\lensmark{algebraic} The claim says those two numbers price houses, so price one by hand. House 2 has 1,262 square feet of living area and a quality rating of 6. Its prediction is Definition 1.2 with the weights filled in, worked term by term:
-
-\begin{align}
-\hat{y}_2 \;&=\; 51.87 \cdot 1262 \;+\; 17{,}604.21 \cdot 6 \notag\\
-            &=\; 65{,}460 \;+\; 105{,}625 \notag\\
-            &=\; 171{,}085
-\end{align}
-
-The actual sale was \$181,500, a miss of \$10,415, within six percent. The operation is axpy with house numbers in it, the same scale-and-add Section 1.1 put a clock on. Run the same arithmetic down the first ten rows, with the miss recorded:
-
-| Id | GrLivArea | OverallQual | predicted | actual | miss |
-|---:|---:|---:|---:|---:|---:|
-| 1 | 1,710 | 7 | 211,927 | 208,500 | +3,427 |
-| 2 | 1,262 | 6 | 171,085 | 181,500 | −10,415 |
-| 3 | 1,786 | 7 | 215,869 | 223,500 | −7,631 |
-| 4 | 1,717 | 7 | 212,290 | 140,000 | +72,290 |
-| 5 | 2,198 | 8 | 254,844 | 250,000 | +4,844 |
-| 6 | 1,362 | 5 | 158,668 | 143,000 | +15,668 |
-| 7 | 1,694 | 8 | 228,701 | 307,000 | −78,299 |
-| 8 | 2,090 | 7 | 231,637 | 200,000 | +31,637 |
-| 9 | 1,774 | 7 | 215,247 | 129,900 | +85,347 |
-| 10 | 1,077 | 5 | 143,885 | 118,000 | +25,885 |
-
-Some misses are rounding errors on a house. Some are the price of a car. Two features cannot know about a gutted interior or a bidding war. \lensmark{computational} Listing 1.11 plots every home in the same plane as the five-point drawing above, living area against actual sale price, with the model's predictions overlaid. Figure 1.8 is its output.
-
-**Listing 1.11 (the market, drawn)**
-
-```python
-pred = X @ w
-plt.scatter(X[:, 0], y, s=8, alpha=0.3, label='actual')
-plt.scatter(X[:, 0], pred, s=8, alpha=0.3, label='predicted')
-plt.xlabel('GrLivArea (sq ft)'); plt.ylabel('SalePrice ($)')
-plt.legend(); plt.show()
-```
-
-![price against living area, with predictions](figures/fig_price_vs_sqft.png)
-
-> **Figure 1.8.** Actual sale price against living area for all 1,460 homes, with the two-feature prediction overlaid. The predictions form a tight band, because a two-weight recipe can only vary so much. The actual market scatters around it, misses and all.
+What can a set of feature columns actually build? That is the next section's question, and it is the book's question wearing data.
 
 ## 1.4 Span and subspace
 
@@ -434,9 +378,9 @@ Every combination collapses to a single stretch of $\mathbf{v}$. The span is $\m
 \caption{The full case. With $\mathbf{w}$ off the line, the combinations sweep out an entire plane.}
 \end{figure}
 
-\lensmark{computational} The machine can draw the sweep by brute force, and NumPy has a function whose whole job is the word *every*. `meshgrid` takes a sweep of values for $c$ and a sweep for $d$ and crosses them, every $c$ paired with every $d$. Listing 1.12 wraps the cross into a function.
+\lensmark{computational} The machine can draw the sweep by brute force, and NumPy has a function whose whole job is the word *every*. `meshgrid` takes a sweep of values for $c$ and a sweep for $d$ and crosses them, every $c$ paired with every $d$. Listing 1.10 wraps the cross into a function.
 
-**Listing 1.12 (the span sweeper, defined)**
+**Listing 1.10 (the span sweeper, defined)**
 
 ```python
 def span_cloud(v: np.ndarray, w: np.ndarray, ax) -> None:
@@ -445,9 +389,9 @@ def span_cloud(v: np.ndarray, w: np.ndarray, ax) -> None:
     ax.scatter(cloud[:, 0], cloud[:, 1], s=4, alpha=0.4)
 ```
 
-Listing 1.13 runs the identical sweep twice, once with $\mathbf{w}$ on $\mathbf{v}$'s line and once off it. Figure 1.11 is its output, and it verifies both drawings.
+Listing 1.11 runs the identical sweep twice, once with $\mathbf{w}$ on $\mathbf{v}$'s line and once off it. Figure 1.10 is its output, and it verifies both drawings.
 
-**Listing 1.13 (both cases, swept)**
+**Listing 1.11 (both cases, swept)**
 
 ```python
 v = np.array([2, 1])
@@ -459,7 +403,7 @@ plt.show()
 
 ![the span, swept: degenerate and full](figures/fig_span_pair.png)
 
-> **Figure 1.11.** The same weight sweep, $c$ and $d$ each from $-2$ to $2$, crossed by `meshgrid`. Left: $\mathbf{w} = 2\mathbf{v}$, and every one of the 625 combinations lands on $\mathbf{v}$'s line. Right: $\mathbf{w} = (1, 3)$ points off the line, and the identical sweep fills a patch of plane. Widen the sweep and the patch grows without bound; the plane is what it is filling in.
+> **Figure 1.10.** The same weight sweep, $c$ and $d$ each from $-2$ to $2$, crossed by `meshgrid`. Left: $\mathbf{w} = 2\mathbf{v}$, and every one of the 625 combinations lands on $\mathbf{v}$'s line. Right: $\mathbf{w} = (1, 3)$ points off the line, and the identical sweep fills a patch of plane. Widen the sweep and the patch grows without bound; the plane is what it is filling in.
 
 Membership in a span is a concrete question, and it is this book's first meeting with its two standing questions. **Existence**: is $\mathbf{b} = (4, 7)$ in the span of $\mathbf{v} = (2, 1)$ and $\mathbf{w} = (1, 3)$ at all? **Uniqueness**: if it is, how many recipes reach it? \lensmark{algebraic} Both are pencil work. Asking for membership is asking for weights, $c\,\mathbf{v} + d\,\mathbf{w} = \mathbf{b}$, which written entrywise is a little linear system, which is windmill work from the preface:
 
@@ -486,7 +430,7 @@ The drawings above are more general than they look, and that is their purpose. T
 
 [^precise]: The precise statement is Claim 1.13, once dimension is on the table.
 
-\lensmark{data} On the houses, the span is the reachable set. The two feature columns `GrLivArea` and `OverallQual` span a subspace of $\mathbb{R}^{1460}$, and every prediction the two-weight claim of Section 1.3 can ever make, every choice of $w_1$ and $w_2$, lives inside that span. Existence, at housing scale, asks whether the true price column is in the span of the features. Section 1.3's misses already answered no. What to do about that no is the estimation question, and it waits for the machinery of Chapters 2 and 11.
+\lensmark{data} On the houses, the span is the reachable set. The two feature columns `GrLivArea` and `OverallQual` span a subspace of $\mathbb{R}^{1460}$, and every prediction any pair of weights can make lives inside it. Existence, at housing scale, asks whether the true price column is in that span. Chapter 3 opens that door with the evidence in hand, and what to do when the answer is no is the estimation half of this book.
 
 ## 1.5 Independence, basis, and the recipe
 
@@ -523,9 +467,9 @@ Now bring in $\mathbf{u} = (4, 7)$. Section 1.4 already found the recipe $\mathb
 1\,\mathbf{v} + 2\,\mathbf{w} - 1\,\mathbf{u} = (2, 1) + (2, 6) - (4, 7) = (0, 0)
 \end{align}
 
-\lensmark{computational} Listing 1.14 reuses the span sweeper on $\mathbf{v}$ and $\mathbf{w}$ and draws $\mathbf{u}$ on top. Figure 1.13 is its output.
+\lensmark{computational} Listing 1.12 reuses the span sweeper on $\mathbf{v}$ and $\mathbf{w}$ and draws $\mathbf{u}$ on top. Figure 1.12 is its output.
 
-**Listing 1.14 (the verdict, drawn)**
+**Listing 1.12 (the verdict, drawn)**
 
 ```python
 v, w, u = np.array([2, 1]), np.array([1, 3]), np.array([4, 7])
@@ -539,7 +483,7 @@ ax.legend(); plt.show()
 
 ![the dependent third vector inside the span](figures/fig_span_membership.png)
 
-> **Figure 1.13.** The span cloud of $\mathbf{v} = (2,1)$ and $\mathbf{w} = (1,3)$ with the third vector $\mathbf{u} = (4,7)$ drawn on top. The tip of $\mathbf{u}$ sits inside the swept patch. It is reachable, the triple is dependent, and the span did not grow.
+> **Figure 1.12.** The span cloud of $\mathbf{v} = (2,1)$ and $\mathbf{w} = (1,3)$ with the third vector $\mathbf{u} = (4,7)$ drawn on top. The tip of $\mathbf{u}$ sits inside the swept patch. It is reachable, the triple is dependent, and the span did not grow.
 
 > **Definition 1.9 (basis, dimension).** A **basis** of a subspace is a linearly independent set that spans it. All bases of a given subspace have the same size,[^samesize] and that shared size is the subspace's **dimension**.
 
@@ -571,100 +515,9 @@ The list $(5, -2, 7)$ was $5\mathbf{e}_1 - 2\mathbf{e}_2 + 7\mathbf{e}_3$ all al
 
 [^ambient]: **Ambient space**: the $\mathbb{R}^n$ the vectors happen to live in, as opposed to the subspace they generate. Two feature columns live in the ambient $\mathbb{R}^{1460}$ and generate an at-most-two-dimensional subspace. The 1,460 is the address, and the 2 is the substance.
 
-## 1.6 Magnitude, direction, and the dot product
+## 1.6 Summary and exercises
 
-We can build vectors. To estimate we must also measure them, and the geometric lens goes first, on the object that catalogs direction itself.
-
-> **Definition 1.14 (unit vector, unit circle).** A **unit vector** is a vector of norm one. In $\mathbb{R}^2$ the unit vectors form the **unit circle**, $\{\mathbf{u} \in \mathbb{R}^2 : \|\mathbf{u}\| = 1\}$. In $\mathbb{R}^n$ they form the unit sphere. One unit vector exists for every direction, so the unit circle is the catalog of directions.
-
-\lensmark{geometric} Every nonzero vector is a stretched copy of exactly one entry in the catalog. Take $\mathbf{v} = (3, 4)$. Its magnitude is the straight-line distance from origin to tip, the hypotenuse of a 3-4-5 right triangle, so 5. Divide the vector by its own magnitude and you land on the circle:
-
-\begin{figure}[!htb]
-\centering
-\begin{tikzpicture}[scale=1.35]
-  \draw[gray!60] (0,0) circle (1);
-  \draw[gray!40, ->] (-1.35,0) -- (1.6,0);
-  \draw[gray!40, ->] (0,-1.2) -- (0,1.5);
-  \coordinate (O) at (0,0);
-  \coordinate (V) at (1.05,1.4);
-  \coordinate (U) at (0.6,0.8);
-  \draw[->, very thick] (O) -- (V) node[above right] {$\mathbf{v} = (3,4)$};
-  \fill (U) circle (1.3pt);
-  \node[anchor=west] at (0.62,0.66) {\scriptsize $(0.6, 0.8)$};
-  \node[gray, anchor=north west] at (0.62,-0.62) {\scriptsize the unit circle};
-\end{tikzpicture}
-\caption{The unit circle is the catalog of directions. Dividing $\mathbf{v} = (3,4)$ by its magnitude 5 lands on the catalog entry $(0.6, 0.8)$.}
-\end{figure}
-
-\lensmark{algebraic} In symbols and numbers:
-
-\begin{align}
-(3, 4) = 5 \cdot (0.6,\, 0.8), \qquad\quad \sqrt{0.6^2 + 0.8^2} = \sqrt{0.36 + 0.64} = 1
-\end{align}
-
-Magnitude 5, direction $(0.6, 0.8)$. Every nonzero vector factors this way, and the factorization is the whole geometry of a vector.
-
-> **Definition 1.15 (norm, magnitude and direction).** The **norm** of a vector is $\|\mathbf{v}\| = \sqrt{v_1^2 + \cdots + v_n^2}$, its magnitude. Every nonzero vector factors into magnitude times direction, $\mathbf{v} = \|\mathbf{v}\| \cdot \dfrac{\mathbf{v}}{\|\mathbf{v}\|}$, where the second factor is the unit vector carrying $\mathbf{v}$'s direction.
-
-Both halves of the picture extend to $n$ dimensions unchanged, and both extensions matter. The unit circle becomes the unit sphere in $\mathbb{R}^n$, still one unit vector per direction. And the norm formula is the Pythagorean theorem, applied $n - 1$ times. In $\mathbb{R}^3$ the diagonal of a box satisfies $\|\mathbf{v}\|^2 = v_1^2 + v_2^2 + v_3^2$, one right triangle across the floor and a second one up the wall. Each further dimension is one more right triangle. A feature column in $\mathbb{R}^{1460}$ has a magnitude and a direction in exactly this sense.
-
-Magnitude and direction is the vocabulary from here on, and the next instrument measures how much two directions agree.
-
-Directions can also disagree completely. On the unit circle, $(1, 0)$ and $(0, 1)$ meet at a right angle, and multiplying their entries pairwise and adding gives $1 \cdot 0 + 0 \cdot 1 = 0$. Perpendicular directions score zero against each other, and that perpendicularity is important enough to carry a name through the whole book.
-
-> **Definition 1.16 (dot product, direction agreement, orthogonality).** The **dot product** of two vectors is $\mathbf{v} \cdot \mathbf{w} = v_1 w_1 + \cdots + v_n w_n$. For nonzero vectors, the **direction agreement** is the dot product of their unit vectors, $\cos\theta = \dfrac{\mathbf{v}}{\|\mathbf{v}\|} \cdot \dfrac{\mathbf{w}}{\|\mathbf{w}\|} = \dfrac{\mathbf{v}\cdot\mathbf{w}}{\|\mathbf{v}\|\,\|\mathbf{w}\|}$, where $\theta$ is the angle their directions enclose. Two vectors are **orthogonal** when their dot product is zero.
-
-Read the middle expression, because it is the unit circle doing its work. Strip both vectors down to their directions, two points on the circle, and dot those. Machine learning calls this exact number **cosine similarity** and runs on it daily. It is the unit circle's answer to how alike two things point.
-
-\lensmark{geometric} Through the geometric lens the dot product is a direction-agreement machine. Two vectors pointing the same way score as high as their magnitudes allow. Orthogonal vectors score zero, each invisible to the other's measure. Opposite vectors score as negative as possible. Dividing by both magnitudes strips the machine's answer down to pure agreement, a number that never leaves $[-1, 1]$.[^cs]
-
-[^cs]: That the calibrated score cannot leave $[-1, 1]$ has a classical name, the Cauchy–Schwarz inequality, parked in this footnote deliberately. This book uses the guarantee and does not dwell on it.
-
-\lensmark{algebraic} Work the machine by hand on $\mathbf{v} = (3, 1)$ and $\mathbf{w} = (2, 3)$:
-
-\begin{align}
-\mathbf{v} \cdot \mathbf{w} = 3 \cdot 2 + 1 \cdot 3 = 9,
-\qquad\quad
-\cos\theta = \frac{9}{\sqrt{10}\,\sqrt{13}} = \frac{9}{\sqrt{130}} \approx 0.789
-\end{align}
-
-An agreement of 0.789, about 38 degrees between the two directions. Mostly agreeing. \lensmark{computational} Listing 1.15 runs the same three numbers.
-
-**Listing 1.15 (the machine concurs)**
-
-```python
-v, w = np.array([3, 1]), np.array([2, 3])
-score = v @ w
-agreement = score / (np.linalg.norm(v) * np.linalg.norm(w))
-print(score, round(agreement, 3), round(np.degrees(np.arccos(agreement))))
-```
-
-```text
-9 0.789 38
-```
-
-\lensmark{data} Listing 1.16 points the same instrument at two real columns of 1,460 entries.
-
-**Listing 1.16 (cosine similarity at housing scale)**
-
-```python
-a = housing['GrLivArea'].to_numpy(float)
-b = housing['OverallQual'].to_numpy(float)
-agreement = (a @ b) / (np.linalg.norm(a) * np.linalg.norm(b))
-print(f'direction agreement = {agreement:.4f}')
-```
-
-```text
-direction agreement = 0.9644
-```
-
-One number, and it is a finding. Living area and overall quality agree in direction at 0.9644 across 1,460 homes. Bigger houses rate better, overwhelmingly. When Chapter 6 centers these columns and computes the same ratio, it will be called correlation.
-
-Orthogonality is the case the book keeps returning to. A dot product of zero means two directions carry no information about each other, each invisible to the other's measure. Chapter 11 will win its main result by finding the direction that is orthogonal to every miss at once. Direction agreement, measured. Direction agreement zero, exploited.
-
-## 1.7 Summary and exercises
-
-A vector is one object seen four ways: arrow, list, array, column. The act is the linear combination (Definition 1.2), axpy to the libraries that run it, and closure (Definition 1.4) is the agreement that keeps the act inside the space. The span is everything the act can reach; a span is always a subspace (Claim 1.7); and the reach is set by the number of vectors combined, never the ambient space (Claim 1.13). A basis is an independent set that spans, its recipe for any vector is unique (Claim 1.10), and the unique weights are coordinates, which is what a list of numbers is. The norm measures magnitude, the unit circle catalogs direction, the dot product measures direction agreement, and agreement zero is orthogonality. On the houses: feature columns are vectors, homes are points, the span of the features is everything a linear model can predict, and `lstsq` handed us weights whose prediction is one axpy pass.
+A vector is one object seen four ways: arrow, list, array, column. The act is the linear combination (Definition 1.2), axpy to the libraries that run it, and closure (Definition 1.4) is the agreement that keeps the act inside the space. The span is everything the act can reach; a span is always a subspace (Claim 1.7); and the reach is set by the number of vectors combined, never the ambient space (Claim 1.13). A basis is an independent set that spans, its recipe for any vector is unique (Claim 1.10), and the unique weights are coordinates, which is what a list of numbers is. The preface's measuring instrument, magnitude and direction and their agreement, is already in your kit, and the chapters ahead point it at data. On the houses: feature columns are vectors, homes are points, and the span of the features is everything a linear model can predict.
 
 The question the book answers is now posed. Of all the linear combinations available, which one is the estimate, and how do we earn it?
 
@@ -678,8 +531,5 @@ A few of these are quiz-shaped on purpose.
 4. *(pencil)* Show that the line $\{t\mathbf{v} : t \in \mathbb{R}\}$ through the origin is a subspace: check the origin and both closure clauses of Definition 1.4.
 5. *(pencil, then keyboard)* Choose three vectors in $\mathbb{R}^3$ and decide independence: exhibit a combination equal to zero, or argue none exists. Check yourself in code by computing the combination you exhibited.
 6. *(pencil)* Using the basis $\{(1, 0), (1, 1)\}$ of $\mathbb{R}^2$, find the coordinates of $(7, 2)$, and verify your recipe by expanding it.
-7. *(pencil)* Factor $(5, 12)$ into magnitude times direction, and verify your direction lands on the unit circle.
-8. *(keyboard, bridge → Ch 6)* Pick two numeric Ames features. Compute the direction agreement between their *centered* columns (subtract each column's mean first). Relate agreement near 1 and agreement near 0 to the idea of correlation.
-9. *(keyboard, bridge → Ch 11)* Rerun the `lstsq` cell from Section 1.3 with a third feature of your choosing added, and write the new prediction as an explicit three-term linear combination. Did house 2's miss shrink?
-10. *(pencil, bridge → Ch 2)* Write the two-feature claim $w_1 \cdot \texttt{GrLivArea} + w_2 \cdot \texttt{OverallQual}$ as a rectangular array of numbers multiplying a column of weights. Which part is the recipe? You have just invented the next chapter.
-11. *(keyboard)* Rebuild the right panel of Figure 1.11 with `w = 2 * v`, and describe what happens to the cloud. Which case of Section 1.4 did you just draw?
+7. *(pencil, bridge → Ch 2)* Write the two-feature claim $w_1 \cdot \texttt{GrLivArea} + w_2 \cdot \texttt{OverallQual}$ as a rectangular array of numbers multiplying a column of weights. Which part is the recipe? You have just invented the next chapter.
+8. *(keyboard)* Rebuild the right panel of Figure 1.10 with `w = 2 * v`, and describe what happens to the cloud. Which case of Section 1.4 did you just draw?
