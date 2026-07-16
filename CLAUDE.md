@@ -33,33 +33,39 @@ Each chapter begins with a **Source Assembly** pass (gather source, map to outli
 sections, build the chapter outline from it) per the CLAE modification in
 `writing-process.md`. The source index is `source/coverage-by-chapter.md`.
 
-## Chapter list (14 chapters, 4 parts)
+## Chapter list (15 chapters, 4 parts — Solving inserted 2026-07-16; Springer proposal says 14, flag for Elizabeth)
 
 **I — Linear Algebra Foundations**
 
 1. Vectors and Linear Combinations
 2. Matrices and Linear Transformations
-3. Eigenvalues, Eigenvectors, and Diagonalization
+3. Solving Linear Systems *(new 2026-07-16: the license as a method, LU, the door to estimation)*
+4. Eigenvalues, Eigenvectors, and Diagonalization
 
 **II — Random Vectors and Statistical Structure**
 
-4. Random Vectors and Probability Spaces
-5. Expectation and Conditional Probability
-6. Covariance, Correlation, and Cross-Correlation
-7. Gaussian Random Vectors
-8. Convergence — Law of Large Numbers and the Central Limit Theorem
+5. Random Vectors and Probability Spaces
+6. Expectation and Conditional Probability
+7. Covariance, Correlation, and Cross-Correlation
+8. Gaussian Random Vectors
+9. Convergence — Law of Large Numbers and the Central Limit Theorem
 
 **III — Linear Estimation**
 
-9. Singular Value Decomposition
-10. Principal Component Analysis (capstone)
-11. Least Squares Estimation
-12. Linear MMSE Estimation (capstone)
+10. Singular Value Decomposition
+11. Principal Component Analysis (capstone)
+12. Least Squares Estimation
+13. Linear MMSE Estimation (capstone)
 
 **IV — Applications**
 
-13. Estimation in Signal Processing
-14. Advanced Filtering and Modern Applications
+14. Estimation in Signal Processing
+15. Advanced Filtering and Modern Applications
+
+Ruled objectives for the linear-algebra piece (Preface + Ch 1–4):
+`chapter_notes/clae-objectives-ruled-2026-07-16.md`. System map + promise
+ledger: `chapter_notes/clae-system-map.md`. Old chapter numbers appear in
+pre-2026-07-16 notes; the promise ledger carries the renumbered targets.
 
 ## Source coverage
 
