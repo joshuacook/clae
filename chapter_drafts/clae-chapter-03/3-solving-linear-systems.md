@@ -49,7 +49,7 @@ Reach and crush are not independent failures. They are two entries in one ledger
 
 > **Definition 3.1 (rank, nullity).** The **rank** of a matrix is the dimension of its column space, the number of dimensions the verb can reach. The **nullity** is the dimension of its null space, the number of directions the verb crushes.
 
-> **Claim 3.2 (rank and nullity balance the ledger).** For an $m \times n$ matrix, rank $+$ nullity $= n$. Every input dimension is either reached with or crushed; none goes missing.
+> **Claim 3.2 (rank and nullity balance the ledger).** For an $m \times n$ matrix, rank $+$ nullity $= n$. Every input dimension either survives into the reach or dies in the crush. None goes missing.
 >
 > Witness it on $C$: three input dimensions, a plane of reach (rank 2), a line of crush (nullity 1), and $2 + 1 = 3$. The one-breath reason: pick a basis for the null space and extend it to a basis of $\mathbb{R}^n$; the extension vectors map to a basis of the column space, because anything their images failed to reach would trace back to more crush.[^ftla]
 
