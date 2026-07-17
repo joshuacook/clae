@@ -352,10 +352,13 @@ Listing 2.10 applies each matrix to every point of the circle and draws the two 
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(9, 4.5))
-for ax, M, name in [(axes[0], S, 'stretch'), (axes[1], P, 'projection')]:
+panels = [(axes[0], S, 'stretch'), (axes[1], P, 'projection')]
+for ax, M, name in panels:
     out = M @ circle
     ax.plot(*circle, color='gray', lw=1)
-    ax.plot(*out); ax.set_title(name); ax.set_aspect('equal')
+    ax.plot(*out)
+    ax.set_title(name)
+    ax.set_aspect('equal')
 plt.show()
 ```
 
