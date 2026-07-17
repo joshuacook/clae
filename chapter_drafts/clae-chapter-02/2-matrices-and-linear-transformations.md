@@ -224,10 +224,10 @@ Listing 2.6 checks both against NumPy's `@` on the worked example.
 
 ```python
 A = np.array([[1, 2], [3, 4], [5, 6]])
-x = np.array([7, 8])
-print('A @ x      :', A @ x)
-print('row view   :', by_rows(A, x))
-print('column view:', by_cols(A, x))
+xx = np.array([7, 8])
+print('A @ x      :', A @ xx)
+print('row view   :', by_rows(A, xx))
+print('column view:', by_cols(A, xx))
 ```
 
 ```text
@@ -248,7 +248,7 @@ The column view also draws. Listing 2.7 charts the two scaled columns and their 
 a1, a2 = A[:, 0], A[:, 1]
 pos = np.arange(3)
 parts = [('7 * a1', 7 * a1), ('8 * a2', 8 * a2),
-         ('A @ x', A @ x)]
+         ('A @ x', A @ xx)]
 for k, (name, vec) in enumerate(parts):
     plt.bar(pos + 0.27 * k, vec, width=0.27, label=name)
 plt.xticks(pos + 0.27, ['entry 1', 'entry 2', 'entry 3'])
