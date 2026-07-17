@@ -117,10 +117,12 @@ Now the measurement. The same expression on arrays too long for a pencil, two ve
 ```python
 import time
 
-def list_comp_in_python(a: float, x: np.ndarray, y: np.ndarray) -> list:
+def list_comp_in_python(a: float, x: np.ndarray,
+                        y: np.ndarray) -> list:
     return [a * xi + yi for xi, yi in zip(x, y)]
 
-def vectorized_in_numpy(a: float, x: np.ndarray, y: np.ndarray) -> np.ndarray:
+def vectorized_in_numpy(a: float, x: np.ndarray,
+                        y: np.ndarray) -> np.ndarray:
     return a * x + y
 ```
 
@@ -164,8 +166,10 @@ def best(fn, a, x, y, reps: int = 3) -> float:
     return min(times)
 
 ns = np.logspace(3, 7, 9).astype(int)
-t_loop = [best(list_comp_in_python, a, rng.random(n), rng.random(n)) for n in ns]
-t_vec  = [best(vectorized_in_numpy,  a, rng.random(n), rng.random(n)) for n in ns]
+t_loop = [best(list_comp_in_python, a, rng.random(n), rng.random(n))
+          for n in ns]
+t_vec = [best(vectorized_in_numpy, a, rng.random(n), rng.random(n))
+         for n in ns]
 plt.semilogx(ns, t_loop, 'o-')
 plt.semilogx(ns, t_vec, 's-')
 plt.show()
@@ -250,7 +254,8 @@ Each operation now gets the full tour, picture first.
 import matplotlib.pyplot as plt
 
 def plot_vector(v, color='blue', label=None):
-    plt.quiver(0, 0, v[0], v[1], angles='xy', scale_units='xy', scale=1,
+    plt.quiver(0, 0, v[0], v[1], angles='xy',
+               scale_units='xy', scale=1,
                color=color, label=label)
 ```
 
@@ -384,7 +389,8 @@ Every combination collapses to a single stretch of $\mathbf{v}$. The span is $\m
 
 ```python
 def span_cloud(v: np.ndarray, w: np.ndarray, ax) -> None:
-    C, D = np.meshgrid(np.linspace(-2, 2, 25), np.linspace(-2, 2, 25))
+    grid = np.linspace(-2, 2, 25)
+    C, D = np.meshgrid(grid, grid)
     cloud = C.ravel()[:, None] * v + D.ravel()[:, None] * w
     ax.scatter(cloud[:, 0], cloud[:, 1], s=4, alpha=0.4)
 ```
@@ -475,9 +481,10 @@ Now bring in $\mathbf{u} = (4, 7)$. Section 1.4 already found the recipe $\mathb
 v, w, u = np.array([2, 1]), np.array([1, 3]), np.array([4, 7])
 ax = plt.gca()
 span_cloud(v, w, ax)
-for vec, c, name in [(v, 'blue', 'v'), (w, 'red', 'w'), (u, 'green', 'u')]:
-    ax.quiver(0, 0, *vec, angles='xy', scale_units='xy', scale=1,
-              color=c, label=name)
+arrows = [(v, 'blue', 'v'), (w, 'red', 'w'), (u, 'green', 'u')]
+for vec, c, name in arrows:
+    ax.quiver(0, 0, *vec, angles='xy', scale_units='xy',
+              scale=1, color=c, label=name)
 ax.legend(); plt.show()
 ```
 

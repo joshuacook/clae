@@ -216,7 +216,8 @@ import numpy as np
 
 x = np.linspace(0, 2*np.pi, 1000)
 h = x[1] - x[0]
-D = (np.eye(1000, k=1) - np.eye(1000)) / h    # -1 and 1 down the diagonals
+# -1 and 1 down the diagonals:
+D = (np.eye(1000, k=1) - np.eye(1000)) / h
 
 np.abs(D @ np.sin(x) - np.cos(x))[:-1].max()
 ```

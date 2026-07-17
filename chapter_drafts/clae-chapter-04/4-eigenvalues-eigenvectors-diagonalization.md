@@ -124,7 +124,8 @@ Xinv = np.linalg.inv(X)
 
 print('max |X Lam Xinv - A|  :', np.abs(X @ Lam @ Xinv - A).max())
 A5_eig = X @ np.diag([3.**5, 1.]) @ Xinv
-print('max |A^5 (eig) - A^5| :', np.abs(A5_eig - np.linalg.matrix_power(A, 5)).max())
+diff5 = np.abs(A5_eig - np.linalg.matrix_power(A, 5)).max()
+print('max |A^5 (eig) - A^5| :', diff5)
 ```
 
 ```text
@@ -166,13 +167,16 @@ for k in (1, 3):
     formula = 2 - 2*np.cos(k*np.pi/(n + 1))
     sine = np.sin(j*k*np.pi/(n + 1)); sine /= np.linalg.norm(sine)
     agree = abs(sine @ vecs[:, k - 1])
-    print(f'k={k}: lambda {vals[k-1]:.10f} vs formula {formula:.10f},'
-          f' sine agreement {agree:.10f}')
+    print(f'k={k}: lambda {vals[k-1]:.10f}'
+          f' vs formula {formula:.10f}')
+    print(f'      sine agreement {agree:.10f}')
 ```
 
 ```text
-k=1: lambda 0.0002442861 vs formula 0.0002442861, sine agreement 1.0000000000
-k=3: lambda 0.0021982170 vs formula 0.0021982170, sine agreement 1.0000000000
+k=1: lambda 0.0002442861 vs formula 0.0002442861
+      sine agreement 1.0000000000
+k=3: lambda 0.0021982170 vs formula 0.0021982170
+      sine agreement 1.0000000000
 ```
 
 Agreement 1 to ten decimal places, eigenvalues matching the formula digit for digit. Listing 4.3 draws the first three eigenvectors; Figure 4.2 is its output, and you have seen these curves before.

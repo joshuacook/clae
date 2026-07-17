@@ -14,6 +14,20 @@ import sys
 src, dst, figmap_path, mode = sys.argv[1:5]
 text = open(src).read()
 
+# G1 build guard (v9 tranche 1): code must never exceed the text measure.
+CODE_WIDTH_LIMIT = 68
+_in_code = False
+_violations = []
+for _i, _line in enumerate(text.split('\n'), 1):
+    if _line.startswith('```'):
+        _in_code = not _in_code
+        continue
+    if _in_code and len(_line) > CODE_WIDTH_LIMIT:
+        _violations.append(f'{src}:{_i}: [{len(_line)}] {_line}')
+if _violations:
+    sys.exit('G1 VIOLATION — code exceeds the text measure '
+             f'({CODE_WIDTH_LIMIT} chars):\n' + '\n'.join(_violations))
+
 # strip the draft header comment
 text = re.sub(r'\A<!--.*?-->\s*', '', text, flags=re.S)
 

@@ -49,8 +49,8 @@ Houses 1 through 5, plotted as points. Every row of the table is a point like th
 
 ```python
 print(housing.shape)
-row_2  = housing.loc[2]            # one home: a point in feature space
-col_gr = housing['GrLivArea']      # one feature: a vector in R^1460
+row_2 = housing.loc[2]         # a point in feature space
+col_gr = housing['GrLivArea']  # a vector in R^1460
 ```
 
 ```text
@@ -265,8 +265,8 @@ The stencil $1, -2, 1$ down the diagonals, divided by $h^2$. That composed matri
 **Listing 2.7 (differencing twice, composed and tested)**
 
 ```python
-Df = (np.eye(n, k=1) - np.eye(n)) / h            # forward difference
-Db = (np.eye(n) - np.eye(n, k=-1)) / h           # backward difference
+Df = (np.eye(n, k=1) - np.eye(n)) / h    # forward
+Db = (np.eye(n) - np.eye(n, k=-1)) / h   # backward
 K_composed = Db @ Df
 K_stencil  = (np.eye(n, k=1) - 2*np.eye(n) + np.eye(n, k=-1)) / h**2
 
@@ -343,7 +343,7 @@ t = np.linspace(0, 2*np.pi, 100)
 circle = np.vstack([np.cos(t), np.sin(t)])
 S = np.diag([2.0, 0.5])                    # stretch
 u = np.array([2.0, 1.0])
-P = np.outer(u, u) / (u @ u)               # projection onto u's line
+P = np.outer(u, u) / (u @ u)   # projection onto u
 ```
 
 Listing 2.10 applies each matrix to every point of the circle and draws the two outputs; Figure 2.4 is its output.

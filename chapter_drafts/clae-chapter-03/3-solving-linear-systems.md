@@ -35,7 +35,8 @@ Chapter 2 promised a matrix that crushes, so here it is. Make the difference mat
 ```python
 import numpy as np
 
-C = np.array([[1, 0, -1], [-1, 1, 0], [0, -1, 1]])  # cyclic differences
+# cyclic differences:
+C = np.array([[1, 0, -1], [-1, 1, 0], [0, -1, 1]])
 print('C @ (3,3,3):', C @ np.array([3, 3, 3]))
 ```
 
