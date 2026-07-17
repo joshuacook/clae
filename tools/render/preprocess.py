@@ -52,7 +52,7 @@ def fig(m):
     return (f'ZZFIGZZ{len(figs)-1}ZZCAPZZ {m.group(2)} ZZENDFIGZZ')
 
 text = re.sub(
-    r'^!\[[^\]]*\]\((figures/[^)]+)\)\n\n> \*\*Figure \d+\.\d+\.?\*\*[ ]?(.+)$',
+    r'^!\[[^\]]*\]\((figures/[^)]+)\)\n\n> \*\*Figure [P\d]+\.\d+\.?\*\*[ ]?(.+)$',
     fig, text, flags=re.M)
 
 # honesty box paragraph -> gray box

@@ -242,6 +242,25 @@ The row view is how you compute by hand, one entry at a time. The column view is
 
 [^memory]: The two views even have a memory address. NumPy stores arrays row-major, so walking a row is walking contiguous memory. Pandas stores DataFrames as column blocks, so pulling a feature column is the cheap direction. Your two mental pictures of a data matrix disagree about physical layout, and each library picked a side.
 
+The column view also draws. Listing 2.7 charts the two scaled columns and their sum, entry by entry; Figure 2.4 is its output.
+
+**Listing 2.7 (the two views, drawn)**
+
+```python
+a1, a2 = A[:, 0], A[:, 1]
+pos = np.arange(3)
+parts = [('7 * a1', 7 * a1), ('8 * a2', 8 * a2),
+         ('A @ x', A @ x)]
+for k, (name, vec) in enumerate(parts):
+    plt.bar(pos + 0.27 * k, vec, width=0.27, label=name)
+plt.xticks(pos + 0.27, ['entry 1', 'entry 2', 'entry 3'])
+plt.legend()
+```
+
+![the column view, drawn](figures/fig_two_views.png)
+
+> **Figure 2.4.** The column view drawn: seven of the first column plus eight of the second lands exactly on `A @ x`, entry by entry.
+
 ### Composition
 
 Multiplying two matrices answers a natural question. What single action equals doing $B$, then doing $A$?
@@ -264,9 +283,9 @@ Composition is why order matters and why $AB \neq BA$ in general. And the compos
 = \frac{x_{i+1} - 2x_i + x_{i-1}}{h^2}
 \end{align}
 
-The stencil $1, -2, 1$ down the diagonals, divided by $h^2$. That composed matrix is the **second difference matrix** $K$, the discrete second derivative, and the hero of the tradition this book grew from.[^provenance] Listing 2.7 builds both factors, composes them, checks the composition against the stencil written directly, and applies $K$ to a sampled sine.
+The stencil $1, -2, 1$ down the diagonals, divided by $h^2$. That composed matrix is the **second difference matrix** $K$, the discrete second derivative, and the hero of the tradition this book grew from.[^provenance] Listing 2.8 builds both factors, composes them, checks the composition against the stencil written directly, and applies $K$ to a sampled sine.
 
-**Listing 2.7 (differencing twice, composed and tested)**
+**Listing 2.8 (differencing twice, composed and tested)**
 
 ```python
 Df = (np.eye(n, k=1) - np.eye(n)) / h    # forward
@@ -288,6 +307,22 @@ max |K @ sin + sin|: 0.000003
 The composition and the stencil agree exactly away from the boundary rows, where one-sided differences run out of neighbors. And $K$ applied to a sine returns the negative of the sine, to six decimal places, which is to say $K$ knows that the second derivative of $\sin$ is $-\sin$. Two verbs, one composition, and the object Chapter 4 has been waiting for.
 
 [^provenance]: The second difference matrix is the hero of Gilbert Strang's *Computational Science and Engineering*, which builds half of applied mathematics out of it. It is also where this book started. The author first met it in an independent research project in Jussi Eloranta's quantum chemistry lab at CSUN, where the Schrödinger equation for a particle in a box collapses into an eigenproblem for exactly this matrix. See Joshua Cook, *Computational Methods in Molecular Quantum Mechanics*, Leanpub, 2016.
+
+Seeing it beats trusting a printout. Listing 2.9 plots the sine in, $K$'s output, and the negative sine dashed on top; Figure 2.5 is its output.
+
+**Listing 2.9 (the composition, drawn)**
+
+```python
+Ks = (K_composed @ np.sin(x))[1:-1]
+plt.plot(x, np.sin(x), label='input: sin(x)')
+plt.plot(x[1:-1], Ks, label='output: K @ sin(x)')
+plt.plot(x, -np.sin(x), 'k--', lw=1, label='-sin(x)')
+plt.legend()
+```
+
+![the second difference of a sine is the negative sine](figures/fig_k_composition.png)
+
+> **Figure 2.5.** The second difference of a sine lands on the negative sine to within the width of the line. Differentiate twice by multiplying once.
 
 ### The identity and the undo
 
@@ -314,9 +349,9 @@ The original vector came back. Every intermediate term entered once with each si
 >
 > The one-breath reason is the word telescoping. The $i$-th running sum of the differences of $\mathbf{x}$ collapses to $x_i$, as the hand computation above just showed.
 
-\lensmark{computational} Listing 2.8 asks NumPy for the inverse and applies it.
+\lensmark{computational} Listing 2.10 asks NumPy for the inverse and applies it.
 
-**Listing 2.8 (differencing, undone)**
+**Listing 2.10 (differencing, undone)**
 
 ```python
 A3 = np.array([[1, 0, 0], [-1, 1, 0], [0, -1, 1]])  # difference
@@ -334,13 +369,32 @@ x = inv(A3) @ (1,3,5): [1. 4. 9.]
 
 Differentiation and integration, inverse verbs, and you have known that since calculus. Here it is again as two matrices multiplying to the identity. The fundamental theorem of calculus makes a cameo as a pair of triangles.
 
+Listing 2.11 draws the roundtrip, one panel per stage; Figure 2.6 is its output.
+
+**Listing 2.11 (the roundtrip, drawn)**
+
+```python
+x3 = np.array([1., 4, 9])
+S3 = np.linalg.inv(A3)                 # running sums
+stages = [('x', x3), ('A3 @ x', A3 @ x3),
+          ('inv(A3) @ A3 @ x', S3 @ A3 @ x3)]
+fig, axes = plt.subplots(1, 3, figsize=(9, 3), sharey=True)
+for ax, (name, v) in zip(axes, stages):
+    ax.stem(v)
+    ax.set_title(name)
+```
+
+![the roundtrip: difference, then sum](figures/fig_undo_roundtrip.png)
+
+> **Figure 2.6.** A vector, its differences, and the running sums of those differences. The third panel is the first panel, recovered.
+
 ## 2.4 The stretch and the shadow
 
 \lensmark{geometric} To read a verb you watch what it does, and the probe this book uses is the preface's unit circle. Feed every direction in the catalog through the matrix and see where the catalog lands.
 
-The first verb to watch is one Claim 2.3 already built. A **diagonal matrix** stretches each axis by its own factor, and the diagonal entries are the factors. It is the plainest verb there is, and it is nowhere near a toy. Standardizing a dataset is multiplication by a diagonal matrix (Section 2.6), and Chapter 4 will take a well-behaved matrix apart into a diagonal heart wearing a change of basis. The second verb is the one the whole book is aimed at. Listing 2.9 builds the circle and both matrices, and verifies each fate numerically before the drawing.
+The first verb to watch is one Claim 2.3 already built. A **diagonal matrix** stretches each axis by its own factor, and the diagonal entries are the factors. It is the plainest verb there is, and it is nowhere near a toy. Standardizing a dataset is multiplication by a diagonal matrix (Section 2.6), and Chapter 4 will take a well-behaved matrix apart into a diagonal heart wearing a change of basis. The second verb is the one the whole book is aimed at. Listing 2.12 builds the circle and both matrices, and verifies each fate numerically before the drawing.
 
-**Listing 2.9 (two verbs, verified)**
+**Listing 2.12 (two verbs, verified)**
 
 ```python
 t = np.linspace(0, 2*np.pi, 100)
@@ -360,7 +414,7 @@ ellipse half-axes: 2.0 0.5
 projected circle off the u-line by: 2.220446049250313e-16
 ```
 
-The stretch doubled one half-axis and halved the other, and the projection left the circle nowhere off $\mathbf{u}$'s line. Figure 2.4 draws both fates.
+The stretch doubled one half-axis and halved the other, and the projection left the circle nowhere off $\mathbf{u}$'s line. Figure 2.7 draws both fates.
 
 \begin{figure}[!htb]
 \centering
@@ -436,9 +490,9 @@ $P^2 = \dfrac{\mathbf{u}(\mathbf{u}^\mathsf{T}\mathbf{u})\mathbf{u}^\mathsf{T}}{
 and
 $\mathbf{u}^\mathsf{T}(\mathbf{v} - P\mathbf{v}) = \mathbf{u}^\mathsf{T}\mathbf{v} - \dfrac{(\mathbf{u}^\mathsf{T}\mathbf{u})(\mathbf{u}^\mathsf{T}\mathbf{v})}{\mathbf{u}^\mathsf{T}\mathbf{u}} = 0$.
 
-\lensmark{computational} Listing 2.10 checks both properties at machine precision.
+\lensmark{computational} Listing 2.13 checks both properties at machine precision.
 
-**Listing 2.10 (the projection properties, measured)**
+**Listing 2.13 (the projection properties, measured)**
 
 ```python
 print('P @ P == P?  max diff:', np.abs(P @ P - P).max())
@@ -451,9 +505,9 @@ P @ P == P?  max diff: 1.1102230246251565e-16
 residual . u = -2.220446049250313e-16
 ```
 
-Listing 2.11 renders the projection picture with the machine's numbers; Figure 2.6 is its output.
+Listing 2.14 renders the projection picture with the machine's numbers; Figure 2.9 is its output.
 
-**Listing 2.11 (the shadow, drawn at scale)**
+**Listing 2.14 (the shadow, drawn at scale)**
 
 ```python
 def arrow(vec: np.ndarray, color: str, label: str) -> None:
@@ -468,9 +522,9 @@ plt.legend(); plt.show()
 
 ![projection: the shadow and the residual](figures/fig_projection.png)
 
-> **Figure 2.6.** The vector `v`, its shadow `Pv` on the line of `u`, and the residual `v - Pv` running perpendicularly between them.
+> **Figure 2.9.** The vector `v`, its shadow `Pv` on the line of `u`, and the residual `v - Pv` running perpendicularly between them.
 
-Look at Figure 2.6 for a moment longer than it seems to deserve. A vector, its shadow inside a subspace, and a perpendicular residual. That is the drawing the preface promised as this book's destination, and it is the entire geometry of least squares in Chapter 12. The directions PCA hunts for in Chapter 11 are the lines that catch the most shadow. The stretch builds intuition. The shadow is load-bearing.
+Look at Figure 2.9 for a moment longer than it seems to deserve. A vector, its shadow inside a subspace, and a perpendicular residual. That is the drawing the preface promised as this book's destination, and it is the entire geometry of least squares in Chapter 12. The directions PCA hunts for in Chapter 11 are the lines that catch the most shadow. The stretch builds intuition. The shadow is load-bearing.
 
 ## 2.5 Running the verb backwards
 
@@ -525,9 +579,9 @@ Every standardized column is centered at zero with standard deviation one, so a 
 
 **Honesty box.** Standardization is not a linear transformation, and this book will not pretend otherwise. The scaling half is honestly linear. Dividing each column by its $\sigma$ is multiplication by a diagonal matrix, Section 2.4's stretch pointed at data. But the centering half shifts every vector by a constant, and a shift moves the origin. That violates the quietest consequence of Definition 2.2, that every linear transformation sends $\mathbf{0}$ to $\mathbf{0}$ (set $c = d = 0$). The name for linear-plus-shift is **affine**. This is the one place in the chapter we bend the rules, we do it knowingly, and Chapter 7 will center everything in sight anyway, because covariance lives in deviations from the mean.
 
-\lensmark{computational} Listing 2.12 standardizes the complete numeric columns and makes the transformation prove itself.
+\lensmark{computational} Listing 2.15 standardizes the complete numeric columns and makes the transformation prove itself.
 
-**Listing 2.12 (standardizing the numerics, with proof)**
+**Listing 2.15 (standardizing the numerics, with proof)**
 
 ```python
 mu = X.mean().to_numpy()
@@ -542,9 +596,9 @@ column means after: 3.567435540277722e-14
 column stds after : 2.220446049250313e-16
 ```
 
-Thirty-three numeric features, all centered at zero to fourteen decimal places, all with standard deviation one to machine precision. The verification is the point. A transformation claims to put every column on one scale, so make it prove it. Listing 2.13 plots four features on both scales; Figure 2.7 is its output.
+Thirty-three numeric features, all centered at zero to fourteen decimal places, all with standard deviation one to machine precision. The verification is the point. A transformation claims to put every column on one scale, so make it prove it. Listing 2.16 plots four features on both scales; Figure 2.10 is its output.
 
-**Listing 2.13 (before and after, drawn)**
+**Listing 2.16 (before and after, drawn)**
 
 ```python
 fig, (raw, std) = plt.subplots(1, 2, figsize=(10, 4))
@@ -557,7 +611,7 @@ plt.show()
 
 ![standardization before and after](figures/fig_standardization.png)
 
-> **Figure 2.7.** Four Ames features before and after standardization. Raw, LotArea's scale makes the others invisible. Standardized, all four occupy one comparable range.
+> **Figure 2.10.** Four Ames features before and after standardization. Raw, LotArea's scale makes the others invisible. Standardized, all four occupy one comparable range.
 
 The standardized matrix $Z$ waits here for Chapter 7, which takes dot products between its columns and calls them covariances. The rest of the design-matrix craft, turning word-features into indicator vectors and putting numerics and indicators in one currency, is estimation-part work and arrives with Chapter 12, where its trap, a dependence hiding in the indicators, gets sprung and disarmed in this chapter's vocabulary.
 
@@ -577,5 +631,5 @@ Chapter 3 runs the verb backwards in earnest: solving, with the license as a wor
 6. *(pencil)* Show that $P = \mathbf{u}\mathbf{u}^\mathsf{T}/(\mathbf{u}^\mathsf{T}\mathbf{u})$ is symmetric ($P^\mathsf{T} = P$), the property Claim 2.13 did not use. One line, using $(\mathbf{u}\mathbf{u}^\mathsf{T})^\mathsf{T} = \mathbf{u}\mathbf{u}^\mathsf{T}$.
 7. *(pencil)* Project $(1, 5)$ onto the line of $(2, 1)$ by hand: score, calibrate, stretch, in an align of your own. Then verify the residual is orthogonal, and sketch the three arrows.
 8. *(pencil)* Find a nonzero vector in the null space of $\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$, and describe the whole null space in one sentence. Which standing question does it kill, and for which targets does the other one fail?
-9. *(keyboard)* Standardize `GrLivArea` and `OverallQual` by hand with Listing 2.12's two moves, and confirm each column's mean and standard deviation. Then write the scaling half as an explicit diagonal matrix acting on the centered columns.
+9. *(keyboard)* Standardize `GrLivArea` and `OverallQual` by hand with Listing 2.15's two moves, and confirm each column's mean and standard deviation. Then write the scaling half as an explicit diagonal matrix acting on the centered columns.
 10. *(keyboard, bridge → Ch 4)* Apply `K` to a sampled sine, `np.sin(3 * x)`, and to a random vector of the same length. Compare each output to its input. Which one came back as a scaled copy of itself, and by what factor? You have just met an eigenvector, and Chapter 4 makes it official.

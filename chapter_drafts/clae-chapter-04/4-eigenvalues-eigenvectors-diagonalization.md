@@ -224,6 +224,26 @@ stretch  : 3.0
 
 Twenty multiplications, and the bad guess has become $(1, 1)/\sqrt{2}$ with eigenvalue 3, which one final multiply-and-check certifies as an eigenpair. That is guess-and-check graduated into an algorithm: the guess is free, the improvement is one application of the verb, and the license's verification is the stopping rule. Serious eigensolvers, LAPACK's included, are descendants of this idea with better manners, and Chapter 11 will meet its most famous industrial application, the iteration that once ranked the entire web.
 
+Convergence is visible. Listing 4.5 reruns the iteration and tracks the gap between the running stretch and the true eigenvalue 3; Figure 4.3 is its output.
+
+**Listing 4.5 (the convergence, drawn)**
+
+```python
+v = np.array([1., 0.])
+gap = []
+for _ in range(12):
+    w = A @ v
+    v = w / np.linalg.norm(w)
+    gap.append(3 - v @ A @ v)
+plt.semilogy(np.arange(1, 13), gap, 'o-')
+plt.xlabel('iteration')
+plt.ylabel('gap to the true stretch')
+```
+
+![power method convergence](figures/fig_power_convergence.png)
+
+> **Figure 4.3.** The gap between the running stretch and the true eigenvalue, one point per iteration. A straight line on the log scale: each application of the verb cuts the gap by the same factor.
+
 ## 4.5 The orbitals: a promise paid
 
 The preface made a promise that has been standing since its physics act: electron orbitals are a basis. Here is the payment, in this chapter's vocabulary.

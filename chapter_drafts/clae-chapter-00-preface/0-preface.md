@@ -226,7 +226,22 @@ np.abs(D @ np.sin(x) - np.cos(x))[:-1].max()
 0.0031
 ```
 
-Wrong in the third decimal on a thousand points, and tightening the grid shrinks it. The matrix took the derivative.
+Wrong in the third decimal on a thousand points, and tightening the grid shrinks it. The matrix took the derivative. Listing P.2 draws the run, and Figure P.3 is its output.
+
+**Listing P.2 (the derivative, drawn)**
+
+```python
+import matplotlib.pyplot as plt
+
+plt.plot(x, np.sin(x), label='input: sin(x)')
+plt.plot(x[:-1], (D @ np.sin(x))[:-1], label='output: D @ sin(x)')
+plt.plot(x, np.cos(x), 'k--', lw=1, label='cos(x)')
+plt.legend()
+```
+
+![the matrix took a derivative](figures/fig_preface_derivative.png)
+
+> **Figure P.3.** The sampled sine in, the matrix's output, and the true cosine dashed on top. The output sits on the cosine to within the width of the line.
 
 I carried that into an independent research project in Jussi Eloranta's quantum chemistry lab, where the Schrödinger equation for a particle in a box collapsed into a matrix eigenproblem and the eigenvectors came out as sines. The waves room again, years later, now as a theorem. Which combination of eigenvectors is the ground state. I spent that semester racing my own eigensolvers against LAPACK, the compiled library at the bottom of the numerical stack, and writing up the results.
 

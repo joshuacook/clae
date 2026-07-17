@@ -46,6 +46,30 @@ C @ (3,3,3): [0 0 0]
 
 $C$ crushes $(3, 3, 3)$ to zero, and it crushes every constant vector the same way. Shift a sequence by a constant and its wrapped differences never notice. The null space of $C$ is the whole line of constant vectors, so uniqueness is dead on arrival: if $A\mathbf{x} = \mathbf{b}$ has any solution, adding $(1, 1, 1)$ gives another. \lensmark{geometric} Existence is wounded too. $C$'s three columns lie in a common plane, so the column space is that plane and not all of space, and any target off the plane is unreachable.
 
+The crush draws. Listing 3.2 feeds $C$ two inputs that differ by a constant shift and plots both against their outputs; Figure 3.1 is its output.
+
+**Listing 3.2 (the crush, drawn)**
+
+```python
+import matplotlib.pyplot as plt
+
+x1 = np.array([3., 5, 6])
+x2 = x1 + 4
+fig, (l, r) = plt.subplots(1, 2, figsize=(9, 3.5))
+l.plot(x1, 'o-', label='x')
+l.plot(x2, 's-', label='x + 4')
+l.set_title('two different inputs')
+l.legend()
+r.plot(C @ x1, 'o-', lw=3, label='C @ x')
+r.plot(C @ x2, 's--', label='C @ (x + 4)')
+r.set_title('one output')
+r.legend()
+```
+
+![two inputs, one output: the crush](figures/fig_crush.png)
+
+> **Figure 3.1.** Two different inputs, one output. The shift by a constant lives in $C$'s null space, so the matrix cannot tell the two inputs apart. Information destroyed, visibly.
+
 Reach and crush are not independent failures. They are two entries in one ledger, and the ledger balances. The bookkeeping needs two numbers.
 
 > **Definition 3.1 (rank, nullity).** The **rank** of a matrix is the dimension of its column space, the number of dimensions the verb can reach. The **nullity** is the dimension of its null space, the number of directions the verb crushes.
@@ -56,9 +80,9 @@ Reach and crush are not independent failures. They are two entries in one ledger
 
 [^ftla]: This is the first installment of what Strang calls the fundamental theorem of linear algebra. The full theorem has four subspaces and a pair of right angles between them, and it arrives with the machinery that needs it, in Chapter 12.
 
-\lensmark{computational} The machine keeps this ledger on request. Listing 3.2 audits $C$ against the well-behaved difference matrix from Chapter 2.
+\lensmark{computational} The machine keeps this ledger on request. Listing 3.3 audits $C$ against the well-behaved difference matrix from Chapter 2.
 
-**Listing 3.2 (the ledger, audited)**
+**Listing 3.3 (the ledger, audited)**
 
 ```python
 A3 = np.array([[1, 0, 0], [-1, 1, 0], [0, -1, 1]])  # difference
@@ -168,9 +192,9 @@ Run the bookkeeping. Each elimination step is a matrix multiplying $A$ from the 
 
 [^pivot]: When a zero lands in a pivot position, elimination swaps rows first, and the honest factorization is $PA = LU$ with $P$ a permutation matrix. Production code pivots even when it does not strictly have to, for numerical stability, which is why the machine's $L$ and $U$ for this very matrix look different from ours and multiply back to a row-swapped $A$. Same theorem, defensive driving.
 
-\lensmark{computational} Listing 3.3 multiplies the hand factorization back together.
+\lensmark{computational} Listing 3.4 multiplies the hand factorization back together.
 
-**Listing 3.3 (the record, verified)**
+**Listing 3.4 (the record, verified)**
 
 ```python
 A = np.array([[1., 2, 1], [2, 5, 4], [1, 3, 5]])
@@ -187,9 +211,9 @@ Why care that the algorithm is a factorization? Because the factorization is reu
 
 ## 3.6 The machine, verified
 
-`np.linalg.solve` is the production solver, and underneath it is LAPACK running exactly the factorization of Section 3.5, pivots and all. This book's epistemology does not exempt the machine. A solver returns a candidate, and candidates get verified. The verification even has a name, the **residual**, the vector $\mathbf{b} - A\hat{\mathbf{x}}$ that measures how far the returned answer is from doing its job. Listing 3.4 solves the worked system and holds the answer to the standard of Section 3.3.
+`np.linalg.solve` is the production solver, and underneath it is LAPACK running exactly the factorization of Section 3.5, pivots and all. This book's epistemology does not exempt the machine. A solver returns a candidate, and candidates get verified. The verification even has a name, the **residual**, the vector $\mathbf{b} - A\hat{\mathbf{x}}$ that measures how far the returned answer is from doing its job. Listing 3.5 solves the worked system and holds the answer to the standard of Section 3.3.
 
-**Listing 3.4 (solve, then verify the machine)**
+**Listing 3.5 (solve, then verify the machine)**
 
 ```python
 b = np.array([5., 13, 12])
@@ -223,9 +247,9 @@ Start square, because square is what we can do. Keep only the first two houses, 
 = \begin{bmatrix} 208{,}500 \\ 181{,}500 \end{bmatrix}
 \end{align}
 
-Two independent columns, rank 2, one solution. Listing 3.5 solves and verifies it.
+Two independent columns, rank 2, one solution. Listing 3.6 solves and verifies it.
 
-**Listing 3.5 (two houses, priced exactly)**
+**Listing 3.6 (two houses, priced exactly)**
 
 ```python
 A2 = np.array([[1710., 7], [1262., 6]])
@@ -244,11 +268,38 @@ The residual is zero. Both houses are priced perfectly. And the weights are absu
 
 Now let the third house knock. House 3 has 1,786 square feet at quality 7, and it sold for \$223,500. The exact model predicts $-13.67 \cdot 1786 + 33{,}126.23 \cdot 7 = 207{,}461$, a miss of \$16,039. Append its row to the system and there are three equations, two unknowns, and a target vector that no longer lies in the column space of the 3×2 matrix. Existence has failed. No pair of weights prices all three houses, and it only gets worse from there: the full claim stacks 1,460 equations onto the same two unknowns.
 
-This is not a defect in the houses. It is the standing condition of data, and it has a name from Chapter 2: the system is **overdetermined**. The machine will still hand you weights if you ask properly. Asked for the *best* weights over all 1,460 houses at once, `np.linalg.lstsq` returns about \$51.87 per square foot and \$17,604 per quality point, sane numbers, priced to miss every house a little instead of fitting two houses perfectly. Figure 3.2 shows the whole market against that model.
+This is not a defect in the houses. It is the standing condition of data, and it has a name from Chapter 2: the system is **overdetermined**. The machine will still hand you weights if you ask properly. Asked for the *best* weights over all 1,460 houses at once, `np.linalg.lstsq` returns about \$51.87 per square foot and \$17,604 per quality point, sane numbers, priced to miss every house a little instead of fitting two houses perfectly. Listing 3.7 assembles the full table, asks for those weights, and draws the whole market against them; Figure 3.3 is its output.
+
+**Listing 3.7 (the market, drawn)**
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+zoning  = pd.read_csv('data/zoning.csv')
+listing = pd.read_csv('data/listing.csv')
+sale    = pd.read_csv('data/sale.csv')
+housing = pd.merge(zoning, listing, on='Id')
+housing = pd.merge(housing, sale, on='Id').set_index('Id')
+X = housing[['GrLivArea', 'OverallQual']].to_numpy(float)
+y = housing['SalePrice'].to_numpy(float)
+w_best, *_ = np.linalg.lstsq(X, y, rcond=None)
+print('lstsq w:', np.round(w_best, 2))
+plt.scatter(X[:, 0], y, s=8, alpha=0.3, label='actual')
+plt.scatter(X[:, 0], X @ w_best, s=8, alpha=0.3,
+            label='predicted')
+plt.xlabel('GrLivArea (sq ft)')
+plt.ylabel('SalePrice ($)')
+plt.legend()
+```
+
+```text
+lstsq w: [   51.87 17604.21]
+```
 
 ![price against living area, with best-fit predictions](figures/fig_price_vs_sqft.png)
 
-> **Figure 3.2.** Actual sale price against living area for all 1,460 homes, with the two-feature best-fit predictions overlaid. The predictions form a tight band, and the market scatters around it. No line threads every point; the band misses everything a little, on purpose.
+> **Figure 3.3.** Actual sale price against living area for all 1,460 homes, with the two-feature best-fit predictions overlaid. The predictions form a tight band, and the market scatters around it. No line threads every point; the band misses everything a little, on purpose.
 
 But notice what just happened to the words. *Best* weights. Miss *a little*. Nothing in Part I defines best or little. Those words need a way to measure how wrong a miss is and a reason to prefer one distribution of misses over another, and that is probability's department. The door out of this chapter opens onto Part II, and the question walking through it is the preface's question with a sharpened edge. Of all the linear combinations available, which one is the estimate, and what exactly makes it best? Chapter 12 answers with the drawing. Everything between here and there is learning to say *best* precisely.
 
