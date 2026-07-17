@@ -41,7 +41,7 @@ The preface christened four lenses. This book keeps its promises immediately, so
   \draw[gray!25] (0,0) grid[step=1] (2.6,1.6);
   \draw[->, very thick] (0,0) -- (2,1) node[above right] {$(2, 1)$};
 \end{tikzpicture}
-\caption{A vector through the geometric lens. The arrow $(2, 1)$ walks two east and one north from the origin.}
+\caption{A vector through two lenses at once. The arrow is the geometric reading, two east and one north from the origin, and its label $(2, 1)$ is the algebraic one, the ordered list the next lens defines.}
 \end{figure}
 
 \lensmark{algebraic} Through the algebraic lens, the same vector is an ordered list of numbers, an object with rules for pencil work.
@@ -59,20 +59,22 @@ The arrow above is $(2, 1)$ in $\mathbb{R}^2$. Three dimensions work the same wa
 ```python
 import numpy as np
 v = np.array([2, 1])
-u = np.array([1, 0, 2])     # a vector in R^3
+u = np.array([1, 0, 2])
 ```
 
 \lensmark{data} And through the data lens, a vector is a column of measurements. In the dataset this book lives with, 1,460 home sales from Ames, Iowa, the above-ground living area of every home is one vector with 1,460 entries, and each home's full record is another vector, eighty entries long. Section 1.3 unpacks both.
 
 One object, four appearances: an arrow, a list with rules, an array in memory, a column of measurements. Every concept in this book will make the same tour, the margin announcing each lens as it takes over, and the tour will always run in the creed's order where it can. Picture first, pencil second, machine third, houses last.
 
-Now the operation. Modern artificial intelligence rests on a single, simple move. Scale a vector by a number, and add it to another vector.[^llm] That is the whole of the operation, and it carries both of its names into a definition.
+Now the operation. Modern artificial intelligence, and the video gaming industry whose graphics hardware it borrowed, rests on a single, simple move. Scale a vector by a number, and add it to another vector.[^llm] That is the whole of the operation, and it carries both of its names into a definition.
 
 [^llm]: The claim is not rhetorical. A language model, underneath the chat window, is arithmetic at colossal scale: numbers organized into long lists, the lists scaled, the scaled lists added. Architectures turn over every few years and the operation does not. The recurrent networks that read text one word at a time carried a running summary forward, scaling what they held and adding what they read. The paper that retired them is titled "Attention Is All You Need," and attention is a weighted sum of vectors, which is Definition 1.2. The architecture died. The operation is still here.
 
 > **Definition 1.2 (linear combination, weights).** A **linear combination** of vectors $\mathbf{v}_1, \ldots, \mathbf{v}_k$ is
 >
-> $$c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \cdots + c_k\mathbf{v}_k,$$
+> \begin{align}
+> c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \cdots + c_k\mathbf{v}_k,
+> \end{align}
 >
 > the vectors scaled by numbers and the results added. The numbers $c_1, \ldots, c_k$ are the **weights**.
 
@@ -87,8 +89,12 @@ The strange name is a working credential. Deep in the compiled numerical librari
 \lensmark{algebraic} Run the operation once by hand before the machine gets it. Take $a = 2$, $\mathbf{x} = (1, 2, 3)$, $\mathbf{y} = (10, 20, 30)$, and do the two moves in order, scale then add:
 
 \begin{align}
-a\,\mathbf{x} &= 2\,(1, 2, 3) = (2, 4, 6) \notag \\
-a\,\mathbf{x} + \mathbf{y} &= (2, 4, 6) + (10, 20, 30) = (12, 24, 36)
+a\,\mathbf{x} = 2\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}
+= \begin{bmatrix} 2 \\ 4 \\ 6 \end{bmatrix}, \qquad
+a\,\mathbf{x} + \mathbf{y}
+= \begin{bmatrix} 2 \\ 4 \\ 6 \end{bmatrix}
++ \begin{bmatrix} 10 \\ 20 \\ 30 \end{bmatrix}
+= \begin{bmatrix} 12 \\ 24 \\ 36 \end{bmatrix}
 \end{align}
 
 \lensmark{computational} That is everything axpy does. Listing 1.2 hands the identical three-vector computation to the machine, which agrees.
@@ -195,9 +201,9 @@ The transition from one operation to a whole subject runs through a single agree
 >
 > **Closure under addition.** For every pair of vectors $\mathbf{v}$ and $\mathbf{w}$ in $S$, the vector $\mathbf{v} + \mathbf{w}$ is in $S$.
 
-[^axioms]: There is a bootstrap here, and it is worth seeing plainly. A vector space is the thing that stays closed when you scale and add, and scaling and adding are the operations a vector space supports. The circle is not a flaw. It is the agreement. Commit to objects with these two operations, and everything else in the book follows. The full definition adds eight axioms governing how the operations behave (addition commutes and associates, a zero vector exists, every vector has an additive inverse, and scalar multiplication associates, distributes both ways, and respects 1). $\mathbb{R}^n$ satisfies all eight, every space in this book satisfies all eight, and we will not check them again. Sheldon Axler, *Linear Algebra Done Right*, ch. 1, gives the axioms a first-class treatment.
+[^axioms]: There is a bootstrap here, and it is worth seeing plainly. A vector space is the thing that stays closed when you scale and add, and scaling and adding are the operations a vector space supports. The circle is not a flaw. It is the agreement. Commit to objects with these two operations, and everything else in the book follows. The full definition adds eight axioms governing how the operations behave (addition commutes and associates, a zero vector exists, every vector has an additive inverse, and scalar multiplication associates, distributes both ways, and respects 1). $\mathbb{R}^n$ satisfies all eight, every space in this book satisfies all eight, and we will not check them again. The scalars bring a rulebook of their own, the arithmetic that makes the reals a **field**, and a vector space is always declared over one; when Chapter 14 trades $\mathbb{R}$ for $\mathbb{C}$, it is trading fields. Sheldon Axler, *Linear Algebra Done Right*, ch. 1, gives the axioms a first-class treatment.
 
-\lensmark{algebraic} Keep the two closure clauses and axpy comes free, because $a\mathbf{x} + \mathbf{y}$ is one application of each. Watch closure hand it over, symbolically and then on numbers. Scaling keeps $a\mathbf{x}$ in the vector space. Addition then keeps the sum in too:
+\lensmark{algebraic} The agreement pays immediately. Consent to work only with objects that live in a vector space, and axpy and all its magic come with the membership. Keep the two closure clauses and axpy comes free, because $a\mathbf{x} + \mathbf{y}$ is one application of each. Watch closure hand it over, symbolically and then on numbers. Scaling keeps $a\mathbf{x}$ in the vector space. Addition then keeps the sum in too:
 
 \begin{align}
 \mathbf{x} \in S \;\Longrightarrow\; a\mathbf{x} \in S, \qquad\quad a\mathbf{x} \in S,\; \mathbf{y} \in S \;\Longrightarrow\; a\mathbf{x} + \mathbf{y} \in S
@@ -221,13 +227,13 @@ On numbers, take $\mathbf{x} = (1, 2)$ and $\mathbf{y} = (3, 1)$ in $\mathbb{R}^
 
 Scale $\mathbf{x}$, walk $\mathbf{y}$ from its tip, and the combination is the arrow to where you land. Every step stayed on the page, which is the picture's way of saying every step stayed in the vector space.
 
-Repeat the two moves and every linear combination of vectors in $S$ lands in $S$. Two clauses in, the whole of Definition 1.2 out. And what the two clauses buy is out of all proportion to their price, because linearity is the assumption behind every incantation this book will teach. Assume it, and here are the spells, in the order the book casts them: axpy at compiled speed (this chapter), the fact that electron orbitals are a basis (Chapter 4), the directions that carry a dataset's variation (Chapter 11), regression (Chapter 12), and Fourier analysis (Chapter 14). Each one is the same small set of moves applied to a new family of objects that kept the two clauses.
+Repeat the two moves and every linear combination of vectors in $S$ lands in $S$. Two clauses in, the whole of Definition 1.2 out. And what the two clauses buy is out of all proportion to their price, because linearity is the assumption behind every incantation this book will teach. Assume it, and here are the spells, a sampling of what linearity enables rather than the whole grimoire, in the order the book casts them: axpy at compiled speed (this chapter), the fact that electron orbitals are a basis (Chapter 4), the directions that carry a dataset's variation (Chapter 11), regression (Chapter 12), and Fourier analysis (Chapter 14). Each one is the same small set of moves applied to a new family of objects that kept the two clauses.
 
 ### Scaling and adding, drawn
 
 Each operation now gets the full tour, picture first.
 
-\lensmark{geometric} Scalar multiplication is stretching. Multiply a vector by $c$ and its arrow grows or shrinks along its own line through the origin. A negative $c$ flips it to point the other way down the same line:
+**Scalar multiplication.** \lensmark{geometric} Scalar multiplication is stretching. Multiply a vector by $c$ and its arrow grows or shrinks along its own line through the origin. A negative $c$ flips it to point the other way down the same line. What scaling can never do is change the line. Length changes, direction stays or exactly reverses, and no choice of $c$ rotates the arrow off its axis:
 
 \begin{figure}[!htb]
 \centering
@@ -275,7 +281,7 @@ plt.show()
 
 > **Figure 1.5.** Scalar multiplication. `v`, `2v`, and `-v` all lie on the single line through the origin: multiplying by `c` slides the arrow along that line, and flips it to the far side when `c` is negative.
 
-\lensmark{geometric} Addition is tip to tail. Walk out along the first arrow. From where you land, walk out along the second. The sum is the single arrow from start to finish. The closure drawing above already showed it. \lensmark{algebraic} The pencil version is entrywise again:
+**Addition.** \lensmark{geometric} Addition is tip to tail. Walk out along the first arrow. From where you land, walk out along the second. The sum is the single arrow from start to finish. Figure 1.3 already showed it. \lensmark{algebraic} The pencil version is entrywise again:
 
 \begin{align}
 (1, 2) + (3, 1) = (4, 3), \qquad\quad \mathbf{v} + \mathbf{w} = (v_1 + w_1,\, \ldots,\, v_n + w_n)
@@ -324,9 +330,9 @@ housing = pd.merge(zoning, listing, on='Id')
 housing = pd.merge(housing, sale, on='Id').set_index('Id')
 ```
 
-Through the data lens, a feature is a vector.[^observations] `GrLivArea`, the above-ground living area, is a column of 1,460 numbers, one per home, a vector in $\mathbb{R}^{1460}$. `OverallQual`, the assessor's one-to-ten quality rating, is another. And `SalePrice`, what a buyer actually paid, is a third. \lensmark{geometric} The rows read the other way. Each home is a point whose coordinates are its features, and two of those coordinates already draw:
+Through the data lens, a feature is a vector.[^observations] `GrLivArea`, the above-ground living area, is a column of 1,460 numbers, one per home, a vector in $\mathbb{R}^{1460}$. `OverallQual`, the assessor's one-to-ten quality rating, is another. And `SalePrice`, what a buyer actually paid, is a third. Each of these columns is what a statistician calls measurements of a **random variable**. More on that in Part II; for now the name is a placed flag. \lensmark{geometric} The rows read the other way. Each home is a point whose coordinates are its features, and two of those coordinates already draw:
 
-[^observations]: A column of observations as a single vector is the quiet front-loading of Part II. When Chapter 5 introduces random variables, a feature column will become a vector of realizations, and the geometry built here will apply to randomness unchanged. Nothing needs to be relearned, and that is the point of building it this way.
+[^observations]: A column of observations as a single vector is the quiet front-loading of Part II. When Chapter 5 introduces random variables, a feature column will become a vector of realizations, and the geometry built here will apply to randomness unchanged. Random variables themselves satisfy Definition 1.4, they scale and they add, so axpy and everything built on it carries over verbatim. Nothing needs to be relearned, and that is the point of building it this way.
 
 \begin{figure}[!htb]
 \centering
@@ -372,7 +378,7 @@ Hold $\mathbf{v}$ and $\mathbf{w}$ fixed, and let the weights range over every v
 c\,\mathbf{v} + d\,(2\mathbf{v}) = (c + 2d)\,\mathbf{v} = a\,\mathbf{v}, \qquad a = c + 2d
 \end{align}
 
-Every combination collapses to a single stretch of $\mathbf{v}$. The span is $\mathbf{v}$'s line, and the second vector bought no new territory. \lensmark{geometric} But let $\mathbf{w}$ point off the line, and the combinations sweep out an entire plane:
+The bundle $a = c + 2d$ is one real number, a scalar like any other, so every combination collapses to a single stretch of $\mathbf{v}$. The span is $\mathbf{v}$'s line, and the second vector bought no new territory. \lensmark{geometric} But let $\mathbf{w}$ point off the line, and the combinations sweep out an entire plane:
 
 \begin{figure}[!htb]
 \centering
@@ -424,7 +430,7 @@ Membership in a span is a concrete question, and it is this book's first meeting
 \qquad\Longrightarrow\qquad c = 1,\; d = 2
 \end{align}
 
-Elimination produced a candidate. Now check the candidate directly, $1\,(2, 1) + 2\,(1, 3) = (2, 1) + (2, 6) = (4, 7)$. It verifies, so existence holds and the recipe is in hand. The check is not a formality. Verifying a candidate is a licensed method in this book, and the license, which is uniqueness, arrives with Claim 1.10. Membership questions are recipe questions.
+Elimination produced a candidate. Now check the candidate directly, $1\,(2, 1) + 2\,(1, 3) = (2, 1) + (2, 6) = (4, 7)$. It verifies, so existence holds and the recipe is in hand. And notice what finding it did. Exhibiting the weights did not merely certify membership, it solved the system. Find the recipe and you have found the solution. The check is not a formality. Verifying a candidate is a licensed method in this book, and the license, which is uniqueness, arrives with Claim 1.10. Membership questions are recipe questions.
 
 > **Definition 1.6 (subspace).** A **subspace** is a set of vectors that contains the origin[^origin] and is closed under scaling and addition. It is a vector space living inside a larger one.
 
@@ -432,15 +438,15 @@ Elimination produced a candidate. Now check the candidate directly, $1\,(2, 1) +
 
 > **Claim 1.7 (a span is a subspace).** The span of any set of vectors is a subspace.
 >
-> The one-breath reason: a scaled combination is a combination, a sum of two combinations is a combination, and all-zero weights give the origin.[^footnotes] Span and subspace are two descriptions of one object. Span builds it from a list of vectors. Subspace states the property the built thing has.
+> The proof is two lines, so here it is whole. Scaling: $a(c_1\mathbf{v}_1 + \cdots + c_k\mathbf{v}_k) = (ac_1)\mathbf{v}_1 + \cdots + (ac_k)\mathbf{v}_k$, a combination. Adding: two combinations add weight by weight into one combination. All-zero weights give the origin, and both closure clauses hold. ∎[^footnotes] Span and subspace are two descriptions of one object. Span builds it from a list of vectors. Subspace states the property the built thing has.
 
-[^footnotes]: That breath was the whole argument, written small: $a(c\mathbf{v} + d\mathbf{w}) = (ac)\mathbf{v} + (ad)\mathbf{w}$, and two combinations add weight by weight. A note about this book's footnotes, since this is its first boxed claim: the fuller arguments live down here and in the references, on purpose. The text above is for you. It is not for the gatekeepers who keep mathematics behind subscript fiddliness, and a proof performed as ritual is gatekeeping. The preface's Jim had a word for it, waved off with the back of a hand. When a reason is cheap you will get it in a breath. When it is a real theorem you will get the name of someone who proved it properly.
+[^footnotes]: A note about this book's footnotes, since this is its first boxed claim: the fuller arguments live down here and in the references, on purpose. The text above is for you. It is not for the gatekeepers who keep mathematics behind subscript fiddliness, and a proof performed as ritual is gatekeeping. The preface's Jim had a word for it, waved off with the back of a hand. When a reason is cheap you will get it in a breath. When it is a real theorem you will get the name of someone who proved it properly.
 
 The drawings above are more general than they look, and that is their purpose. Two vectors span at most a plane, in three dimensions, in 1,460, in a googol. The reach of a span is set by how many vectors you combine, never by the size of the space they live in.[^precise] So every question this book asks about two vectors happens inside the at-most-a-plane they span, and a drawing on this page is exact for the 1,460-dimensional case. Nobody can picture $\mathbb{R}^{1460}$, and nobody needs to.
 
 [^precise]: The precise statement is Claim 1.13, once dimension is on the table.
 
-\lensmark{data} On the houses, the span is the reachable set. The two feature columns `GrLivArea` and `OverallQual` span a subspace of $\mathbb{R}^{1460}$, and every prediction any pair of weights can make lives inside it. Existence, at housing scale, asks whether the true price column is in that span. Chapter 3 opens that door with the evidence in hand, and what to do when the answer is no is the estimation half of this book.
+\lensmark{data} On the houses, the span is the reachable set. The two feature columns `GrLivArea` and `OverallQual`, each 1,460 measurements of one underlying quantity, span a subspace of $\mathbb{R}^{1460}$. The 1,460 is an address set by the sample count, not the object of interest; the objects are the two measured features. Every prediction any pair of weights can make lives inside their span. Existence, at housing scale, asks whether the true price column is in that span. Chapter 3 opens that door with the evidence in hand, and what to do when the answer is no is the estimation half of this book.
 
 ## 1.5 Independence, basis, and the recipe
 
@@ -462,7 +468,7 @@ Take the plane spanned by two vectors and bring in a third. \lensmark{geometric}
 
 [^zerotest]: The equivalent test is usually easier to run. The only combination equal to the zero vector is the one with every weight zero. The two phrasings convert by moving one vector across the equals sign, exactly the maneuver the dependent-triple computation below performs in reverse.
 
-\lensmark{algebraic} Both verdicts are pencil work, so render one of each. The pair $\mathbf{v} = (2, 1)$, $\mathbf{w} = (1, 3)$ is independent. Set a combination to zero and elimination forces both weights to die:
+\lensmark{algebraic} Both verdicts are pencil work, so render one of each. The working test sets a combination to zero, and the zero is not arbitrary. Any dependence, whichever vector it favors, rearranges to the same shape, everything on one side, a combination equal to the zero vector with at least one live weight. Test zero and every possible dependence is tested at once. The pair $\mathbf{v} = (2, 1)$, $\mathbf{w} = (1, 3)$ is independent. Set a combination to zero and elimination forces both weights to die:
 
 \begin{align}
 \begin{aligned} 2c + d &= 0 \\ c + 3d &= 0 \end{aligned}
@@ -471,11 +477,13 @@ d = -2c,\quad c + 3(-2c) = -5c = 0
 \qquad\Longrightarrow\qquad c = d = 0
 \end{align}
 
-Now bring in $\mathbf{u} = (4, 7)$. Section 1.4 already found the recipe $\mathbf{u} = 1\,\mathbf{v} + 2\,\mathbf{w}$, so the triple is dependent, and moving $\mathbf{u}$ across the equals sign exhibits the zero combination with live weights:
+Only the **trivial solution** survives, every weight zero, and that is the independence verdict. Now bring in $\mathbf{u} = (4, 7)$. Section 1.4 already found the recipe $\mathbf{u} = 1\,\mathbf{v} + 2\,\mathbf{w}$, so the triple is dependent, and moving $\mathbf{u}$ across the equals sign exhibits the zero combination with live weights:
 
 \begin{align}
 1\,\mathbf{v} + 2\,\mathbf{w} - 1\,\mathbf{u} = (2, 1) + (2, 6) - (4, 7) = (0, 0)
 \end{align}
+
+A **nontrivial** solution, live weights summing to nothing, and that is the dependence verdict. The pencil dichotomy is exactly the definition's: independent means the zero combination has only the trivial solution, dependent means it has a nontrivial one.
 
 \lensmark{computational} Listing 1.12 reuses the span sweeper on $\mathbf{v}$ and $\mathbf{w}$ and draws $\mathbf{u}$ on top. Figure 1.12 is its output.
 
@@ -502,7 +510,7 @@ ax.legend(); plt.show()
 
 > **Claim 1.10 (unique recipe).** If $\mathbf{b}_1, \ldots, \mathbf{b}_k$ is a basis, every vector in its span is a combination of the basis in exactly one way.
 >
-> Witness it small. The set $\{(1, 0), (1, 1)\}$ is a basis of $\mathbb{R}^2$. To build $(3, 5)$, the second entry forces the weight on $(1, 1)$ to be $5$. The first entry then forces the weight on $(1, 0)$ to be $-2$. Forced twice over, no other recipe exists. The one-breath reason it always works: two different recipes for the same vector would subtract to a zero combination with nonzero weights, and independence forbids it.
+> Witness it small. The set $\{(1, 0), (1, 1)\}$ is a basis of $\mathbb{R}^2$. To build $(3, 5)$, the second entry forces the weight on $(1, 1)$ to be $5$. The first entry then forces the weight on $(1, 0)$ to be $-2$. Forced twice over, no other recipe exists. The reason it always works is one subtraction. Suppose $c_1\mathbf{b}_1 + \cdots + c_k\mathbf{b}_k$ and $d_1\mathbf{b}_1 + \cdots + d_k\mathbf{b}_k$ build the same vector. Subtract them: $(c_1 - d_1)\mathbf{b}_1 + \cdots + (c_k - d_k)\mathbf{b}_k = \mathbf{0}$. Independence allows only the trivial solution, so $c_i = d_i$ for every $i$, and the two recipes were one recipe all along.
 
 Why this claim earns a box is a story about permission. Jim, the professor from the preface, opened his first lecture with uniqueness, before teaching us to solve anything. It seemed like a strange place to start. It is the perfect place to start, because uniqueness is a license. If the answer is one of a kind, then any way of finding it is legitimate, including the oldest and most poo-pooed method in mathematics, guess and check. Find a candidate however you like, verify it, and uniqueness does the rest. The membership check of Section 1.4 already ran on this license, and Claim 1.10 is what makes it legal. This book runs on it.
 

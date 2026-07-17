@@ -82,11 +82,12 @@ AB = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 5 & 6 \\ 7 & 8 
 
 The first way is entry by entry. Each number in the answer is a row of $A$ dotted with a column of $B$:
 
-\begin{equation}
-(AB)_{11} = \begin{bmatrix} 1 & 2 \end{bmatrix} \cdot \begin{bmatrix} 5 \\ 7 \end{bmatrix} = 1 \cdot 5 + 2 \cdot 7 = 19,
-\end{equation}
+\begin{align}
+(AB)_{11} &= 1 \cdot 5 + 2 \cdot 7 = 19, & (AB)_{12} &= 1 \cdot 6 + 2 \cdot 8 = 22, \notag \\
+(AB)_{21} &= 3 \cdot 5 + 4 \cdot 7 = 43, & (AB)_{22} &= 3 \cdot 6 + 4 \cdot 8 = 50
+\end{align}
 
-and the other three entries are the other three row-column pairs. This is the way everyone is taught, and it is the least illuminating of the three. Sixteen multiplications, no story.
+Four row-column pairs, four entries. This is the way everyone is taught, and it is the least illuminating of the three. Sixteen multiplications, no story.
 
 The second way is column by column. $A$ acts on each column of $B$, and each column of the answer is a linear combination of $A$'s columns:
 
@@ -96,7 +97,15 @@ The second way is column by column. $A$ acts on each column of $B$, and each col
 = \begin{bmatrix} 19 \\ 43 \end{bmatrix}
 \end{equation}
 
-The first column of $B$ is a recipe, and $A$'s columns are what it cooks. This is the way this book thinks, starting on page one of Chapter 1.
+and the second column of $B$ builds the second column of the answer the same way:
+
+\begin{equation}
+\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 6 \\ 8 \end{bmatrix}
+= 6\begin{bmatrix} 1 \\ 3 \end{bmatrix} + 8\begin{bmatrix} 2 \\ 4 \end{bmatrix}
+= \begin{bmatrix} 22 \\ 50 \end{bmatrix}
+\end{equation}
+
+Each column of $B$ is a recipe, and $A$'s columns are what it cooks. This is the way this book thinks, starting on page one of Chapter 1.
 
 The third way is as a sum of outer products, column of $A$ times row of $B$, the answer assembled from rank-one slabs:
 
@@ -169,7 +178,7 @@ That semester I was also taking waves in physics. Partway through the term the s
 
 Basis was the jewel, and it kept resurfacing. The next year Jim marched us through vector calculus, where the gradient turned out to be a vector living in the same algebra we had just learned. Back on the compute-this track, the new way of seeing sometimes made the computing harder before it made it easier. It is one thing to grind through a curl, and another to grind through it while noticing what it is. Then came differential equations, and that is where the idea stopped visiting and moved in. Solutions superpose. The solution set is a span wearing a trench coat. The course was asking which combination of solutions fits these conditions, and this time I could hear it asking.
 
-By the time I transferred to Cal State Northridge, partial differential equations felt almost easy, and I could finally say why. Every technique in the course was the same move. Expand the unknown in the right basis, and watch the equation fall apart.[^complex] Off syllabus, the jewel went atomic: electron orbitals are built from a basis too, Laguerre polynomials dressed in spherical harmonics.[^singer] Which combination of basis states is this electron.
+By the time I transferred to Cal State Northridge, partial differential equations felt almost easy, and I could finally say why. Every technique in the course was the same move. Expand the unknown in the right basis, and watch the equation fall apart.[^complex] Off syllabus, the jewel went atomic: electron orbitals are built from a basis too, Laguerre polynomials dressed in spherical harmonics.[^singer] In which combination of basis states does this electron lie.
 
 [^complex]: If you want your noodle properly baked, the most natural basis for real oscillations is built from complex exponentials, $e^{i\omega t}$, imaginary numbers doing the honest work behind every real wave. Chapter 14 cashes this in.
 
@@ -195,7 +204,7 @@ Strang's chapter 4 is orthogonality, and there is a drawing in it. A vector floa
 \caption{The drawing this book is written toward. A vector $\mathbf{b}$ floats above a subspace, and the perpendicular drop finds the nearest reachable point $\mathbf{p}$. Chapter 11 builds everything in it.}
 \end{figure}
 
-That is the picture that converted me, and I can now say what the conversion was. Everything in the pipeline, and all of the windmill review above, lives in a world where the right answer exists and your job is to compute it. The drawing lives in a different world. The vector $\mathbf{b}$ is not in the sheet. No combination reaches it. The right answer does not exist, and the question becomes which reachable answer is best. That question has a name, estimation, and it is the other subject of this book. Of course the conversion happened at this drawing. After a lifetime of compute-the-right-answer, the first honest look at best-you-can-do lands like a door opening. This book has one destination, and it is that drawing. You will meet it in Chapter 12.
+That is the picture that converted me, and I can now say what the conversion was. Everything in the pipeline, and all of the windmill review above, lives in a world where the right answer exists and your job is to compute it. The drawing lives in a different world. The vector $\mathbf{b}$ is not in the sheet, also known as the span, everything the combinations can reach. No combination reaches $\mathbf{b}$. The right answer does not exist, and the question becomes which reachable answer is best. That question has a name, estimation, and it is the other subject of this book. Of course the conversion happened at this drawing. After a lifetime of compute-the-right-answer, the first honest look at best-you-can-do lands like a door opening. This book has one destination, and it is that drawing. You will meet it in Chapter 12.
 
 &nbsp;
 

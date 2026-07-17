@@ -24,9 +24,9 @@ Chapter 1 opened on its first object by touring it through the four lenses. This
 
 \lensmark{data} Through the data lens, a matrix is a dataset. One vector is one record. A dataset is many records stacked, and the stack is a matrix. The Ames data ships as three files, zoning, listing, and sale, joined on a shared `Id` into the single object Chapter 1 called `housing`.
 
-> **Definition 2.1 (data-matrix conventions).** In this book a data matrix $X$ has **rows as samples** and **columns as features**. $X$ is $m \times n$ for $m$ observations of $n$ features. The target vector is $\mathbf{y}$, one entry per sample. A feature column is a vector in $\mathbb{R}^m$; a sample row is a point in $\mathbb{R}^n$.
+> **Definition 2.1 (data-matrix conventions).** In this book a data matrix $X$ has **rows as samples** and **columns as features**. $X$ is $m \times n$ for $m$ observations of $n$ features. The target vector is $\mathbf{y}$, one entry per sample. A feature column is a vector in $\mathbb{R}^m$, one random variable's worth of measurements; a sample row is a point in $\mathbb{R}^n$.
 
-The convention carries two readings, and both matter. Down the columns, each column is one feature measured across every home, a vector with 1,460 entries. That is the reading Chapter 1 lived in. Across the rows, each row is one home, a single point in feature space. \lensmark{geometric} The point reading draws. Take just two coordinates, living area and sale price, and the first five homes are five points on a plane:
+The convention carries two readings, and both matter. Down the columns, each column is one feature measured across every home, a vector with 1,460 entries, Chapter 1's random-variable flag flying over each one. That is the reading Chapter 1 lived in. Across the rows, each row is one home, a single point in feature space. \lensmark{geometric} The point reading draws. Take just two coordinates, living area and sale price, and the first five homes are five points on a plane, in two dimensions, where Chapter 1 already established that a point and a vector are the same object:
 
 \begin{figure}[!htb]
 \centering
@@ -75,9 +75,7 @@ D = \frac{1}{h}\begin{bmatrix} -1 & 1 & & \\ & -1 & 1 & \\ & & \ddots & \ddots \
 (D\mathbf{x})_i \;=\; \frac{-\,x_i + x_{i+1}}{h} \;=\; \frac{f(t_i + h) - f(t_i)}{h}
 \end{align}
 
-Look at the right-hand side. It is the difference quotient from the first week of calculus, the expression whose $h \to 0$ limit *defines* the derivative. The matrix is not approximating some formula that resembles differentiation. Row by row, it *is* differentiation, held at a finite step. Tighten the grid and the verb converges to the calculus.
-
-\lensmark{computational} Listing 2.2 constructs $D$ on a thousand-point grid over $[0, 2\pi]$.
+Look at the right-hand side. It is the difference quotient from the first week of calculus, the expression whose $h \to 0$ limit *defines* the derivative. The matrix is not approximating some formula that resembles differentiation. Row by row, it *is* differentiation, held at a finite step. Tighten the grid and the verb converges to the calculus. \lensmark{computational} Listing 2.2 constructs $D$ on a thousand-point grid over $[0, 2\pi]$.
 
 **Listing 2.2 (building the derivative-taker)**
 
@@ -138,7 +136,7 @@ In words, a linear transformation never disturbs a linear combination. Transform
 T(c\mathbf{x} + d\mathbf{y}) = 2\,(c\mathbf{x} + d\mathbf{y}) = c\,(2\mathbf{x}) + d\,(2\mathbf{y}) = c\,T(\mathbf{x}) + d\,T(\mathbf{y})
 \end{align}
 
-Squaring every entry does not. Test it on $\mathbf{x} = (1, 2)$ with $c = 2$, $d = 0$:
+Squaring every entry, $T(x_1, x_2) = (x_1^2, x_2^2)$, does not. Test it on $\mathbf{x} = (1, 2)$ with $c = 2$, $d = 0$:
 
 \begin{align}
 T(2\mathbf{x}) = T(2, 4) = (4, 16), \qquad\quad 2\,T(\mathbf{x}) = 2\,(1, 4) = (2, 8)
@@ -632,4 +630,5 @@ Chapter 3 runs the verb backwards in earnest: solving, with the license as a wor
 7. *(pencil)* Project $(1, 5)$ onto the line of $(2, 1)$ by hand: score, calibrate, stretch, in an align of your own. Then verify the residual is orthogonal, and sketch the three arrows.
 8. *(pencil)* Find a nonzero vector in the null space of $\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$, and describe the whole null space in one sentence. Which standing question does it kill, and for which targets does the other one fail?
 9. *(keyboard)* Standardize `GrLivArea` and `OverallQual` by hand with Listing 2.15's two moves, and confirm each column's mean and standard deviation. Then write the scaling half as an explicit diagonal matrix acting on the centered columns.
-10. *(keyboard, bridge → Ch 4)* Apply `K` to a sampled sine, `np.sin(3 * x)`, and to a random vector of the same length. Compare each output to its input. Which one came back as a scaled copy of itself, and by what factor? You have just met an eigenvector, and Chapter 4 makes it official.
+10. *(keyboard, curiosity)* The two views have a speed. Time the row view against the column view of Listing 2.5 on a large random matrix, then time a Pandas `.apply` across rows against one across columns of `housing`. Explain both gaps with the memory-address footnote of Section 2.3.
+11. *(keyboard, bridge → Ch 4)* Apply `K` to a sampled sine, `np.sin(3 * x)`, and to a random vector of the same length. Compare each output to its input. Which one came back as a scaled copy of itself, and by what factor? You have just met an eigenvector, and Chapter 4 makes it official.
