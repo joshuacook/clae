@@ -330,13 +330,15 @@ Through the data lens, a feature is a vector.[^observations] `GrLivArea`, the ab
 
 \begin{figure}[!htb]
 \centering
-\begin{tikzpicture}[scale=1.0]
-  \draw[->, gray] (0.6,0.9) -- (3.1,0.9) node[below left] {\scriptsize GrLivArea (thousand sq ft)};
-  \draw[->, gray] (0.9,0.6) -- (0.9,3.4) node[above right=-2pt] {\scriptsize SalePrice (\$100k)};
+\begin{tikzpicture}[scale=2.1]
+  \draw[->, gray] (0.6,0.9) -- (3.1,0.9)
+    node[below left] {\small GrLivArea (thousand sq ft)};
+  \draw[->, gray] (0.9,0.6) -- (0.9,3.4)
+    node[above right=-2pt] {\small SalePrice (\$100k)};
   \foreach \x/\y/\n in {1.710/2.085/1, 1.262/1.815/2, 1.786/2.235/3, 1.717/1.400/4, 2.198/2.500/5}
-    { \fill (\x,\y) circle (1.8pt); \node[anchor=west] at (\x+0.05,\y) {\scriptsize \n}; }
-  \foreach \x in {1.0,1.5,2.0} \draw[gray!50] (\x,0.87) -- (\x,0.93) node[below=4pt] {\tiny \x};
-  \foreach \y in {1.5,2.0,2.5,3.0} \draw[gray!50] (0.87,\y) -- (0.93,\y) node[left=4pt] {\tiny \y};
+    { \fill (\x,\y) circle (1.1pt); \node[anchor=west] at (\x+0.04,\y) {\small \n}; }
+  \foreach \x in {1.0,1.5,2.0} \draw[gray!50] (\x,0.88) -- (\x,0.92) node[below=3pt] {\scriptsize \x};
+  \foreach \y in {1.5,2.0,2.5,3.0} \draw[gray!50] (0.88,\y) -- (0.92,\y) node[left=3pt] {\scriptsize \y};
 \end{tikzpicture}
 \caption{The first five homes as points in living-area-and-price space. A vector is a point in a vector space, and a dataset is a cloud of them.}
 \end{figure}
@@ -378,6 +380,8 @@ Every combination collapses to a single stretch of $\mathbf{v}$. The span is $\m
   \fill[gray!12] (-2.4,-2.9) -- (2.6,-0.4) -- (4.4,3.4) -- (-0.6,0.9) -- cycle;
   \draw[->, very thick] (0,0) -- (2,1) node[below right] {$\mathbf{v}$};
   \draw[->, very thick, gray] (0,0) -- (1,3) node[above left] {$\mathbf{w}$};
+  \draw[gray] (0.9,0.45) arc (27:72:1.0);
+  \node[gray] at (1.15,0.95) {\scriptsize $45^\circ$};
   \node[gray, anchor=west] at (2.3,2.6) {\scriptsize the span, a plane};
 \end{tikzpicture}
 \caption{The full case. With $\mathbf{w}$ off the line, the combinations sweep out an entire plane.}

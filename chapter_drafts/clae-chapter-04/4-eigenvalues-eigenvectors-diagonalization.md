@@ -32,7 +32,8 @@ Most verbs tangle directions. Feed a matrix a vector and the output generally po
   \draw[->, very thick] (0,0) -- (1,1) node[below right] {$\mathbf{v}$};
   \draw[->, very thick, gray] (0,0) -- (3,3) node[above right] {$A\mathbf{v} = 3\mathbf{v}$};
   \draw[->, very thick] (0,0) -- (1.4,0.2) node[below] {$\mathbf{w}$};
-  \draw[->, very thick, gray] (0,0) -- (2.2,1.8) node[above] {$A\mathbf{w}$, tangled};
+  \draw[->, very thick, gray] (0,0) -- (2.2,1.4);
+  \node[gray, right] at (2.25,1.35) {$A\mathbf{w}$, tangled};
 \end{tikzpicture}
 \caption{The eigenvector $\mathbf{v}$ comes out of the verb on its own line, stretched by 3. The ordinary vector $\mathbf{w}$ comes out pointing somewhere new.}
 \end{figure}

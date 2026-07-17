@@ -30,13 +30,15 @@ The convention carries two readings, and both matter. Down the columns, each col
 
 \begin{figure}[!htb]
 \centering
-\begin{tikzpicture}[scale=1.0]
-  \draw[->, gray] (0.6,0.9) -- (3.1,0.9) node[below left] {\scriptsize GrLivArea (thousand sq ft)};
-  \draw[->, gray] (0.9,0.6) -- (0.9,3.4) node[above right=-2pt] {\scriptsize SalePrice (\$100k)};
+\begin{tikzpicture}[scale=2.1]
+  \draw[->, gray] (0.6,0.9) -- (3.1,0.9)
+    node[below left] {\small GrLivArea (thousand sq ft)};
+  \draw[->, gray] (0.9,0.6) -- (0.9,3.4)
+    node[above right=-2pt] {\small SalePrice (\$100k)};
   \foreach \x/\y/\n in {1.710/2.085/1, 1.262/1.815/2, 1.786/2.235/3, 1.717/1.400/4, 2.198/2.500/5}
-    { \fill (\x,\y) circle (1.8pt); \node[anchor=west] at (\x+0.05,\y) {\scriptsize \n}; }
-  \foreach \x in {1.0,1.5,2.0} \draw[gray!50] (\x,0.87) -- (\x,0.93) node[below=4pt] {\tiny \x};
-  \foreach \y in {1.5,2.0,2.5,3.0} \draw[gray!50] (0.87,\y) -- (0.93,\y) node[left=4pt] {\tiny \y};
+    { \fill (\x,\y) circle (1.1pt); \node[anchor=west] at (\x+0.04,\y) {\small \n}; }
+  \foreach \x in {1.0,1.5,2.0} \draw[gray!50] (\x,0.88) -- (\x,0.92) node[below=3pt] {\scriptsize \x};
+  \foreach \y in {1.5,2.0,2.5,3.0} \draw[gray!50] (0.88,\y) -- (0.92,\y) node[left=3pt] {\scriptsize \y};
 \end{tikzpicture}
 \caption{The row reading of a data matrix. The first five homes as points in living-area-and-price space, redrawn from Chapter 1.}
 \end{figure}
@@ -163,8 +165,10 @@ Here is the fact this chapter stands on, and it deserves its box early.
   \draw[->, very thick] (0,0) -- (1,0) node[below] {$\mathbf{e}_1$};
   \draw[->, very thick] (0,0) -- (0,1) node[left] {$\mathbf{e}_2$};
   \draw[gray!60, dashed] (0,0) rectangle (2,0.5);
-  \draw[->, very thick, gray] (0,0) -- (2,0) node[below right] {$(2, 0)$};
-  \draw[->, very thick, gray] (0,0) -- (0,0.5) node[above left] {$(0, \tfrac{1}{2})$};
+  \draw[->, very thick, gray] (0,0) -- (2,0);
+  \node[gray, below] at (2.05,-0.05) {$(2, 0)$};
+  \draw[->, very thick, gray] (0,0) -- (0,0.5);
+  \node[gray, left] at (-0.08,0.62) {$(0, \tfrac{1}{2})$};
   \node at (3.6,0.8) {$S = \begin{bmatrix} 2 & 0 \\ 0 & \tfrac{1}{2} \end{bmatrix}$};
 \end{tikzpicture}
 \caption{The columns are where the basis vectors land. The stretch map sends $\mathbf{e}_1$ to $(2,0)$ and $\mathbf{e}_2$ to $(0,\frac{1}{2})$, and stacking the landings as columns builds the diagonal matrix $S$. The unit square lands on the dashed rectangle.}
@@ -334,37 +338,52 @@ Differentiation and integration, inverse verbs, and you have known that since ca
 
 \lensmark{geometric} To read a verb you watch what it does, and the probe this book uses is the preface's unit circle. Feed every direction in the catalog through the matrix and see where the catalog lands.
 
-The first verb to watch is one Claim 2.3 already built. A **diagonal matrix** stretches each axis by its own factor, and the diagonal entries are the factors. It is the plainest verb there is, and it is nowhere near a toy. Standardizing a dataset is multiplication by a diagonal matrix (Section 2.6), and Chapter 4 will take a well-behaved matrix apart into a diagonal heart wearing a change of basis. The second verb is the one the whole book is aimed at. Listing 2.9 builds the circle and both matrices.
+The first verb to watch is one Claim 2.3 already built. A **diagonal matrix** stretches each axis by its own factor, and the diagonal entries are the factors. It is the plainest verb there is, and it is nowhere near a toy. Standardizing a dataset is multiplication by a diagonal matrix (Section 2.6), and Chapter 4 will take a well-behaved matrix apart into a diagonal heart wearing a change of basis. The second verb is the one the whole book is aimed at. Listing 2.9 builds the circle and both matrices, and verifies each fate numerically before the drawing.
 
-**Listing 2.9 (two verbs, defined)**
+**Listing 2.9 (two verbs, verified)**
 
 ```python
 t = np.linspace(0, 2*np.pi, 100)
 circle = np.vstack([np.cos(t), np.sin(t)])
-S = np.diag([2.0, 0.5])                    # stretch
+S = np.diag([2.0, 0.5])
 u = np.array([2.0, 1.0])
 P = np.outer(u, u) / (u @ u)   # projection onto u
+ell = S @ circle
+seg = P @ circle
+off_line = np.abs(u[1]*seg[0] - u[0]*seg[1]).max()
+print('ellipse half-axes:', ell[0].max(), ell[1].max())
+print('projected circle off the u-line by:', off_line)
 ```
 
-Listing 2.10 applies each matrix to every point of the circle and draws the two outputs; Figure 2.4 is its output.
-
-**Listing 2.10 (two verbs, watched)**
-
-```python
-fig, axes = plt.subplots(1, 2, figsize=(9, 4.5))
-panels = [(axes[0], S, 'stretch'), (axes[1], P, 'projection')]
-for ax, M, name in panels:
-    out = M @ circle
-    ax.plot(*circle, color='gray', lw=1)
-    ax.plot(*out)
-    ax.set_title(name)
-    ax.set_aspect('equal')
-plt.show()
+```text
+ellipse half-axes: 2.0 0.5
+projected circle off the u-line by: 2.220446049250313e-16
 ```
 
-![stretch and projection acting on the unit circle](figures/fig_geometric_effects.png)
+The stretch doubled one half-axis and halved the other, and the projection left the circle nowhere off $\mathbf{u}$'s line. Figure 2.4 draws both fates.
 
-> **Figure 2.4.** The unit circle under two verbs. The stretch turns it into an ellipse, doubling one axis and halving the other. The projection flattens it onto a line, a first look at information kept and information discarded.
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}[scale=1.15]
+  \begin{scope}[shift={(0,0)}]
+    \draw[gray!50] (0,0) circle (1);
+    \draw[thick] (0,0) ellipse (2 and 0.5);
+    \draw[gray!40, ->] (-2.3,0) -- (2.4,0);
+    \draw[gray!40, ->] (0,-1.3) -- (0,1.35);
+    \node[anchor=north] at (0,-1.45) {\small the stretch: circle $\to$ ellipse};
+  \end{scope}
+  \begin{scope}[shift={(6.2,0)}]
+    \draw[gray!50] (0,0) circle (1);
+    \draw[gray!40, ->] (-1.5,0) -- (1.7,0);
+    \draw[gray!40, ->] (0,-1.3) -- (0,1.35);
+    \draw[gray!60] (-1.15,-0.575) -- (1.5,0.75);
+    \draw[line width=2pt] (-0.894,-0.447) -- (0.894,0.447);
+    \draw[->, thick] (0,0) -- (0.894,0.447) node[below right] {$\mathbf{u}$};
+    \node[anchor=north] at (0,-1.45) {\small the projection: circle $\to$ segment};
+  \end{scope}
+\end{tikzpicture}
+\caption{The unit circle under two verbs, drawn. The stretch turns the circle into an ellipse, doubling one axis and halving the other. The projection flattens the whole circle onto a segment of $\mathbf{u}$'s line, a first look at information kept and information discarded.}
+\end{figure}
 
 The stretch distorts but destroys nothing, and an inverse diagonal undoes it. The projection is different in kind. It flattens the whole circle onto a segment, and flattening forgets. That verb, the forgetful one, is the one this book runs on, so it arrives per the creed: picture first, pencil second, formula last.
 
@@ -417,9 +436,9 @@ $P^2 = \dfrac{\mathbf{u}(\mathbf{u}^\mathsf{T}\mathbf{u})\mathbf{u}^\mathsf{T}}{
 and
 $\mathbf{u}^\mathsf{T}(\mathbf{v} - P\mathbf{v}) = \mathbf{u}^\mathsf{T}\mathbf{v} - \dfrac{(\mathbf{u}^\mathsf{T}\mathbf{u})(\mathbf{u}^\mathsf{T}\mathbf{v})}{\mathbf{u}^\mathsf{T}\mathbf{u}} = 0$.
 
-\lensmark{computational} Listing 2.11 checks both properties at machine precision.
+\lensmark{computational} Listing 2.10 checks both properties at machine precision.
 
-**Listing 2.11 (the projection properties, measured)**
+**Listing 2.10 (the projection properties, measured)**
 
 ```python
 print('P @ P == P?  max diff:', np.abs(P @ P - P).max())
@@ -432,9 +451,9 @@ P @ P == P?  max diff: 1.1102230246251565e-16
 residual . u = -2.220446049250313e-16
 ```
 
-Listing 2.12 renders the projection picture with the machine's numbers; Figure 2.6 is its output.
+Listing 2.11 renders the projection picture with the machine's numbers; Figure 2.6 is its output.
 
-**Listing 2.12 (the shadow, drawn at scale)**
+**Listing 2.11 (the shadow, drawn at scale)**
 
 ```python
 def arrow(vec: np.ndarray, color: str, label: str) -> None:
@@ -506,9 +525,9 @@ Every standardized column is centered at zero with standard deviation one, so a 
 
 **Honesty box.** Standardization is not a linear transformation, and this book will not pretend otherwise. The scaling half is honestly linear. Dividing each column by its $\sigma$ is multiplication by a diagonal matrix, Section 2.4's stretch pointed at data. But the centering half shifts every vector by a constant, and a shift moves the origin. That violates the quietest consequence of Definition 2.2, that every linear transformation sends $\mathbf{0}$ to $\mathbf{0}$ (set $c = d = 0$). The name for linear-plus-shift is **affine**. This is the one place in the chapter we bend the rules, we do it knowingly, and Chapter 7 will center everything in sight anyway, because covariance lives in deviations from the mean.
 
-\lensmark{computational} Listing 2.13 standardizes the complete numeric columns and makes the transformation prove itself.
+\lensmark{computational} Listing 2.12 standardizes the complete numeric columns and makes the transformation prove itself.
 
-**Listing 2.13 (standardizing the numerics, with proof)**
+**Listing 2.12 (standardizing the numerics, with proof)**
 
 ```python
 mu = X.mean().to_numpy()
@@ -523,9 +542,9 @@ column means after: 3.567435540277722e-14
 column stds after : 2.220446049250313e-16
 ```
 
-Thirty-three numeric features, all centered at zero to fourteen decimal places, all with standard deviation one to machine precision. The verification is the point. A transformation claims to put every column on one scale, so make it prove it. Listing 2.14 plots four features on both scales; Figure 2.7 is its output.
+Thirty-three numeric features, all centered at zero to fourteen decimal places, all with standard deviation one to machine precision. The verification is the point. A transformation claims to put every column on one scale, so make it prove it. Listing 2.13 plots four features on both scales; Figure 2.7 is its output.
 
-**Listing 2.14 (before and after, drawn)**
+**Listing 2.13 (before and after, drawn)**
 
 ```python
 fig, (raw, std) = plt.subplots(1, 2, figsize=(10, 4))
@@ -558,5 +577,5 @@ Chapter 3 runs the verb backwards in earnest: solving, with the license as a wor
 6. *(pencil)* Show that $P = \mathbf{u}\mathbf{u}^\mathsf{T}/(\mathbf{u}^\mathsf{T}\mathbf{u})$ is symmetric ($P^\mathsf{T} = P$), the property Claim 2.13 did not use. One line, using $(\mathbf{u}\mathbf{u}^\mathsf{T})^\mathsf{T} = \mathbf{u}\mathbf{u}^\mathsf{T}$.
 7. *(pencil)* Project $(1, 5)$ onto the line of $(2, 1)$ by hand: score, calibrate, stretch, in an align of your own. Then verify the residual is orthogonal, and sketch the three arrows.
 8. *(pencil)* Find a nonzero vector in the null space of $\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$, and describe the whole null space in one sentence. Which standing question does it kill, and for which targets does the other one fail?
-9. *(keyboard)* Standardize `GrLivArea` and `OverallQual` by hand with Listing 2.13's two moves, and confirm each column's mean and standard deviation. Then write the scaling half as an explicit diagonal matrix acting on the centered columns.
+9. *(keyboard)* Standardize `GrLivArea` and `OverallQual` by hand with Listing 2.12's two moves, and confirm each column's mean and standard deviation. Then write the scaling half as an explicit diagonal matrix acting on the centered columns.
 10. *(keyboard, bridge → Ch 4)* Apply `K` to a sampled sine, `np.sin(3 * x)`, and to a random vector of the same length. Compare each output to its input. Which one came back as a scaled copy of itself, and by what factor? You have just met an eigenvector, and Chapter 4 makes it official.
