@@ -16,8 +16,8 @@ finalization step).
   ceded to Chapter 1.
 
 Outline and rationale: `../v9-tranche-2-rearchitecture-outline.md`.
-Open question for Josh: transpose venue (in-shadow vs standalone
-interlude), flagged in the outline.
+Transpose venue RESOLVED (Shaw, 2026-07-18): standalone interlude,
+section 2.4 of the ch2 draft.
 
 Figure notes for finalization: fig_crush and the roundtrip material move
 chapters with their sections; notebooks re-sync accordingly.

@@ -137,7 +137,7 @@ Squaring every entry, $T(x_1, x_2) = (x_1^2, x_2^2)$, does not. Test it on $\mat
 T(2\mathbf{x}) = T(2, 4) = (4, 16), \qquad\quad 2\,T(\mathbf{x}) = 2\,(1, 4) = (2, 8)
 \end{align}
 
-Double the input and the output quadruples. The recipe did not survive, so squaring is out. Differencing qualifies, by the calculus facts above, and the machine agrees on sampled vectors: $D(a\mathbf{x} + \mathbf{y}) = a\,D\mathbf{x} + D\mathbf{y}$ to the last bit, because every entry of $D\mathbf{x}$ is a linear combination and combinations pass through combinations. Shifting every entry by one fails too, more quietly. It moves the origin, and Section 2.6 will have to answer for that.
+Double the input and the output quadruples. The recipe did not survive, so squaring is out. Differencing qualifies, by the calculus facts above, and the machine agrees on sampled vectors: $D(a\mathbf{x} + \mathbf{y}) = a\,D\mathbf{x} + D\mathbf{y}$ to the last bit, because every entry of $D\mathbf{x}$ is a linear combination and combinations pass through combinations. Shifting every entry by one fails too, more quietly. It moves the origin, and Section 2.8 will have to answer for that.
 
 Here is the fact this chapter stands on, and it deserves its box early.
 
@@ -260,7 +260,7 @@ The preface's review showed matrix multiplication three ways, and the third one 
 
 > **Definition 2.6 (outer product).** The **outer product** of a column $\mathbf{u}$ in $\mathbb{R}^m$ and a column $\mathbf{v}$ in $\mathbb{R}^n$ is the $m \times n$ matrix $\mathbf{u}\mathbf{v}^{\mathsf{T}}$ with entries $u_i v_j$: every entry of one vector times every entry of the other, a full matrix built from two lists. Each column of $\mathbf{u}\mathbf{v}^{\mathsf{T}}$ is a multiple of $\mathbf{u}$, so the outer product is the most concentrated matrix there is, one direction's worth of content spread across a rectangle.[^transposeforward]
 
-[^transposeforward]: The $\mathsf{T}$ is the transpose, laying a column on its side; the shadow section introduces it properly at the moment it is needed. Here it is only notation for "row version of $\mathbf{v}$."
+[^transposeforward]: The $\mathsf{T}$ is the transpose, laying a column on its side; the interlude directly after this section introduces it properly. Here it is only notation for "row version of $\mathbf{v}$."
 
 \lensmark{algebraic} The third way reads a *matrix-matrix* product as a sum of these slabs, one per column-row pair, and it collapses the matrix-vector product back to the column view: writing $A = \sum_j \mathbf{a}_j\mathbf{e}_j^{\mathsf{T}}$ slab by slab,
 
@@ -333,11 +333,19 @@ plt.legend()
 
 > **Figure 2.5.** The second difference of a sine lands on the negative sine to within the width of the line. Differentiate twice by multiplying once.
 
-## 2.4 The stretch
+## 2.4 Interlude: the transpose
+
+Some operations in this subject are verbs with a geometric story, and some are bookkeeping instruments that make the stories writable. The determinant is one of the second kind, and it lives in the drawer until Chapter 4 needs it once. The transpose is another, and the slab notation above just wrote a check against it, so it gets its formal introduction here, on its own, as an operation and not a transformation of anything.
+
+> **Definition 2.9 (transpose).** The **transpose** $A^\mathsf{T}$ swaps rows for columns, $(A^\mathsf{T})_{ij} = A_{ji}$. For a column vector $\mathbf{u}$, the transpose $\mathbf{u}^\mathsf{T}$ is the same numbers laid on their side, so that $\mathbf{u}^\mathsf{T}\mathbf{v}$ is the dot product written in matrix clothes and $\mathbf{u}\mathbf{u}^\mathsf{T}$ is the outer product of Definition 2.6.
+
+That is the entire job for now: one symbol that converts between the two shapes of a list, so that dot products and slabs can be written inside matrix algebra instead of alongside it. \lensmark{data} It earns one data-lens sentence too. A data matrix and its transpose are the two readings of Section 2.1 made into two objects, samples-by-features and features-by-samples, and `X.T` is how the machine flips between them. The transpose's deeper meaning, and it has one, waits: Chapter 7 will build covariance out of $Z^\mathsf{T}Z$, and Chapter 12 will reveal the transpose as the keeper of the subject's right angles. Until those chapters call, it is notation, and honest about it.
+
+## 2.5 The stretch
 
 \lensmark{geometric} To read a verb you watch what it does, and the probe this book uses is the preface's unit circle. Feed every direction in the catalog through the matrix and see where the catalog lands.
 
-The first verb to watch is one Claim 2.3 already built. A **diagonal matrix** stretches each axis by its own factor, and the diagonal entries are the factors. It is the plainest verb there is, and it is nowhere near a toy. Standardizing a dataset is multiplication by a diagonal matrix (Section 2.6), and Chapter 4 will take a well-behaved matrix apart into a diagonal heart wearing a change of basis. The second verb is the one the whole book is aimed at. Listing 2.10 builds the circle and both matrices, and verifies each fate numerically before the drawing.
+The first verb to watch is one Claim 2.3 already built. A **diagonal matrix** stretches each axis by its own factor, and the diagonal entries are the factors. It is the plainest verb there is, and it is nowhere near a toy. Standardizing a dataset is multiplication by a diagonal matrix (Section 2.8), and Chapter 4 will take a well-behaved matrix apart into a diagonal heart wearing a change of basis. The second verb is the one the whole book is aimed at. Listing 2.10 builds the circle and both matrices, and verifies each fate numerically before the drawing.
 
 **Listing 2.10 (two verbs, verified)**
 
@@ -384,7 +392,7 @@ The stretch doubled one half-axis and halved the other, and the projection left 
 \caption{The unit circle under two verbs, drawn. The stretch turns the circle into an ellipse, doubling one axis and halving the other. The projection flattens the whole circle onto a segment of $\mathbf{u}$'s line, a first look at information kept and information discarded.}
 \end{figure}
 
-## 2.5 The shadow
+## 2.6 The shadow
 
 The stretch distorts but destroys nothing, and an inverse diagonal undoes it. The projection is different in kind. It flattens the whole circle onto a segment, and flattening forgets. That verb, the forgetful one, is the one this book runs on, so it arrives per the creed: picture first, pencil second, formula last.
 
@@ -420,9 +428,7 @@ The leftover is the residual, and it comes out perpendicular:
 \caption{Projection by hand. The shadow $(4, 2)$ lies on the line of $\mathbf{u}$, and the residual $(-1, 2)$ runs perpendicularly from the shadow up to $\mathbf{v}$.}
 \end{figure}
 
-The shadow lies on the line. The residual runs perpendicularly from the shadow up to $\mathbf{v}$. Only now, with the picture seen and the numbers worked, does the formula arrive, and it needs one piece of notation first, summoned exactly when it is needed.
-
-> **Definition 2.9 (transpose).** The **transpose** $A^\mathsf{T}$ swaps rows for columns, $(A^\mathsf{T})_{ij} = A_{ji}$. For a column vector $\mathbf{u}$, the transpose $\mathbf{u}^\mathsf{T}$ is the same numbers laid on their side, so that $\mathbf{u}^\mathsf{T}\mathbf{v}$ is the dot product written in matrix clothes and $\mathbf{u}\mathbf{u}^\mathsf{T}$ is the outer product from the preface's third way. Its deeper meaning waits for Chapter 7.
+The shadow lies on the line. The residual runs perpendicularly from the shadow up to $\mathbf{v}$. Only now, with the picture seen and the numbers worked, does the formula arrive, and the interlude already paid for its notation: the score is $\mathbf{u}^\mathsf{T}\mathbf{v}$, the calibration is $\mathbf{u}^\mathsf{T}\mathbf{u}$, and the whole verb is one slab.
 
 > **Definition 2.10 (orthogonal projection onto a line).** The **projection** onto the line of a nonzero vector $\mathbf{u}$ sends each vector to its shadow, $P\mathbf{v} = \dfrac{\mathbf{u} \cdot \mathbf{v}}{\mathbf{u} \cdot \mathbf{u}}\,\mathbf{u}$, with matrix $P = \dfrac{\mathbf{u}\mathbf{u}^\mathsf{T}}{\mathbf{u}^\mathsf{T}\mathbf{u}}$: score, calibrate, stretch. Chapter 12 will prove the shadow is the *closest* point of the line. This chapter proves the two properties below.
 
@@ -473,7 +479,7 @@ plt.legend(); plt.show()
 
 Look at Figure 2.8 for a moment longer than it seems to deserve. A vector, its shadow inside a subspace, and a perpendicular residual. That is the drawing the preface promised as this book's destination, and it is the entire geometry of least squares in Chapter 12. The directions PCA hunts for in Chapter 11 are the lines that catch the most shadow. The stretch builds intuition. The shadow is load-bearing.
 
-## 2.6 The inverse, re-landed
+## 2.7 The inverse, re-landed
 
 Chapter 1 met the undo as an *operation*: difference a list, running-sum it back, telescoping does the canceling. This chapter has spent its pages turning operations into objects, so the undo returns for its second landing, this time as a matrix.
 
@@ -546,7 +552,7 @@ When does a verb deserve an inverse at all? Chapter 1 answered in operation lang
 
 One more pair of names points past it. When a system has more equations than unknowns it is **overdetermined**. Generally nothing satisfies every equation, and the best move is to get close; that regime is least squares, Chapter 12. When it has fewer independent directions than coordinates, the data is secretly lower-dimensional, and the game is finding the directions that matter; that regime is principal component analysis, Chapter 11. The two regimes of estimation are the two ways $A\mathbf{x} = \mathbf{b}$ can fail to be square.
 
-## 2.7 Standardization is a transformation
+## 2.8 Standardization is a transformation
 
 The features of a data matrix arrive in whatever units the world measured them in. `GrLivArea` ranges over hundreds of square feet. `OverallQual` runs over the integers one through ten. Any model that combines them, and every linear model does nothing else, is silently adding square feet to quality points, and no comparison across their weights means anything until the columns share a scale. Putting them on one scale is itself a transformation, and reading it with this chapter's eyes is the point of this section.
 
@@ -560,7 +566,7 @@ z = \frac{x - \mu}{\sigma}
 
 Every standardized column is centered at zero with standard deviation one, so a step of one in any of them means the same thing, one standard deviation of that feature.
 
-**Honesty box.** Standardization is not a linear transformation, and this book will not pretend otherwise. The scaling half is honestly linear. Dividing each column by its $\sigma$ is multiplication by a diagonal matrix, Section 2.4's stretch pointed at data. But the centering half shifts every vector by a constant, and a shift moves the origin. That violates the quietest consequence of Definition 2.2, that every linear transformation sends $\mathbf{0}$ to $\mathbf{0}$ (set $c = d = 0$). The name for linear-plus-shift is **affine**. This is the one place in the chapter we bend the rules, we do it knowingly, and Chapter 7 will center everything in sight anyway, because covariance lives in deviations from the mean.
+**Honesty box.** Standardization is not a linear transformation, and this book will not pretend otherwise. The scaling half is honestly linear. Dividing each column by its $\sigma$ is multiplication by a diagonal matrix, Section 2.5's stretch pointed at data. But the centering half shifts every vector by a constant, and a shift moves the origin. That violates the quietest consequence of Definition 2.2, that every linear transformation sends $\mathbf{0}$ to $\mathbf{0}$ (set $c = d = 0$). The name for linear-plus-shift is **affine**. This is the one place in the chapter we bend the rules, we do it knowingly, and Chapter 7 will center everything in sight anyway, because covariance lives in deviations from the mean.
 
 \lensmark{computational} Listing 2.15 standardizes the complete numeric columns and makes the transformation prove itself.
 
@@ -598,7 +604,7 @@ plt.show()
 
 The standardized matrix $Z$ waits here for Chapter 7, which takes dot products between its columns and calls them covariances. The rest of the design-matrix craft, turning word-features into indicator vectors and putting numerics and indicators in one currency, is estimation-part work and arrives with Chapter 12, where its trap, a dependence hiding in the indicators, gets sprung and disarmed in this chapter's vocabulary.
 
-## 2.8 Summary and exercises
+## 2.9 Summary and exercises
 
 A matrix is a container and a verb, and the verb story ran in the creed's order. First it worked: $D$ took a derivative, row by row the difference quotient (Section 2.1). Then the stone: a rule built from nothing but scalings and additions is what a matrix is, the name is linearity, and Claim 2.3 turned the name into a complete characterization, the columns are where the basis vectors land. The product reads three ways, rows to compute, columns to understand, slabs to decompose (Definition 2.6). Composition is multiplication, witnessed by differencing twice into $K$. The diagonal stretches, and the projection casts shadows, idempotent with an orthogonal residual (Claim 2.11), load-bearing for Chapters 11 and 12. The inverse re-landed as a verb: the identity does nothing, the running-sum matrix undoes differencing (telescoping again), and a square matrix earns an undo exactly when its null space is trivial (Claim 2.15), Chapter 1's crush wearing this chapter's clothes. Standardization is the stretch pointed at data plus a disclosed shift.
 

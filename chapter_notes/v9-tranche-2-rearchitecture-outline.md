@@ -62,7 +62,7 @@ Loses its opening exhibits to Ch 1 (C-crush, see-and-verify) and tightens around
 - **Preface (#1):** splits the church act into a dedicated **two-roads** section and a dedicated **four-lenses** section (mechanical split of the existing act at "That creed is not decoration"). #4: one seed sentence at the three-ways display — the column way is a preview of the column *space*, the row way of the row space, names Ch 1 and Ch 12 will earn.
 - **Numbering:** all Definition/Claim/Listing/Figure numbers recut per chapter after the moves; the promise ledger and system map refresh afterward (standing queue).
 - **Displaced stock:** nothing new displaced; ch2 §2.5's backwards material is *absorbed* by ch1 §1.6 rather than deleted.
-- **Open question for Josh (only one):** in 2.6, transpose-as-bookkeeping with a Ch 12 promissory note is my resolution of #71. If you would rather quarantine it in a standalone "special operations" interlude (with the determinant drawer), say so and 2.6 slims.
+- **#71 RESOLVED (Shaw's ruling, 2026-07-18): standalone interlude.** The transpose is its own section, "Interlude: the transpose," placed directly after the product's three ways (where the slab notation first writes a check against it) and before the stretch. The shadow section uses the notation without pausing. Framed alongside the determinant as a bookkeeping instrument, with the Ch 7 ($Z^\mathsf{T}Z$) and Ch 12 (right angles) promissory notes.
 
 ## Draft artifacts of this tranche
 
