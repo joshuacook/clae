@@ -1,75 +1,21 @@
-<!-- DRAFT V6 (2026-07-19): the full-v9 pass per chapter_notes/
-     v9-revision-punchlist.md. Section 0 Ch2 redraw: the DUAL IDENTITY
-     spine (#36 #40) — the chapter states its plan (P2/#37), does the
-     matrix as DATA fully (container, conventions, transpose as the
-     data-flip), then as OPERATOR fully (verb, product w/o re-teaching
-     the preface (#38), composition, stretch, shadow, inverse). The
-     undo arrives from Ch1 with full workup + inversion naming (#31
-     #33, P6); invertibility claim reworded to columns-independent
-     (null space now debuts in Ch3); #39 bar figure replaced by a
-     tip-to-tail TikZ; #35 ambiguity fixed; PINK delete applied.
-     Base: V5 draft. -->
+<!-- DRAFT V7 (2026-07-19): the v11 pass per the v10 ink census +
+     rulings. OPERATOR-ONLY chapter (census 3): the data identity,
+     conventions, houses figure, transpose-as-data-flip, and
+     standardization all OUT to Part II stock (.render/
+     ch2_data_block.md, ch2_standardization_block.md). Composition
+     PROMOTED to its own section (census 5) and receives the preface's
+     three-ways display (dedup rule, census 15). Transpose is a slim
+     technical section. NULL SPACE defined here at projection, where
+     it is first used (census 6), and the inverse claim uses it. The
+     inverse section is matrix-first (census 7/9), no operations
+     listing, telescoping explained in place (census 8). R1 language
+     sweep. Base: V6. -->
 
 # Chapter 2: Matrices and Linear Transformations
 
-Here is what this chapter does, stated up front because the matrix demands it. A matrix is two different things, fully and simultaneously. It is a **dataset**: rows of records, columns of measurements, the container your data actually lives in. And it is an **operator**: a machine that eats a vector and produces a vector, the verb of linear algebra. Neither reading is the real one. Neither is a metaphor for the other.
+Here is what this chapter does. A matrix is an **operator**: a machine that takes a vector in and produces a vector out, the verb of linear algebra. This chapter is that verb, whole: which rules a matrix can encode and why (linear transformations), how the matrix-vector and matrix-matrix products carry those rules (the product, then composition), the two named operators this book leans on hardest (the diagonal matrix and the projection), the space of everything an operator destroys (the null space), and the exact condition under which an operator can be inverted. A matrix is also, in daily practice, a dataset, and that second identity gets its own full treatment when the data arrives in Chapter 5. Here, one identity, done completely.
 
-A working data scientist holds both at once and switches without noticing, and this chapter builds that reflex the only honest way: one identity at a time, each done fully, data first, operator second, and a marriage of the two (standardization) to close. Chapter 1 did this for the vector. The matrix gets the same respect.
-
-## 2.1 The matrix as data
-
-\lensmark{data} Through the data lens, a matrix is a dataset. One vector is one record. A dataset is many records stacked, and the stack is a matrix. The Ames data ships as three files, zoning, listing, and sale, joined on a shared `Id` into the single object Chapter 1 called `housing`.
-
-> **Definition 2.1 (data-matrix conventions).** In this book a data matrix $X$ has **rows as samples** and **columns as features**. $X$ is $m \times n$ for $m$ observations of $n$ features. The target vector is $\mathbf{y}$, one entry per sample. A feature column is a vector in $\mathbb{R}^m$, one random variable's worth of measurements; a sample row is a point in $\mathbb{R}^n$.
-
-The convention carries two readings, and both matter. Down the columns, each column is one feature measured across every home, a vector with 1,460 entries. That is the reading Chapter 1 lived in. Across the rows, each row is one home, a single point in feature space. \lensmark{geometric} The point reading draws. Take just two coordinates, living area and sale price, and the first five homes are five points on a plane, in two dimensions, where Chapter 1 already established that a point and a vector are the same object:
-
-\begin{figure}[!htb]
-\centering
-\begin{tikzpicture}[scale=2.1]
-  \draw[->, gray] (0.6,0.9) -- (3.1,0.9)
-    node[below left] {\small GrLivArea (thousand sq ft)};
-  \draw[->, gray] (0.9,0.6) -- (0.9,3.4)
-    node[above right=-2pt] {\small SalePrice (\$100k)};
-  \foreach \x/\y/\n in {1.710/2.085/1, 1.262/1.815/2, 1.786/2.235/3, 1.717/1.400/4, 2.198/2.500/5}
-    { \fill (\x,\y) circle (1.1pt); \node[anchor=west] at (\x+0.04,\y) {\small \n}; }
-  \foreach \x in {1.0,1.5,2.0} \draw[gray!50] (\x,0.88) -- (\x,0.92) node[below=3pt] {\scriptsize \x};
-  \foreach \y in {1.5,2.0,2.5,3.0} \draw[gray!50] (0.88,\y) -- (0.92,\y) node[left=3pt] {\scriptsize \y};
-\end{tikzpicture}
-\caption{The row reading of a data matrix. The first five homes as points in living-area-and-price space, redrawn from Chapter 1.}
-\end{figure}
-
-Houses 1 through 5, plotted as points. Every row of the table is a point like these, in eighty dimensions instead of two, and the whole dataset is a cloud of 1,460 of them. One object, two readings: columns are the vectors of Chapter 1, rows are points in feature space.
-
-\lensmark{algebraic} Through the algebraic lens, a matrix is a rectangular array of numbers, $m$ rows by $n$ columns, written $A$ with entries $A_{ij}$, row index first. The pencil rules for it are this chapter's subject. \lensmark{computational} And through the computational lens it is a two-dimensional array with a shape. Listing 2.1 asks the assembled table for its shape and pulls one record and one feature, one read in each direction.
-
-**Listing 2.1 (the container, measured)**
-
-```python
-print(housing.shape)
-row_2 = housing.loc[2]         # a point in feature space
-col_gr = housing['GrLivArea']  # a vector in R^1460
-```
-
-```text
-(1460, 80)
-```
-
-Some features, neighborhood and roof style among them, are words rather than numbers. They become vectors when the estimation part builds its design matrices.
-
-The data identity comes with one operation of its own, and it is bookkeeping rather than mathematics: the flip between the two readings.
-
-> **Definition 2.2 (transpose).** The **transpose** $A^\mathsf{T}$ swaps rows for columns, $(A^\mathsf{T})_{ij} = A_{ji}$. For a column vector $\mathbf{u}$, the transpose $\mathbf{u}^\mathsf{T}$ is the same numbers laid on their side.
-
-A data matrix and its transpose are the two readings made into two objects, samples-by-features and features-by-samples, and `housing.T` is how the machine flips between them. The transpose also lets dot products live inside matrix algebra, $\mathbf{u}^\mathsf{T}\mathbf{v}$ is the preface's dot product in matrix clothes, and that convenience gets used the moment the operator identity needs it. The transpose's deeper meaning, and it has one, waits: Chapter 7 will build covariance out of $Z^\mathsf{T}Z$, and Chapter 12 will reveal it as the keeper of the subject's right angles. Until those chapters call, it is notation, and honest about it.
-
-That is the whole data identity: a container with two readings and a flip. What it is *not*, yet, is a thing that acts. Every operation so far stored numbers or rearranged them. The second identity is the one where the matrix does something.
-
-## 2.2 The matrix as operator
-
-\lensmark{algebraic} Through the operator lens, multiply a matrix by a vector and the matrix does something to the vector. A matrix is a verb, and the rest of this chapter is about learning to read the verb: what it does, when two verbs compose, which named verbs matter for data work, and when a verb can be undone.
-
-### The verb that differentiates
+## 2.1 The verb that differentiates
 
 The preface witnessed the first verb this book ever showed me, and now it gets built properly. A derivative, on a grid, is a matrix. Sample a function $f$ at points a distance $h$ apart, collect the samples in a vector $\mathbf{x}$ with $x_i = f(t_i)$, and build the matrix $D$ that takes differences of neighbors and divides by $h$:
 
@@ -186,9 +132,9 @@ Two landings, two columns, and the transformation is fully known. That is the co
 
 $D$'s landings tell the same story with utility attached. $D$ sends the spike $\mathbf{e}_j$ to a dipole, $(\mathbf{e}_{j-1} - \mathbf{e}_j)/h$, which is exactly column $j$ of $D$, and differentiation-on-a-grid is nothing but those dipoles combined by the recipe. And the multiplication $A\mathbf{x}$ is not a new operation at all. It is Chapter 1's one move, a linear combination of $A$'s columns, with $\mathbf{x}$ as the recipe. The matrix is not storing its columns. It is waiting to combine them.
 
-## 2.3 The product, read three ways
+## 2.2 The product
 
-The preface's review drilled the arithmetic of the matrix product, and this section will not repeat a drill. What the review could not say is what the arithmetic *means*, because meaning needed Chapter 1's vocabulary and this chapter's two identities. The matrix-vector product reads two ways, just as the data matrix did, and each reading answers a different question about the verb.
+The matrix-vector product is where the operator acts, and it reads two ways. Each reading answers a different question about the verb, and this section is the book's complete treatment of both, the treatment the preface deliberately left to it.
 
 > **Definition 2.5 (matrix-vector product, both views).** For an $m \times n$ matrix $A$ with columns $\mathbf{a}_1, \ldots, \mathbf{a}_n$ and rows $\mathbf{r}_1, \ldots, \mathbf{r}_m$, the product $A\mathbf{x}$ reads two ways. **By columns**, it is the linear combination $x_1\mathbf{a}_1 + \cdots + x_n\mathbf{a}_n$. **By rows**, its $i$-th entry is the dot product $\mathbf{r}_i \cdot \mathbf{x}$.
 
@@ -279,11 +225,13 @@ The drawing is Chapter 1's membership recipe, recomputed by a matrix, and that i
 
 ### The third way: slabs
 
-The preface's review showed matrix multiplication three ways, and the third one now earns a definition, because this chapter needs it twice before it ends.
+The slab reading needs one piece of notation first, an operation that is bookkeeping rather than mathematics.
 
-> **Definition 2.7 (outer product).** The **outer product** of a column $\mathbf{u}$ in $\mathbb{R}^m$ and a column $\mathbf{v}$ in $\mathbb{R}^n$ is the $m \times n$ matrix $\mathbf{u}\mathbf{v}^{\mathsf{T}}$ with entries $u_i v_j$: every entry of one vector times every entry of the other, a full matrix built from two lists. Each column of $\mathbf{u}\mathbf{v}^{\mathsf{T}}$ is a multiple of $\mathbf{u}$, so the outer product is the most concentrated matrix there is, one direction's worth of content spread across a rectangle.[^transposeforward]
+> **Definition 2.6b (transpose).** The **transpose** $A^\mathsf{T}$ swaps rows for columns, $(A^\mathsf{T})_{ij} = A_{ji}$. For a column vector $\mathbf{u}$, the transpose $\mathbf{u}^\mathsf{T}$ is the same numbers laid on their side, so that $\mathbf{u}^\mathsf{T}\mathbf{v}$ is the preface's dot product written in matrix algebra. Its deeper roles arrive on schedule: Chapter 5 flips data matrices with it, Chapter 7 builds covariance from $Z^\mathsf{T}Z$, and Chapter 12 reveals it as the keeper of the subject's right angles. Until then it is notation, and honest about it.
 
-[^transposeforward]: The $\mathsf{T}$ is the transpose, laying a column on its side; Definition 2.2 in the data half introduced it. Here it is only notation for "row version of $\mathbf{v}$."
+With rows purchasable from columns, the third reading of a product earns its definition.
+
+> **Definition 2.7 (outer product).** The **outer product** of a column $\mathbf{u}$ in $\mathbb{R}^m$ and a column $\mathbf{v}$ in $\mathbb{R}^n$ is the $m \times n$ matrix $\mathbf{u}\mathbf{v}^{\mathsf{T}}$ with entries $u_i v_j$: every entry of one vector times every entry of the other, a full matrix built from two lists. Each column of $\mathbf{u}\mathbf{v}^{\mathsf{T}}$ is a multiple of $\mathbf{u}$, so the outer product is the most concentrated matrix there is, one direction's worth of content spread across a rectangle.
 
 \lensmark{algebraic} The third way reads a *matrix-matrix* product as a sum of these slabs, one per column-row pair, and it collapses the matrix-vector product back to the column view: writing $A = \sum_j \mathbf{a}_j\mathbf{e}_j^{\mathsf{T}}$ slab by slab,
 
@@ -293,9 +241,9 @@ A\mathbf{x} \;=\; \sum_j \mathbf{a}_j\,(\mathbf{e}_j^{\mathsf{T}}\mathbf{x}) \;=
 
 each slab reads off one weight and contributes one scaled column. Three ways, one product: rows to compute, columns to understand, slabs to decompose. The slab reading looks exotic and pays the deepest dividends. The projection matrix later in this chapter is a single slab. The singular value decomposition of Chapter 10 is a matrix taken apart into its slabs, largest first, and it is the closest thing this subject has to a grand finale.
 
-### Composition
+## 2.3 Composition: the product of two matrices
 
-Multiplying two matrices answers a natural question. What single action equals doing $B$, then doing $A$?
+Multiplying two matrices answers a natural question. What single action equals doing $B$, then doing $A$? This is the operation the preface's opening quiz was really about, and it now gets the full account: the definition, why it is exactly composition, and the three ways to read one product.
 
 > **Definition 2.8 (matrix-matrix product).** The product $AB$ is the matrix whose $j$-th column is $A$ applied to the $j$-th column of $B$. It is built precisely so that $(AB)\mathbf{x} = A(B\mathbf{x})$ for every $\mathbf{x}$: the matrix of the composed transformation.
 
@@ -306,6 +254,38 @@ Multiplying two matrices answers a natural question. What single action equals d
 [^doublesum]: Exercise 4 writes the double sum out once for $2 \times 2$ matrices,
 $\sum_k A_{ik} \left( \sum_j B_{kj} x_j \right) = \sum_j \left( \sum_k A_{ik} B_{kj} \right) x_j$,
 and after that you may trust the functions.
+
+\lensmark{algebraic} One small product, read three ways, and all three earn their display:
+
+\begin{align}
+AB = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix} = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}
+\end{align}
+
+**Entry by entry**, each number in the answer is a row of $A$ against a column of $B$, four dot products:
+
+\begin{align}
+(AB)_{11} &= 1 \cdot 5 + 2 \cdot 7 = 19, & (AB)_{12} &= 1 \cdot 6 + 2 \cdot 8 = 22, \notag \\
+(AB)_{21} &= 3 \cdot 5 + 4 \cdot 7 = 43, & (AB)_{22} &= 3 \cdot 6 + 4 \cdot 8 = 50
+\end{align}
+
+This is how everyone is taught to compute, and it is the least illuminating reading. Sixteen multiplications, no story. **Column by column**, $A$ acts on each column of $B$, exactly Definition 2.8: each column of the answer is $A$'s columns combined by that column of $B$:
+
+\begin{align}
+\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 5 \\ 7 \end{bmatrix}
+= 5\begin{bmatrix} 1 \\ 3 \end{bmatrix} + 7\begin{bmatrix} 2 \\ 4 \end{bmatrix}
+= \begin{bmatrix} 19 \\ 43 \end{bmatrix},
+\qquad
+\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 6 \\ 8 \end{bmatrix}
+= \begin{bmatrix} 22 \\ 50 \end{bmatrix}
+\end{align}
+
+**And slab by slab**, using Section 2.2's outer product, the answer assembles from one column of $A$ spread across one row of $B$ at a time:
+
+\begin{align}
+\begin{bmatrix} 1 \\ 3 \end{bmatrix}\begin{bmatrix} 5 & 6 \end{bmatrix} + \begin{bmatrix} 2 \\ 4 \end{bmatrix}\begin{bmatrix} 7 & 8 \end{bmatrix} = \begin{bmatrix} 5 & 6 \\ 15 & 18 \end{bmatrix} + \begin{bmatrix} 14 & 16 \\ 28 & 32 \end{bmatrix} = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}
+\end{align}
+
+Entries to compute, columns to understand, slabs to decompose. The slab reading pays furthest ahead: Chapter 10 will take the singular value decomposition apart into exactly these rank-one pieces, largest first.
 
 Composition is why order matters and why $AB \neq BA$ in general. And the composition this book cares about first is one you have already met by name. What is differencing, twice? Alongside the forward difference $D_f$, whose entry $i$ reads $(x_{i+1} - x_i)/h$, build the backward difference $D_b$, whose entry $i$ reads $(x_i - x_{i-1})/h$. Compose them, and the middle terms interlock:
 
@@ -356,7 +336,7 @@ plt.legend()
 
 > **Figure 2.5.** The second difference of a sine lands on the negative sine to within the width of the line. Differentiate twice by multiplying once.
 
-## 2.4 The stretch
+## 2.4 Diagonal matrices
 
 \lensmark{geometric} To read a verb you watch what it does, and the probe this book uses is the preface's unit circle. Feed every direction in the catalog through the matrix and see where the catalog lands.
 
@@ -407,7 +387,7 @@ The stretch doubled one half-axis and halved the other, and the projection left 
 \caption{The unit circle under two verbs, drawn. The stretch turns the circle into an ellipse, doubling one axis and halving the other. The projection flattens the whole circle onto a segment of $\mathbf{u}$'s line, a first look at information kept and information discarded.}
 \end{figure}
 
-## 2.5 The shadow
+## 2.5 Projection
 
 The stretch distorts but destroys nothing, and an inverse diagonal undoes it. The projection is different in kind. It flattens the whole circle onto a segment, and flattening forgets. That verb, the forgetful one, is the one this book runs on, so it arrives per the creed: picture first, pencil second, formula last.
 
@@ -443,7 +423,7 @@ The leftover is the residual, and it comes out perpendicular:
 \caption{Projection by hand. The shadow $(4, 2)$ lies on the line of $\mathbf{u}$, and the residual $(-1, 2)$ runs perpendicularly from the shadow up to $\mathbf{v}$.}
 \end{figure}
 
-The shadow lies on the line. The residual runs perpendicularly from the shadow up to $\mathbf{v}$. Only now, with the picture seen and the numbers worked, does the formula arrive, and the data half already paid for its notation: the score is $\mathbf{u}^\mathsf{T}\mathbf{v}$, the calibration is $\mathbf{u}^\mathsf{T}\mathbf{u}$, and the whole verb is one slab.
+The shadow lies on the line. The residual runs perpendicularly from the shadow up to $\mathbf{v}$. Only now, with the picture seen and the numbers worked, does the formula arrive, and Section 2.2 already paid for its notation: the score is $\mathbf{u}^\mathsf{T}\mathbf{v}$, the calibration is $\mathbf{u}^\mathsf{T}\mathbf{u}$, and the whole verb is one slab.
 
 > **Definition 2.10 (orthogonal projection onto a line).** The **projection** onto the line of a nonzero vector $\mathbf{u}$ sends each vector to its shadow, $P\mathbf{v} = \dfrac{\mathbf{u} \cdot \mathbf{v}}{\mathbf{u} \cdot \mathbf{u}}\,\mathbf{u}$, with matrix $P = \dfrac{\mathbf{u}\mathbf{u}^\mathsf{T}}{\mathbf{u}^\mathsf{T}\mathbf{u}}$: score, calibrate, stretch. Chapter 12 will prove the shadow is the *closest* point of the line. This chapter proves the two properties below.
 
@@ -492,17 +472,23 @@ plt.legend(); plt.show()
 
 > **Figure 2.8.** The vector `v`, its shadow `Pv` on the line of `u`, and the residual `v - Pv` running perpendicularly between them.
 
-Look at Figure 2.8 for a moment longer than it seems to deserve. A vector, its shadow inside a subspace, and a perpendicular residual. That is the drawing the preface promised as this book's destination, and it is the entire geometry of least squares in Chapter 12. The directions PCA hunts for in Chapter 11 are the lines that catch the most shadow. The stretch builds intuition. The shadow is load-bearing.
+Look at Figure 2.8 for a moment longer than it seems to deserve. A vector, its shadow inside a subspace, and a perpendicular residual. That is the drawing the preface promised as this book's destination, and it is the entire geometry of least squares in Chapter 12. The directions PCA hunts for in Chapter 11 are the lines that catch the most shadow.
 
-## 2.6 The undo, properly: inversion
+The projection also does something no operator so far has done in the open: it destroys. Every vector perpendicular to $\mathbf{u}$ projects to the zero vector, an entire direction flattened to nothing. The set of everything an operator destroys is a fundamental object, and it gets its name here, at the first operator caught destroying.
 
-Some verbs can be run backwards and some cannot, and the difference is the deepest thing in this chapter. The everyday name is **the undo**; the technical name is **inversion**, and this section uses both, always together, because the casual name carries the intuition and the technical name is the one every library and every later chapter will use.
+> **Definition 2.14 (null space).** The **null space** of a matrix $A$ is the set of all vectors it sends to zero, every $\mathbf{x}$ with $A\mathbf{x} = \mathbf{0}$. It always contains $\mathbf{0}$ itself; anything more means the matrix maps two different inputs to one output, since $A\mathbf{x} = A(\mathbf{x} + \mathbf{z})$ whenever $A\mathbf{z} = \mathbf{0}$.
 
-> **Definition 2.12 (identity matrix).** The **identity** $I$ has ones on the diagonal and zeros elsewhere. It is the verb that does nothing, $I\mathbf{x} = \mathbf{x}$. Check it with Claim 2.4: it sends every $\mathbf{e}_j$ to itself, so its columns are the standard basis.
+Chapter 1's two spaces now both sit inside this one operator, and it is worth saying plainly. The column space of $P$ is the line of $\mathbf{u}$, everything the projection can output. The null space of $P$ is the perpendicular line, everything the projection kills. Output space and destroyed space, reach and loss, and the next section shows that the second one decides whether an operator can ever be run backwards. Chapter 3 will measure both spaces and prove their dimensions balance.
 
-> **Definition 2.13 (inverse).** A square matrix $A$ is **invertible** when there is a matrix $A^{-1}$ with $A^{-1}A = I$, an undo. Applying $A$ and then $A^{-1}$ is the verb that does nothing: inversion composes with the verb to give the identity.
+## 2.6 The inverse
 
-The difference matrix makes inversion concrete, and it deserves a full workup, because this one example carries the whole idea. What undoes taking differences? Taking running sums. Before any symbols, say it in numbers you can watch. \lensmark{algebraic} Difference the vector $(1, 4, 9)$, then running-sum the result:
+Some operators can be run backwards and some cannot, and the difference is the deepest fact in this chapter. Two definitions set it up.
+
+> **Definition 2.15 (identity matrix).** The **identity** $I$ has ones on the diagonal and zeros elsewhere. It is the operator that changes nothing: $I\mathbf{x} = \mathbf{x}$ for every $\mathbf{x}$. Check it with Claim 2.4: it sends every $\mathbf{e}_j$ to itself, so its columns are the standard basis.
+
+> **Definition 2.16 (inverse).** A square matrix $A$ is **invertible** when there is a matrix $A^{-1}$, the **inverse** of $A$, with $A^{-1}A = I$. Applying $A$ and then $A^{-1}$ returns every input unchanged: inversion composes with the operator to give the identity.
+
+The difference matrix makes inversion concrete. What operation reverses taking differences? Taking running sums. \lensmark{algebraic} Watch it on one vector first:
 
 \begin{align}
 \begin{bmatrix} 1 \\ 4 \\ 9 \end{bmatrix}
@@ -513,63 +499,48 @@ The difference matrix makes inversion concrete, and it deserves a full workup, b
 = \begin{bmatrix} 1 \\ 4 \\ 9 \end{bmatrix}
 \end{align}
 
-The original vector came back, and *why* it came back is visible if the running sums are expanded before anything cancels. Write the differenced vector's entries as what they are, $d_1 = x_1$, $d_2 = x_2 - x_1$, $d_3 = x_3 - x_2$, and sum:
+Now say it in matrices, because that is where the fact actually lives. Differencing is the matrix $A_3$, running sums are the lower triangle of ones $S_3$, and the reversal is the statement $S_3 A_3 = I$:
 
 \begin{align}
-d_1 = x_1, \qquad
-d_1 + d_2 = x_1 + (x_2 - x_1) = x_2, \qquad
-d_1 + d_2 + d_3 = x_2 + (x_3 - x_2) = x_3
+S_3 A_3 =
+\begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 0 \\ 1 & 1 & 1 \end{bmatrix}
+\begin{bmatrix} 1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix}
+= \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}
 \end{align}
 
-Every intermediate term enters once with each sign and cancels, the pattern calculus calls **telescoping**. The recovery is not luck and not arithmetic coincidence; it is the structure of the two operations interlocking, and it works on every vector, not just $(1, 4, 9)$.
+Read the product by the column view: $S_3$ applied to each column of $A_3$, and each one lands on a standard basis vector. The sums collapse because consecutive differences cancel in pairs, a **telescoping sum**.[^telescope]
 
-\lensmark{computational} The machine states the operation view in two functions you already know, no matrices yet. `np.diff` differences; `np.cumsum` running-sums.
+[^telescope]: The name comes from the collapsible telescope: each section slides into the next, and only the two ends survive. In symbols, $\sum_{i=1}^{k} (x_i - x_{i-1}) = x_k - x_0$, every interior term entering once with each sign.
 
-**Listing 2.12 (difference, then undo, as operations)**
-
-```python
-x3 = np.array([1., 4, 9])
-d = np.diff(x3, prepend=0)
-print('differences :', d)
-print('running sums:', np.cumsum(d))
-```
-
-```text
-differences : [1. 3. 5.]
-running sums: [1. 4. 9.]
-```
-
-> **Claim 2.14 (the inverse of differencing is summing).** The inverse of the first-difference matrix is the lower triangle of ones, the running-sum matrix.
+> **Claim 2.17 (the inverse of differencing is summing).** The inverse of the first-difference matrix $A_3$ is the running-sum matrix $S_3$, the lower triangle of ones.
 >
-> The one-breath reason is the word telescoping. The $i$-th running sum of the differences of $\mathbf{x}$ collapses to $x_i$, as the hand computation above just showed.
+> The proof is the display above: $S_3 A_3 = I$, each column a telescoping sum collapsing to a standard basis vector, and Definition 2.16 asks for nothing else.
 
-The operations interlock; now watch the objects interlock. Differencing-with-first-entry-kept is the matrix $A_3$ below, running sums are the lower triangle of ones, and the inverse relationship is now a fact about two matrices multiplying to $I$. \lensmark{computational} Listing 2.13 asks NumPy for the inverse matrix and applies it.
+\lensmark{computational} Listing 2.12 asks NumPy for the inverse and confirms both the matrix and the roundtrip.
 
-**Listing 2.13 (differencing, undone)**
+**Listing 2.12 (differencing, inverted)**
 
 ```python
-A3 = np.array([[1, 0, 0], [-1, 1, 0], [0, -1, 1]])  # difference
-print(np.linalg.inv(A3))                            # running sums
+A3 = np.array([[1, 0, 0], [-1, 1, 0], [0, -1, 1]])
+print(np.linalg.inv(A3))
 b = np.array([1, 3, 5])
-print('x = inv(A3) @ (1,3,5):', np.linalg.inv(A3) @ b)
+print('inv(A3) @ (1,3,5):', np.linalg.inv(A3) @ b)
 ```
 
 ```text
 [[1. 0. 0.]
  [1. 1. 0.]
  [1. 1. 1.]]
-x = inv(A3) @ (1,3,5): [1. 4. 9.]
+inv(A3) @ (1,3,5): [1. 4. 9.]
 ```
 
-Differentiation and integration, inverse verbs, and you have known that since calculus. Here it is again as two matrices multiplying to the identity. The fundamental theorem of calculus makes a cameo as a pair of triangles.
+Differentiation and integration, inverse operations, and you have known that since calculus. Here it is as two matrices multiplying to the identity, the fundamental theorem of calculus as a pair of triangles. Listing 2.13 draws the roundtrip, one panel per stage; Figure 2.9 is its output.
 
-Listing 2.14 draws the roundtrip, one panel per stage; Figure 2.9 is its output.
-
-**Listing 2.14 (the roundtrip, drawn)**
+**Listing 2.13 (the roundtrip, drawn)**
 
 ```python
 x3 = np.array([1., 4, 9])
-S3 = np.linalg.inv(A3)                 # running sums
+S3 = np.linalg.inv(A3)
 stages = [('x', x3), ('A3 @ x', A3 @ x3),
           ('inv(A3) @ A3 @ x', S3 @ A3 @ x3)]
 fig, axes = plt.subplots(1, 3, figsize=(9, 3), sharey=True)
@@ -580,76 +551,23 @@ for ax, (name, v) in zip(axes, stages):
 
 ![the roundtrip: difference, then sum](figures/fig_undo_roundtrip.png)
 
-> **Figure 2.9.** A vector, its differences, and the running sums of those differences. The third panel is the first panel, recovered.
+> **Figure 2.9.** A vector, its differences, and the running sums of those differences. The third panel is the first panel, recovered: $S_3 A_3 = I$ acting on $(1, 4, 9)$.
 
+When does an inverse exist at all? Exactly when the operator destroys no information, and Section 2.5 built the object that measures destruction.
 
-When does a verb deserve an inverse at all? Exactly when it destroys no information. A verb that sends two different inputs to the same output cannot be undone, because nothing can tell the merged inputs apart afterward. Chapter 1's standing questions make this precise, and the statement earns its box.
-
-> **Claim 2.15 (when inversion exists).** A square matrix is invertible exactly when its columns are linearly independent.
+> **Claim 2.18 (invertibility and the null space).** A square matrix is invertible exactly when its null space is $\{\mathbf{0}\}$.
 >
-> The proof rides on the two standing questions. Independent columns: $n$ independent columns in $\mathbb{R}^n$ are a basis, so every target is reached (existence) by exactly one recipe (uniqueness, Claim 1.10), and the map sending each target to its one recipe is the inverse. Dependent columns: some combination with live weights builds $\mathbf{0}$, so $A$ sends two different inputs to the same output, the information is destroyed, and no matrix can recover it. Chapter 3 gives the destroyed directions their own name and their own space.
+> If the null space holds a nonzero $\mathbf{z}$, then $A$ sends $\mathbf{x}$ and $\mathbf{x} + \mathbf{z}$ to the same output, no matrix can tell the two apart afterward, and no inverse can exist. If the null space is trivial, the columns are independent (a dependence with live weights would be a nonzero null-space vector), $n$ independent columns in $\mathbb{R}^n$ are a basis, and every target is reached by exactly one input; the map from each target back to its input is $A^{-1}$.
 
-One more pair of names points past it. When a system has more equations than unknowns it is **overdetermined**. Generally nothing satisfies every equation, and the best move is to get close; that regime is least squares, Chapter 12. When it has fewer independent directions than coordinates, the data is secretly lower-dimensional, and the game is finding the directions that matter; that regime is principal component analysis, Chapter 11. The two regimes of estimation are the two ways $A\mathbf{x} = \mathbf{b}$ can fail to be square.
+The projection of Section 2.5 fails this test on the spot: its null space is a whole line, so no inverse exists, and the information a projection discards is discarded forever. That one sentence is most of Part III. Estimation is what you do when the operator between you and the truth is not invertible.
 
-## 2.7 Standardization is a transformation
+## 2.7 Summary and exercises
 
-The features of a data matrix arrive in whatever units the world measured them in. `GrLivArea` ranges over hundreds of square feet. `OverallQual` runs over the integers one through ten. Any model that combines them, and every linear model does nothing else, is silently adding square feet to quality points, and no comparison across their weights means anything until the columns share a scale. Putting them on one scale is itself a transformation, and reading it with this chapter's eyes is the point of this section.
+A matrix is an operator, and this chapter read the operator completely. The verb worked first ($D$ took a derivative, row by row the difference quotient), then the property that made it possible got its name, linearity, and Claim 2.4 made the name usable: the columns are where the basis vectors land. The product carries the action, rows to compute, columns to understand (Chapter 1's combination, drawn tip to tail), and composition is matrix multiplication, read three ways and witnessed by differencing twice into $K$. Two named operators join the permanent kit: the diagonal matrix, which scales each axis independently, and the projection, idempotent with an orthogonal residual (Claim 2.11), load-bearing for Chapters 11 and 12.
 
-**Standardization** does it in two moves, column by column. Subtract the mean, then divide by the standard deviation:[^windmill-stats]
+The projection also destroyed a direction in the open, and the set of everything an operator destroys got its name, the null space (Definition 2.14). Inversion closed the chapter: $S_3 A_3 = I$ with each column a telescoping sum, and a square matrix has an inverse exactly when its null space is trivial (Claim 2.18), which is Chapter 1's uniqueness standing guard over information.
 
-\begin{align}
-z = \frac{x - \mu}{\sigma}
-\end{align}
-
-[^windmill-stats]: Mean and standard deviation are used here as a practitioner's windmills, assumed at working strength the way elimination is. Part II rebuilds both from scratch, and Chapter 7 will do to $\sigma$ what this chapter did to the derivative: put it inside the algebra.
-
-Every standardized column is centered at zero with standard deviation one, so a step of one in any of them means the same thing, one standard deviation of that feature.
-
-**Honesty box.** Standardization is not a linear transformation, and this book will not pretend otherwise. The scaling half is honestly linear. Dividing each column by its $\sigma$ is multiplication by a diagonal matrix, Section 2.4's stretch pointed at data. But the centering half shifts every vector by a constant, and a shift moves the origin. That violates the quietest consequence of Definition 2.3, that every linear transformation sends $\mathbf{0}$ to $\mathbf{0}$ (set $c = d = 0$). The name for linear-plus-shift is **affine**. This is the one place in the chapter we bend the rules, we do it knowingly, and Chapter 7 will center everything in sight anyway, because covariance lives in deviations from the mean.
-
-\lensmark{computational} Listing 2.15 standardizes the complete numeric columns and makes the transformation prove itself.
-
-**Listing 2.15 (standardizing the numerics, with proof)**
-
-```python
-mu = X.mean().to_numpy()
-sigma = X.std(ddof=0).to_numpy()
-Z = (X.to_numpy(float) - mu) / sigma
-print('column means after:', np.abs(Z.mean(axis=0)).max())
-print('column stds after :', np.abs(Z.std(axis=0) - 1).max())
-```
-
-```text
-column means after: 3.567435540277722e-14
-column stds after : 2.220446049250313e-16
-```
-
-Thirty-three numeric features, all centered at zero to fourteen decimal places, all with standard deviation one to machine precision. The verification is the point. A transformation claims to put every column on one scale, so make it prove it. Listing 2.16 plots four features on both scales; Figure 2.10 is its output.
-
-**Listing 2.16 (before and after, drawn)**
-
-```python
-fig, (raw, std) = plt.subplots(1, 2, figsize=(10, 4))
-for col in ['LotArea', 'GrLivArea', 'OverallQual', 'YearBuilt']:
-    raw.hist(X[col], bins=40, alpha=0.5, label=col)
-    std.hist(Z[:, list(X.columns).index(col)], bins=40, alpha=0.5)
-raw.legend(); raw.set_title('raw'); std.set_title('standardized')
-plt.show()
-```
-
-![standardization before and after](figures/fig_standardization.png)
-
-> **Figure 2.10.** Four Ames features before and after standardization. Raw, LotArea's scale makes the others invisible. Standardized, all four occupy one comparable range.
-
-The standardized matrix $Z$ waits here for Chapter 7, which takes dot products between its columns and calls them covariances. The rest of the design-matrix craft, turning word-features into indicator vectors and putting numerics and indicators in one currency, is estimation-part work and arrives with Chapter 12, where its trap, a dependence hiding in the indicators, gets sprung and disarmed in this chapter's vocabulary.
-
-## 2.8 Summary and exercises
-
-A matrix is two things, and this chapter did each fully. As data: a container with two readings, samples by features, plus the flip between them, the transpose (Definition 2.2). As operator: a verb characterized completely by linearity, and Claim 2.4 made the characterization usable, the columns are where the basis vectors land. First the verb worked ($D$ took a derivative, row by row the difference quotient), then the property got its name, then the product got its three meanings, rows to compute, columns to understand (Chapter 1's combination, drawn tip to tail), slabs to decompose (Definition 2.7).
-
-Composition is multiplication, witnessed by differencing twice into $K$. The diagonal stretches, the projection casts shadows, idempotent with an orthogonal residual (Claim 2.11), load-bearing for Chapters 11 and 12. And the undo, technically inversion: running sums undo differences by telescoping, worked in numbers, in operations, and in matrices, and a square matrix earns an inverse exactly when its columns are independent (Claim 2.15), which is Chapter 1's uniqueness standing guard over information. Standardization married the identities: the stretch pointed at data, plus a disclosed shift.
-
-Chapter 3 builds the machine for the cases nobody can see: elimination owned, elimination as a factorization, and the ledger of reach and crush balanced in full. And $K$ is packed and waiting for Chapter 4, carrying a set of directions it refuses to tangle.
+Chapter 3 builds the solving machine: by inspection under the license, elimination owned and read as a factorization, and the dimensions of the column space and null space proved to balance. Chapter 5 brings the matrix's second identity, the dataset. And $K$ is packed and waiting for Chapter 4, carrying a set of directions it refuses to tangle.
 
 **Exercises**
 
@@ -660,8 +578,8 @@ Chapter 3 builds the machine for the cases nobody can see: elimination owned, el
 5. *(pencil, then keyboard)* Compose the forward difference with itself, $D_f D_f$, by hand on a 4-vector. Compare the stencil you get to $K$'s, and explain the shift. Check yourself in code.
 6. *(pencil)* Show that $P = \mathbf{u}\mathbf{u}^\mathsf{T}/(\mathbf{u}^\mathsf{T}\mathbf{u})$ is symmetric ($P^\mathsf{T} = P$), the property Claim 2.11 did not use. One line, using $(\mathbf{u}\mathbf{u}^\mathsf{T})^\mathsf{T} = \mathbf{u}\mathbf{u}^\mathsf{T}$.
 7. *(pencil)* Project $(1, 5)$ onto the line of $(2, 1)$ by hand: score, calibrate, stretch, in an align of your own. Then verify the residual is orthogonal, and sketch the three arrows.
-8. *(pencil)* Exhibit a nonzero vector that $\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$ sends to zero, and describe all such vectors in one sentence. Which standing question does this kill, for which targets does the other one fail, and what does Claim 2.15 conclude about inversion?
+8. *(pencil)* Exhibit a nonzero vector in the null space of $\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$, and describe the whole null space in one sentence. Which standing question does it kill, for which targets does the other one fail, and what does Claim 2.18 conclude about inversion?
 9. *(pencil)* Write the projection matrix onto the line of $(2, 1)$ as a single slab, one outer product divided by one scalar, and confirm it matches Definition 2.10's formula entry by entry.
-10. *(keyboard)* Standardize `GrLivArea` and `OverallQual` by hand with Listing 2.15's two moves, and confirm each column's mean and standard deviation. Then write the scaling half as an explicit diagonal matrix acting on the centered columns.
-11. *(keyboard, curiosity)* The two views have a speed. Time the row view against the column view of Listing 2.5 on a large random matrix, then time a Pandas `.apply` across rows against one across columns of `housing`. Explain both gaps with the memory-address footnote of Section 2.3.
+10. *(pencil)* Compute the null space of the projection matrix onto the line of $(2, 1)$: exhibit the direction it kills, verify $P$ sends it to zero, and conclude from Claim 2.18 whether $P$ is invertible.
+11. *(keyboard, curiosity)* The two views have a speed. Time the row view against the column view of Listing 2.5 on a large random matrix, and explain the gap with the memory-address footnote of Section 2.2.
 12. *(keyboard, bridge → Ch 4)* Apply `K` to a sampled sine, `np.sin(3 * x)`, and to a random vector of the same length. Compare each output to its input. Which one came back as a scaled copy of itself, and by what factor? You have just met an eigenvector, and Chapter 4 makes it official.
