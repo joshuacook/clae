@@ -1,11 +1,11 @@
-<!-- DRAFT V2 (2026-07-17): v9 TRANCHE 2 RE-ARCHITECTURE DRAFT, FOR
-     REVIEW (not the live chapter). Per chapter_notes/
-     v9-tranche-2-rearchitecture-outline.md: the C exhibit and the crush
-     figure moved to ch1 V5 section 1.6; see-and-verify moved to ch1 V5
-     as well (recalled here in one paragraph at the elimination door);
-     3.1 tightens to the LEDGER THEOREM (rank recalled from Ch1, nullity
-     defined, rank + nullity = n proved and audited). The chapter is now
-     purely the machine. Base: V1 + tranche-1 fixes. -->
+<!-- DRAFT V3 (2026-07-19): the full-v9 pass per chapter_notes/
+     v9-revision-punchlist.md. Section 0: Ch3 receives the mechanics.
+     NEW 3.1 by-inspection full investigation (#27 #32: three worked
+     systems, row-picture TikZ, the discipline); NEW 3.2 null space +
+     the crush land here from Ch1 (#29 #30) with nullity + the ledger;
+     3.0 recall updated (Ch1 poses, no null-space name there anymore);
+     P2 objective intro; three fates / elimination / LU / verify / door
+     unchanged in substance. Base: V2 draft. -->
 
 # Chapter 3: Solving Linear Systems
 
@@ -17,11 +17,68 @@ Every road in this book runs through one equation:
 A\mathbf{x} = \mathbf{b}
 \end{align}
 
-A matrix acts on an unknown input, a known output sits on the right, and the job is to run the verb backwards. The vocabulary arrived in Chapter 1 and the verb in Chapter 2, so one paragraph settles the frame. Existence: a solution exists exactly when $\mathbf{b}$ lies in the column space. Uniqueness: it is one of a kind exactly when the null space is trivial, because anything the matrix crushes can be added to a solution for free. Chapter 1 could already diagnose small systems and see their solutions under the license. This chapter is for everything else. By its end you can prove the reach-and-crush ledger balances, diagnose any system before touching it, run elimination when seeing fails, read the algorithm itself as a matrix factorization, and hold the machine to the same standard of proof as your own pencil.
+A matrix acts on an unknown input, a known output sits on the right, and the job is to run the verb backwards. Chapter 1 posed this question and its two halves, loudly: existence (a solution exists exactly when $\mathbf{b}$ lies in the column space) and uniqueness (the recipe is one of a kind exactly when the columns are independent). Chapter 2 built the verb the question is about. This chapter answers it, and here is its plan. First, the fast method: solving **by inspection** under the license, worked and drawn in full. Second, uniqueness gets its own space and its own number, the null space and the nullity, and the reach-and-crush ledger is proved to balance. Third, the diagnosis discipline: every system's fate read off before any solving. Fourth, the machine: elimination, owned and then read as a factorization, $A = LU$, with the computer held to the same standard of proof as your own pencil. Last, the door out of the exact world, where the data of this book actually lives.
 
-## 3.1 The ledger
+## 3.1 Solving by inspection
 
-Chapter 1 introduced the two bookkeeping spaces and one specimen of each behavior: the difference matrix $A_3$, which crushes nothing, and the cyclic difference matrix $C$, whose null space is the whole line of constant vectors. \lensmark{computational} Listing 3.1 rebuilds both in two lines so this chapter's audits run self-contained.
+The first method is the fastest one mathematics has, and Chapter 1 already paid for it. The license: when the diagnosis says the solution is unique, any verified candidate *is* the solution. So the working method for small systems is to produce the candidate **by inspection**, the technical name for looking at the system until you see the answer (guess and check, with its reputation restored), and then to verify. The verification is not a courtesy. It is the entire proof, and the license is what makes it sufficient.
+
+\lensmark{algebraic} **Seen from the numbers.** The columns of this system are independent (check: they are not multiples), so the license holds:
+
+\begin{align}
+\begin{aligned} x + y &= 5 \\ x - y &= 1 \end{aligned}
+\end{align}
+
+Two numbers that sum to 5 and differ by 1. You can *see* $(3, 2)$. Verify: $3 + 2 = 5$ and $3 - 2 = 1$. Solved, with full rigor, and nothing was eliminated.
+
+**Seen from the structure.** The next system rewards reading before writing:
+
+\begin{align}
+\begin{aligned} 2x + y &= 7 \\ x + y &= 4 \end{aligned}
+\end{align}
+
+The two equations differ by exactly $x$, so subtracting them in your head gives $x = 3$, and then $y = 1$. Verify: $6 + 1 = 7$ and $3 + 1 = 4$. Structure produced the candidate; the check made it law.
+
+**Seen from Chapter 1.** The third system is one you have already solved without a matrix in sight:
+
+\begin{align}
+\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}\begin{bmatrix} c \\ d \end{bmatrix} = \begin{bmatrix} 4 \\ 7 \end{bmatrix}
+\end{align}
+
+In column language this asks for Chapter 1's membership recipe, and the recipe $c = 1$, $d = 2$ was exhibited and verified there. A system of equations, a membership question, and a matrix-vector equation are one object in three notations, and by inspection works on all three.
+
+\lensmark{geometric} Each two-unknown system also draws, and the drawing is the **row picture**: each equation is a line in the plane, and a solution is a point every line passes through. Figure 3.1 draws the first two systems this way, and the seen candidates are visibly the crossings.
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}[scale=0.6]
+  \begin{scope}[shift={(0,0)}]
+    \draw[gray!30, ->] (-0.8,0) -- (6.2,0);
+    \draw[gray!30, ->] (0,-0.8) -- (0,6.2);
+    \draw[thick] (-0.5,5.5) -- (5.5,-0.5) node[below right] {\scriptsize $x + y = 5$};
+    \draw[thick, gray] (0.5,-0.5) -- (6.0,5.0) node[above right] {\scriptsize $x - y = 1$};
+    \fill (3,2) circle (3.5pt);
+    \node[below right] at (3.05,2.0) {$(3, 2)$};
+    \node[anchor=north] at (2.8,-1.2) {\small sum 5, differ 1: see the crossing};
+  \end{scope}
+  \begin{scope}[shift={(10.5,0)}]
+    \draw[gray!30, ->] (-0.8,0) -- (6.2,0);
+    \draw[gray!30, ->] (0,-0.8) -- (0,6.2);
+    \draw[thick] (0.8,5.4) -- (3.4,0.2) node[below] {\scriptsize $2x + y = 7$};
+    \draw[thick, gray] (-0.5,4.5) -- (4.5,-0.5) node[below right] {\scriptsize $x + y = 4$};
+    \fill (3,1) circle (3.5pt);
+    \node[above right] at (3.05,1.05) {$(3, 1)$};
+    \node[anchor=north] at (2.8,-1.2) {\small the equations differ by $x$};
+  \end{scope}
+\end{tikzpicture}
+\caption{Solving by inspection, drawn in the row picture. Each equation is a line; the solution is the crossing. Left, the seen candidate $(3,2)$ sits where the sum-is-5 and differ-by-1 lines meet. Right, $(3,1)$ sits where the two lines meet, and subtracting one equation from the other leaves $x = 3$ on sight, which is what made the candidate visible.}
+\end{figure}
+
+Hold both pictures. Chapter 1 drew the **column picture**, recipes reaching a target tip to tail. The row picture drawn here is the other geometry of the same equation, and elimination, two sections from now, is nothing but row-picture surgery. The discipline in one line: **diagnose, see, verify.** Diagnose independence so the license holds, produce a candidate by inspection, verify it against every original equation. When any of the three steps fails to go through, and past three unknowns it usually does, the machine of Section 3.4 takes over with the same guarantees.
+
+## 3.2 The crush, the null space, and the ledger
+
+Chapter 1 posed uniqueness and Chapter 2 tied inversion to it, but the failure itself has not yet been held up to the light. Time to look. \lensmark{computational} Listing 3.1 builds two specimens: the difference matrix $A_3$ from Chapter 2, and a new **cyclic** difference matrix $C$, whose differences wrap around.
 
 **Listing 3.1 (the two specimens)**
 
@@ -32,19 +89,61 @@ A3 = np.array([[1, 0, 0], [-1, 1, 0], [0, -1, 1]])  # difference
 C = np.array([[1, 0, -1], [-1, 1, 0], [0, -1, 1]])  # cyclic
 ```
 
+Feed $C$ a constant vector and watch what a crush is.
+
+**Listing 3.2 (the crush)**
+
+```python
+print('C @ (3,3,3):', C @ np.array([3, 3, 3]))
+```
+
+```text
+C @ (3,3,3): [0 0 0]
+```
+
+$C$ sends $(3, 3, 3)$ to zero, and it sends every constant vector to zero the same way: shift a sequence by a constant and its wrapped differences never notice. Two different inputs, one output, which is the information destruction Chapter 2's inversion claim warned about, and it draws. Listing 3.3 feeds $C$ two inputs that differ by a constant shift and plots both against their outputs; Figure 3.2 is its output.
+
+**Listing 3.3 (the crush, drawn)**
+
+```python
+import matplotlib.pyplot as plt
+
+x1 = np.array([3., 5, 6])
+x2 = x1 + 4
+fig, (l, r) = plt.subplots(1, 2, figsize=(9, 3.5))
+l.plot(x1, 'o-', label='x')
+l.plot(x2, 's-', label='x + 4')
+l.set_title('two different inputs')
+l.legend()
+r.plot(C @ x1, 'o-', lw=3, label='C @ x')
+r.plot(C @ x2, 's--', label='C @ (x + 4)')
+r.set_title('one output')
+r.legend()
+```
+
+![two inputs, one output: the crush](figures/fig_crush.png)
+
+> **Figure 3.2.** Two different inputs, one output. The shift by a constant is invisible to $C$, so the matrix cannot tell the two inputs apart. Uniqueness dies here: given one solution of $C\mathbf{x} = \mathbf{b}$, adding the shift gives another.
+
+Everything a matrix crushes, collected in one place, is a space, and it is the space uniqueness lives or dies in.
+
+> **Definition 3.1 (null space).** The **null space** of a matrix is the set of vectors it sends to zero: every $\mathbf{x}$ with $A\mathbf{x} = \mathbf{0}$. It always contains the all-zero vector. Anything more is a dependence among the columns with live weights, and anything more kills uniqueness: if $A\mathbf{x} = \mathbf{b}$ and $A\mathbf{z} = \mathbf{0}$, then $A(\mathbf{x} + \mathbf{z}) = \mathbf{b}$ too, a second solution for free.
+
+The null space of $C$ is the whole line of constant vectors. The null space of $A_3$ is $\{\mathbf{0}\}$ alone, which is why Chapter 2 could invert it. Reach and crush are now both spaces, the column space holding existence and the null space holding uniqueness, and the two keep a joint ledger.
+
 Reach and crush are not independent failures. They are two entries in one ledger, and the ledger balances. The bookkeeping needs two numbers.
 
-> **Definition 3.1 (nullity; rank recalled).** The **rank** of a matrix (Definition 1.14, now in matrix clothes) is the dimension of its column space, the number of dimensions the verb can reach. The **nullity** is the dimension of its null space, the number of directions the verb crushes.
+> **Definition 3.2 (nullity; rank recalled).** The **rank** of a matrix (Definition 1.14, now in matrix clothes) is the dimension of its column space, the number of dimensions the verb can reach. The **nullity** is the dimension of its null space (Definition 3.1), the number of directions the verb crushes.
 
-> **Claim 3.2 (rank and nullity balance the ledger).** For an $m \times n$ matrix, rank $+$ nullity $= n$. Every input dimension either survives into the reach or dies in the crush. None goes missing.
+> **Claim 3.3 (rank and nullity balance the ledger).** For an $m \times n$ matrix, rank $+$ nullity $= n$. Every input dimension either survives into the reach or dies in the crush. None goes missing.
 >
 > Witness it on $C$: three input dimensions, a plane of reach (rank 2), a line of crush (nullity 1), and $2 + 1 = 3$. The one-breath reason: pick a basis for the null space and extend it to a basis of $\mathbb{R}^n$; the extension vectors map to a basis of the column space, because anything their images failed to reach would trace back to more crush.[^ftla]
 
 [^ftla]: This is the first installment of what Strang calls the fundamental theorem of linear algebra. The full theorem has four subspaces and a pair of right angles between them, and it arrives with the machinery that needs it, in Chapter 12.
 
-\lensmark{computational} The machine keeps this ledger on request. Listing 3.2 audits $C$ against the well-behaved difference matrix from Chapter 2.
+\lensmark{computational} The machine keeps this ledger on request. Listing 3.4 audits $C$ against the well-behaved difference matrix from Chapter 2.
 
-**Listing 3.2 (the ledger, audited)**
+**Listing 3.4 (the ledger, audited)**
 
 ```python
 for name, M in [('A3', A3), ('C ', C)]:
@@ -59,7 +158,7 @@ C : rank 2, nullity 1
 
 Rank 3 of 3 means full reach and no crush. Rank 2 of 3 means a plane of reach and a line of crush. Everything this chapter does flows from that one audit.
 
-## 3.2 Three outcomes, diagnosed
+## 3.3 Three outcomes, diagnosed
 
 Cross the two questions and $A\mathbf{x} = \mathbf{b}$ has exactly three possible fates. \lensmark{geometric} Each one draws:
 
@@ -91,9 +190,9 @@ Cross the two questions and $A\mathbf{x} = \mathbf{b}$ has exactly three possibl
 
 The diagnosis runs on the audit, before any solving. If $\mathbf{b}$ is outside the column space, stop: no solution, and Chapter 12 will teach you to get close instead. If $\mathbf{b}$ is inside and the nullity is zero, exactly one solution exists, and the hunt is licensed. If $\mathbf{b}$ is inside and the nullity is positive, solutions form a family, one particular solution plus anything from the null space. Run all three on the two matrices in hand. The difference matrix $A_3$ reaches everything and crushes nothing: one solution for every target. The cyclic $C$ with $\mathbf{b} = (1, 3, 5)$: the target is off the plane, no solution. The same $C$ with a target on the plane, say $\mathbf{b} = C(1, 2, 3) = (-2, 1, 1)$: reached, but the constants come free, so $(1, 2, 3) + t(1, 1, 1)$ solves for every $t$.
 
-## 3.3 Elimination, owned
+## 3.4 Elimination, owned
 
-Chapter 1 closed with this book's first solving method: diagnose, see a candidate, verify it, and let the license of uniqueness make the verification a proof. That method is real and this book reaches for it first everywhere. But it has a working range. Big systems, ugly numbers, and machine-scale data refuse to be seen, and for those you need a procedure that cannot lose, run by hand or by machine. The preface restored elimination as a windmill. This section makes it yours, because from here on the book uses it without narration. The method: subtract multiples of one equation from the others to kill unknowns, march the zeros in below the diagonal, then climb back up. \lensmark{algebraic} The full 3×3, worked in matrix form:
+Section 3.1's method is real and this book reaches for it first everywhere. But it has a working range. Big systems, ugly numbers, and machine-scale data refuse to be seen, and for those you need a procedure that cannot lose, run by hand or by machine. The preface restored elimination as a windmill. This section makes it yours, because from here on the book uses it without narration. The method: subtract multiples of one equation from the others to kill unknowns, march the zeros in below the diagonal, then climb back up. \lensmark{algebraic} The full 3×3, worked in matrix form:
 
 \begin{align}
 \begin{bmatrix} 1 & 2 & 1 \\ 2 & 5 & 4 \\ 1 & 3 & 5 \end{bmatrix}
@@ -115,13 +214,13 @@ Row 2 minus twice row 1, and row 3 minus row 1, kill the first column below the 
 
 Triangular, so back substitution climbs: $2z = 4$ gives $z = 2$; then $y = 3 - 2(2) = -1$; then $x = 5 - 2(-1) - 2 = 5$. And per Chapter 1's discipline, verify the candidate against the original system: $5 + 2(-1) + 2 = 5$, and $2(5) + 5(-1) + 4(2) = 13$, and $5 + 3(-1) + 5(2) = 12$. All three hold. The recipe is $(5, -1, 2)$, and the diagnosis (three independent columns, rank 3) says it is the only one.
 
-## 3.4 The algorithm is a factorization
+## 3.5 The algorithm is a factorization
 
 Here is the payoff Chapter 2 set up, and it is the reason this chapter sits after the matrix and not before it. Every move elimination made was itself a linear transformation, so by Claim 2.3 every move is a matrix. "Row 2 minus twice row 1" is the identity with a $-2$ planted below the diagonal. Elimination is not a procedure that happens *to* matrices. It *is* matrices, composed.
 
 Run the bookkeeping. Each elimination step is a matrix multiplying $A$ from the left, and undoing the whole sequence collects the multipliers, exactly the numbers you used, into a lower triangle $L$. What remains after elimination is the upper triangle $U$. The record reads:
 
-> **Claim 3.3 (elimination is a factorization).** When elimination runs without row exchanges, it factors the matrix: $A = LU$, with $U$ the triangle elimination produced and $L$ the lower triangle holding the multipliers, ones on its diagonal.[^pivot]
+> **Claim 3.4 (elimination is a factorization).** When elimination runs without row exchanges, it factors the matrix: $A = LU$, with $U$ the triangle elimination produced and $L$ the lower triangle holding the multipliers, ones on its diagonal.[^pivot]
 >
 > Witness it on the worked example. The multipliers were $2$, $1$, and $1$:
 >
@@ -131,9 +230,9 @@ Run the bookkeeping. Each elimination step is a matrix multiplying $A$ from the 
 
 [^pivot]: When a zero lands in a pivot position, elimination swaps rows first, and the honest factorization is $PA = LU$ with $P$ a permutation matrix. Production code pivots even when it does not strictly have to, for numerical stability, which is why the machine's $L$ and $U$ for this very matrix look different from ours and multiply back to a row-swapped $A$. Same theorem, defensive driving.
 
-\lensmark{computational} Listing 3.3 multiplies the hand factorization back together.
+\lensmark{computational} Listing 3.5 multiplies the hand factorization back together.
 
-**Listing 3.3 (the record, verified)**
+**Listing 3.5 (the record, verified)**
 
 ```python
 A = np.array([[1., 2, 1], [2, 5, 4], [1, 3, 5]])
@@ -148,11 +247,11 @@ max |L @ U - A|: 0.0
 
 Why care that the algorithm is a factorization? Because the factorization is reusable. Solving $A\mathbf{x} = \mathbf{b}$ through $LU$ is two triangular solves, one forward and one back, and when a second target $\mathbf{b}'$ arrives, the expensive part, the elimination, is already done and stored. That observation is worth more in practice than any single solve, and it is precisely what the machine does on your behalf.
 
-## 3.5 The machine, verified
+## 3.6 The machine, verified
 
-`np.linalg.solve` is the production solver, and underneath it is LAPACK running exactly the factorization of Section 3.4, pivots and all. This book's epistemology does not exempt the machine. A solver returns a candidate, and candidates get verified. The verification even has a name, the **residual**, the vector $\mathbf{b} - A\hat{\mathbf{x}}$ that measures how far the returned answer is from doing its job. Listing 3.4 solves the worked system and holds the answer to Chapter 1's standard.
+`np.linalg.solve` is the production solver, and underneath it is LAPACK running exactly the factorization of Section 3.4, pivots and all. This book's epistemology does not exempt the machine. A solver returns a candidate, and candidates get verified. The verification even has a name, the **residual**, the vector $\mathbf{b} - A\hat{\mathbf{x}}$ that measures how far the returned answer is from doing its job. Listing 3.6 solves the worked system and holds the answer to Chapter 1's standard.
 
-**Listing 3.4 (solve, then verify the machine)**
+**Listing 3.6 (solve, then verify the machine)**
 
 ```python
 b = np.array([5., 13, 12])
@@ -168,7 +267,7 @@ residual: 0.0
 
 The machine found the same $(5, -1, 2)$ the pencil did, and the residual certifies it. Make the residual check a habit. It costs one multiplication, it catches everything from a mistyped matrix to a genuinely ill-behaved system, and it is the license's discipline applied to code: never trust a candidate you have not verified, no matter who produced it.
 
-## 3.6 The door
+## 3.7 The door
 
 \lensmark{data} Everything in this chapter has been square: as many equations as unknowns. Data is not square, and this section walks to the edge of the square world and looks over. The claim of estimation, met here for the first time in full, is that a linear combination of feature columns lands near the price column:
 
@@ -186,9 +285,9 @@ Start square, because square is what we can do. Keep only the first two houses, 
 = \begin{bmatrix} 208{,}500 \\ 181{,}500 \end{bmatrix}
 \end{align}
 
-Two independent columns, rank 2, one solution. Listing 3.5 solves and verifies it.
+Two independent columns, rank 2, one solution. Listing 3.7 solves and verifies it.
 
-**Listing 3.5 (two houses, priced exactly)**
+**Listing 3.7 (two houses, priced exactly)**
 
 ```python
 A2 = np.array([[1710., 7], [1262., 6]])
@@ -207,9 +306,9 @@ The residual is zero. Both houses are priced perfectly. And the weights are absu
 
 Now let the third house knock. House 3 has 1,786 square feet at quality 7, and it sold for \$223,500. The exact model predicts $-13.67 \cdot 1786 + 33{,}126.23 \cdot 7 = 207{,}461$, a miss of \$16,039. Append its row to the system and there are three equations, two unknowns, and a target vector that no longer lies in the column space of the 3×2 matrix. Existence has failed. No pair of weights prices all three houses, and it only gets worse from there: the full claim stacks 1,460 equations onto the same two unknowns.
 
-This is not a defect in the houses. It is the standing condition of data, and it has a name from Chapter 2: the system is **overdetermined**. The machine will still hand you weights if you ask properly. Asked for the *best* weights over all 1,460 houses at once, `np.linalg.lstsq` returns about \$51.87 per square foot and \$17,604 per quality point, sane numbers, priced to miss every house a little instead of fitting two houses perfectly. Listing 3.6 assembles the full table, asks for those weights, and draws the whole market against them; Figure 3.2 is its output.
+This is not a defect in the houses. It is the standing condition of data, and it has a name from Chapter 2: the system is **overdetermined**. The machine will still hand you weights if you ask properly. Asked for the *best* weights over all 1,460 houses at once, `np.linalg.lstsq` returns about \$51.87 per square foot and \$17,604 per quality point, sane numbers, priced to miss every house a little instead of fitting two houses perfectly. Listing 3.8 assembles the full table, asks for those weights, and draws the whole market against them; Figure 3.4 is its output.
 
-**Listing 3.6 (the market, drawn)**
+**Listing 3.8 (the market, drawn)**
 
 ```python
 import pandas as pd
@@ -238,13 +337,13 @@ lstsq w: [   51.87 17604.21]
 
 ![price against living area, with best-fit predictions](figures/fig_price_vs_sqft.png)
 
-> **Figure 3.2.** Actual sale price against living area for all 1,460 homes, with the two-feature best-fit predictions overlaid. The predictions form a tight band, and the market scatters around it. No line threads every point; the band misses everything a little, on purpose.
+> **Figure 3.4.** Actual sale price against living area for all 1,460 homes, with the two-feature best-fit predictions overlaid. The predictions form a tight band, and the market scatters around it. No line threads every point; the band misses everything a little, on purpose.
 
 But notice what just happened to the words. *Best* weights. Miss *a little*. Nothing in Part I defines best or little. Those words need a way to measure how wrong a miss is and a reason to prefer one distribution of misses over another, and that is probability's department. The door out of this chapter opens onto Part II, and the question walking through it is the preface's question with a sharpened edge. Of all the linear combinations available, which one is the estimate, and what exactly makes it best? Chapter 12 answers with the drawing. Everything between here and there is learning to say *best* precisely.
 
-## 3.7 Summary and exercises
+## 3.8 Summary and exercises
 
-The equation is $A\mathbf{x} = \mathbf{b}$, and the two standing questions have spaces and now numbers: rank measures reach, nullity measures crush, and the ledger balances (Claim 3.2, the fundamental theorem's first installment). Diagnosis precedes solving, and the three fates are one, none, or a family. When uniqueness holds, the license is a method: see a candidate, verify it, done. When seeing fails, elimination is the systematic fallback, and elimination is not just a procedure but a factorization, $A = LU$ (Claim 3.3), reusable across targets. The machine runs the same factorization and gets held to the same standard: solve, then check the residual. And the square world ends at the door: real data is overdetermined, exact fits memorize noise (a negative price per square foot, fit perfectly), and *best* is a word Part I cannot define.
+The equation is $A\mathbf{x} = \mathbf{b}$, and the two standing questions have spaces and now numbers: rank measures reach, nullity measures crush, and the ledger balances (Claim 3.3, the fundamental theorem's first installment). Diagnosis precedes solving, and the three fates are one, none, or a family. When uniqueness holds, the license is a method: see a candidate, verify it, done. When seeing fails, elimination is the systematic fallback, and elimination is not just a procedure but a factorization, $A = LU$ (Claim 3.4), reusable across targets. The machine runs the same factorization and gets held to the same standard: solve, then check the residual. And the square world ends at the door: real data is overdetermined, exact fits memorize noise (a negative price per square foot, fit perfectly), and *best* is a word Part I cannot define.
 
 **Exercises**
 
@@ -254,7 +353,7 @@ The equation is $A\mathbf{x} = \mathbf{b}$, and the two standing questions have 
 4. *(pencil)* Eliminate the system $x + y + z = 6$, $x + 2y + z = 8$, $x + y + 3z = 10$ in matrix form, watching the zeros arrive. Back-substitute, then verify your candidate against all three original equations.
 5. *(pencil)* Collect your multipliers from exercise 4 into $L$, write down your $U$, and confirm $LU$ rebuilds the matrix by hand.
 6. *(keyboard)* Verify exercise 5's factorization in code, then solve the same system with `np.linalg.solve` and print the residual.
-7. *(keyboard)* Ask `scipy.linalg.lu` for the factorization of Section 3.4's matrix and compare its $L$ and $U$ to ours. They differ. Read the permutation matrix $P$ and explain why (the footnote to Claim 3.3 is the hint).
+7. *(keyboard)* Ask `scipy.linalg.lu` for the factorization of Section 3.4's matrix and compare its $L$ and $U$ to ours. They differ. Read the permutation matrix $P$ and explain why (the footnote to Claim 3.4 is the hint).
 8. *(pencil)* A $4 \times 4$ matrix has rank 2. State its nullity, describe the solution set of $A\mathbf{x} = \mathbf{b}$ when $\mathbf{b}$ is reachable, and name the fate when it is not.
 9. *(keyboard)* Pick two different houses from the Ames data, solve the 2×2 system exactly, and report the weights. Are yours absurd too? Price a third house with them and measure the miss.
 10. *(keyboard, bridge → Ch 12)* Run `np.linalg.lstsq` on the full 1,460×2 system and confirm the sane weights. Compute the residual vector's largest and smallest entries. Chapter 12 earns the sense in which these weights are best; write one sentence guessing what gets minimized.
