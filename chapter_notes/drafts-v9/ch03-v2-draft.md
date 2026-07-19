@@ -182,12 +182,12 @@ Cross the two questions and $A\mathbf{x} = \mathbf{b}$ has exactly three possibl
     \node[gray, anchor=south] at (0.5,0.75) {\tiny reached, null space to spare};
   \end{scope}
 \end{tikzpicture}
-\caption{The three fates of $A\mathbf{x} = \mathbf{b}$. Left, the target is reachable and nothing is crushed, so exactly one recipe exists. Middle, the target lies off the column space and no recipe exists. Right, the target is reachable but the null space (dashed) is nontrivial, so a whole family of recipes reaches it.}
+\caption{The three fates of $A\mathbf{x} = \mathbf{b}$. Left, the target is reachable and the null space is trivial, so exactly one recipe exists. Middle, the target lies off the column space and no recipe exists. Right, the target is reachable but the null space (dashed) is nontrivial, so a whole family of recipes reaches it.}
 \end{figure}
 
 The diagnosis runs on the audit, before any solving. If $\mathbf{b}$ is outside the column space, stop: no solution, and Chapter 12 will teach you to get close instead. If $\mathbf{b}$ is inside and the nullity is zero, exactly one solution exists, and the hunt is licensed. If $\mathbf{b}$ is inside and the nullity is positive, solutions form a family, one particular solution plus anything from the null space.
 
-Run all three on the two matrices in hand. The difference matrix $A_3$ reaches everything and crushes nothing: one solution for every target. The cyclic $C$ with $\mathbf{b} = (1, 3, 5)$: the target is off the plane, no solution. The same $C$ with a target on the plane, say $\mathbf{b} = C(1, 2, 3) = (-2, 1, 1)$: reached, but the constants come free, so $(1, 2, 3) + t(1, 1, 1)$ solves for every $t$.
+Run all three on the two matrices in hand. The difference matrix $A_3$ reaches everything and sends only $\mathbf{0}$ to zero: one solution for every target. The cyclic $C$ with $\mathbf{b} = (1, 3, 5)$: the target is off the plane, no solution. The same $C$ with a target on the plane, say $\mathbf{b} = C(1, 2, 3) = (-2, 1, 1)$: reached, but the constants come free, so $(1, 2, 3) + t(1, 1, 1)$ solves for every $t$.
 
 ## 3.4 Elimination, owned
 

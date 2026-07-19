@@ -64,13 +64,13 @@ A\mathbf{v} = \lambda\mathbf{v}
 (A - \lambda I)\,\mathbf{v} = \mathbf{0}
 \end{align}
 
-An eigenvector is a nonzero vector that $A - \lambda I$ crushes. It lives in the null space of $A - \lambda I$, and it exists only when that null space is nontrivial.
+An eigenvector is a nonzero vector in the null space of $A - \lambda I$, and it exists only when that null space is nontrivial.
 
-> **Claim 4.1 (eigenvalues are the crush points).** $\lambda$ is an eigenvalue of $A$ exactly when the null space of $A - \lambda I$ is nontrivial, and the eigenvectors for $\lambda$ are that null space's nonzero members.
+> **Claim 4.1 (eigenvalues make the null space nontrivial).** $\lambda$ is an eigenvalue of $A$ exactly when the null space of $A - \lambda I$ is nontrivial, and the eigenvectors for $\lambda$ are that null space's nonzero members.
 >
 > The one-breath reason: the rearrangement above is an equivalence, read in both directions.
 
-So the hunt has two stages. Find the special values of $\lambda$ where $A - \lambda I$ crushes, then hand each one to Chapter 3, which knows exactly how to describe a null space. For the first stage there is a classical device: a square matrix crushes exactly when its determinant is zero, so the eigenvalues are the roots of $\det(A - \lambda I) = 0$.[^drawer] Run it on the small example:
+So the hunt has two stages. Find the special values of $\lambda$ where $A - \lambda I$ has a nontrivial null space, then hand each one to Chapter 3, which knows exactly how to describe a null space. For the first stage there is a classical device: a square matrix has a nontrivial null space exactly when its determinant is zero, so the eigenvalues are the roots of $\det(A - \lambda I) = 0$.[^drawer] Run it on the small example:
 
 \begin{align}
 \det\begin{bmatrix} 2 - \lambda & 1 \\ 1 & 2 - \lambda \end{bmatrix}
@@ -81,7 +81,7 @@ So the hunt has two stages. Find the special values of $\lambda$ where $A - \lam
 
 Roots at $\lambda = 1$ and $\lambda = 3$, the two stretches we verified by hand. Then stage two, once per root: $A - 3I$ has rows $(-1, 1)$ and $(1, -1)$, and you can *see* its null space, the line of $(1, 1)$. Diagnose, see, verify. The whole apparatus of Chapter 3, pointed at a moving target.
 
-[^drawer]: The preface promised the determinants would stay in the drawer until they earned their keep. This is the drawer opening, briefly, for the one job where the determinant is the honest tool: it is a single number that vanishes exactly when a square matrix crushes, and you already know how to compute it for the small cases from your first course. It is used here as a windmill, the way elimination is, and it goes back in the drawer when this section ends. On anything bigger than a hand example, nobody finds eigenvalues this way; Section 4.4 and the library both do something smarter.
+[^drawer]: The preface promised the determinants would stay in the drawer until they earned their keep. This is the drawer opening, briefly, for the one job where the determinant is the honest tool: it is a single number that vanishes exactly when a square matrix has a nontrivial null space, and you already know how to compute it for the small cases from your first course. It is used here as a windmill, the way elimination is, and it goes back in the drawer when this section ends. On anything bigger than a hand example, nobody finds eigenvalues this way; Section 4.4 and the library both do something smarter.
 
 ## 4.2 Diagonalization: the matrix in its best basis
 
@@ -256,7 +256,7 @@ The hydrogen atom asks the same question with a rounder box. Its Hamiltonian's e
 
 ## 4.6 Summary and exercises
 
-An eigenpair is a direction the verb cannot tangle and the stretch it applies there (Definition 4.1), and its defining equation is its own verification, which makes this chapter the license's home turf. Eigenvalues are the crush points of $A - \lambda I$ (Claim 4.1), found by the determinant windmill at hand scale and by iteration at real scale. With a full set of independent eigenvectors, the matrix diagonalizes, $A = X\Lambda X^{-1}$ (Claim 4.2), a change of basis into coordinates where the verb is just numbers, and repetition becomes arithmetic. The second difference matrix's eigenvectors are sines (Claim 4.3), exactly, which is the waves room, the Fourier series, and the particle in a box all speaking at once. The power method turns guess-and-check into the seed of every industrial eigensolver. And the orbitals promise is paid: the atom has an eigenbasis, and matter does its accounting in it.
+An eigenpair is a direction the verb cannot tangle and the stretch it applies there (Definition 4.1), and its defining equation is its own verification, which makes this chapter the license's home turf. Eigenvalues are the values that make the null space of $A - \lambda I$ nontrivial (Claim 4.1), found by the determinant windmill at hand scale and by iteration at real scale. With a full set of independent eigenvectors, the matrix diagonalizes, $A = X\Lambda X^{-1}$ (Claim 4.2), a change of basis into coordinates where the verb is just numbers, and repetition becomes arithmetic. The second difference matrix's eigenvectors are sines (Claim 4.3), exactly, which is the waves room, the Fourier series, and the particle in a box all speaking at once. The power method turns guess-and-check into the seed of every industrial eigensolver. And the orbitals promise is paid: the atom has an eigenbasis, and matter does its accounting in it.
 
 Part I ends here, with one loose thread left deliberately hanging: the eigen machinery loves square symmetric matrices best, and the most important square symmetric matrix in data science has not been built yet. It is made of randomness, and Part II starts building it.
 
