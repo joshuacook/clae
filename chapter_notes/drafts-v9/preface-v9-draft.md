@@ -165,8 +165,8 @@ plt.ylabel('max error')
 ```
 
 ```text
-n =    100: max error 0.031411
-n =   1000: max error 0.003143
+n =    100: max error 0.031729
+n =   1000: max error 0.003145
 n =  10000: max error 0.000314
 ```
 
