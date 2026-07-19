@@ -532,11 +532,11 @@ This is a system of linear equations wearing this chapter's clothes, and everyth
 Two questions live inside the display above, and they are the most important two questions in this book. Everything in Parts III and IV is an answer to one of them, asked about data. They get a box, so you can find them again from any chapter.
 
 \begin{svgraybox}
-**The two standing questions.** For a target $\mathbf{b}$ and a set of vectors to combine:
+\textbf{The two standing questions.} For a target $\mathbf{b}$ and a set of vectors to combine:
 
-**Existence.** Does *any* combination reach $\mathbf{b}$? If not, no method, no cleverness, and no amount of computing will produce one. When existence fails, the only honest moves are to change the question or to settle for closest, and *closest* is the subject of Part III.
+\textbf{Existence.} Does \emph{any} combination reach $\mathbf{b}$? If not, no method, no cleverness, and no amount of computing will produce one. When existence fails, the only honest moves are to change the question or to settle for closest, and \emph{closest} is the subject of Part III.
 
-**Uniqueness.** If a combination reaches $\mathbf{b}$, is it the *only* one? A unique answer is knowledge. An answer with infinitely many rivals settles nothing, because any claim built on one recipe could have been built on another. Uniqueness is also the license of Section 1.5, the fact that makes fast methods rigorous.
+\textbf{Uniqueness.} If a combination reaches $\mathbf{b}$, is it the \emph{only} one? A unique answer is knowledge. An answer with infinitely many rivals settles nothing, because any claim built on one recipe could have been built on another. Uniqueness is also the license of Section 1.5, the fact that makes fast methods rigorous.
 
 Every solving question in this book, from the two-line systems below to the housing market in Chapter 3 to the estimators of Part III, is these two questions in costume.
 \end{svgraybox}
