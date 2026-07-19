@@ -66,7 +66,7 @@ A\mathbf{v} = \lambda\mathbf{v}
 
 An eigenvector is a nonzero vector that $A - \lambda I$ crushes. It lives in the null space of $A - \lambda I$, and it exists only when that null space is nontrivial.
 
-> **Claim 4.2 (eigenvalues are the crush points).** $\lambda$ is an eigenvalue of $A$ exactly when the null space of $A - \lambda I$ is nontrivial, and the eigenvectors for $\lambda$ are that null space's nonzero members.
+> **Claim 4.1 (eigenvalues are the crush points).** $\lambda$ is an eigenvalue of $A$ exactly when the null space of $A - \lambda I$ is nontrivial, and the eigenvectors for $\lambda$ are that null space's nonzero members.
 >
 > The one-breath reason: the rearrangement above is an equivalence, read in both directions.
 
@@ -87,7 +87,7 @@ Roots at $\lambda = 1$ and $\lambda = 3$, the two stretches we verified by hand.
 
 Collect what the small example produced. Two eigenvectors, $(1, 1)$ and $(1, -1)$, independent, so by Chapter 1 they are a basis of $\mathbb{R}^2$. Write any input in that basis and watch what $A$ does to the recipe: each basis vector merely stretches, so the recipe passes through untouched while its two weights get multiplied by 3 and 1. In its own eigenbasis, $A$ is not a tangle of rows and columns. It is two numbers.
 
-> **Claim 4.3 (diagonalization).** If an $n \times n$ matrix $A$ has $n$ independent eigenvectors, stack them as the columns of $X$ and their eigenvalues into the diagonal matrix $\Lambda$. Then
+> **Claim 4.2 (diagonalization).** If an $n \times n$ matrix $A$ has $n$ independent eigenvectors, stack them as the columns of $X$ and their eigenvalues into the diagonal matrix $\Lambda$. Then
 >
 > $$A = X \Lambda X^{-1},$$
 >
@@ -140,7 +140,7 @@ Dynamics, powers, exponentials, stability: everything repetitive about a matrix 
 
 Now the theorem this book has been walking toward since the preface's physics classroom. Chapter 2 composed differencing with itself into $K$, the second difference matrix, and $K$ ended that chapter refusing to tangle a sine. Here is the full statement.
 
-> **Claim 4.4 (the eigenvectors of the second difference matrix are sines).** For the $n \times n$ matrix $-h^2 K$, with the stencil $-1, 2, -1$ and fixed ends, the eigenpairs are, for $k = 1, \ldots, n$,
+> **Claim 4.3 (the eigenvectors of the second difference matrix are sines).** For the $n \times n$ matrix $-h^2 K$, with the stencil $-1, 2, -1$ and fixed ends, the eigenpairs are, for $k = 1, \ldots, n$,
 >
 > $$\lambda_k = 2 - 2\cos\!\left(\frac{k\pi}{n+1}\right), \qquad
 > (\mathbf{v}_k)_j = \sin\!\left(\frac{jk\pi}{n+1}\right).$$
@@ -248,7 +248,7 @@ plt.ylabel('gap to the true stretch')
 
 The preface made a promise that has been standing since its physics act: electron orbitals are a basis. Here is the payment, in this chapter's vocabulary.
 
-Quantum mechanics asks a linear question. The states of a confined particle are the eigenvectors of an operator, the Hamiltonian, and the energies it can hold are the eigenvalues. For the particle in a box, the textbook first case, the Hamiltonian is built from the second derivative, and you now know precisely what happens when the second derivative is discretized: it becomes $K$, and its eigenvectors are sines. The quantum states of a particle in a box are the standing waves of Figure 4.2, and their allowed energies follow the eigenvalue formula of Claim 4.4. That is not an analogy. It is the same matrix; the author's first research project was watching the Schrödinger equation collapse into exactly the eigenproblem Listing 4.2 solves.
+Quantum mechanics asks a linear question. The states of a confined particle are the eigenvectors of an operator, the Hamiltonian, and the energies it can hold are the eigenvalues. For the particle in a box, the textbook first case, the Hamiltonian is built from the second derivative, and you now know precisely what happens when the second derivative is discretized: it becomes $K$, and its eigenvectors are sines. The quantum states of a particle in a box are the standing waves of Figure 4.2, and their allowed energies follow the eigenvalue formula of Claim 4.3. That is not an analogy. It is the same matrix; the author's first research project was watching the Schrödinger equation collapse into exactly the eigenproblem Listing 4.2 solves.
 
 The hydrogen atom asks the same question with a rounder box. Its Hamiltonian's eigenvectors are the orbitals of every chemistry classroom, built from Laguerre polynomials dressed in spherical harmonics, and they form a basis of the atom's state space.[^singer] Every electron configuration is a linear combination of orbitals, which is to say: the atom has coordinates, and chemistry is bookkeeping in the atom's eigenbasis. In which combination of basis states does this electron lie. The preface's question, in its fourth costume, and this time the basis came from an eigenproblem.
 
@@ -256,14 +256,14 @@ The hydrogen atom asks the same question with a rounder box. Its Hamiltonian's e
 
 ## 4.6 Summary and exercises
 
-An eigenpair is a direction the verb cannot tangle and the stretch it applies there (Definition 4.1), and its defining equation is its own verification, which makes this chapter the license's home turf. Eigenvalues are the crush points of $A - \lambda I$ (Claim 4.2), found by the determinant windmill at hand scale and by iteration at real scale. With a full set of independent eigenvectors, the matrix diagonalizes, $A = X\Lambda X^{-1}$ (Claim 4.3), a change of basis into coordinates where the verb is just numbers, and repetition becomes arithmetic. The second difference matrix's eigenvectors are sines (Claim 4.4), exactly, which is the waves room, the Fourier series, and the particle in a box all speaking at once. The power method turns guess-and-check into the seed of every industrial eigensolver. And the orbitals promise is paid: the atom has an eigenbasis, and matter does its accounting in it.
+An eigenpair is a direction the verb cannot tangle and the stretch it applies there (Definition 4.1), and its defining equation is its own verification, which makes this chapter the license's home turf. Eigenvalues are the crush points of $A - \lambda I$ (Claim 4.1), found by the determinant windmill at hand scale and by iteration at real scale. With a full set of independent eigenvectors, the matrix diagonalizes, $A = X\Lambda X^{-1}$ (Claim 4.2), a change of basis into coordinates where the verb is just numbers, and repetition becomes arithmetic. The second difference matrix's eigenvectors are sines (Claim 4.3), exactly, which is the waves room, the Fourier series, and the particle in a box all speaking at once. The power method turns guess-and-check into the seed of every industrial eigensolver. And the orbitals promise is paid: the atom has an eigenbasis, and matter does its accounting in it.
 
 Part I ends here, with one loose thread left deliberately hanging: the eigen machinery loves square symmetric matrices best, and the most important square symmetric matrix in data science has not been built yet. It is made of randomness, and Part II starts building it.
 
 **Exercises**
 
 1. *(pencil)* Verify by multiply-and-check that $(5, (1, 2))$ is an eigenpair of $\begin{bmatrix} 1 & 2 \\ 4 & 3 \end{bmatrix}$. Then find the other eigenvalue with the determinant windmill and see its eigenvector from the null space.
-2. *(pencil)* The matrix $\begin{bmatrix} 3 & 0 \\ 0 & 7 \end{bmatrix}$ is already diagonal. Write its eigenpairs down without computing anything, and say what Claim 4.3's $X$ is.
+2. *(pencil)* The matrix $\begin{bmatrix} 3 & 0 \\ 0 & 7 \end{bmatrix}$ is already diagonal. Write its eigenpairs down without computing anything, and say what Claim 4.2's $X$ is.
 3. *(pencil)* Diagonalize $A = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$ from this chapter's worked pairs and compute $A^{10}$ by the eigenvalue shortcut. What number dominates, and why?
 4. *(pencil)* Show that if $\mathbf{v}$ is an eigenvector of $A$ with eigenvalue $\lambda$, then it is an eigenvector of $A^2$ and of $A + 5I$. With which eigenvalues?
 5. *(keyboard)* Rerun Listing 4.2 at $n = 500$ and check the eigenvalue formula at $k = 10$. Then plot eigenvector 10 and count its arches.

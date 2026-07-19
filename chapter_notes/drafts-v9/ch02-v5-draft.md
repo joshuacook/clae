@@ -84,7 +84,7 @@ That pair of facts is the whole entrance requirement. Any operation that respect
 
 Stop on that sentence, because it is the stone this chapter is built on. What did the exhibit actually show? A rule that eats a whole vector and returns a whole vector, computed by nothing but scalings and additions of the input's entries. The claim being made is that this shape of rule, input vector, output vector, arithmetic that never leaves Chapter 1's two moves, is what a matrix *is*, and the derivative was one citizen of the class, not a trick. Before any more examples, the class gets its formal name.
 
-> **Definition 2.3 (linear transformation).** A function $T$ from vectors to vectors is a **linear transformation** when $T(c\mathbf{x} + d\mathbf{y}) = c\,T(\mathbf{x}) + d\,T(\mathbf{y})$ for all vectors $\mathbf{x}, \mathbf{y}$ and weights $c, d$.
+> **Definition 2.1 (linear transformation).** A function $T$ from vectors to vectors is a **linear transformation** when $T(c\mathbf{x} + d\mathbf{y}) = c\,T(\mathbf{x}) + d\,T(\mathbf{y})$ for all vectors $\mathbf{x}, \mathbf{y}$ and weights $c, d$.
 
 In words, a linear transformation never disturbs a linear combination. Transform the inputs and the recipe carries over untouched. \lensmark{algebraic} Work one qualifying example and one failure, small enough to check at a desk. The doubling map $T(\mathbf{x}) = 2\mathbf{x}$ qualifies:
 
@@ -102,7 +102,7 @@ Double the input and the output quadruples. The recipe did not survive, so squar
 
 Here is the fact this chapter stands on, and it deserves its box early.
 
-> **Claim 2.4 (matrices are the linear transformations).** Every $m \times n$ matrix gives a linear transformation from $\mathbb{R}^n$ to $\mathbb{R}^m$ via $T(\mathbf{x}) = A\mathbf{x}$, and every linear transformation from $\mathbb{R}^n$ to $\mathbb{R}^m$ is given by exactly one such matrix: the matrix whose $j$-th column is $T(\mathbf{e}_j)$, the image of the $j$-th standard basis vector. **The columns of $A$ are where the basis vectors land.**
+> **Claim 2.1 (matrices are the linear transformations).** Every $m \times n$ matrix gives a linear transformation from $\mathbb{R}^n$ to $\mathbb{R}^m$ via $T(\mathbf{x}) = A\mathbf{x}$, and every linear transformation from $\mathbb{R}^n$ to $\mathbb{R}^m$ is given by exactly one such matrix: the matrix whose $j$-th column is $T(\mathbf{e}_j)$, the image of the $j$-th standard basis vector. **The columns of $A$ are where the basis vectors land.**
 >
 > Witness it on the stretch map that doubles the first axis and halves the second. It sends $\mathbf{e}_1 = (1, 0)$ to $(2, 0)$ and $\mathbf{e}_2 = (0, 1)$ to $(0, \tfrac{1}{2})$. Stack the two landing spots as columns and the matrix is built, no algebra spent. The one-breath reason it always works: every $\mathbf{x}$ is a recipe in the standard basis with its own entries as the weights, and a linear $T$ carries the recipe onto the landed vectors $T(\mathbf{e}_j)$.[^landing]
 
@@ -136,7 +136,7 @@ $D$'s landings tell the same story with utility attached. $D$ sends the spike $\
 
 The matrix-vector product is where the operator acts, and it reads two ways. Each reading answers a different question about the verb, and this section is the book's complete treatment of both, the treatment the preface deliberately left to it.
 
-> **Definition 2.5 (matrix-vector product, both views).** For an $m \times n$ matrix $A$ with columns $\mathbf{a}_1, \ldots, \mathbf{a}_n$ and rows $\mathbf{r}_1, \ldots, \mathbf{r}_m$, the product $A\mathbf{x}$ reads two ways. **By columns**, it is the linear combination $x_1\mathbf{a}_1 + \cdots + x_n\mathbf{a}_n$. **By rows**, its $i$-th entry is the dot product $\mathbf{r}_i \cdot \mathbf{x}$.
+> **Definition 2.2 (matrix-vector product, both views).** For an $m \times n$ matrix $A$ with columns $\mathbf{a}_1, \ldots, \mathbf{a}_n$ and rows $\mathbf{r}_1, \ldots, \mathbf{r}_m$, the product $A\mathbf{x}$ reads two ways. **By columns**, it is the linear combination $x_1\mathbf{a}_1 + \cdots + x_n\mathbf{a}_n$. **By rows**, its $i$-th entry is the dot product $\mathbf{r}_i \cdot \mathbf{x}$.
 
 \lensmark{algebraic} Work one product both ways. Take the $3 \times 2$ matrix and input
 
@@ -160,7 +160,7 @@ By columns, the output is a single linear combination, formed all at once:
 
 Same sixteen multiplications, same answer, different story.
 
-> **Claim 2.6 (the two views agree).** The row view and the column view compute the same vector.
+> **Claim 2.2 (the two views agree).** The row view and the column view compute the same vector.
 >
 > The one-breath reason: entry $i$ of the column view is $\sum_j x_j A_{ij}$, entry $i$ of the row view is $\sum_j A_{ij} x_j$, and the sums are identical term by term.
 
@@ -227,11 +227,11 @@ The drawing is Chapter 1's membership recipe, recomputed by a matrix, and that i
 
 The slab reading needs one piece of notation first, an operation that is bookkeeping rather than mathematics.
 
-> **Definition 2.6b (transpose).** The **transpose** $A^\mathsf{T}$ swaps rows for columns, $(A^\mathsf{T})_{ij} = A_{ji}$. For a column vector $\mathbf{u}$, the transpose $\mathbf{u}^\mathsf{T}$ is the same numbers laid on their side, so that $\mathbf{u}^\mathsf{T}\mathbf{v}$ is the preface's dot product written in matrix algebra. Its deeper roles arrive on schedule: Chapter 5 flips data matrices with it, Chapter 7 builds covariance from $Z^\mathsf{T}Z$, and Chapter 12 reveals it as the keeper of the subject's right angles. Until then it is notation, and honest about it.
+> **Definition 2.3 (transpose).** The **transpose** $A^\mathsf{T}$ swaps rows for columns, $(A^\mathsf{T})_{ij} = A_{ji}$. For a column vector $\mathbf{u}$, the transpose $\mathbf{u}^\mathsf{T}$ is the same numbers laid on their side, so that $\mathbf{u}^\mathsf{T}\mathbf{v}$ is the preface's dot product written in matrix algebra. Its deeper roles arrive on schedule: Chapter 5 flips data matrices with it, Chapter 7 builds covariance from $Z^\mathsf{T}Z$, and Chapter 12 reveals it as the keeper of the subject's right angles. Until then it is notation, and honest about it.
 
 With rows purchasable from columns, the third reading of a product earns its definition.
 
-> **Definition 2.7 (outer product).** The **outer product** of a column $\mathbf{u}$ in $\mathbb{R}^m$ and a column $\mathbf{v}$ in $\mathbb{R}^n$ is the $m \times n$ matrix $\mathbf{u}\mathbf{v}^{\mathsf{T}}$ with entries $u_i v_j$: every entry of one vector times every entry of the other, a full matrix built from two lists. Each column of $\mathbf{u}\mathbf{v}^{\mathsf{T}}$ is a multiple of $\mathbf{u}$, so the outer product is the most concentrated matrix there is, one direction's worth of content spread across a rectangle.
+> **Definition 2.4 (outer product).** The **outer product** of a column $\mathbf{u}$ in $\mathbb{R}^m$ and a column $\mathbf{v}$ in $\mathbb{R}^n$ is the $m \times n$ matrix $\mathbf{u}\mathbf{v}^{\mathsf{T}}$ with entries $u_i v_j$: every entry of one vector times every entry of the other, a full matrix built from two lists. Each column of $\mathbf{u}\mathbf{v}^{\mathsf{T}}$ is a multiple of $\mathbf{u}$, so the outer product is the most concentrated matrix there is, one direction's worth of content spread across a rectangle.
 
 \lensmark{algebraic} The third way reads a *matrix-matrix* product as a sum of these slabs, one per column-row pair, and it collapses the matrix-vector product back to the column view: writing $A = \sum_j \mathbf{a}_j\mathbf{e}_j^{\mathsf{T}}$ slab by slab,
 
@@ -245,9 +245,9 @@ each slab reads off one weight and contributes one scaled column. Three ways, on
 
 Multiplying two matrices answers a natural question. What single action equals doing $B$, then doing $A$? This is the operation the preface's opening quiz was really about, and it now gets the full account: the definition, why it is exactly composition, and the three ways to read one product.
 
-> **Definition 2.8 (matrix-matrix product).** The product $AB$ is the matrix whose $j$-th column is $A$ applied to the $j$-th column of $B$. It is built precisely so that $(AB)\mathbf{x} = A(B\mathbf{x})$ for every $\mathbf{x}$: the matrix of the composed transformation.
+> **Definition 2.5 (matrix-matrix product).** The product $AB$ is the matrix whose $j$-th column is $A$ applied to the $j$-th column of $B$. It is built precisely so that $(AB)\mathbf{x} = A(B\mathbf{x})$ for every $\mathbf{x}$: the matrix of the composed transformation.
 
-> **Claim 2.9 (composition works).** With $AB$ as defined, $(AB)\mathbf{x} = A(B\mathbf{x})$ for all $\mathbf{x}$, and matrix multiplication is associative.
+> **Claim 2.3 (composition works).** With $AB$ as defined, $(AB)\mathbf{x} = A(B\mathbf{x})$ for all $\mathbf{x}$, and matrix multiplication is associative.
 >
 > The one-breath reason: $B\mathbf{x}$ is a combination of $B$'s columns with recipe $\mathbf{x}$. Apply $A$, and linearity carries the recipe onto the vectors $A\mathbf{b}_j$, which are the columns of $AB$. Associativity is inherited from function composition, which never cared about parentheses.[^doublesum]
 
@@ -268,7 +268,7 @@ AB = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 5 & 6 \\ 7 & 8 
 (AB)_{21} &= 3 \cdot 5 + 4 \cdot 7 = 43, & (AB)_{22} &= 3 \cdot 6 + 4 \cdot 8 = 50
 \end{align}
 
-This is how everyone is taught to compute, and it is the least illuminating reading. Sixteen multiplications, no story. **Column by column**, $A$ acts on each column of $B$, exactly Definition 2.8: each column of the answer is $A$'s columns combined by that column of $B$:
+This is how everyone is taught to compute, and it is the least illuminating reading. Sixteen multiplications, no story. **Column by column**, $A$ acts on each column of $B$, exactly Definition 2.5: each column of the answer is $A$'s columns combined by that column of $B$:
 
 \begin{align}
 \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 5 \\ 7 \end{bmatrix}
@@ -340,7 +340,7 @@ plt.legend()
 
 \lensmark{geometric} To read a verb you watch what it does, and the probe this book uses is the preface's unit circle. Feed every direction in the catalog through the matrix and see where the catalog lands.
 
-The first verb to watch is one Claim 2.4 already built. A **diagonal matrix** stretches each axis by its own factor, and the diagonal entries are the factors. It is the plainest verb there is, and it is nowhere near a toy. Standardizing a dataset is multiplication by a diagonal matrix (Section 2.7), and Chapter 4 will take a well-behaved matrix apart into a diagonal heart wearing a change of basis. The second verb is the one the whole book is aimed at. Listing 2.9 builds the circle and both matrices, and verifies each fate numerically before the drawing.
+The first verb to watch is one Claim 2.1 already built. A **diagonal matrix** stretches each axis by its own factor, and the diagonal entries are the factors. It is the plainest verb there is, and it is nowhere near a toy. Standardizing a dataset is multiplication by a diagonal matrix (Section 2.7), and Chapter 4 will take a well-behaved matrix apart into a diagonal heart wearing a change of basis. The second verb is the one the whole book is aimed at. Listing 2.9 builds the circle and both matrices, and verifies each fate numerically before the drawing.
 
 **Listing 2.9 (two verbs, verified)**
 
@@ -425,11 +425,11 @@ The leftover is the residual, and it comes out perpendicular:
 
 The shadow lies on the line. The residual runs perpendicularly from the shadow up to $\mathbf{v}$. Only now, with the picture seen and the numbers worked, does the formula arrive, and Section 2.2 already paid for its notation: the score is $\mathbf{u}^\mathsf{T}\mathbf{v}$, the calibration is $\mathbf{u}^\mathsf{T}\mathbf{u}$, and the whole verb is one slab.
 
-> **Definition 2.10 (orthogonal projection onto a line).** The **projection** onto the line of a nonzero vector $\mathbf{u}$ sends each vector to its shadow, $P\mathbf{v} = \dfrac{\mathbf{u} \cdot \mathbf{v}}{\mathbf{u} \cdot \mathbf{u}}\,\mathbf{u}$, with matrix $P = \dfrac{\mathbf{u}\mathbf{u}^\mathsf{T}}{\mathbf{u}^\mathsf{T}\mathbf{u}}$: score, calibrate, stretch. Chapter 12 will prove the shadow is the *closest* point of the line. This chapter proves the two properties below.
+> **Definition 2.6 (orthogonal projection onto a line).** The **projection** onto the line of a nonzero vector $\mathbf{u}$ sends each vector to its shadow, $P\mathbf{v} = \dfrac{\mathbf{u} \cdot \mathbf{v}}{\mathbf{u} \cdot \mathbf{u}}\,\mathbf{u}$, with matrix $P = \dfrac{\mathbf{u}\mathbf{u}^\mathsf{T}}{\mathbf{u}^\mathsf{T}\mathbf{u}}$: score, calibrate, stretch. Chapter 12 will prove the shadow is the *closest* point of the line. This chapter proves the two properties below.
 
 The hand computation above already previewed both.
 
-> **Claim 2.11 (what makes a projection a projection).** $P^2 = P$ (projecting twice is projecting once), and for every $\mathbf{v}$ the residual $\mathbf{v} - P\mathbf{v}$ is orthogonal to $\mathbf{u}$.
+> **Claim 2.4 (what makes a projection a projection).** $P^2 = P$ (projecting twice is projecting once), and for every $\mathbf{v}$ the residual $\mathbf{v} - P\mathbf{v}$ is orthogonal to $\mathbf{u}$.
 >
 > The one-breath reason: $\mathbf{u}^\mathsf{T}\mathbf{u}$ is a scalar, so the inner factors of $P^2$ collapse and $P^2 = P$. And the residual's dot product with $\mathbf{u}$ cancels exactly, as the worked example just showed at desk scale.[^projalgebra]
 
@@ -476,7 +476,7 @@ Look at Figure 2.8 for a moment longer than it seems to deserve. A vector, its s
 
 The projection also does something no operator so far has done in the open: it destroys. Every vector perpendicular to $\mathbf{u}$ projects to the zero vector, an entire direction flattened to nothing. The set of everything an operator destroys is a fundamental object, and it gets its name here, at the first operator caught destroying.
 
-> **Definition 2.14 (null space).** The **null space** of a matrix $A$ is the set of all vectors it sends to zero, every $\mathbf{x}$ with $A\mathbf{x} = \mathbf{0}$. It always contains $\mathbf{0}$ itself; anything more means the matrix maps two different inputs to one output, since $A\mathbf{x} = A(\mathbf{x} + \mathbf{z})$ whenever $A\mathbf{z} = \mathbf{0}$.
+> **Definition 2.7 (null space).** The **null space** of a matrix $A$ is the set of all vectors it sends to zero, every $\mathbf{x}$ with $A\mathbf{x} = \mathbf{0}$. It always contains $\mathbf{0}$ itself; anything more means the matrix maps two different inputs to one output, since $A\mathbf{x} = A(\mathbf{x} + \mathbf{z})$ whenever $A\mathbf{z} = \mathbf{0}$.
 
 Chapter 1's two spaces now both sit inside this one operator, and it is worth saying plainly. The column space of $P$ is the line of $\mathbf{u}$, everything the projection can output. The null space of $P$ is the perpendicular line, everything the projection kills. Output space and destroyed space, reach and loss, and the next section shows that the second one decides whether an operator can ever be run backwards. Chapter 3 will measure both spaces and prove their dimensions balance.
 
@@ -484,9 +484,9 @@ Chapter 1's two spaces now both sit inside this one operator, and it is worth sa
 
 Some operators can be run backwards and some cannot, and the difference is the deepest fact in this chapter. Two definitions set it up.
 
-> **Definition 2.15 (identity matrix).** The **identity** $I$ has ones on the diagonal and zeros elsewhere. It is the operator that changes nothing: $I\mathbf{x} = \mathbf{x}$ for every $\mathbf{x}$. Check it with Claim 2.4: it sends every $\mathbf{e}_j$ to itself, so its columns are the standard basis.
+> **Definition 2.8 (identity matrix).** The **identity** $I$ has ones on the diagonal and zeros elsewhere. It is the operator that changes nothing: $I\mathbf{x} = \mathbf{x}$ for every $\mathbf{x}$. Check it with Claim 2.1: it sends every $\mathbf{e}_j$ to itself, so its columns are the standard basis.
 
-> **Definition 2.16 (inverse).** A square matrix $A$ is **invertible** when there is a matrix $A^{-1}$, the **inverse** of $A$, with $A^{-1}A = I$. Applying $A$ and then $A^{-1}$ returns every input unchanged: inversion composes with the operator to give the identity.
+> **Definition 2.9 (inverse).** A square matrix $A$ is **invertible** when there is a matrix $A^{-1}$, the **inverse** of $A$, with $A^{-1}A = I$. Applying $A$ and then $A^{-1}$ returns every input unchanged: inversion composes with the operator to give the identity.
 
 The difference matrix makes inversion concrete. What operation reverses taking differences? Taking running sums. \lensmark{algebraic} Watch it on one vector first:
 
@@ -512,9 +512,9 @@ Read the product by the column view: $S_3$ applied to each column of $A_3$, and 
 
 [^telescope]: The name comes from the collapsible telescope: each section slides into the next, and only the two ends survive. In symbols, $\sum_{i=1}^{k} (x_i - x_{i-1}) = x_k - x_0$, every interior term entering once with each sign.
 
-> **Claim 2.17 (the inverse of differencing is summing).** The inverse of the first-difference matrix $A_3$ is the running-sum matrix $S_3$, the lower triangle of ones.
+> **Claim 2.5 (the inverse of differencing is summing).** The inverse of the first-difference matrix $A_3$ is the running-sum matrix $S_3$, the lower triangle of ones.
 >
-> The proof is the display above: $S_3 A_3 = I$, each column a telescoping sum collapsing to a standard basis vector, and Definition 2.16 asks for nothing else.
+> The proof is the display above: $S_3 A_3 = I$, each column a telescoping sum collapsing to a standard basis vector, and Definition 2.9 asks for nothing else.
 
 \lensmark{computational} Listing 2.12 asks NumPy for the inverse and confirms both the matrix and the roundtrip.
 
@@ -555,7 +555,7 @@ for ax, (name, v) in zip(axes, stages):
 
 When does an inverse exist at all? Exactly when the operator destroys no information, and Section 2.5 built the object that measures destruction.
 
-> **Claim 2.18 (invertibility and the null space).** A square matrix is invertible exactly when its null space is $\{\mathbf{0}\}$.
+> **Claim 2.6 (invertibility and the null space).** A square matrix is invertible exactly when its null space is $\{\mathbf{0}\}$.
 >
 > If the null space holds a nonzero $\mathbf{z}$, then $A$ sends $\mathbf{x}$ and $\mathbf{x} + \mathbf{z}$ to the same output, no matrix can tell the two apart afterward, and no inverse can exist. If the null space is trivial, the columns are independent (a dependence with live weights would be a nonzero null-space vector), $n$ independent columns in $\mathbb{R}^n$ are a basis, and every target is reached by exactly one input; the map from each target back to its input is $A^{-1}$.
 
@@ -563,23 +563,23 @@ The projection of Section 2.5 fails this test on the spot: its null space is a w
 
 ## 2.7 Summary and exercises
 
-A matrix is an operator, and this chapter read the operator completely. The verb worked first ($D$ took a derivative, row by row the difference quotient), then the property that made it possible got its name, linearity, and Claim 2.4 made the name usable: the columns are where the basis vectors land. The product carries the action, rows to compute, columns to understand (Chapter 1's combination, drawn tip to tail), and composition is matrix multiplication, read three ways and witnessed by differencing twice into $K$. Two named operators join the permanent kit: the diagonal matrix, which scales each axis independently, and the projection, idempotent with an orthogonal residual (Claim 2.11), load-bearing for Chapters 11 and 12.
+A matrix is an operator, and this chapter read the operator completely. The verb worked first ($D$ took a derivative, row by row the difference quotient), then the property that made it possible got its name, linearity, and Claim 2.1 made the name usable: the columns are where the basis vectors land. The product carries the action, rows to compute, columns to understand (Chapter 1's combination, drawn tip to tail), and composition is matrix multiplication, read three ways and witnessed by differencing twice into $K$. Two named operators join the permanent kit: the diagonal matrix, which scales each axis independently, and the projection, idempotent with an orthogonal residual (Claim 2.4), load-bearing for Chapters 11 and 12.
 
-The projection also destroyed a direction in the open, and the set of everything an operator destroys got its name, the null space (Definition 2.14). Inversion closed the chapter: $S_3 A_3 = I$ with each column a telescoping sum, and a square matrix has an inverse exactly when its null space is trivial (Claim 2.18), which is Chapter 1's uniqueness standing guard over information.
+The projection also destroyed a direction in the open, and the set of everything an operator destroys got its name, the null space (Definition 2.7). Inversion closed the chapter: $S_3 A_3 = I$ with each column a telescoping sum, and a square matrix has an inverse exactly when its null space is trivial (Claim 2.6), which is Chapter 1's uniqueness standing guard over information.
 
 Chapter 3 builds the solving machine: by inspection under the license, elimination owned and read as a factorization, and the dimensions of the column space and null space proved to balance. Chapter 5 brings the matrix's second identity, the dataset. And $K$ is packed and waiting for Chapter 4, carrying a set of directions it refuses to tangle.
 
 **Exercises**
 
 1. *(pencil)* Compute `A3 @ x` for `x = (1, 4, 9)` both ways: rows as dot products, columns as a combination. Confirm you recover `(1, 3, 5)`.
-2. *(pencil)* The shift matrix sends $\mathbf{e}_1 \to \mathbf{e}_2$, $\mathbf{e}_2 \to \mathbf{e}_3$, and $\mathbf{e}_3 \to \mathbf{0}$. Use Claim 2.4 to write it without any algebra, then say what it does to a sampled signal.
+2. *(pencil)* The shift matrix sends $\mathbf{e}_1 \to \mathbf{e}_2$, $\mathbf{e}_2 \to \mathbf{e}_3$, and $\mathbf{e}_3 \to \mathbf{0}$. Use Claim 2.1 to write it without any algebra, then say what it does to a sampled signal.
 3. *(keyboard)* Build the forward-difference matrix `D` for `n = 10_000` and measure `max |D @ sin - cos|` again. The grid tightened tenfold. What happened to the error, and why does the symbolic computation of Section 2.2 predict it?
-4. *(pencil)* Write out $(AB)\mathbf{x}$ and $A(B\mathbf{x})$ as double sums for $2 \times 2$ matrices and confirm they match, completing the argument of Claim 2.9. Once is enough.
+4. *(pencil)* Write out $(AB)\mathbf{x}$ and $A(B\mathbf{x})$ as double sums for $2 \times 2$ matrices and confirm they match, completing the argument of Claim 2.3. Once is enough.
 5. *(pencil, then keyboard)* Compose the forward difference with itself, $D_f D_f$, by hand on a 4-vector. Compare the stencil you get to $K$'s, and explain the shift. Check yourself in code.
-6. *(pencil)* Show that $P = \mathbf{u}\mathbf{u}^\mathsf{T}/(\mathbf{u}^\mathsf{T}\mathbf{u})$ is symmetric ($P^\mathsf{T} = P$), the property Claim 2.11 did not use. One line, using $(\mathbf{u}\mathbf{u}^\mathsf{T})^\mathsf{T} = \mathbf{u}\mathbf{u}^\mathsf{T}$.
+6. *(pencil)* Show that $P = \mathbf{u}\mathbf{u}^\mathsf{T}/(\mathbf{u}^\mathsf{T}\mathbf{u})$ is symmetric ($P^\mathsf{T} = P$), the property Claim 2.4 did not use. One line, using $(\mathbf{u}\mathbf{u}^\mathsf{T})^\mathsf{T} = \mathbf{u}\mathbf{u}^\mathsf{T}$.
 7. *(pencil)* Project $(1, 5)$ onto the line of $(2, 1)$ by hand: score, calibrate, stretch, in an align of your own. Then verify the residual is orthogonal, and sketch the three arrows.
-8. *(pencil)* Exhibit a nonzero vector in the null space of $\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$, and describe the whole null space in one sentence. Which standing question does it kill, for which targets does the other one fail, and what does Claim 2.18 conclude about inversion?
-9. *(pencil)* Write the projection matrix onto the line of $(2, 1)$ as a single slab, one outer product divided by one scalar, and confirm it matches Definition 2.10's formula entry by entry.
-10. *(pencil)* Compute the null space of the projection matrix onto the line of $(2, 1)$: exhibit the direction it kills, verify $P$ sends it to zero, and conclude from Claim 2.18 whether $P$ is invertible.
+8. *(pencil)* Exhibit a nonzero vector in the null space of $\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$, and describe the whole null space in one sentence. Which standing question does it kill, for which targets does the other one fail, and what does Claim 2.6 conclude about inversion?
+9. *(pencil)* Write the projection matrix onto the line of $(2, 1)$ as a single slab, one outer product divided by one scalar, and confirm it matches Definition 2.6's formula entry by entry.
+10. *(pencil)* Compute the null space of the projection matrix onto the line of $(2, 1)$: exhibit the direction it kills, verify $P$ sends it to zero, and conclude from Claim 2.6 whether $P$ is invertible.
 11. *(keyboard, curiosity)* The two views have a speed. Time the row view against the column view of Listing 2.5 on a large random matrix, and explain the gap with the memory-address footnote of Section 2.2.
 12. *(keyboard, bridge → Ch 4)* Apply `K` to a sampled sine, `np.sin(3 * x)`, and to a random vector of the same length. Compare each output to its input. Which one came back as a scaled copy of itself, and by what factor? You have just met an eigenvector, and Chapter 4 makes it official.

@@ -134,7 +134,7 @@ The two operations are on the table. The next move is the agreement that makes t
 
 The transition from one operation to a whole subject runs through a single agreement. Here is the space it happens in, defined before the rules it obeys.
 
-> **Definition 1.4 (vector space, working version).** A **vector space** is a set $S$ of vectors closed under the two operations:[^axioms]
+> **Definition 1.2 (vector space, working version).** A **vector space** is a set $S$ of vectors closed under the two operations:[^axioms]
 >
 > - **Closure under scaling.** For every vector $\mathbf{v}$ in $S$ and every number $c$, the vector $c\mathbf{v}$ is in $S$.
 >
@@ -168,15 +168,15 @@ On numbers, take $\mathbf{x} = (1, 2)$ and $\mathbf{y} = (3, 1)$ in $\mathbb{R}^
 
 Scale $\mathbf{x}$, walk $\mathbf{y}$ from its tip, and the combination is the arrow to where you land. Every step stayed on the page, which is the picture's way of saying every step stayed in the vector space.
 
-Repeat the two moves and every linear combination of vectors in $S$ lands in $S$. Two clauses in, the whole of Definition 1.2 out. And what the two clauses buy is out of all proportion to their price, because linearity is the assumption behind every incantation this book will teach. Assume it, and here are the spells, a sampling of what linearity enables rather than the whole grimoire, in the order the book casts them: axpy at compiled speed (this chapter), the fact that electron orbitals are a basis (Chapter 4), the directions that carry a dataset's variation (Chapter 11), regression (Chapter 12), and Fourier analysis (Chapter 14). Each one is the same small set of moves applied to a new family of objects that kept the two clauses.
+Repeat the two moves and every linear combination of vectors in $S$ lands in $S$. Two clauses in, the whole of Definition 1.3 out. And what the two clauses buy is out of all proportion to their price, because linearity is the assumption behind every incantation this book will teach. Assume it, and here are the spells, a sampling of what linearity enables rather than the whole grimoire, in the order the book casts them: axpy at compiled speed (this chapter), the fact that electron orbitals are a basis (Chapter 4), the directions that carry a dataset's variation (Chapter 11), regression (Chapter 12), and Fourier analysis (Chapter 14). Each one is the same small set of moves applied to a new family of objects that kept the two clauses.
 
 ## 1.2 The linear combination
 
 Now the operation. Modern artificial intelligence, and the video gaming industry whose graphics hardware it borrowed, rests on a single, simple move. Scale a vector by a number, and add it to another vector.[^llm] That is the whole of the operation, and it carries its name into a definition.
 
-[^llm]: The claim is not rhetorical. A language model, underneath the chat window, is arithmetic at colossal scale: numbers organized into long lists, the lists scaled, the scaled lists added. Architectures turn over every few years and the operation does not. The recurrent networks that read text one word at a time carried a running summary forward, scaling what they held and adding what they read. The paper that retired them is titled "Attention Is All You Need," and attention is a weighted sum of vectors, which is Definition 1.2. The architecture died. The operation is still here.
+[^llm]: The claim is not rhetorical. A language model, underneath the chat window, is arithmetic at colossal scale: numbers organized into long lists, the lists scaled, the scaled lists added. Architectures turn over every few years and the operation does not. The recurrent networks that read text one word at a time carried a running summary forward, scaling what they held and adding what they read. The paper that retired them is titled "Attention Is All You Need," and attention is a weighted sum of vectors, which is Definition 1.3. The architecture died. The operation is still here.
 
-> **Definition 1.2 (linear combination, weights).** A **linear combination** of vectors $\mathbf{v}_1, \ldots, \mathbf{v}_k$ is
+> **Definition 1.3 (linear combination, weights).** A **linear combination** of vectors $\mathbf{v}_1, \ldots, \mathbf{v}_k$ is
 >
 > \begin{align}
 > c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \cdots + c_k\mathbf{v}_k,
@@ -190,7 +190,7 @@ Concretely, in $\mathbb{R}^3$, $2\,(1, 0, 2) + 3\,(3, -1, 4) = (2, 0, 4) + (9, -
 
 Hold $\mathbf{v}$ and $\mathbf{w}$ fixed, and let the weights range over every value they can take. What do you get?
 
-> **Definition 1.5 (span).** The **span** of a set of vectors is the collection of all their linear combinations.
+> **Definition 1.4 (span).** The **span** of a set of vectors is the collection of all their linear combinations.
 
 \lensmark{geometric} The degenerate case first, drawn before computed. If $\mathbf{w}$ already lies on $\mathbf{v}$'s line, say $\mathbf{w} = 2\mathbf{v}$, then no combination ever leaves that line:
 
@@ -256,11 +256,11 @@ plt.show()
 
 Membership in a span is a concrete question. Is $\mathbf{b} = (4, 7)$ in the span of $\mathbf{v} = (2, 1)$ and $\mathbf{w} = (1, 3)$? Is the point inside the swept patch or off it? Hold the question. It is the most important one in this book, it has two halves with names, and it gets its own section once the vocabulary for answering it is complete.
 
-> **Definition 1.6 (subspace).** A **subspace** is a set of vectors that contains the origin[^origin] and is closed under scaling and addition. It is a vector space living inside a larger one.
+> **Definition 1.5 (subspace).** A **subspace** is a set of vectors that contains the origin[^origin] and is closed under scaling and addition. It is a vector space living inside a larger one.
 
 [^origin]: Why the origin is not optional: scaling by $c = 0$ is allowed, and it sends every vector to $\mathbf{0}$. A set closed under scaling therefore already contains the origin, so demanding it costs nothing. What it buys is a shared anchor. Every subspace of $\mathbb{R}^n$ passes through one common point, and every drawing in this book hangs off it.
 
-> **Claim 1.7 (a span is a subspace).** The span of any set of vectors is a subspace.
+> **Claim 1.1 (a span is a subspace).** The span of any set of vectors is a subspace.
 >
 > The proof is two lines, so here it is whole. Scaling: $a(c_1\mathbf{v}_1 + \cdots + c_k\mathbf{v}_k) = (ac_1)\mathbf{v}_1 + \cdots + (ac_k)\mathbf{v}_k$, a combination. Adding: two combinations add weight by weight into one combination. All-zero weights give the origin, and both closure clauses hold. ∎[^footnotes]
 >
@@ -270,7 +270,7 @@ Membership in a span is a concrete question. Is $\mathbf{b} = (4, 7)$ in the spa
 
 The drawings above are more general than they look, and that is their purpose. Two vectors span at most a plane, in three dimensions, in 1,460, in a googol. The reach of a span is set by how many vectors you combine, never by the size of the space they live in.[^precise] So every question this book asks about two vectors happens inside the at-most-a-plane they span, and a drawing on this page is exact for the 1,460-dimensional case. Nobody can picture $\mathbb{R}^{1460}$, and nobody needs to.
 
-[^precise]: The precise statement is Claim 1.13, once dimension is on the table.
+[^precise]: The precise statement is Claim 1.3, once dimension is on the table.
 
 \lensmark{data} The data lens will point this machinery at measurements the moment Part II supplies them. A dataset's feature columns are vectors, their span is every prediction a linear model over those features can make, and whether an observed target column lies in that span is an existence question with consequences. Chapter 5 assembles the dataset; Chapter 12 lives inside this exact question.
 
@@ -290,7 +290,7 @@ Take the plane spanned by two vectors and bring in a third. \lensmark{geometric}
 \caption{A third vector either lands in the plane the first two span, and the span does not grow, or points out of it, and combinations of the three fill space.}
 \end{figure}
 
-> **Definition 1.8 (linear independence).** A set of vectors is **linearly independent** when none of them is a linear combination of the others.[^zerotest]
+> **Definition 1.6 (linear independence).** A set of vectors is **linearly independent** when none of them is a linear combination of the others.[^zerotest]
 
 [^zerotest]: The equivalent test is usually easier to run. The only combination equal to the zero vector is the one with every weight zero. The two phrasings convert by moving one vector across the equals sign, exactly the maneuver the dependent-triple computation below performs in reverse.
 
@@ -330,23 +330,23 @@ ax.legend(); plt.show()
 
 > **Figure 1.12.** The span cloud of $\mathbf{v} = (2,1)$ and $\mathbf{w} = (1,3)$ with the third vector $\mathbf{u} = (4,7)$ drawn on top. The tip of $\mathbf{u}$ sits inside the swept patch. It is reachable, the triple is dependent, and the span did not grow.
 
-> **Definition 1.9 (basis, dimension).** A **basis** of a subspace is a linearly independent set that spans it. All bases of a given subspace have the same size,[^samesize] and that shared size is the subspace's **dimension**.
+> **Definition 1.7 (basis, dimension).** A **basis** of a subspace is a linearly independent set that spans it. All bases of a given subspace have the same size,[^samesize] and that shared size is the subspace's **dimension**.
 
 [^samesize]: A theorem, not an observation. The standard argument swaps the vectors of one basis into the other one at a time without losing the span, so an independent set can never outnumber a spanning set. Axler ch. 2 or Strang ch. 3 for the bookkeeping.
 
-> **Claim 1.10 (unique recipe).** If $\mathbf{b}_1, \ldots, \mathbf{b}_k$ is a basis, every vector in its span is a combination of the basis in exactly one way.
+> **Claim 1.2 (unique recipe).** If $\mathbf{b}_1, \ldots, \mathbf{b}_k$ is a basis, every vector in its span is a combination of the basis in exactly one way.
 >
 > Witness it small. The set $\{(1, 0), (1, 1)\}$ is a basis of $\mathbb{R}^2$. To build $(3, 5)$, the second entry forces the weight on $(1, 1)$ to be $5$. The first entry then forces the weight on $(1, 0)$ to be $-2$. Forced twice over, no other recipe exists.
 >
 > The reason it always works is one subtraction. Suppose $c_1\mathbf{b}_1 + \cdots + c_k\mathbf{b}_k$ and $d_1\mathbf{b}_1 + \cdots + d_k\mathbf{b}_k$ build the same vector. Subtract them: $(c_1 - d_1)\mathbf{b}_1 + \cdots + (c_k - d_k)\mathbf{b}_k = \mathbf{0}$. Independence allows only the trivial solution, so $c_i = d_i$ for every $i$, and the two recipes were one recipe all along.
 
-**The license.** Claim 1.10 has a methodological consequence, and it is large enough to state on its own. When a solution is unique, any procedure that produces a verified candidate has produced the solution. The logic is airtight: the verified candidate is a solution, the solution is one of a kind, therefore the candidate is it. This turns solving **by inspection**, producing a candidate by direct examination rather than by procedure, into a rigorous method.
+**The license.** Claim 1.2 has a methodological consequence, and it is large enough to state on its own. When a solution is unique, any procedure that produces a verified candidate has produced the solution. The logic is airtight: the verified candidate is a solution, the solution is one of a kind, therefore the candidate is it. This turns solving **by inspection**, producing a candidate by direct examination rather than by procedure, into a rigorous method.
 
 Produce a candidate however you like. Verify it. Uniqueness closes the argument. The underived recipe above was legitimate for exactly this reason, and Jim opened his first lecture with uniqueness, before teaching any solving at all, because the license has to exist before any fast method is legal. Chapter 3 builds this into a working discipline.
 
-> **Definition 1.11 (coordinates).** The **coordinates** of a vector with respect to a basis are the unique weights of its recipe in that basis.
+> **Definition 1.8 (coordinates).** The **coordinates** of a vector with respect to a basis are the unique weights of its recipe in that basis.
 
-> **Definition 1.12 (standard basis).** The **standard basis** of $\mathbb{R}^n$ is $\mathbf{e}_1, \ldots, \mathbf{e}_n$, where $\mathbf{e}_j$ has a one in entry $j$ and zeros elsewhere. In $\mathbb{R}^3$: $\mathbf{e}_1 = (1, 0, 0)$, $\mathbf{e}_2 = (0, 1, 0)$, $\mathbf{e}_3 = (0, 0, 1)$.
+> **Definition 1.9 (standard basis).** The **standard basis** of $\mathbb{R}^n$ is $\mathbf{e}_1, \ldots, \mathbf{e}_n$, where $\mathbf{e}_j$ has a one in entry $j$ and zeros elsewhere. In $\mathbb{R}^3$: $\mathbf{e}_1 = (1, 0, 0)$, $\mathbf{e}_2 = (0, 1, 0)$, $\mathbf{e}_3 = (0, 0, 1)$.
 
 Now the payoff. A basis spans, so every vector is a combination of it. A basis is independent, so that combination is unique. The unique weights are the coordinates. \lensmark{algebraic} Apply that to the standard basis and watch a plain list of numbers come apart:
 
@@ -358,7 +358,7 @@ Now the payoff. A basis spans, so every vector is a combination of it. A basis i
 
 The list $(5, -2, 7)$ was $5\mathbf{e}_1 - 2\mathbf{e}_2 + 7\mathbf{e}_3$ all along. The list was never the vector; it was the recipe, written in a basis so familiar we forgot it was a choice.
 
-> **Claim 1.13 (span of the question).** The span of $k$ vectors is a subspace of dimension at most $k$, whatever the dimension of the ambient space.[^ambient]
+> **Claim 1.3 (span of the question).** The span of $k$ vectors is a subspace of dimension at most $k$, whatever the dimension of the ambient space.[^ambient]
 >
 > The one-breath reason: if the $k$ vectors are independent they are a basis of their span, and the dimension is exactly $k$. If not, discarding dependent vectors one at a time never shrinks the span and only lowers the count, because a dependent vector was already a combination of the others.
 
@@ -388,13 +388,13 @@ Every solving question in this book, from the two-line systems below to the hous
 
 Both questions are questions about the span, and each has a home there with a name.
 
-> **Definition 1.14 (rank).** The **rank** of a set of vectors is the dimension of its span, the number of independent directions the set actually delivers.
+> **Definition 1.10 (rank).** The **rank** of a set of vectors is the dimension of its span, the number of independent directions the set actually delivers.
 
-> **Definition 1.15 (column space).** The **column space** of a matrix is the span of its columns. It is where existence lives: $A\mathbf{x} = \mathbf{b}$ has a solution exactly when $\mathbf{b}$ is in the column space, because $A\mathbf{x}$ *is* a combination of the columns with recipe $\mathbf{x}$.
+> **Definition 1.11 (column space).** The **column space** of a matrix is the span of its columns. It is where existence lives: $A\mathbf{x} = \mathbf{b}$ has a solution exactly when $\mathbf{b}$ is in the column space, because $A\mathbf{x}$ *is* a combination of the columns with recipe $\mathbf{x}$.
 
-Existence, then, is geometry: is the target inside the reach, or outside it? Uniqueness is Section 1.4's dichotomy wearing solving clothes: independent columns give one recipe per reachable target (Claim 1.10), dependent columns give a family. Chapter 2 will name the space where uniqueness dies, at the first operator caught destroying, and Chapter 3 will measure it. Here, work the geometry until both questions draw themselves.
+Existence, then, is geometry: is the target inside the reach, or outside it? Uniqueness is Section 1.4's dichotomy wearing solving clothes: independent columns give one recipe per reachable target (Claim 1.2), dependent columns give a family. Chapter 2 will name the space where uniqueness dies, at the first operator caught destroying, and Chapter 3 will measure it. Here, work the geometry until both questions draw themselves.
 
-\lensmark{algebraic} **Existence, both ways.** The pair $\mathbf{v} = (2, 1)$, $\mathbf{w} = (1, 3)$ is independent, rank 2, so its span is all of $\mathbb{R}^2$ and existence holds for *every* target. The recipe reaching $\mathbf{b} = (4, 7)$ was exhibited and verified in Section 1.4, and by Claim 1.10 it is the only one: existence and uniqueness both answered yes. Now break existence. Keep $\mathbf{v} = (2, 1)$ but replace $\mathbf{w}$ with $(4, 2) = 2\mathbf{v}$. The pair is dependent, rank 1, and the span collapses to $\mathbf{v}$'s line. Ask for $\mathbf{b} = (4, 7)$:
+\lensmark{algebraic} **Existence, both ways.** The pair $\mathbf{v} = (2, 1)$, $\mathbf{w} = (1, 3)$ is independent, rank 2, so its span is all of $\mathbb{R}^2$ and existence holds for *every* target. The recipe reaching $\mathbf{b} = (4, 7)$ was exhibited and verified in Section 1.4, and by Claim 1.2 it is the only one: existence and uniqueness both answered yes. Now break existence. Keep $\mathbf{v} = (2, 1)$ but replace $\mathbf{w}$ with $(4, 2) = 2\mathbf{v}$. The pair is dependent, rank 1, and the span collapses to $\mathbf{v}$'s line. Ask for $\mathbf{b} = (4, 7)$:
 
 \begin{align}
 c\,(2, 1) + d\,(4, 2) = (c + 2d)\,(2, 1) \;\ne\; (4, 7) \quad \text{for every } c, d,
@@ -444,7 +444,7 @@ The question is posed. Chapter 3 answers it exactly where exact answers exist: t
 
 One definition has been waiting since Section 1.2, and it is the name under which the linear combination earns its living.
 
-> **Definition 1.3 (axpy).** For a number $a$ and vectors $\mathbf{x}$ and $\mathbf{y}$, **axpy** is the linear combination $a\mathbf{x} + \mathbf{y}$, one scaling and one addition.
+> **Definition 1.12 (axpy).** For a number $a$ and vectors $\mathbf{x}$ and $\mathbf{y}$, **axpy** is the linear combination $a\mathbf{x} + \mathbf{y}$, one scaling and one addition.
 
 The strange name is a working credential. Deep in the compiled numerical libraries that every scientific computing stack calls down into, the routine that computes $a\mathbf{x} + \mathbf{y}$ has been named `axpy`, "a times x plus y," since the 1970s. When this book says axpy, it means the operation and it gestures at the machinery. That routine is the most heavily engineered few lines of arithmetic in numerical computing. The claim that axpy is foundational you have just read. The claim that your computer runs it faster than almost anything else it does is measurable, so the next section measures it.
 
@@ -607,13 +607,13 @@ h is the tabulation of 2 sin + cos, to 0.0
 
 The compiled loop that won Section 1.6's race is, on this reading, a function-combiner: it built the function $2\sin + \cos$ from samples of its parts, a million points at once. Chapter 2 will exploit exactly this, building operations on functions out of arithmetic on their samples.
 
-Why does the reading matter? Because functions scale and add, pointwise, exactly the way vectors do entrywise. Scale $f$ by $a$ and add $g$, and $(af + g)(x) = a f(x) + g(x)$ is again a function. Both closure clauses of Definition 1.4 hold, so collections of functions form vector spaces, and every result in this chapter, span, independence, basis, coordinates, the standing questions, applies to functions with nothing re-proved.[^function] The dividends land on schedule. Chapter 2 differentiates a sampled function by multiplying a matrix into it. Chapter 5 will hand you random variables, which scale and add, and the algebra will already be waiting. And Chapter 14's Fourier analysis is a basis, made of functions, for a space of functions.
+Why does the reading matter? Because functions scale and add, pointwise, exactly the way vectors do entrywise. Scale $f$ by $a$ and add $g$, and $(af + g)(x) = a f(x) + g(x)$ is again a function. Both closure clauses of Definition 1.2 hold, so collections of functions form vector spaces, and every result in this chapter, span, independence, basis, coordinates, the standing questions, applies to functions with nothing re-proved.[^function] The dividends land on schedule. Chapter 2 differentiates a sampled function by multiplying a matrix into it. Chapter 5 will hand you random variables, which scale and add, and the algebra will already be waiting. And Chapter 14's Fourier analysis is a basis, made of functions, for a space of functions.
 
 [^function]: The precise statement: a vector in $\mathbb{R}^n$ is a function from $\{1, \ldots, n\}$ to $\mathbb{R}$. Widen the domain to a continuum and the same algebra runs on functions themselves. The linearity of the derivative, $(af + g)' = af' + g'$, which Chapter 2 stands on, is exactly the statement that differentiation respects this vector-space structure.
 
 ## 1.8 Summary and exercises
 
-A vector is one object seen five ways: arrow, list, array, column, and tabulated function. The act is the linear combination (Definition 1.2), axpy to the libraries that run it, and closure (Definition 1.4) is the agreement that keeps the act inside the space. The span is everything the act can reach; a span is always a subspace (Claim 1.7); the reach is set by the number of vectors combined, never the ambient space (Claim 1.13); and rank (Definition 1.14) counts it honestly. A basis is an independent set that spans, its recipe for any vector is unique (Claim 1.10), and the unique weights are coordinates, which is what a list of numbers is. The solving question is posed, loudly: existence asks whether the target is in the column space (Definition 1.15), uniqueness asks whether the recipe is one of a kind, and each failure was drawn to scale. And the data lens is loaded: feature columns are vectors, their span is everything a linear model can predict, and Part II brings the dataset that makes both concrete.
+A vector is one object seen five ways: arrow, list, array, column, and tabulated function. The act is the linear combination (Definition 1.3), axpy to the libraries that run it, and closure (Definition 1.2) is the agreement that keeps the act inside the space. The span is everything the act can reach; a span is always a subspace (Claim 1.1); the reach is set by the number of vectors combined, never the ambient space (Claim 1.3); and rank (Definition 1.10) counts it honestly. A basis is an independent set that spans, its recipe for any vector is unique (Claim 1.2), and the unique weights are coordinates, which is what a list of numbers is. The solving question is posed, loudly: existence asks whether the target is in the column space (Definition 1.11), uniqueness asks whether the recipe is one of a kind, and each failure was drawn to scale. And the data lens is loaded: feature columns are vectors, their span is everything a linear model can predict, and Part II brings the dataset that makes both concrete.
 
 The question the book answers is now posed. Of all the linear combinations available, which one is the estimate, and how do we earn it?
 
@@ -624,7 +624,7 @@ A few of these are quiz-shaped on purpose.
 1. *(pencil)* Compute $3(1, -1, 2) + (0, 4, -1)$ entrywise. Then write the result as a combination of $\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3$ and check that the weights are exactly the entries.
 2. *(keyboard)* Time `list_comp_in_python` against `vectorized_in_numpy` on your own machine, over a sweep of sizes. Explain the gap you measure in terms of what the interpreter does per entry and what BLAS does per array.
 3. *(pencil)* Is $(5, 5)$ in the span of $(2, 1)$ and $(1, 3)$? Exhibit the recipe or show that none exists, using the elimination of Section 1.5, and verify your candidate. Name the standing question each half of your work answers.
-4. *(pencil)* Show that the line $\{t\mathbf{v} : t \in \mathbb{R}\}$ through the origin is a subspace: check the origin and both closure clauses of Definition 1.4.
+4. *(pencil)* Show that the line $\{t\mathbf{v} : t \in \mathbb{R}\}$ through the origin is a subspace: check the origin and both closure clauses of Definition 1.2.
 5. *(pencil, then keyboard)* Choose three vectors in $\mathbb{R}^3$ and decide independence: exhibit a combination equal to zero, or argue none exists. Check yourself in code by computing the combination you exhibited.
 6. *(pencil)* Using the basis $\{(1, 0), (1, 1)\}$ of $\mathbb{R}^2$, find the coordinates of $(7, 2)$, and verify your recipe by expanding it.
 7. *(pencil, bridge → Ch 2)* Write the claim "$\mathbf{b}$ is the combination $c_1$ of one column plus $c_2$ of another" as a rectangular array of numbers multiplying a column of weights. Which part is the combination's weights? You have just invented the next chapter.
