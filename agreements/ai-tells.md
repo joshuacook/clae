@@ -272,3 +272,18 @@ a song. These are the opening bars" / "and the second ingredient bought
 nothing" / "The word will do quiet work for the rest of the book, so it
 gets its footnote now" / "You have your own five out of twenty-five
 somewhere. Stay in the room."
+
+
+## Everyday-language coinages (RULED OUT, Josh, 2026-07-19, v10 ink)
+
+No invented everyday names for mathematical objects, and no
+everyday+technical pairing tic ("the undo, technically inversion").
+Josh: "I hate the everyday language approach thing... I want clear
+language not colloquial language." Use the standard technical term,
+clearly explained. Casualties from the v9/v10 drafts: "the crush"
+(say: sends to zero / the null space), "the undo" as a section name
+(say: the inverse, inversion), "guess and check, with its reputation
+restored" (say: by inspection). Established book vocabulary that Josh
+has read and kept across redlines (the license, recipe alongside
+weights/coordinates, the windmills motif from his own preface) stays,
+but the technical term always leads in definitions.
