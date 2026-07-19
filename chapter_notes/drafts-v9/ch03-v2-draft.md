@@ -17,11 +17,13 @@ Every road in this book runs through one equation:
 A\mathbf{x} = \mathbf{b}
 \end{align}
 
-A matrix acts on an unknown input, a known output sits on the right, and the job is to run the verb backwards. Chapter 1 posed this question and its two halves, loudly: existence (a solution exists exactly when $\mathbf{b}$ lies in the column space) and uniqueness (the recipe is one of a kind exactly when the columns are independent). Chapter 2 built the verb the question is about. This chapter answers it, and here is its plan. First, the fast method: solving **by inspection** under the license, worked and drawn in full. Second, uniqueness gets its own space and its own number, the null space and the nullity, and the reach-and-crush ledger is proved to balance. Third, the diagnosis discipline: every system's fate read off before any solving. Fourth, the machine: elimination, owned and then read as a factorization, $A = LU$, with the computer held to the same standard of proof as your own pencil. Last, the door out of the exact world, where the data of this book actually lives.
+A matrix acts on an unknown input, a known output sits on the right, and the job is to run the verb backwards. Chapter 1 posed this question and its two halves, loudly: **existence** (a solution exists exactly when $\mathbf{b}$ lies in the column space) and **uniqueness** (the recipe is one of a kind exactly when the columns are independent). Chapter 2 built the verb the question is about. This chapter answers it, and here is its plan.
+
+First, the fast method: solving **by inspection** under the license, worked and drawn in full. Second, uniqueness gets its own space and its own number, the null space and the nullity, and the reach-and-crush ledger is proved to balance. Third, the diagnosis discipline: every system's fate read off before any solving. Fourth, the machine: elimination, owned and then read as a factorization, $A = LU$, with the computer held to the same standard of proof as your own pencil. Last, the door out of the exact world, where the data of this book actually lives.
 
 ## 3.1 Solving by inspection
 
-The first method is the fastest one mathematics has, and Chapter 1 already paid for it. The license: when the diagnosis says the solution is unique, any verified candidate *is* the solution. So the working method for small systems is to produce the candidate **by inspection**, the technical name for looking at the system until you see the answer (guess and check, with its reputation restored), and then to verify. The verification is not a courtesy. It is the entire proof, and the license is what makes it sufficient.
+The first method is the fastest one mathematics has, and Chapter 1 already paid for it. The license: when the diagnosis says the solution is unique, any verified candidate *is* the solution. So the working method for small systems is to produce the candidate **by inspection**, the technical name for looking at the system until you see the answer, and then to verify. The verification is not a courtesy. It is the entire proof, and the license is what makes it sufficient.
 
 \lensmark{algebraic} **Seen from the numbers.** The columns of this system are independent (check: they are not multiples), so the license holds:
 
@@ -188,7 +190,9 @@ Cross the two questions and $A\mathbf{x} = \mathbf{b}$ has exactly three possibl
 \caption{The three fates of $A\mathbf{x} = \mathbf{b}$. Left, the target is reachable and nothing is crushed, so exactly one recipe exists. Middle, the target lies off the column space and no recipe exists. Right, the target is reachable but the null space (dashed) is nontrivial, so a whole family of recipes reaches it.}
 \end{figure}
 
-The diagnosis runs on the audit, before any solving. If $\mathbf{b}$ is outside the column space, stop: no solution, and Chapter 12 will teach you to get close instead. If $\mathbf{b}$ is inside and the nullity is zero, exactly one solution exists, and the hunt is licensed. If $\mathbf{b}$ is inside and the nullity is positive, solutions form a family, one particular solution plus anything from the null space. Run all three on the two matrices in hand. The difference matrix $A_3$ reaches everything and crushes nothing: one solution for every target. The cyclic $C$ with $\mathbf{b} = (1, 3, 5)$: the target is off the plane, no solution. The same $C$ with a target on the plane, say $\mathbf{b} = C(1, 2, 3) = (-2, 1, 1)$: reached, but the constants come free, so $(1, 2, 3) + t(1, 1, 1)$ solves for every $t$.
+The diagnosis runs on the audit, before any solving. If $\mathbf{b}$ is outside the column space, stop: no solution, and Chapter 12 will teach you to get close instead. If $\mathbf{b}$ is inside and the nullity is zero, exactly one solution exists, and the hunt is licensed. If $\mathbf{b}$ is inside and the nullity is positive, solutions form a family, one particular solution plus anything from the null space.
+
+Run all three on the two matrices in hand. The difference matrix $A_3$ reaches everything and crushes nothing: one solution for every target. The cyclic $C$ with $\mathbf{b} = (1, 3, 5)$: the target is off the plane, no solution. The same $C$ with a target on the plane, say $\mathbf{b} = C(1, 2, 3) = (-2, 1, 1)$: reached, but the constants come free, so $(1, 2, 3) + t(1, 1, 1)$ solves for every $t$.
 
 ## 3.4 Elimination, owned
 
@@ -339,7 +343,9 @@ lstsq w: [   51.87 17604.21]
 
 > **Figure 3.4.** Actual sale price against living area for all 1,460 homes, with the two-feature best-fit predictions overlaid. The predictions form a tight band, and the market scatters around it. No line threads every point; the band misses everything a little, on purpose.
 
-But notice what just happened to the words. *Best* weights. Miss *a little*. Nothing in Part I defines best or little. Those words need a way to measure how wrong a miss is and a reason to prefer one distribution of misses over another, and that is probability's department. The door out of this chapter opens onto Part II, and the question walking through it is the preface's question with a sharpened edge. Of all the linear combinations available, which one is the estimate, and what exactly makes it best? Chapter 12 answers with the drawing. Everything between here and there is learning to say *best* precisely.
+But notice what just happened to the words. *Best* weights. Miss *a little*. Nothing in Part I defines best or little. Those words need a way to measure how wrong a miss is and a reason to prefer one distribution of misses over another, and that is probability's department.
+
+The door out of this chapter opens onto Part II, and the question walking through it is the preface's question with a sharpened edge. Of all the linear combinations available, which one is the estimate, and what exactly makes it best? Chapter 12 answers with the drawing. Everything between here and there is learning to say *best* precisely.
 
 ## 3.8 Summary and exercises
 

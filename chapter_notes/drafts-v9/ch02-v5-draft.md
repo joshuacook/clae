@@ -12,7 +12,9 @@
 
 # Chapter 2: Matrices and Linear Transformations
 
-Here is what this chapter does, stated up front because the object demands it. A matrix is two different things, fully and simultaneously. It is a **dataset**: rows of records, columns of measurements, the container your data actually lives in. And it is an **operator**: a machine that eats a vector and produces a vector, the verb of linear algebra. Neither reading is the real one. Neither is a metaphor for the other. A working data scientist holds both at once and switches without noticing, and this chapter builds that reflex the only honest way: one identity at a time, each done fully, data first, operator second, and a marriage of the two (standardization) to close. Chapter 1 did this for the vector. The matrix gets the same respect.
+Here is what this chapter does, stated up front because the matrix demands it. A matrix is two different things, fully and simultaneously. It is a **dataset**: rows of records, columns of measurements, the container your data actually lives in. And it is an **operator**: a machine that eats a vector and produces a vector, the verb of linear algebra. Neither reading is the real one. Neither is a metaphor for the other.
+
+A working data scientist holds both at once and switches without noticing, and this chapter builds that reflex the only honest way: one identity at a time, each done fully, data first, operator second, and a marriage of the two (standardization) to close. Chapter 1 did this for the vector. The matrix gets the same respect.
 
 ## 2.1 The matrix as data
 
@@ -180,7 +182,9 @@ Here is the fact this chapter stands on, and it deserves its box early.
 \caption{The columns are where the basis vectors land. The stretch map sends $\mathbf{e}_1$ to $(2,0)$ and $\mathbf{e}_2$ to $(0,\frac{1}{2})$, and stacking the landings as columns builds the diagonal matrix $S$. The unit square lands on the dashed rectangle.}
 \end{figure}
 
-Two landings, two columns, and the transformation is fully known. That is the content of the claim. To know a linear transformation completely you need to know it on $n$ inputs only, the basis, because everything else is recipes. $D$'s landings tell the same story with utility attached. $D$ sends the spike $\mathbf{e}_j$ to a dipole, $(\mathbf{e}_{j-1} - \mathbf{e}_j)/h$, which is exactly column $j$ of $D$, and differentiation-on-a-grid is nothing but those dipoles combined by the recipe. And the multiplication $A\mathbf{x}$ is not a new operation at all. It is Chapter 1's one move, a linear combination of $A$'s columns, with $\mathbf{x}$ as the recipe. The matrix is not storing its columns. It is waiting to combine them.
+Two landings, two columns, and the transformation is fully known. That is the content of the claim. To know a linear transformation completely you need to know it on $n$ inputs only, the basis, because everything else is recipes.
+
+$D$'s landings tell the same story with utility attached. $D$ sends the spike $\mathbf{e}_j$ to a dipole, $(\mathbf{e}_{j-1} - \mathbf{e}_j)/h$, which is exactly column $j$ of $D$, and differentiation-on-a-grid is nothing but those dipoles combined by the recipe. And the multiplication $A\mathbf{x}$ is not a new operation at all. It is Chapter 1's one move, a linear combination of $A$'s columns, with $\mathbf{x}$ as the recipe. The matrix is not storing its columns. It is waiting to combine them.
 
 ## 2.3 The product, read three ways
 
@@ -332,7 +336,7 @@ composition vs stencil, interior rows: 0.0e+00
 max |K @ sin + sin|: 0.000003
 ```
 
-The composition and the stencil agree exactly away from the boundary rows, where one-sided differences run out of neighbors. And $K$ applied to a sine returns the negative of the sine, to six decimal places, which is to say $K$ knows that the second derivative of $\sin$ is $-\sin$. Two verbs, one composition, and the object Chapter 4 has been waiting for.
+The composition and the stencil agree exactly away from the boundary rows, where one-sided differences run out of neighbors. And $K$ applied to a sine returns the negative of the sine, to six decimal places, which is to say $K$ knows that the second derivative of $\sin$ is $-\sin$. Two verbs, one composition, and the matrix Chapter 4 has been waiting for.
 
 [^provenance]: The second difference matrix is the hero of Gilbert Strang's *Computational Science and Engineering*, which builds half of applied mathematics out of it. It is also where this book started. The author first met it in an independent research project in Jussi Eloranta's quantum chemistry lab at CSUN, where the Schrödinger equation for a particle in a box collapses into an eigenproblem for exactly this matrix. See Joshua Cook, *Computational Methods in Molecular Quantum Mechanics*, Leanpub, 2016.
 
@@ -641,7 +645,9 @@ The standardized matrix $Z$ waits here for Chapter 7, which takes dot products b
 
 ## 2.8 Summary and exercises
 
-A matrix is two things, and this chapter did each fully. As data: a container with two readings, samples by features, plus the flip between them, the transpose (Definition 2.3). As operator: a verb characterized completely by linearity, and Claim 2.4 made the characterization usable, the columns are where the basis vectors land. First the verb worked ($D$ took a derivative, row by row the difference quotient), then the property got its name, then the product got its three meanings, rows to compute, columns to understand (Chapter 1's combination, drawn tip to tail), slabs to decompose (Definition 2.8). Composition is multiplication, witnessed by differencing twice into $K$. The diagonal stretches, the projection casts shadows, idempotent with an orthogonal residual (Claim 2.11), load-bearing for Chapters 11 and 12. And the undo, technically inversion: running sums undo differences by telescoping, worked in numbers, in operations, and in matrices, and a square matrix earns an inverse exactly when its columns are independent (Claim 2.15), which is Chapter 1's uniqueness standing guard over information. Standardization married the identities: the stretch pointed at data, plus a disclosed shift.
+A matrix is two things, and this chapter did each fully. As data: a container with two readings, samples by features, plus the flip between them, the transpose (Definition 2.2). As operator: a verb characterized completely by linearity, and Claim 2.4 made the characterization usable, the columns are where the basis vectors land. First the verb worked ($D$ took a derivative, row by row the difference quotient), then the property got its name, then the product got its three meanings, rows to compute, columns to understand (Chapter 1's combination, drawn tip to tail), slabs to decompose (Definition 2.7).
+
+Composition is multiplication, witnessed by differencing twice into $K$. The diagonal stretches, the projection casts shadows, idempotent with an orthogonal residual (Claim 2.11), load-bearing for Chapters 11 and 12. And the undo, technically inversion: running sums undo differences by telescoping, worked in numbers, in operations, and in matrices, and a square matrix earns an inverse exactly when its columns are independent (Claim 2.15), which is Chapter 1's uniqueness standing guard over information. Standardization married the identities: the stretch pointed at data, plus a disclosed shift.
 
 Chapter 3 builds the machine for the cases nobody can see: elimination owned, elimination as a factorization, and the ledger of reach and crush balanced in full. And $K$ is packed and waiting for Chapter 4, carrying a set of directions it refuses to tangle.
 

@@ -179,7 +179,7 @@ Why has this much engineering been spent on one small operation? Because nearly 
 
 ## 1.2 The contract
 
-The transition from one operation to a whole subject runs through a single agreement. Here is the object it happens in, defined before the rules it obeys.
+The transition from one operation to a whole subject runs through a single agreement. Here is the space it happens in, defined before the rules it obeys.
 
 > **Definition 1.4 (vector space, working version).** A **vector space** is a set $S$ of vectors closed under the two operations:[^axioms]
 >
@@ -290,7 +290,7 @@ plt.show()
 
 > **Figure 1.6.** `v1` and `v2` from the origin, with `v2` carried to the tip of `v1` (faded), and the tip-to-tail sum `v1 + v2` in green.
 
-Put the two operations together and the object of the book appears. Take $\mathbf{v} = (1, 2)$ and $\mathbf{w} = (3, 1)$ and form the combination $2\mathbf{v} + \mathbf{w}$, scale first, then add:
+Put the two operations together and the book's central object, the linear combination, appears in person. Take $\mathbf{v} = (1, 2)$ and $\mathbf{w} = (3, 1)$ and form the combination $2\mathbf{v} + \mathbf{w}$, scale first, then add:
 
 \begin{align}
 2\,(1, 2) + (3, 1) = (2, 4) + (3, 1) = (5, 5)
@@ -417,7 +417,9 @@ Membership in a span is a concrete question. Is $\mathbf{b} = (4, 7)$ in the spa
 
 > **Claim 1.7 (a span is a subspace).** The span of any set of vectors is a subspace.
 >
-> The proof is two lines, so here it is whole. Scaling: $a(c_1\mathbf{v}_1 + \cdots + c_k\mathbf{v}_k) = (ac_1)\mathbf{v}_1 + \cdots + (ac_k)\mathbf{v}_k$, a combination. Adding: two combinations add weight by weight into one combination. All-zero weights give the origin, and both closure clauses hold. ∎[^footnotes] Span and subspace are two descriptions of one object. Span builds it from a list of vectors. Subspace states the property the built thing has.
+> The proof is two lines, so here it is whole. Scaling: $a(c_1\mathbf{v}_1 + \cdots + c_k\mathbf{v}_k) = (ac_1)\mathbf{v}_1 + \cdots + (ac_k)\mathbf{v}_k$, a combination. Adding: two combinations add weight by weight into one combination. All-zero weights give the origin, and both closure clauses hold. ∎[^footnotes]
+>
+> Span and subspace are two descriptions of one object. Span builds it from a list of vectors. Subspace states the property the built thing has.
 
 [^footnotes]: A note about this book's footnotes, since this is its first boxed claim: the fuller arguments live down here and in the references, on purpose. The text above is for you. It is not for the gatekeepers who keep mathematics behind subscript fiddliness, and a proof performed as ritual is gatekeeping. The preface's Jim had a word for it, waved off with the back of a hand. When a reason is cheap you will get it in a breath. When it is a real theorem you will get the name of someone who proved it properly.
 
@@ -456,7 +458,7 @@ d = -2c,\quad c + 3(-2c) = -5c = 0
 \qquad\Longrightarrow\qquad c = d = 0
 \end{align}
 
-Only the **trivial solution** survives, every weight zero, and that is the independence verdict. Now bring in $\mathbf{u} = (4, 7)$, the vector Section 1.4 left hanging. Here is a recipe for it, produced from a pocket: $\mathbf{u} = 1\,\mathbf{v} + 2\,\mathbf{w}$. Check it, $1\,(2, 1) + 2\,(1, 3) = (4, 7)$, and it holds. Where the recipe came from does not matter yet, and that it does not matter is a theme this chapter is about to make official. The triple is dependent, and moving $\mathbf{u}$ across the equals sign exhibits the zero combination with live weights:
+Only the **trivial solution** survives, every weight zero, and that is the independence verdict. Now bring in $\mathbf{u} = (4, 7)$, the vector Section 1.4 left hanging. Here is a recipe for it, offered with no derivation: $\mathbf{u} = 1\,\mathbf{v} + 2\,\mathbf{w}$. Check it, $1\,(2, 1) + 2\,(1, 3) = (4, 7)$, and it holds. Where the recipe came from does not matter yet, and that it does not matter is a theme this chapter is about to make official. The triple is dependent, and moving $\mathbf{u}$ across the equals sign exhibits the zero combination with live weights:
 
 \begin{align}
 1\,\mathbf{v} + 2\,\mathbf{w} - 1\,\mathbf{u} = (2, 1) + (2, 6) - (4, 7) = (0, 0)
@@ -489,9 +491,13 @@ ax.legend(); plt.show()
 
 > **Claim 1.10 (unique recipe).** If $\mathbf{b}_1, \ldots, \mathbf{b}_k$ is a basis, every vector in its span is a combination of the basis in exactly one way.
 >
-> Witness it small. The set $\{(1, 0), (1, 1)\}$ is a basis of $\mathbb{R}^2$. To build $(3, 5)$, the second entry forces the weight on $(1, 1)$ to be $5$. The first entry then forces the weight on $(1, 0)$ to be $-2$. Forced twice over, no other recipe exists. The reason it always works is one subtraction. Suppose $c_1\mathbf{b}_1 + \cdots + c_k\mathbf{b}_k$ and $d_1\mathbf{b}_1 + \cdots + d_k\mathbf{b}_k$ build the same vector. Subtract them: $(c_1 - d_1)\mathbf{b}_1 + \cdots + (c_k - d_k)\mathbf{b}_k = \mathbf{0}$. Independence allows only the trivial solution, so $c_i = d_i$ for every $i$, and the two recipes were one recipe all along.
+> Witness it small. The set $\{(1, 0), (1, 1)\}$ is a basis of $\mathbb{R}^2$. To build $(3, 5)$, the second entry forces the weight on $(1, 1)$ to be $5$. The first entry then forces the weight on $(1, 0)$ to be $-2$. Forced twice over, no other recipe exists.
+>
+> The reason it always works is one subtraction. Suppose $c_1\mathbf{b}_1 + \cdots + c_k\mathbf{b}_k$ and $d_1\mathbf{b}_1 + \cdots + d_k\mathbf{b}_k$ build the same vector. Subtract them: $(c_1 - d_1)\mathbf{b}_1 + \cdots + (c_k - d_k)\mathbf{b}_k = \mathbf{0}$. Independence allows only the trivial solution, so $c_i = d_i$ for every $i$, and the two recipes were one recipe all along.
 
-**The license.** Claim 1.10 has a methodological consequence, and it is large enough to state on its own. When a solution is unique, any procedure that produces a verified candidate has produced the solution. The logic is airtight: the verified candidate is a solution, the solution is one of a kind, therefore the candidate is it. This turns solving **by inspection**, the technical name for looking at a problem and writing the answer down (guess and check, with its reputation restored), into a rigorous method. Produce a candidate however you like. Verify it. Uniqueness closes the argument. The recipe produced from a pocket above was legitimate for exactly this reason, and Jim opened his first lecture with uniqueness, before teaching any solving at all, because the license has to exist before any fast method is legal. Chapter 3 builds this into a working discipline.
+**The license.** Claim 1.10 has a methodological consequence, and it is large enough to state on its own. When a solution is unique, any procedure that produces a verified candidate has produced the solution. The logic is airtight: the verified candidate is a solution, the solution is one of a kind, therefore the candidate is it. This turns solving **by inspection**, the technical name for looking at a problem and writing the answer down (guess and check, with its reputation restored), into a rigorous method.
+
+Produce a candidate however you like. Verify it. Uniqueness closes the argument. The underived recipe above was legitimate for exactly this reason, and Jim opened his first lecture with uniqueness, before teaching any solving at all, because the license has to exist before any fast method is legal. Chapter 3 builds this into a working discipline.
 
 > **Definition 1.11 (coordinates).** The **coordinates** of a vector with respect to a basis are the unique weights of its recipe in that basis.
 
@@ -530,7 +536,7 @@ Two questions live inside the display above, and they are the most important two
 
 **Existence.** Does *any* combination reach $\mathbf{b}$? If not, no method, no cleverness, and no amount of computing will produce one. When existence fails, the only honest moves are to change the question or to settle for closest, and *closest* is the subject of Part III.
 
-**Uniqueness.** If a combination reaches $\mathbf{b}$, is it the *only* one? A unique answer is knowledge. An answer with infinitely many rivals is a shrug: any claim built on one recipe could have been built on another. Uniqueness is also the license of Section 1.5, the fact that makes fast methods rigorous.
+**Uniqueness.** If a combination reaches $\mathbf{b}$, is it the *only* one? A unique answer is knowledge. An answer with infinitely many rivals settles nothing, because any claim built on one recipe could have been built on another. Uniqueness is also the license of Section 1.5, the fact that makes fast methods rigorous.
 
 Every solving question in this book, from the two-line systems below to the housing market in Chapter 3 to the estimators of Part III, is these two questions in costume.
 \end{svgraybox}
