@@ -392,7 +392,7 @@ Both questions are questions about the span, and each has a home there with a na
 
 > **Definition 1.15 (column space).** The **column space** of a matrix is the span of its columns. It is where existence lives: $A\mathbf{x} = \mathbf{b}$ has a solution exactly when $\mathbf{b}$ is in the column space, because $A\mathbf{x}$ *is* a combination of the columns with recipe $\mathbf{x}$.
 
-Existence, then, is geometry: is the target inside the reach, or outside it? Uniqueness is Section 1.4's dichotomy wearing solving clothes: independent columns give one recipe per reachable target (Claim 1.10), dependent columns give a family. Chapter 3 will give uniqueness its own space with its own name. Here, work the geometry until both questions draw themselves.
+Existence, then, is geometry: is the target inside the reach, or outside it? Uniqueness is Section 1.4's dichotomy wearing solving clothes: independent columns give one recipe per reachable target (Claim 1.10), dependent columns give a family. Chapter 2 will name the space where uniqueness dies, at the first operator caught destroying, and Chapter 3 will measure it. Here, work the geometry until both questions draw themselves.
 
 \lensmark{algebraic} **Existence, both ways.** The pair $\mathbf{v} = (2, 1)$, $\mathbf{w} = (1, 3)$ is independent, rank 2, so its span is all of $\mathbb{R}^2$ and existence holds for *every* target. The recipe reaching $\mathbf{b} = (4, 7)$ was exhibited and verified in Section 1.4, and by Claim 1.10 it is the only one: existence and uniqueness both answered yes. Now break existence. Keep $\mathbf{v} = (2, 1)$ but replace $\mathbf{w}$ with $(4, 2) = 2\mathbf{v}$. The pair is dependent, rank 1, and the span collapses to $\mathbf{v}$'s line. Ask for $\mathbf{b} = (4, 7)$:
 

@@ -1,11 +1,10 @@
-<!-- DRAFT V3 (2026-07-19): the full-v9 pass per chapter_notes/
-     v9-revision-punchlist.md. Section 0: Ch3 receives the mechanics.
-     NEW 3.1 by-inspection full investigation (#27 #32: three worked
-     systems, row-picture TikZ, the discipline); NEW 3.2 null space +
-     the crush land here from Ch1 (#29 #30) with nullity + the ledger;
-     3.0 recall updated (Ch1 poses, no null-space name there anymore);
-     P2 objective intro; three fates / elimination / LU / verify / door
-     unchanged in substance. Base: V2 draft. -->
+<!-- DRAFT V4 (2026-07-19): the v11 pass per the v10 ink census +
+     rulings. Null space Def now lives in Ch2 (at projection); 3.2
+     recalls it and MEASURES it (nullity + ledger). The door (Ames /
+     market data) OUT to Part II stock (.render/ch3_door_block.md,
+     census 14); chapter closes on the abstract overdetermined pointer.
+     R1 language sweep: no "crush" coinage, technical language
+     throughout. Base: V3. -->
 
 # Chapter 3: Solving Linear Systems
 
@@ -19,7 +18,7 @@ A\mathbf{x} = \mathbf{b}
 
 A matrix acts on an unknown input, a known output sits on the right, and the job is to run the verb backwards. Chapter 1 posed this question and its two halves, loudly: **existence** (a solution exists exactly when $\mathbf{b}$ lies in the column space) and **uniqueness** (the recipe is one of a kind exactly when the columns are independent). Chapter 2 built the verb the question is about. This chapter answers it, and here is its plan.
 
-First, the fast method: solving **by inspection** under the license, worked and drawn in full. Second, uniqueness gets its own space and its own number, the null space and the nullity, and the reach-and-crush ledger is proved to balance. Third, the diagnosis discipline: every system's fate read off before any solving. Fourth, the machine: elimination, owned and then read as a factorization, $A = LU$, with the computer held to the same standard of proof as your own pencil. Last, the door out of the exact world, where the data of this book actually lives.
+First, the fast method: solving **by inspection** under the license, worked and drawn in full. Second, the null space of Chapter 2 gets its number, the nullity, and the dimensions of reach and loss are proved to balance. Third, the diagnosis discipline: every system's fate read off before any solving. Fourth, the machine: elimination, owned and then read as a factorization, $A = LU$, with the computer held to the same standard of proof as your own pencil. Last, the door out of the exact world, where the data of this book actually lives.
 
 ## 3.1 Solving by inspection
 
@@ -78,9 +77,9 @@ In column language this asks for Chapter 1's membership recipe, and the recipe $
 
 Hold both pictures. Chapter 1 drew the **column picture**, recipes reaching a target tip to tail. The row picture drawn here is the other geometry of the same equation, and elimination, two sections from now, is nothing but row-picture surgery. The discipline in one line: **diagnose, see, verify.** Diagnose independence so the license holds, produce a candidate by inspection, verify it against every original equation. When any of the three steps fails to go through, and past three unknowns it usually does, the machine of Section 3.4 takes over with the same guarantees.
 
-## 3.2 The crush, the null space, and the ledger
+## 3.2 The null space, measured
 
-Chapter 1 posed uniqueness and Chapter 2 tied inversion to it, but the failure itself has not yet been held up to the light. Time to look. \lensmark{computational} Listing 3.1 builds two specimens: the difference matrix $A_3$ from Chapter 2, and a new **cyclic** difference matrix $C$, whose differences wrap around.
+Chapter 2 defined the null space at the scene of its first destruction, the projection, and tied invertibility to it. This section measures it. \lensmark{computational} Listing 3.1 builds two specimens: the difference matrix $A_3$ from Chapter 2, and a new **cyclic** difference matrix $C$, whose differences wrap around.
 
 **Listing 3.1 (the two specimens)**
 
@@ -91,9 +90,9 @@ A3 = np.array([[1, 0, 0], [-1, 1, 0], [0, -1, 1]])  # difference
 C = np.array([[1, 0, -1], [-1, 1, 0], [0, -1, 1]])  # cyclic
 ```
 
-Feed $C$ a constant vector and watch what a crush is.
+Feed $C$ a constant vector and watch what it does.
 
-**Listing 3.2 (the crush)**
+**Listing 3.2 (a nontrivial null space, exhibited)**
 
 ```python
 print('C @ (3,3,3):', C @ np.array([3, 3, 3]))
@@ -103,9 +102,9 @@ print('C @ (3,3,3):', C @ np.array([3, 3, 3]))
 C @ (3,3,3): [0 0 0]
 ```
 
-$C$ sends $(3, 3, 3)$ to zero, and it sends every constant vector to zero the same way: shift a sequence by a constant and its wrapped differences never notice. Two different inputs, one output, which is the information destruction Chapter 2's inversion claim warned about, and it draws. Listing 3.3 feeds $C$ two inputs that differ by a constant shift and plots both against their outputs; Figure 3.2 is its output.
+$C$ sends $(3, 3, 3)$ to zero, and it sends every constant vector to zero the same way: shift a sequence by a constant and its wrapped differences never notice. The whole line of constant vectors lies in $C$'s null space, two different inputs map to one output, and Chapter 2's Claim 2.18 already says what that costs: no inverse, and uniqueness dead on arrival for any system built on $C$. It draws. Listing 3.3 feeds $C$ two inputs that differ by a constant shift and plots both against their outputs; Figure 3.2 is its output.
 
-**Listing 3.3 (the crush, drawn)**
+**Listing 3.3 (two inputs, one output, drawn)**
 
 ```python
 import matplotlib.pyplot as plt
@@ -123,23 +122,19 @@ r.set_title('one output')
 r.legend()
 ```
 
-![two inputs, one output: the crush](figures/fig_crush.png)
+![two inputs, one output](figures/fig_crush.png)
 
-> **Figure 3.2.** Two different inputs, one output. The shift by a constant is invisible to $C$, so the matrix cannot tell the two inputs apart. Uniqueness dies here: given one solution of $C\mathbf{x} = \mathbf{b}$, adding the shift gives another.
+> **Figure 3.2.** Two different inputs, one output. The shift by a constant lies in $C$'s null space, so the matrix cannot tell the two inputs apart. Uniqueness dies here: given one solution of $C\mathbf{x} = \mathbf{b}$, adding the shift gives another.
 
-Everything a matrix crushes, collected in one place, is a space, and it is the space uniqueness lives or dies in.
+The null space of $A_3$, by contrast, is $\{\mathbf{0}\}$ alone, which is exactly why Chapter 2 could invert it. Both of the standing questions now have a space: the column space holds existence, the null space holds uniqueness, and the two keep a joint ledger.
 
-> **Definition 3.1 (null space).** The **null space** of a matrix is the set of vectors it sends to zero: every $\mathbf{x}$ with $A\mathbf{x} = \mathbf{0}$. It always contains the all-zero vector. Anything more is a dependence among the columns with live weights, and anything more kills uniqueness: if $A\mathbf{x} = \mathbf{b}$ and $A\mathbf{z} = \mathbf{0}$, then $A(\mathbf{x} + \mathbf{z}) = \mathbf{b}$ too, a second solution for free.
+The column space and the null space are not independent bookkeeping. They are two entries in one ledger, and the ledger balances. The bookkeeping needs two numbers.
 
-The null space of $C$ is the whole line of constant vectors. The null space of $A_3$ is $\{\mathbf{0}\}$ alone, which is why Chapter 2 could invert it. Reach and crush are now both spaces, the column space holding existence and the null space holding uniqueness, and the two keep a joint ledger.
+> **Definition 3.1 (nullity; rank recalled).** The **rank** of a matrix (Definition 1.14, now in matrix clothes) is the dimension of its column space, the number of dimensions the operator can reach. The **nullity** is the dimension of its null space (Definition 2.14), the number of independent directions the operator sends to zero.
 
-Reach and crush are not independent failures. They are two entries in one ledger, and the ledger balances. The bookkeeping needs two numbers.
-
-> **Definition 3.2 (nullity; rank recalled).** The **rank** of a matrix (Definition 1.14, now in matrix clothes) is the dimension of its column space, the number of dimensions the verb can reach. The **nullity** is the dimension of its null space (Definition 3.1), the number of directions the verb crushes.
-
-> **Claim 3.3 (rank and nullity balance the ledger).** For an $m \times n$ matrix, rank $+$ nullity $= n$. Every input dimension either survives into the reach or dies in the crush. None goes missing.
+> **Claim 3.2 (rank and nullity balance the ledger).** For an $m \times n$ matrix, rank $+$ nullity $= n$. Every input dimension either survives into the column space or dies in the null space. None goes missing.
 >
-> Witness it on $C$: three input dimensions, a plane of reach (rank 2), a line of crush (nullity 1), and $2 + 1 = 3$. The one-breath reason: pick a basis for the null space and extend it to a basis of $\mathbb{R}^n$; the extension vectors map to a basis of the column space, because anything their images failed to reach would trace back to more crush.[^ftla]
+> Witness it on $C$: three input dimensions, a plane of reach (rank 2), a line sent to zero (nullity 1), and $2 + 1 = 3$. The one-breath reason: pick a basis for the null space and extend it to a basis of $\mathbb{R}^n$; the extension vectors map to a basis of the column space, because anything their images failed to reach would trace back to more of the null space.[^ftla]
 
 [^ftla]: This is the first installment of what Strang calls the fundamental theorem of linear algebra. The full theorem has four subspaces and a pair of right angles between them, and it arrives with the machinery that needs it, in Chapter 12.
 
@@ -158,7 +153,7 @@ A3: rank 3, nullity 0
 C : rank 2, nullity 1
 ```
 
-Rank 3 of 3 means full reach and no crush. Rank 2 of 3 means a plane of reach and a line of crush. Everything this chapter does flows from that one audit.
+Rank 3 of 3 means the column space is everything and the null space is trivial. Rank 2 of 3 means a plane of reach and a line sent to zero. Everything this chapter does flows from that one audit.
 
 ## 3.3 Three outcomes, diagnosed
 
@@ -171,7 +166,7 @@ Cross the two questions and $A\mathbf{x} = \mathbf{b}$ has exactly three possibl
     \fill[gray!12] (-1.5,-0.9) -- (1.7,-0.9) -- (2.5,0.7) -- (-0.7,0.7) -- cycle;
     \draw[->, very thick] (0,0) -- (1.4,0.25) node[right] {$\mathbf{b}$};
     \node[anchor=north] at (0.5,-1.1) {\scriptsize one solution};
-    \node[gray, anchor=south] at (0.5,0.75) {\tiny full reach, no crush};
+    \node[gray, anchor=south] at (0.5,0.75) {\tiny full reach, trivial null space};
   \end{scope}
   \begin{scope}[shift={(5.6,0)}]
     \fill[gray!12] (-1.5,-0.9) -- (1.7,-0.9) -- (2.5,0.7) -- (-0.7,0.7) -- cycle;
@@ -184,7 +179,7 @@ Cross the two questions and $A\mathbf{x} = \mathbf{b}$ has exactly three possibl
     \draw[->, very thick] (0,0) -- (1.4,0.25) node[right] {$\mathbf{b}$};
     \draw[gray, thick, dashed] (-0.9,-0.6) -- (1.1,1.1);
     \node[anchor=north] at (0.5,-1.1) {\scriptsize infinitely many};
-    \node[gray, anchor=south] at (0.5,0.75) {\tiny reached, with crush to spare};
+    \node[gray, anchor=south] at (0.5,0.75) {\tiny reached, null space to spare};
   \end{scope}
 \end{tikzpicture}
 \caption{The three fates of $A\mathbf{x} = \mathbf{b}$. Left, the target is reachable and nothing is crushed, so exactly one recipe exists. Middle, the target lies off the column space and no recipe exists. Right, the target is reachable but the null space (dashed) is nontrivial, so a whole family of recipes reaches it.}
@@ -271,85 +266,15 @@ residual: 0.0
 
 The machine found the same $(5, -1, 2)$ the pencil did, and the residual certifies it. Make the residual check a habit. It costs one multiplication, it catches everything from a mistyped matrix to a genuinely ill-behaved system, and it is the license's discipline applied to code: never trust a candidate you have not verified, no matter who produced it.
 
-## 3.7 The door
+## 3.7 The edge of the exact world
 
-\lensmark{data} Everything in this chapter has been square: as many equations as unknowns. Data is not square, and this section walks to the edge of the square world and looks over. The claim of estimation, met here for the first time in full, is that a linear combination of feature columns lands near the price column:
+Everything in this chapter assumed a square system, as many independent equations as unknowns, and inside that square world the machine is complete: diagnose, solve, verify. Real measurement does not live there. Observe the same small set of quantities many times and the system stacks far more equations than unknowns, it is **overdetermined**, and a target assembled from real observations has no reason to lie in the column space of a thin matrix. Existence fails not by accident but as the normal condition, and the two standing questions return with a sharpened edge: when no combination is exactly right, which one is *best*, and what precisely does *best* mean?
 
-\begin{align}
-\texttt{SalePrice} \;\approx\; w_1 \cdot \texttt{GrLivArea} \;+\; w_2 \cdot \texttt{OverallQual}
-\end{align}
-
-Read the right-hand side against Chapter 1's Definition 1.2. Two feature vectors, scaled by unknown weights, added. Finding weights is solving a system whose matrix has 1,460 rows, one per house, and two columns.
-
-Start square, because square is what we can do. Keep only the first two houses, and the claim becomes an exact system, two equations in two unknowns:
-
-\begin{align}
-\begin{bmatrix} 1710 & 7 \\ 1262 & 6 \end{bmatrix}
-\begin{bmatrix} w_1 \\ w_2 \end{bmatrix}
-= \begin{bmatrix} 208{,}500 \\ 181{,}500 \end{bmatrix}
-\end{align}
-
-Two independent columns, rank 2, one solution. Listing 3.7 solves and verifies it.
-
-**Listing 3.7 (two houses, priced exactly)**
-
-```python
-A2 = np.array([[1710., 7], [1262., 6]])
-b2 = np.array([208500., 181500.])
-w = np.linalg.solve(A2, b2)
-print('w       :', np.round(w, 2))
-print('residual:', np.abs(b2 - A2 @ w).max())
-```
-
-```text
-w       : [  -13.67 33126.23]
-residual: 0.0
-```
-
-The residual is zero. Both houses are priced perfectly. And the weights are absurd. This model pays you $13.67 for every square foot you add to your house, then bills you $33,126 per quality point to make the arithmetic come out. The system did exactly what solving does, threaded the recipe through both targets without error, and in doing so it contorted itself around the noise in two data points. An exact fit is not a good model. It is a memorization.
-
-Now let the third house knock. House 3 has 1,786 square feet at quality 7, and it sold for \$223,500. The exact model predicts $-13.67 \cdot 1786 + 33{,}126.23 \cdot 7 = 207{,}461$, a miss of \$16,039. Append its row to the system and there are three equations, two unknowns, and a target vector that no longer lies in the column space of the 3×2 matrix. Existence has failed. No pair of weights prices all three houses, and it only gets worse from there: the full claim stacks 1,460 equations onto the same two unknowns.
-
-This is not a defect in the houses. It is the standing condition of data, and it has a name from Chapter 2: the system is **overdetermined**. The machine will still hand you weights if you ask properly. Asked for the *best* weights over all 1,460 houses at once, `np.linalg.lstsq` returns about \$51.87 per square foot and \$17,604 per quality point, sane numbers, priced to miss every house a little instead of fitting two houses perfectly. Listing 3.8 assembles the full table, asks for those weights, and draws the whole market against them; Figure 3.4 is its output.
-
-**Listing 3.8 (the market, drawn)**
-
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-
-zoning  = pd.read_csv('data/zoning.csv')
-listing = pd.read_csv('data/listing.csv')
-sale    = pd.read_csv('data/sale.csv')
-housing = pd.merge(zoning, listing, on='Id')
-housing = pd.merge(housing, sale, on='Id').set_index('Id')
-X = housing[['GrLivArea', 'OverallQual']].to_numpy(float)
-y = housing['SalePrice'].to_numpy(float)
-w_best, *_ = np.linalg.lstsq(X, y, rcond=None)
-print('lstsq w:', np.round(w_best, 2))
-plt.scatter(X[:, 0], y, s=8, alpha=0.3, label='actual')
-plt.scatter(X[:, 0], X @ w_best, s=8, alpha=0.3,
-            label='predicted')
-plt.xlabel('GrLivArea (sq ft)')
-plt.ylabel('SalePrice ($)')
-plt.legend()
-```
-
-```text
-lstsq w: [   51.87 17604.21]
-```
-
-![price against living area, with best-fit predictions](figures/fig_price_vs_sqft.png)
-
-> **Figure 3.4.** Actual sale price against living area for all 1,460 homes, with the two-feature best-fit predictions overlaid. The predictions form a tight band, and the market scatters around it. No line threads every point; the band misses everything a little, on purpose.
-
-But notice what just happened to the words. *Best* weights. Miss *a little*. Nothing in Part I defines best or little. Those words need a way to measure how wrong a miss is and a reason to prefer one distribution of misses over another, and that is probability's department.
-
-The door out of this chapter opens onto Part II, and the question walking through it is the preface's question with a sharpened edge. Of all the linear combinations available, which one is the estimate, and what exactly makes it best? Chapter 12 answers with the drawing. Everything between here and there is learning to say *best* precisely.
+Nothing in Part I can define *best*. The word needs a way to measure how wrong a miss is and a reason to prefer one distribution of misses over another, and that is probability's department. Part II builds that equipment, on data, starting in Chapter 5, and Chapter 12 walks back through this door with the word *best* fully licensed and the drawing from the preface in hand. Everything between here and there is learning to say it precisely.
 
 ## 3.8 Summary and exercises
 
-The equation is $A\mathbf{x} = \mathbf{b}$, and the two standing questions have spaces and now numbers: rank measures reach, nullity measures crush, and the ledger balances (Claim 3.3, the fundamental theorem's first installment). Diagnosis precedes solving, and the three fates are one, none, or a family. When uniqueness holds, the license is a method: see a candidate, verify it, done. When seeing fails, elimination is the systematic fallback, and elimination is not just a procedure but a factorization, $A = LU$ (Claim 3.4), reusable across targets. The machine runs the same factorization and gets held to the same standard: solve, then check the residual. And the square world ends at the door: real data is overdetermined, exact fits memorize noise (a negative price per square foot, fit perfectly), and *best* is a word Part I cannot define.
+The equation is $A\mathbf{x} = \mathbf{b}$, and the two standing questions have spaces and now numbers: rank measures the column space, nullity measures the null space, and the ledger balances (Claim 3.3, the fundamental theorem's first installment). Diagnosis precedes solving, and the three fates are one, none, or a family. When uniqueness holds, the license is a method: see a candidate, verify it, done. When seeing fails, elimination is the systematic fallback, and elimination is not just a procedure but a factorization, $A = LU$ (Claim 3.4), reusable across targets. The machine runs the same factorization and gets held to the same standard: solve, then check the residual. And the square world has an edge: real measurement is overdetermined, existence fails as the normal condition, and *best* is a word Part I cannot define. Part II builds the equipment; Chapter 12 walks back through with it.
 
 **Exercises**
 
@@ -361,6 +286,6 @@ The equation is $A\mathbf{x} = \mathbf{b}$, and the two standing questions have 
 6. *(keyboard)* Verify exercise 5's factorization in code, then solve the same system with `np.linalg.solve` and print the residual.
 7. *(keyboard)* Ask `scipy.linalg.lu` for the factorization of Section 3.4's matrix and compare its $L$ and $U$ to ours. They differ. Read the permutation matrix $P$ and explain why (the footnote to Claim 3.4 is the hint).
 8. *(pencil)* A $4 \times 4$ matrix has rank 2. State its nullity, describe the solution set of $A\mathbf{x} = \mathbf{b}$ when $\mathbf{b}$ is reachable, and name the fate when it is not.
-9. *(keyboard)* Pick two different houses from the Ames data, solve the 2×2 system exactly, and report the weights. Are yours absurd too? Price a third house with them and measure the miss.
-10. *(keyboard, bridge → Ch 12)* Run `np.linalg.lstsq` on the full 1,460×2 system and confirm the sane weights. Compute the residual vector's largest and smallest entries. Chapter 12 earns the sense in which these weights are best; write one sentence guessing what gets minimized.
+9. *(pencil)* Stack a third equation onto the system of exercise 4 that no solution of the first three satisfies, and diagnose the enlarged system: what happened to existence, and in which space did it happen?
+10. *(pencil, bridge → Ch 12)* An overdetermined system $A\mathbf{x} = \mathbf{b}$ has no solution. Chapter 12 will replace $\mathbf{b}$ with a vector that does have one. Using Chapter 2's operators, guess which vector, and which operator produces it. One sentence.
 11. *(pencil, bridge → Ch 4)* The eigenvector equation is $A\mathbf{x} = \lambda\mathbf{x}$, which rearranges to $(A - \lambda I)\mathbf{x} = \mathbf{0}$. Say which of this chapter's spaces $\mathbf{x}$ must live in, and why $\lambda$ must be chosen to make that space nontrivial. You have just set up the next chapter.
