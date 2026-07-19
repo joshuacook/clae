@@ -225,7 +225,7 @@ Run the bookkeeping. Each elimination step is a matrix multiplying $A$ from the 
 >
 > $$L = \begin{bmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ 1 & 1 & 1 \end{bmatrix}, \quad U = \begin{bmatrix} 1 & 2 & 1 \\ 0 & 1 & 2 \\ 0 & 0 & 2 \end{bmatrix}, \quad LU = \begin{bmatrix} 1 & 2 & 1 \\ 2 & 5 & 4 \\ 1 & 3 & 5 \end{bmatrix} = A$$
 >
-> The one-breath reason: each step is invertible (add back what you subtracted), and the product of the undo-steps is lower triangular with the multipliers sitting where they acted.
+> The one-breath reason: each elimination step is invertible (add back what you subtracted), and the product of those inverse steps is lower triangular with the multipliers sitting where they acted.
 
 [^pivot]: When a zero lands in a pivot position, elimination swaps rows first, and the honest factorization is $PA = LU$ with $P$ a permutation matrix. Production code pivots even when it does not strictly have to, for numerical stability, which is why the machine's $L$ and $U$ for this very matrix look different from ours and multiply back to a row-swapped $A$. Same theorem, defensive driving.
 
