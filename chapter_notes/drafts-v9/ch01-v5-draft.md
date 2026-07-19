@@ -47,7 +47,7 @@ u = np.array([1, 0, 2])
 
 \lensmark{data} And through the data lens, a vector is a column of measurements: one measured quantity, recorded across many observations, stacked into a single object. Part II opens on a dataset of 1,460 home sales and reads every column of it exactly this way, with all of this chapter's machinery intact.
 
-One object, four appearances: an arrow, a list with rules, an array in memory, a column of measurements. Every concept in this book will make the same tour, the margin announcing each lens as it takes over, and the tour will always run in the creed's order where it can. Picture first, pencil second, machine third, houses last.
+One object, four appearances: an arrow, a list with rules, an array in memory, a column of measurements. Every concept in this book will make the same tour, the margin announcing each lens as it takes over, and the tour will always run in the creed's order where it can. Picture first, pencil second, machine third, data last.
 
 ## 1.1 Two operations and the contract
 
@@ -613,7 +613,7 @@ Why does the reading matter? Because functions scale and add, pointwise, exactly
 
 ## 1.8 Summary and exercises
 
-A vector is one object seen five ways: arrow, list, array, column, and tabulated function. The act is the linear combination (Definition 1.2), axpy to the libraries that run it, and closure (Definition 1.4) is the agreement that keeps the act inside the space. The span is everything the act can reach; a span is always a subspace (Claim 1.7); the reach is set by the number of vectors combined, never the ambient space (Claim 1.13); and rank (Definition 1.14) counts it honestly. A basis is an independent set that spans, its recipe for any vector is unique (Claim 1.10), and the unique weights are coordinates, which is what a list of numbers is. The solving question is posed, loudly: existence asks whether the target is in the column space (Definition 1.15), uniqueness asks whether the recipe is one of a kind, and each failure was drawn to scale. On the houses: feature columns are vectors, homes are points, and the span of the features is everything a linear model can predict.
+A vector is one object seen five ways: arrow, list, array, column, and tabulated function. The act is the linear combination (Definition 1.2), axpy to the libraries that run it, and closure (Definition 1.4) is the agreement that keeps the act inside the space. The span is everything the act can reach; a span is always a subspace (Claim 1.7); the reach is set by the number of vectors combined, never the ambient space (Claim 1.13); and rank (Definition 1.14) counts it honestly. A basis is an independent set that spans, its recipe for any vector is unique (Claim 1.10), and the unique weights are coordinates, which is what a list of numbers is. The solving question is posed, loudly: existence asks whether the target is in the column space (Definition 1.15), uniqueness asks whether the recipe is one of a kind, and each failure was drawn to scale. And the data lens is loaded: feature columns are vectors, their span is everything a linear model can predict, and Part II brings the dataset that makes both concrete.
 
 The question the book answers is now posed. Of all the linear combinations available, which one is the estimate, and how do we earn it?
 
