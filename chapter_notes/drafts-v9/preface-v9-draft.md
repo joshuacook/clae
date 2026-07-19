@@ -1,15 +1,10 @@
-<!-- PREFACE v9 DRAFT (2026-07-19): the full-v9 pass per chapter_notes/
-     v9-revision-punchlist.md notes #1-#18. Career passage folded in and
-     revised (#14 #15 #16, both PINK deletes applied); THE REVIEW
-     (windmills + measurement acts) MOVED after the career passage
-     (#7 #17) with the Quixote thread picked back up at the seam (#2);
-     new figures: angle on the unit circle (#4), cosine gallery (#5 #6),
-     standing waves (#13), error-vs-grid listing + loglog figure (#11);
-     scalar-mult footnote (#3), Eloranta link (#12), figure refs by
-     number (#9; numbering matches render order sheet 0.1 / derivative
-     0.2 / error 0.3 / waves 0.4 / circle 0.5 / gallery 0.6), estimation
-     bold (#10), closing question bold + the best-question raised (#18).
-     Base: chapter_drafts v8 + tranche-1. -->
+<!-- PREFACE v11 DRAFT (2026-07-19): per the v10 ink census + rulings.
+     Dedup rule (census 15): the three-ways product display OUT (Ch2's
+     composition section now owns it, deeply); elimination stays as the
+     windmill reminder (Ch3 owns the deep treatment; the preface keeps
+     only the quiz-anchored refresher). NEW: basic determinant
+     computation, 2x2 and 3x3 (census 16, Ch4 uses it). Base: the v10
+     preface (census: "the preface is great"). -->
 
 # Preface
 
@@ -249,48 +244,37 @@ The same work in matrix form is the version your eye should learn, because the g
 
 Triangular means solvable by back substitution. Climb down, then carry the answers back up. The bottom row gives $z = 2$. Carry it up, and $y = 3 - 2(2) = -1$. Carry both up, and $x = 5 - 2(-1) - 2 = 5$. Every unknown falls in turn.
 
-Second, matrix multiplication, which Strang teaches three ways, and all three earn their display. Take one small product and watch it three times:
-
-\begin{equation}
-AB = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix} = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}
-\end{equation}
-
-The first way is entry by entry. Each number in the answer is a row of $A$ dotted with a column of $B$:
+Second, matrix multiplication, which Strang teaches three ways, entry by entry, column by column, and as a sum of outer products. The quiz that opened this preface was asking for all three, and all three get their full treatment where they earn their keep, in Chapter 2, where the product means something. Here it is enough that you can compute one: each entry of $AB$ is a row of $A$ against a column of $B$,
 
 \begin{align}
-(AB)_{11} &= 1 \cdot 5 + 2 \cdot 7 = 19, & (AB)_{12} &= 1 \cdot 6 + 2 \cdot 8 = 22, \notag \\
-(AB)_{21} &= 3 \cdot 5 + 4 \cdot 7 = 43, & (AB)_{22} &= 3 \cdot 6 + 4 \cdot 8 = 50
+\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix} = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix},
+\qquad
+(AB)_{11} = 1 \cdot 5 + 2 \cdot 7 = 19,
 \end{align}
 
-Four row-column pairs, four entries. This is the way everyone is taught, and it is the least illuminating of the three. Sixteen multiplications, no story.
+and the other three entries follow the same row-against-column rule.
 
-The second way is column by column. $A$ acts on each column of $B$, and each column of the answer is a linear combination of $A$'s columns:
+Third, the determinant, one number computed from a square matrix, because Chapter 4 will need it exactly once and you should not have to relearn the arithmetic there. For $2 \times 2$, cross-multiply and subtract:
 
-\begin{equation}
-\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 5 \\ 7 \end{bmatrix}
-= 5\begin{bmatrix} 1 \\ 3 \end{bmatrix} + 7\begin{bmatrix} 2 \\ 4 \end{bmatrix}
-= \begin{bmatrix} 19 \\ 43 \end{bmatrix}
-\end{equation}
+\begin{align}
+\det\begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc,
+\qquad
+\det\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix} = 4 - 1 = 3
+\end{align}
 
-and the second column of $B$ builds the second column of the answer the same way:
+For $3 \times 3$, expand along the top row, alternating signs, each entry times the $2 \times 2$ determinant left when its row and column are struck out:
 
-\begin{equation}
-\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}\begin{bmatrix} 6 \\ 8 \end{bmatrix}
-= 6\begin{bmatrix} 1 \\ 3 \end{bmatrix} + 8\begin{bmatrix} 2 \\ 4 \end{bmatrix}
-= \begin{bmatrix} 22 \\ 50 \end{bmatrix}
-\end{equation}
+\begin{align}
+\det\begin{bmatrix} 1 & 2 & 0 \\ 0 & 3 & 1 \\ 2 & 0 & 1 \end{bmatrix}
+= 1\det\begin{bmatrix} 3 & 1 \\ 0 & 1 \end{bmatrix}
+- 2\det\begin{bmatrix} 0 & 1 \\ 2 & 1 \end{bmatrix}
++ 0
+= 1(3) - 2(-2) = 7
+\end{align}
 
-Each column of $B$ is a recipe, and $A$'s columns are what it cooks. This is the way this book thinks, starting on page one of Chapter 1.
+What the determinant *means* is a story this book deliberately keeps in a drawer, and Chapter 4 explains why when it takes the number out, uses it once, and puts it back. Here you only need the arithmetic.
 
-The third way is as a sum of outer products, column of $A$ times row of $B$, the answer assembled from rank-one slabs:
-
-\begin{equation}
-\begin{bmatrix} 1 \\ 3 \end{bmatrix}\begin{bmatrix} 5 & 6 \end{bmatrix} + \begin{bmatrix} 2 \\ 4 \end{bmatrix}\begin{bmatrix} 7 & 8 \end{bmatrix} = \begin{bmatrix} 5 & 6 \\ 15 & 18 \end{bmatrix} + \begin{bmatrix} 14 & 16 \\ 28 & 32 \end{bmatrix} = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}
-\end{equation}
-
-Each slab is one column of $A$ spread across one row of $B$, the simplest matrices there are, and the product is their sum. This way looks exotic and pays the deepest dividends. It is how Chapter 10 will read the singular value decomposition, a matrix taken apart into its slabs, largest first.
-
-One product, three readings, and the quiz that opened this preface was asking for all three. That is the whole of the machinery this book assumes. Elimination will be used and never taught again. The three ways will be named when needed and never drilled. The quest in this book begins where that quiz ended, with what the machinery means.
+That is the whole of the machinery this book assumes. Elimination will be used and never taught again; Chapter 3 makes it yours properly. The determinant is a computation until Chapter 4 needs it. The quest in this book begins where that quiz ended, with what the machinery means.
 
 &nbsp;
 

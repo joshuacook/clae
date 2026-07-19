@@ -18,7 +18,7 @@
 
 ## 4.0 The directions a verb cannot tangle
 
-Most verbs tangle directions. Feed a matrix a vector and the output generally points somewhere new, a mix of everything the columns could reach. But for some matrices, some directions come out of the action pointing exactly where they went in, merely stretched. Chapter 2's exit caught $K$ refusing to tangle a sine. This chapter is about those directions, because a direction a verb cannot tangle is a direction along which the verb is just a number, and trading a matrix for a few numbers is the best bargain in the subject. Here is the chapter's route. Define the pair and verify specimens by multiplication. Find eigenvalues with one determinant, borrowed from the drawer. Diagonalize, and cash the bargain on matrix powers. Confront the second difference matrix and watch sines fall out. Turn guess-and-check into the power method. And pay the preface's oldest promise, the orbitals.
+Most verbs tangle directions. Feed a matrix a vector and the output generally points somewhere new, a mix of everything the columns could reach. But for some matrices, some directions come out of the action pointing exactly where they went in, merely stretched. Chapter 2's exit caught $K$ refusing to tangle a sine. This chapter is about those directions, because a direction a verb cannot tangle is a direction along which the verb is just a number, and trading a matrix for a few numbers is the best bargain in the subject. Here is the chapter's route. Define the pair and verify specimens by multiplication. Find eigenvalues with one determinant, borrowed from the drawer. Diagonalize, and cash the bargain on matrix powers. Confront the second difference matrix and watch sines fall out. Turn candidate-and-verify iteration into the power method. And pay the preface's oldest promise, the orbitals.
 
 > **Definition 4.1 (eigenvector, eigenvalue).** A nonzero vector $\mathbf{v}$ is an **eigenvector** of a square matrix $A$ when $A\mathbf{v} = \lambda\mathbf{v}$ for some number $\lambda$, the **eigenvalue**. The pair $(\lambda, \mathbf{v})$ is an eigenpair: a direction the verb preserves, and the stretch it applies there.
 
@@ -201,9 +201,9 @@ Stop and take in what this means. The matrix was built out of nothing but the ar
 
 [^race]: The 2015 paper behind this section raced the analytic formulas above against LAPACK's general-purpose eigensolver across matrix sizes. The expectation was that knowing the answer in closed form would win at every size. It did not; around $n = 100$ the tuned library overtook the formula evaluation, a lesson in respecting four decades of Fortran that this book has been teaching since its first timing race.
 
-## 4.4 The power method: guess-and-check made an algorithm
+## 4.4 The power method: iteration under the license
 
-The determinant found eigenvalues for a $2 \times 2$. Nobody finds them that way at scale, and the honest scalable idea is one this book has been practicing all along: guess, then improve the guess by checking it against the matrix. Start from any vector and just keep applying $A$. Every application stretches the input's eigen-components by their eigenvalues, so the component with the largest eigenvalue grows fastest, and the iterate swings toward its direction. Normalize as you go, and the sequence converges to the dominant eigenvector, with the stretch it experiences converging to the dominant eigenvalue. Listing 4.4 runs it on the small example, starting from a deliberately bad guess.
+The determinant found eigenvalues for a $2 \times 2$. Nobody finds them that way at scale, and the honest scalable idea is one this book has been practicing all along: propose a candidate, then improve it by applying the matrix and verifying. Start from any vector and just keep applying $A$. Every application stretches the input's eigen-components by their eigenvalues, so the component with the largest eigenvalue grows fastest, and the iterate swings toward its direction. Normalize as you go, and the sequence converges to the dominant eigenvector, with the stretch it experiences converging to the dominant eigenvalue. Listing 4.4 runs it on the small example, starting from a deliberately bad guess.
 
 **Listing 4.4 (the power method)**
 
@@ -222,7 +222,7 @@ direction: [0.707107 0.707107]
 stretch  : 3.0
 ```
 
-Twenty multiplications, and the bad guess has become $(1, 1)/\sqrt{2}$ with eigenvalue 3, which one final multiply-and-check certifies as an eigenpair. That is guess-and-check graduated into an algorithm: the guess is free, the improvement is one application of the verb, and the license's verification is the stopping rule. Serious eigensolvers, LAPACK's included, are descendants of this idea with better manners, and Chapter 11 will meet its most famous industrial application, the iteration that once ranked the entire web.
+Twenty multiplications, and the bad starting vector has become $(1, 1)/\sqrt{2}$ with eigenvalue 3, which one final multiply-and-verify certifies as an eigenpair. That is solving by inspection graduated into an algorithm: the candidate is free, the improvement is one application of the operator, and the license's verification is the stopping rule. Serious eigensolvers, LAPACK's included, are descendants of this idea with better manners, and Chapter 11 will meet its most famous industrial application, the iteration that once ranked the entire web.
 
 Convergence is visible. Listing 4.5 reruns the iteration and tracks the gap between the running stretch and the true eigenvalue 3; Figure 4.3 is its output.
 
