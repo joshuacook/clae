@@ -28,7 +28,7 @@ I was unhorsed. Spans. Bases. Linear Combinations. I sat in that desk well after
 
 Years before that night class, back when I was the teacher, I read Paul Lockhart's *A Mathematician's Lament*, a working mathematician's essay on what school does to his subject.[^lockhart] Lockhart's thesis deserves stating in full, because this book is an attempt to act on it. Mathematics, he says, is an art, the art of pattern and imagination, and the most misunderstood subject in the curriculum, because school teaches its paperwork instead. The notation, the procedures, the answer-getting. Everything except the experience of doing the thing.
 
-You have met the paperwork. It is the pipeline's three semesters of computation-shaped nails, and it is the determinant road through linear algebra. If your first course left you cold, Lockhart's diagnosis says it was probably not the subject. It was the bookkeeping.
+You have met the paperwork. It is the whole procedure pipeline that carried you through school, algebra to precalculus to calculus, answers at the ends of computations. If a math course ever left you cold, Lockhart's diagnosis says it was probably not the subject. It was the bookkeeping.
 
 His famous figure is musical. Imagine teaching music by making children copy sheet music for a decade, grading their clefs and their stem directions, and never once playing them a song. I recognized my own classroom in the accusation, and I fought it with real geometry and two-column proofs. But the Lament reads differently once you are the student. Staring at that 5, the decade of sheet music was mine.
 
@@ -68,7 +68,7 @@ Linear algebra is where the pipeline can break open for good. The objects come w
 
 &nbsp;
 
-One idea from that night class kept transferring, and it deserves its own section, because watching it transfer is watching this book's thesis form.
+What happened next is the reason this book exists, and the point is not any single idea. The point is **transfer**. Ideas from linear algebra do not stay in linear algebra. They move into the next course, and the next field, and the next job, unchanged, and once you have watched it happen three times you start to suspect what this preface will eventually say outright: once you assume linearity, it is all linear algebra. Here is the transfer happening, in order.
 
 That semester I was also taking waves in physics. Partway through the term the same word surfaced in both rooms. Basis. In Jim's room, the vectors underneath a list of coordinates. In the physics room, the sinusoids underneath a Fourier series, though physics never said the word out loud. I saw it, and I said it. The waves course was asking, without ever asking, which combination of sinusoids is this signal.
 
@@ -76,7 +76,9 @@ Basis was the jewel, and it kept resurfacing. The next year Jim marched us throu
 
 Then came differential equations, and that is where the idea stopped visiting and moved in. Solutions superpose. The solution set is a span wearing a trench coat. The course was asking which combination of solutions fits these conditions, and this time I could hear it asking.
 
-By the time I transferred to Cal State Northridge, partial differential equations felt almost easy, and I could finally say why. Every technique in the course was the same move. Expand the unknown in the right basis, and watch the equation fall apart.[^complex] Off syllabus, the jewel went atomic: electron orbitals are built from a basis too, Laguerre polynomials dressed in spherical harmonics.[^singer] In which combination of basis states does this electron lie.
+By the time I transferred to Cal State Northridge, partial differential equations felt almost easy, and I could finally say why. Every technique in the course was the same move. Expand the unknown in the right basis, and watch the equation fall apart.[^complex] Off syllabus, the transfer went atomic: electron orbitals are built from a basis too, Laguerre polynomials dressed in spherical harmonics.[^singer] In which combination of basis states does this electron lie.
+
+And the transfer has never stopped. Twenty years on, a colleague building customer archetypes asked me to help a junior teammate working on genetics, and the answer was the happiest sentence a teacher gets to say: it is the same mathematics. The archetypes are principal component analysis; so is the genetics. Basis sets transfer, orthogonality transfers, projection transfers, and estimation transfers, because they were never about waves or customers or genes. They are about linearity, and linearity is everywhere you agree to look for it. When a problem refuses to be linear, take the logarithm and it very often agrees to be linear after all; nine times out of ten that is enough to act on, and the tenth time you probably have a counting problem, Poisson's department, waiting for Part II's tools. Even the calculus you already own is a transfer in disguise: a derivative is a linear operation, a matrix will take one in Chapter 2, and polynomials, the schoolroom's favorite nonlinear objects, are linear combinations of powers, which is why fitting them is Chapter 12's linear problem. The subject does not visit other fields. It is the floor they are built on.
 
 [^complex]: If you want your noodle properly baked, the most natural basis for real oscillations is built from complex exponentials, $e^{i\omega t}$, imaginary numbers doing the honest work behind every real wave. Chapter 14 cashes this in.
 
@@ -183,7 +185,7 @@ n =  10000: max error 0.000314
 
 > **Figure P.4.** Ten times the grid, one tenth the error, three times over: a straight line of slope $-1$ on log axes. The matrix is not resembling differentiation. It is converging to it.
 
-I carried that into an independent research project in Jussi Eloranta's quantum chemistry lab,[^eloranta] where the Schrödinger equation for a particle in a box collapsed into a matrix eigenproblem and the eigenvectors came out as sines:
+I carried that into an independent research project in Jussi Eloranta's quantum chemistry lab,[^eloranta] where the Schrödinger equation for a particle in a box collapsed into a matrix eigenproblem and the eigenvectors came out as sines, the same sines the waves course had been expanding everything into, the transfer closing its own loop:
 
 \begin{figure}[!htb]
 \centering
@@ -352,7 +354,7 @@ Two scores matter most in this book. Agreement one means the same direction. Agr
 
 &nbsp;
 
-You took linear algebra, maybe more than once. You know the words. You may even use them at work, at arm's length, through a library call. Either nobody ever played you the song, or somebody did, once, and you have not heard it in years.
+You took linear algebra, maybe more than once. You know the words. You may even use them at work, at arm's length, through a library call. And the odds say you were marched down the old road: a semester of determinant drills bolted onto the end of the calculus pipeline, computation without the picture, procedures without the reasons, the one subject built for seeing taught as one more thing to evaluate. You never chose the wrong road. It was the only one on offer. This book exists because the other road is real, it was cut by Strang and taught to me by Jim, and it is not too late to walk it.
 
 Notice what every stop on this road had in common. The waves course asked which combination of sinusoids is this signal. The differential equations asked which combination of solutions fits these conditions. The orbitals asked which combination of basis states is this electron. The lab asked which combination of eigenvectors is the ground state. The career asked which combination of features is this price, which combinations carry this dataset's variation, which blend of prediction and measurement is this position. Fifteen years, one question. Data asks it too, and calls it estimation.
 
