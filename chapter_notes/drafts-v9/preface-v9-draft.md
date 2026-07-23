@@ -139,51 +139,25 @@ np.abs(D @ np.sin(x) - np.cos(x))[:-1].max()
 0.0031
 ```
 
-Wrong in the third decimal on a thousand points, and tightening the grid shrinks it. The matrix took the derivative. Listing P.2 draws the run, and Figure 0.2 is its output.
+Wrong in the third decimal on a thousand points, and tightening the grid shrinks it. The matrix took the derivative. The claim in "tightening the grid shrinks it" deserves eyes, not just a number. Listing P.2 runs the same derivative-taking at three step sizes and draws each output against the true cosine; Figure 0.2 is its output.
 
-**Listing P.2 (the derivative, drawn)**
+**Listing P.2 (the derivative, at three granularities)**
 
 ```python
 import matplotlib.pyplot as plt
 
-plt.plot(x, np.sin(x), label='input: sin(x)')
-plt.plot(x[:-1], (D @ np.sin(x))[:-1], label='output: D @ sin(x)')
-plt.plot(x, np.cos(x), 'k--', lw=1, label='cos(x)')
-plt.legend()
+fig, axes = plt.subplots(1, 3, figsize=(10, 3.2), sharey=True)
+for ax, h in zip(axes, [0.25, 0.1, 0.01]):
+    xs = np.arange(0, 2*np.pi, h)
+    d = np.diff(np.sin(xs)) / h    # the rows of D, applied
+    ax.step(xs[:-1], d, where='post')
+    ax.plot(xs, np.cos(xs), 'k--', lw=1)
+    ax.set_title(f'h = {h}')
 ```
 
-![the matrix took a derivative](figures/fig_preface_derivative.png)
+![the derivative at three granularities](figures/fig_preface_granularity.png)
 
-> **Figure P.3.** The sampled sine in, the matrix's output, and the true cosine dashed on top. The output sits on the cosine to within the width of the line.
-
-And "tightening the grid shrinks it" is a claim with numbers in it, so here are the numbers. Listing P.3 rebuilds $D$ at three grid sizes and prints the worst error at each; Figure 0.3 draws the errors against the sizes on log axes.
-
-**Listing P.3 (the error, as a function of the grid)**
-
-```python
-ns = [100, 1_000, 10_000]
-errs = []
-for n in ns:
-    x = np.linspace(0, 2*np.pi, n)
-    h = x[1] - x[0]
-    D = (np.eye(n, k=1) - np.eye(n)) / h
-    err = np.abs(D @ np.sin(x) - np.cos(x))[:-1].max()
-    errs.append(err)
-    print(f'n = {n:6d}: max error {err:.6f}')
-plt.loglog(ns, errs, 'o-')
-plt.xlabel('grid points n')
-plt.ylabel('max error')
-```
-
-```text
-n =    100: max error 0.031729
-n =   1000: max error 0.003145
-n =  10000: max error 0.000314
-```
-
-![error against grid size](figures/fig_preface_error_scaling.png)
-
-> **Figure P.4.** Ten times the grid, one tenth the error, three times over: a straight line of slope $-1$ on log axes. The matrix is not resembling differentiation. It is converging to it.
+> **Figure 0.2.** The matrix's derivative of a sampled sine at three step sizes, with the true cosine dashed. At $h = 0.25$ it is blocky. At $h = 0.1$ it takes shape. At $h = 0.01$ it is smooth to the eye, and the dashes disappear under it. The matrix is not resembling differentiation. It is converging to it.
 
 I carried that into an independent research project in Jussi Eloranta's quantum chemistry lab,[^eloranta] where the Schrödinger equation for a particle in a box collapsed into a matrix eigenproblem and the eigenvectors came out as sines, the same sines the waves course had been expanding everything into, the transfer closing its own loop:
 
@@ -206,21 +180,9 @@ I carried that into an independent research project in Jussi Eloranta's quantum 
 
 &nbsp;
 
-The write-up was the end of school and the start of the career, and the career is the half of this story that data readers will recognize. The job boards' ballads from the first page of this preface turned out to be true. The kingdom really was hiring, and I went.
+The write-up was the end of school and the start of a career in data science, and the career needs only one paragraph here, because its entire content was the two ideas this preface is about. Every job was the transfer, again. A parking-prediction service was a linear model built from scratch in NumPy when the servers could not run anything heavier; customer archetypes, and later genetics, were principal component analysis; defect detection on denim was the same basis hunt in an autoencoder's costume; clinical records, filters, rankings, all of it the night class wearing work clothes. And every job ran on estimation, because no real target ever sat inside the span of what the features could reach, and *best* was always the working question. The tools changed names when they changed buildings. The mathematics never changed at all.
 
-The first real assignment set the tone for the decade. A parking company had acquired some mathematics the way companies do, in a folder, from someone long gone, and the brief was one sentence: somebody wrote some math in there and we don't know how it works, can you fix it? The servers were too old to run scipy. So I opened *The Elements of Statistical Learning* and wrote the spline from scratch in NumPy, which is to say, I built it out of the operations in this book's first chapter, because that is all NumPy is.
-
-That spline grew into a parking-prediction service for BMW covering twenty cities, with a store for its engineered features years before "feature store" was a product category.
-
-I filled the whiteboards in a rec room no one else walked into. From the ping-pong table it must have looked like nonsense. It was a linear model earning its keep, and nobody in the building could see it. That gap, between what the mathematics was doing and who could see it, turned out to be the job. And the job itself was the standing rebuttal to the schoolroom's oldest complaint. When will I ever use this? Monday through Friday, for pay, is the answer this book's subject gave me.
-
-Then I made the best strategic move of my career, and it will sound like a step down. I went to teach. What I had not priced in was what the teaching would do to me. To stand in front of working engineers and explain why regularization works, why the covariance matrix has the shape it has, why the estimator lands where it lands, I had to understand those things past the point of using them, down to where the chalk meets the board. I was teaching graduate-level mathematics I had never formally studied, and teaching it honestly amounted to another degree, earned at the front of the room. The teaching settled at UCLA, curriculum by curriculum, and the material of this book started assembling itself there.
-
-The decade had a rhythm to it, and the rhythm was arriving early: a containers-for-data-science talk in 2016 that a whole conference room squinted at, the book of that talk with this book's own publisher a year later, a language model shipped into an education product the same month ChatGPT launched. The pattern is worth one sentence, because it is a mathematical claim and not a career one. Tools churn. The subject under the tools, the combinations, the subspaces, the projections, does not, and a practitioner who trusts the mathematics over the product cycle is early for free.
-
-And everywhere the career went, the night class was waiting for me. A regression at work is the drawing, a price vector floating above the sheet of what the features can reach, with a perpendicular dropped to the best combination; at the parking company the sheet was spanned by features of place and time, and the perpendicular was the product. Principal component analysis is the basis hunt from the waves course pointed at a covariance matrix; at a clothing company the hunt wore an autoencoder's costume and watched denim for defects. A Kalman filter blends a prediction and a measurement into one combination and calls it an estimate. The tools changed names when they changed buildings. The question never changed at all.
-
-I kept teaching it. The UCLA material grew, moved with me, and landed at Caltech, taught to rooms full of working engineers who had all taken linear algebra once and mostly remembered the bookkeeping. Fifteen years after that night at the city college, those bodies of work grew into the book you are holding. The class that nearly ended me had become the foundation of a second career, and the kind of subject I would argue about with friends over a beer.
+I kept teaching it, at UCLA and then at Caltech, to rooms full of working engineers who had all taken linear algebra once and mostly remembered the bookkeeping, and fifteen years after that night at the city college, those courses grew into the book you are holding, the kind of subject I would argue about with friends over a beer.
 
 &nbsp;
 
