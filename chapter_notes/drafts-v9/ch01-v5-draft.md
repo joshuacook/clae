@@ -1,18 +1,33 @@
-<!-- DRAFT V7 (2026-07-19): the v11 pass per the v10 ink census +
-     rulings. REORDER: contract before combinations, axpy at the END
-     (1.6) feeding vector-as-function (1.7, which now USES axpy);
-     HOUSES OUT of the chapter entirely (to Chapter 5; stock in
-     .render/ch1_houses_block.md); data beats rewritten as forward
-     pointers; R1 language sweep (no coinages). Numbering recut to
-     per-type counters happens in the global pass. Base: V6. -->
+<!-- DRAFT V8 (2026-07-24): the v12 pass per the v11 ink census.
+     CENTRAL IDEA: THE AGREEMENT (C1). Vector space defined FIRST (C3);
+     coordinates seeded at the "point" remark (C2 C13 C16); subspace
+     demoted, Axler tangent cut (C9); membership answered on the spot
+     by inspection + TikZ (C7); solving section dissolved into the tour
+     (P14/C18: E/U live in the preface review now; existence-failure
+     folds into span, uniqueness-failure into independence); standard
+     basis = the x/y axes (C14); trivial solution shown (C10a); the
+     R2/R3 figure corrected (C10b); span-of-the-question name killed
+     (C15); same-space note (C4); LLM footnote rewrite (C5); sweep
+     naming unified (C6). Claims->Facts happens in the global pass.
+     Base: V7. -->
 
 # Chapter 1: Vectors, Spaces, and the Solving Question
 
 ## 1.0 The Method
 
-Here is what this chapter does. It introduces the vector, this book's first object, through all four of the preface's lenses. It establishes the two operations vectors support and the agreement that protects them, the vector space, and from them builds the linear combination and everything a linear model stands on: span, independence, basis, coordinates. It poses, precisely and loudly, the question the rest of the book answers: when does a combination reach a target, and is the combination unique? And it closes with the two payoffs that carry forward: the compiled-speed engine underneath every combination this book will ever compute, and the reading of a vector as a sampled function, which Chapters 2, 5, and 14 each cash in turn. Chapter 3 builds the solving machine. Part II brings the data. Part III asks what to do when no combination is exactly right.
+This chapter is about one idea: **the agreement**. Everything in linear algebra begins as a deal you strike with your objects. You agree to do exactly two things to them, scale them and add them, and they agree that the results stay in the family. That is the whole contract. Every term this chapter introduces is either a party to the agreement (vectors, and the spaces they form), a move the agreement licenses (the linear combination, and the span of everything it can reach), or a question the agreement makes precise (when combinations are genuinely different, and what a basis is). The preface promised that assuming linearity buys you an entire transferable subject. The agreement is what "assuming linearity" means, stated as a rule you could enforce.
 
-The preface christened four lenses. This book keeps its promises immediately, so here is the vector, seen through all four before anything else happens to it.
+So the chapter opens with the agreement itself, then introduces the objects that sign it, through all four of the preface's lenses.
+
+> **Definition 1.1 (vector space, working version).** A **vector space** is a set $S$ of objects, called **vectors**, closed under two operations:[^axioms]
+>
+> - **Closure under scaling.** For every vector $\mathbf{v}$ in $S$ and every number $c$, the vector $c\mathbf{v}$ is in $S$.
+>
+> - **Closure under addition.** For every pair of vectors $\mathbf{v}$ and $\mathbf{w}$ in $S$, the vector $\mathbf{v} + \mathbf{w}$ is in $S$.
+
+Read the definition's order of precedence, because it is the chapter's whole philosophy. A vector is not a thing with a fixed nature that happens to allow scaling and adding. A vector is *whatever lives in a set where scaling and adding stay closed*. The agreement comes first; the objects qualify by signing it. Lists of numbers sign it, and they are this chapter's working vectors. Arrows sign it. Functions sign it, as Section 1.7 will show, and random variables will sign it in Chapter 5, which is why one chapter of algebra ends up running an entire book.
+
+Here is the working vector, seen through all four lenses before anything happens to it.
 
 \lensmark{geometric} Through the geometric lens, a vector is an arrow from the origin. The arrow $(2, 1)$ walks two east and one north:
 
@@ -33,7 +48,11 @@ The preface christened four lenses. This book keeps its promises immediately, so
 
 [^complexnote]: Real by decree, not by necessity. Everything in Part I works unchanged with complex entries, and $\mathbb{C}^n$ takes over when signal processing requires it in Chapter 14. Until then the reals carry the book.
 
-The arrow above is $(2, 1)$ in $\mathbb{R}^2$. Three dimensions work the same way with one more entry: $(1, 0, 2)$, $(3, -1, 4)$, and $(0, 0, 1)$ all live in $\mathbb{R}^3$, arrows in space instead of on a page. Past three dimensions the drawing gives out and the list keeps going.
+The arrow above is $(2, 1)$ in $\mathbb{R}^2$, and you have almost certainly met this object before under another name: the **point** $(2, 1)$, from every graph you ever plotted. Point and vector are the same data, and the two numbers deserve their proper name now, because it is the name this book will lean on hardest.
+
+> **Definition 1.2 (coordinates, first form).** The numbers in a vector's list are its **coordinates**: how far to walk along each axis to reach it. Section 1.4 will reveal what the axes themselves are and upgrade this definition into the chapter's payoff.
+
+Three dimensions work the same way with one more coordinate: $(1, 0, 2)$, $(3, -1, 4)$, and $(0, 0, 1)$ all live in $\mathbb{R}^3$, arrows in space instead of on a page. Past three dimensions the drawing gives out and the list keeps going.
 
 \lensmark{computational} Through the computational lens, a vector is an array, a contiguous block of memory the compiled libraries can run over at full speed. Listing 1.1 puts one in $\mathbb{R}^2$ and one in $\mathbb{R}^3$ into memory.
 
@@ -49,9 +68,9 @@ u = np.array([1, 0, 2])
 
 One object, four appearances: an arrow, a list with rules, an array in memory, a column of measurements. Every concept in this book will make the same tour, the margin announcing each lens as it takes over, and the tour will always run in the creed's order where it can. Picture first, pencil second, machine third, data last.
 
-## 1.1 Two operations and the contract
+## 1.1 The two operations, drawn
 
-The vector supports exactly two operations, and everything else in this subject is built from them. Each gets the full tour, picture first.
+The agreement names two operations, so here they are in full, picture first. These are the only moves the whole subject will ever make.
 
 **Scalar multiplication.** \lensmark{geometric} Scalar multiplication is stretching. Multiply a vector by $c$ and its arrow grows or shrinks along its own line through the origin. A negative $c$ flips it to point the other way down the same line. What scaling can never do is change the line. Length changes, direction stays or exactly reverses, and no choice of $c$ rotates the arrow off its axis:
 
@@ -132,14 +151,6 @@ That arithmetic, repeated ten million times per entry at compiled speed, is Sect
 
 The two operations are on the table. The next move is the agreement that makes them a subject.
 
-The transition from one operation to a whole subject runs through a single agreement. Here is the space it happens in, defined before the rules it obeys.
-
-> **Definition 1.2 (vector space, working version).** A **vector space** is a set $S$ of vectors closed under the two operations:[^axioms]
->
-> - **Closure under scaling.** For every vector $\mathbf{v}$ in $S$ and every number $c$, the vector $c\mathbf{v}$ is in $S$.
->
-> - **Closure under addition.** For every pair of vectors $\mathbf{v}$ and $\mathbf{w}$ in $S$, the vector $\mathbf{v} + \mathbf{w}$ is in $S$.
-
 [^axioms]: There is a bootstrap here, and it is worth seeing plainly. A vector space is the thing that stays closed when you scale and add, and scaling and adding are the operations a vector space supports. The circle is not a flaw. It is the agreement. Commit to objects with these two operations, and everything else in the book follows. The full definition adds eight axioms governing how the operations behave (addition commutes and associates, a zero vector exists, every vector has an additive inverse, and scalar multiplication associates, distributes both ways, and respects 1). $\mathbb{R}^n$ satisfies all eight, every space in this book satisfies all eight, and we will not check them again. The scalars bring a rulebook of their own, the arithmetic that makes the reals a **field**, and a vector space is always declared over one; when Chapter 14 trades $\mathbb{R}$ for $\mathbb{C}$, it is trading fields. Sheldon Axler, *Linear Algebra Done Right*, ch. 1, gives the axioms a first-class treatment.
 
 \lensmark{algebraic} The agreement pays immediately. Consent to work only with objects that live in a vector space, and every construction in this book comes with the membership. Take one scaling followed by one addition, $a\mathbf{x} + \mathbf{y}$, and watch each clause do its half of the work.
@@ -174,9 +185,9 @@ Repeat the two moves and every linear combination of vectors in $S$ lands in $S$
 
 Now the operation. Modern artificial intelligence, and the video gaming industry whose graphics hardware it borrowed, rests on a single, simple move. Scale a vector by a number, and add it to another vector.[^llm] That is the whole of the operation, and it carries its name into a definition.
 
-[^llm]: The claim is not rhetorical. A language model, underneath the chat window, is arithmetic at colossal scale: numbers organized into long lists, the lists scaled, the scaled lists added. Architectures turn over every few years and the operation does not. The recurrent networks that read text one word at a time carried a running summary forward, scaling what they held and adding what they read. The paper that retired them is titled "Attention Is All You Need," and attention is a weighted sum of vectors, which is Definition 1.3. The architecture died. The operation is still here.
+[^llm]: The claim is not rhetorical. A language model, underneath the chat window, is arithmetic at colossal scale: numbers organized into long lists, the lists scaled, the scaled lists added. Architectures turn over every few years and the operation does not. The recurrent networks that read text one word at a time carried a running summary forward, scaling what they held and adding what they read. The paper that retired them is titled "Attention Is All You Need," and attention is a weighted sum of vectors, which is this definition. Architectures keep being replaced; the recurrent ones were retired for attention, and attention will be retired for something else. The operation they are all made of has not changed since the beginning, and it is the one this chapter is about.
 
-> **Definition 1.3 (linear combination, weights).** A **linear combination** of vectors $\mathbf{v}_1, \ldots, \mathbf{v}_k$ is
+> **Definition 1.3 (linear combination, weights).** A **linear combination** of vectors $\mathbf{v}_1, \ldots, \mathbf{v}_k$, all drawn from one vector space, is
 >
 > \begin{align}
 > c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \cdots + c_k\mathbf{v}_k,
@@ -228,10 +239,10 @@ The bundle $a = c + 2d$ is one real number, a scalar like any other, so every co
 
 \lensmark{computational} The machine can draw the sweep by brute force, and NumPy has a function whose whole job is the word *every*. `meshgrid` takes a sweep of values for $c$ and a sweep for $d$ and crosses them, every $c$ paired with every $d$. Listing 1.10 wraps the cross into a function.
 
-**Listing 1.10 (the span sweeper, defined)**
+**Listing 1.10 (sweep_span, defined)**
 
 ```python
-def span_cloud(v: np.ndarray, w: np.ndarray, ax) -> None:
+def sweep_span(v: np.ndarray, w: np.ndarray, ax) -> None:
     grid = np.linspace(-2, 2, 25)
     C, D = np.meshgrid(grid, grid)
     cloud = C.ravel()[:, None] * v + D.ravel()[:, None] * w
@@ -245,8 +256,8 @@ Listing 1.11 runs the identical sweep twice, once with $\mathbf{w}$ on $\mathbf{
 ```python
 v = np.array([2, 1])
 fig, (left, right) = plt.subplots(1, 2, figsize=(9, 4))
-span_cloud(v, 2 * v, left)               # w on v's line
-span_cloud(v, np.array([1, 3]), right)   # w off the line
+sweep_span(v, 2 * v, left)               # w on v's line
+sweep_span(v, np.array([1, 3]), right)   # w off the line
 plt.show()
 ```
 
@@ -254,23 +265,39 @@ plt.show()
 
 > **Figure 1.10.** The same weight sweep, $c$ and $d$ each from $-2$ to $2$, crossed by `meshgrid`. Left: $\mathbf{w} = 2\mathbf{v}$, and every one of the 625 combinations lands on $\mathbf{v}$'s line. Right: $\mathbf{w} = (1, 3)$ points off the line, and the identical sweep fills a patch of plane. Widen the sweep and the patch grows without bound; the plane is what it is filling in.
 
-Membership in a span is a concrete question. Is $\mathbf{b} = (4, 7)$ in the span of $\mathbf{v} = (2, 1)$ and $\mathbf{w} = (1, 3)$? Is the point inside the swept patch or off it? Hold the question. It is the most important one in this book, it has two halves with names, and it gets its own section once the vocabulary for answering it is complete.
+Membership in a span is a concrete question, and the preface's review taught the method that answers it. Is $\mathbf{b} = (4, 7)$ in the span of $\mathbf{v} = (2, 1)$ and $\mathbf{w} = (1, 3)$? By inspection, yes: one $\mathbf{v}$ and two $\mathbf{w}$s,
 
-> **Definition 1.5 (subspace).** A **subspace** is a set of vectors that contains the origin[^origin] and is closed under scaling and addition. It is a vector space living inside a larger one.
+\begin{align}
+1\,(2, 1) + 2\,(1, 3) = (2, 1) + (2, 6) = (4, 7),
+\end{align}
 
-[^origin]: Why the origin is not optional: scaling by $c = 0$ is allowed, and it sends every vector to $\mathbf{0}$. A set closed under scaling therefore already contains the origin, so demanding it costs nothing. What it buys is a shared anchor. Every subspace of $\mathbb{R}^n$ passes through one common point, and every drawing in this book hangs off it.
+verified by the addition on the page. \lensmark{geometric} And the answer draws as Chapter 1's own tip-to-tail walk:
 
-> **Claim 1.1 (a span is a subspace).** The span of any set of vectors is a subspace.
->
-> The proof is two lines, so here it is whole. Scaling: $a(c_1\mathbf{v}_1 + \cdots + c_k\mathbf{v}_k) = (ac_1)\mathbf{v}_1 + \cdots + (ac_k)\mathbf{v}_k$, a combination. Adding: two combinations add weight by weight into one combination. All-zero weights give the origin, and both closure clauses hold. ∎[^footnotes]
->
-> Span and subspace are two descriptions of one object. Span builds it from a list of vectors. Subspace states the property the built thing has.
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}[scale=0.55]
+  \draw[gray!30, ->] (-0.6,0) -- (5.2,0);
+  \draw[gray!30, ->] (0,-0.6) -- (0,7.6);
+  \draw[->, very thick] (0,0) -- (2,1) node[below right] {$1 \cdot \mathbf{v}$};
+  \draw[->, thick, gray] (2,1) -- (3,4);
+  \draw[->, thick, gray] (3,4) -- (4,7);
+  \node[gray, anchor=west] at (3.6,4.9) {$2 \cdot \mathbf{w}$, walked};
+  \draw[->, very thick, black!70] (0,0) -- (4,7) node[above] {$\mathbf{b} = (4,7)$};
+\end{tikzpicture}
+\caption{Membership, answered by inspection and drawn. One step of $\mathbf{v}$, two steps of $\mathbf{w}$ tip to tail, and the walk lands exactly on $\mathbf{b} = (4, 7)$: the target is in the span.}
+\end{figure}
 
-[^footnotes]: A note about this book's footnotes, since this is its first boxed claim: the fuller arguments live down here and in the references, on purpose. The text above is for you. It is not for the gatekeepers who keep mathematics behind subscript fiddliness, and a proof performed as ritual is gatekeeping. The preface's Jim had a word for it, waved off with the back of a hand. When a reason is cheap you will get it in a breath. When it is a real theorem you will get the name of someone who proved it properly.
+Membership can also fail, and the failure is just as visible. Replace $\mathbf{w}$ with $(4, 2) = 2\mathbf{v}$ and ask for the same target. The span has collapsed to $\mathbf{v}$'s line, every combination lies on that line, and $(4, 7)$ does not: $4/2 \ne 7/1$. No combination reaches it, and nothing can be computed around that fact; the target is simply outside the reach. The preface's review named these the two standing questions, **existence** (is the target in the span at all?) and **uniqueness** (is the recipe the only one?), and this chapter is quietly building each one a home. Existence lives here, in the span. Uniqueness lives in the next section.
+
+When the vectors being combined sit as the columns of a matrix, which is how Chapter 2 will package them, the span takes the name it carries for the rest of the book.
+
+> **Definition 1.11 (column space).** The **column space** of a matrix is the span of its columns: everything the matrix's columns can reach by combination. Existence, for the systems of Chapter 3 and the models of Part III, is always the question of whether a target lies in a column space.
+
+One vocabulary word before moving on, introduced lightly because it will matter later. Notice that a span honors the agreement all by itself: scale a combination or add two of them and you get another combination, so a span is a vector space in its own right, living inside a larger one. The word for that, a vector space inside a vector space, is **subspace**, and when Part III projects onto subspaces, the spans of this section are what it will mean.
 
 The drawings above are more general than they look, and that is their purpose. Two vectors span at most a plane, in three dimensions, in 1,460, in a googol. The reach of a span is set by how many vectors you combine, never by the size of the space they live in.[^precise] So every question this book asks about two vectors happens inside the at-most-a-plane they span, and a drawing on this page is exact for the 1,460-dimensional case. Nobody can picture $\mathbb{R}^{1460}$, and nobody needs to.
 
-[^precise]: The precise statement is Claim 1.3, once dimension is on the table.
+[^precise]: The precise statement arrives in Section 1.4, once dimension is on the table.
 
 \lensmark{data} The data lens will point this machinery at measurements the moment Part II supplies them. A dataset's feature columns are vectors, their span is every prediction a linear model over those features can make, and whether an observed target column lies in that span is an existence question with consequences. Chapter 5 assembles the dataset; Chapter 12 lives inside this exact question.
 
@@ -311,14 +338,14 @@ Only the **trivial solution** survives, every weight zero, and that is the indep
 
 A **nontrivial** solution, live weights summing to nothing, and that is the dependence verdict. The pencil dichotomy is exactly the definition's: independent means the zero combination has only the trivial solution, dependent means it has a nontrivial one.
 
-\lensmark{computational} Listing 1.12 reuses the span sweeper on $\mathbf{v}$ and $\mathbf{w}$ and draws $\mathbf{u}$ on top. Figure 1.12 is its output.
+\lensmark{computational} Listing 1.12 reuses `sweep_span` on $\mathbf{v}$ and $\mathbf{w}$ and draws $\mathbf{u}$ on top. Figure 1.12 is its output.
 
 **Listing 1.12 (the verdict, drawn)**
 
 ```python
 v, w, u = np.array([2, 1]), np.array([1, 3]), np.array([4, 7])
 ax = plt.gca()
-span_cloud(v, w, ax)
+sweep_span(v, w, ax)
 arrows = [(v, 'blue', 'v'), (w, 'red', 'w'), (u, 'green', 'u')]
 for vec, c, name in arrows:
     ax.quiver(0, 0, *vec, angles='xy', scale_units='xy',
@@ -334,9 +361,11 @@ ax.legend(); plt.show()
 
 [^samesize]: A theorem, not an observation. The standard argument swaps the vectors of one basis into the other one at a time without losing the span, so an independent set can never outnumber a spanning set. Axler ch. 2 or Strang ch. 3 for the bookkeeping.
 
-> **Claim 1.2 (unique recipe).** If $\mathbf{b}_1, \ldots, \mathbf{b}_k$ is a basis, every vector in its span is a combination of the basis in exactly one way.
+> **Claim 1.2 (unique recipe).** If $\mathbf{b}_1, \ldots, \mathbf{b}_k$ is a basis, every vector in its span is a combination of the basis in exactly one way.[^footnotes]
 >
 > Witness it small. The set $\{(1, 0), (1, 1)\}$ is a basis of $\mathbb{R}^2$. To build $(3, 5)$, the second entry forces the weight on $(1, 1)$ to be $5$. The first entry then forces the weight on $(1, 0)$ to be $-2$. Forced twice over, no other recipe exists.
+
+[^footnotes]: A note about this book's footnotes, since this is its first boxed statement: the fuller arguments live down here and in the references, on purpose. The text above is for you. When a reason is cheap you will get it whole. When it is a real theorem you will get the name of someone who proved it properly.
 >
 > The reason it always works is one subtraction. Suppose $c_1\mathbf{b}_1 + \cdots + c_k\mathbf{b}_k$ and $d_1\mathbf{b}_1 + \cdots + d_k\mathbf{b}_k$ build the same vector. Subtract them: $(c_1 - d_1)\mathbf{b}_1 + \cdots + (c_k - d_k)\mathbf{b}_k = \mathbf{0}$. Independence allows only the trivial solution, so $c_i = d_i$ for every $i$, and the two recipes were one recipe all along.
 
