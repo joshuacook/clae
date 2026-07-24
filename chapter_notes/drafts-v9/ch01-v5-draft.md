@@ -25,7 +25,7 @@ So the chapter opens with the agreement itself, then introduces the objects that
 >
 > - **Closure under addition.** For every pair of vectors $\mathbf{v}$ and $\mathbf{w}$ in $S$, the vector $\mathbf{v} + \mathbf{w}$ is in $S$.
 
-Read the definition's order of precedence, because it is the chapter's whole philosophy. A vector is not a thing with a fixed nature that happens to allow scaling and adding. A vector is *whatever lives in a set where scaling and adding stay closed*. The agreement comes first; the objects qualify by signing it. Lists of numbers sign it, and they are this chapter's working vectors. Arrows sign it. Functions sign it, as Section 1.7 will show, and random variables will sign it in Chapter 5, which is why one chapter of algebra ends up running an entire book.
+Read the definition's order of precedence, because it is the chapter's whole philosophy. A vector is not a thing with a fixed nature that happens to allow scaling and adding. A vector is *whatever lives in a set where scaling and adding stay closed*. The agreement comes first; the objects qualify by signing it. Lists of numbers sign it, and they are this chapter's working vectors. Arrows sign it. Functions sign it, as Section 1.6 will show, and random variables will sign it in Chapter 5, which is why one chapter of algebra ends up running an entire book.
 
 Here is the working vector, seen through all four lenses before anything happens to it.
 
@@ -147,7 +147,7 @@ Put the two operations together and the book's central object, the linear combin
 2\,(1, 2) + (3, 1) = (2, 4) + (3, 1) = (5, 5)
 \end{align}
 
-That arithmetic, repeated ten million times per entry at compiled speed, is Section 1.6's story, and it is the physical form every combination in this book will take.
+That arithmetic, repeated ten million times per entry at compiled speed, is Section 1.5's story, and it is the physical form every combination in this book will take.
 
 The two operations are on the table. The next move is the agreement that makes them a subject.
 
@@ -303,7 +303,7 @@ The drawings above are more general than they look, and that is their purpose. T
 
 ## 1.4 Independence, basis, and the recipe
 
-Take the plane spanned by two vectors and bring in a third. \lensmark{geometric} Either it lands in the plane, already reachable, and the span does not grow. Or it points out of the plane, and combinations of the three fill space:
+Move to $\mathbb{R}^3$ for one drawing, because the idea needs the room. Two independent vectors in $\mathbb{R}^3$ span a plane through the origin. Bring in a third vector. \lensmark{geometric} Either it lands in that plane, already reachable, so three vectors carry no more span than two. Or it points out of the plane, and combinations of the three fill all of space:
 
 \begin{figure}[!htb]
 \centering
@@ -314,7 +314,7 @@ Take the plane spanned by two vectors and bring in a third. \lensmark{geometric}
   \draw[->, very thick, gray] (0,0) -- (2.6,-0.5) node[right] {$\mathbf{u}$ in the plane};
   \draw[->, very thick, black!70] (0,0) -- (0.6,2.2) node[above] {$\mathbf{u}'$ out of it};
 \end{tikzpicture}
-\caption{A third vector either lands in the plane the first two span, and the span does not grow, or points out of it, and combinations of the three fill space.}
+\caption{In $\mathbb{R}^3$: the plane spanned by $\mathbf{v}$ and $\mathbf{w}$, drawn in perspective, and a third vector's two possible fates. $\mathbf{u}$ lies in the plane, so the span does not grow and only two of the three are independent. $\mathbf{u}'$ points out of it, and combinations of all three fill space.}
 \end{figure}
 
 > **Definition 1.6 (linear independence).** A set of vectors is **linearly independent** when none of them is a linear combination of the others.[^zerotest]
@@ -337,6 +337,15 @@ Only the **trivial solution** survives, every weight zero, and that is the indep
 \end{align}
 
 A **nontrivial** solution, live weights summing to nothing, and that is the dependence verdict. The pencil dichotomy is exactly the definition's: independent means the zero combination has only the trivial solution, dependent means it has a nontrivial one.
+
+And dependence has a consequence worth seeing now, because it is the shape of the preface's second standing question failing. Dependence manufactures recipes. The triple $\{\mathbf{v}, \mathbf{w}, \mathbf{u}\}$ reaches $(4, 7)$ two different ways:
+
+\begin{align}
+1\,\mathbf{v} + 2\,\mathbf{w} + 0\,\mathbf{u} = (4, 7), \qquad\quad
+0\,\mathbf{v} + 0\,\mathbf{w} + 1\,\mathbf{u} = (4, 7)
+\end{align}
+
+Both verify. Neither is wrong. Subtract them and the dependence itself reappears, weight by weight. That is **uniqueness** failing, mechanically: with a dependent set, no recipe means anything on its own, because any claim built on one recipe could have been built on another. Independence is precisely what makes recipes trustworthy, and the next definition is where trustworthy recipes get their name.
 
 \lensmark{computational} Listing 1.12 reuses `sweep_span` on $\mathbf{v}$ and $\mathbf{w}$ and draws $\mathbf{u}$ on top. Figure 1.12 is its output.
 
@@ -361,13 +370,17 @@ ax.legend(); plt.show()
 
 [^samesize]: A theorem, not an observation. The standard argument swaps the vectors of one basis into the other one at a time without losing the span, so an independent set can never outnumber a spanning set. Axler ch. 2 or Strang ch. 3 for the bookkeeping.
 
+Dimension immediately buys a second word, the honest measure of what a set of vectors delivers.
+
+> **Definition 1.10 (rank).** The **rank** of a set of vectors is the dimension of its span: the number of independent directions the set actually contains, as opposed to the number of vectors it lists. The dependent triple above lists three vectors and has rank 2.
+
 > **Claim 1.2 (unique recipe).** If $\mathbf{b}_1, \ldots, \mathbf{b}_k$ is a basis, every vector in its span is a combination of the basis in exactly one way.[^footnotes]
 >
 > Witness it small. The set $\{(1, 0), (1, 1)\}$ is a basis of $\mathbb{R}^2$. To build $(3, 5)$, the second entry forces the weight on $(1, 1)$ to be $5$. The first entry then forces the weight on $(1, 0)$ to be $-2$. Forced twice over, no other recipe exists.
-
-[^footnotes]: A note about this book's footnotes, since this is its first boxed statement: the fuller arguments live down here and in the references, on purpose. The text above is for you. When a reason is cheap you will get it whole. When it is a real theorem you will get the name of someone who proved it properly.
 >
 > The reason it always works is one subtraction. Suppose $c_1\mathbf{b}_1 + \cdots + c_k\mathbf{b}_k$ and $d_1\mathbf{b}_1 + \cdots + d_k\mathbf{b}_k$ build the same vector. Subtract them: $(c_1 - d_1)\mathbf{b}_1 + \cdots + (c_k - d_k)\mathbf{b}_k = \mathbf{0}$. Independence allows only the trivial solution, so $c_i = d_i$ for every $i$, and the two recipes were one recipe all along.
+
+[^footnotes]: A note about this book's footnotes, since this is its first boxed statement: the fuller arguments live down here and in the references, on purpose. The text above is for you. When a reason is cheap you will get it whole. When it is a real theorem you will get the name of someone who proved it properly.
 
 **The license.** Claim 1.2 has a methodological consequence, and it is large enough to state on its own. When a solution is unique, any procedure that produces a verified candidate has produced the solution. The logic is airtight: the verified candidate is a solution, the solution is one of a kind, therefore the candidate is it. This turns solving **by inspection**, producing a candidate by direct examination rather than by procedure, into a rigorous method.
 
@@ -375,9 +388,11 @@ Produce a candidate however you like. Verify it. Uniqueness closes the argument.
 
 > **Definition 1.8 (coordinates).** The **coordinates** of a vector with respect to a basis are the unique weights of its recipe in that basis.
 
-> **Definition 1.9 (standard basis).** The **standard basis** of $\mathbb{R}^n$ is $\mathbf{e}_1, \ldots, \mathbf{e}_n$, where $\mathbf{e}_j$ has a one in entry $j$ and zeros elsewhere. In $\mathbb{R}^3$: $\mathbf{e}_1 = (1, 0, 0)$, $\mathbf{e}_2 = (0, 1, 0)$, $\mathbf{e}_3 = (0, 0, 1)$.
+> **Definition 1.9 (standard basis).** The **standard basis** of $\mathbb{R}^n$ is $\mathbf{e}_1, \ldots, \mathbf{e}_n$, where $\mathbf{e}_j$ has a one in entry $j$ and zeros elsewhere.
 
-Now the payoff. A basis spans, so every vector is a combination of it. A basis is independent, so that combination is unique. The unique weights are the coordinates. \lensmark{algebraic} Apply that to the standard basis and watch a plain list of numbers come apart:
+You have known this basis your whole mathematical life without its name. In $\mathbb{R}^2$, $\mathbf{e}_1 = (1, 0)$ is one step along what you have always called the $x$-axis, and $\mathbf{e}_2 = (0, 1)$ is one step along the $y$-axis. The axes of every graph you have ever drawn *are* the standard basis, and plotting a point at $(3, 5)$ was always the combination $3\mathbf{e}_1 + 5\mathbf{e}_2$: three steps east, five steps north. Definition 1.2's "how far along each axis" was this section's machinery in disguise, and now the disguise comes off.
+
+Here is the payoff. A basis spans, so every vector is a combination of it. A basis is independent, so that combination is unique. The unique weights are the coordinates, and the axes were a choice of basis all along. \lensmark{algebraic} Apply that to the standard basis in $\mathbb{R}^3$ and watch a plain list of numbers come apart:
 
 \begin{align}
 5\,\mathbf{e}_1 - 2\,\mathbf{e}_2 + 7\,\mathbf{e}_3
@@ -387,89 +402,15 @@ Now the payoff. A basis spans, so every vector is a combination of it. A basis i
 
 The list $(5, -2, 7)$ was $5\mathbf{e}_1 - 2\mathbf{e}_2 + 7\mathbf{e}_3$ all along. The list was never the vector; it was the recipe, written in a basis so familiar we forgot it was a choice.
 
-> **Claim 1.3 (span of the question).** The span of $k$ vectors is a subspace of dimension at most $k$, whatever the dimension of the ambient space.[^ambient]
+> **Claim 1.3 (a span's dimension never exceeds its head count).** The span of $k$ vectors has dimension at most $k$, whatever the dimension of the ambient space.[^ambient]
 >
-> The one-breath reason: if the $k$ vectors are independent they are a basis of their span, and the dimension is exactly $k$. If not, discarding dependent vectors one at a time never shrinks the span and only lowers the count, because a dependent vector was already a combination of the others.
+> Why this is true: if the $k$ vectors are independent, they are a basis of their span and the dimension is exactly $k$. If they are dependent, discard a dependent vector; it was already a combination of the others, so the span does not shrink while the count drops. Repeat until what remains is independent, a basis of the original span with at most $k$ members. This is the precise form of the promise made under the span drawings: two vectors buy at most a plane, in $\mathbb{R}^3$, in $\mathbb{R}^{1460}$, anywhere.
 
 [^ambient]: **Ambient space**: the $\mathbb{R}^n$ the vectors happen to live in, as opposed to the subspace they generate. Two feature columns live in the ambient $\mathbb{R}^{1460}$ and generate an at-most-two-dimensional subspace. The 1,460 is the address, and the 2 is the substance.
 
-## 1.5 The solving question, posed
+The preface's two standing questions now both have homes in the agreement's vocabulary. Existence lives in the span: a target is reachable or it is not (Section 1.3 showed one of each). Uniqueness lives in independence: independent sets give one recipe per reachable target (Claim 1.2), dependent sets give a family and take every recipe's meaning with them. Chapter 2 will name the space where uniqueness dies. Chapter 3 will turn the pair into a working method, and Part III will take over when existence fails on real data and *best* becomes the question. That is the whole road ahead, and every step of it is the agreement, applied.
 
-Every piece is on the table, so assemble the question this book exists to answer. A set of vectors to combine. A target to reach. Which combination, if any, lands on the target?
-
-\begin{align}
-c\,\mathbf{v} + d\,\mathbf{w} = \mathbf{b}
-\end{align}
-
-This is a system of linear equations wearing this chapter's clothes, and everything the rest of the book does flows through it. Before this section ends you will have its anatomy: the two questions hiding inside it, the space each one lives in, and drawings of every way it can go. What you will not have yet is a machine for grinding out answers, and that is deliberate. Chapter 3 builds the machine. This section makes sure you know exactly what the machine will be asked to do, because the frame matters more than the crank: the book's overall objective is to find the vector that is *most* right, and that only makes sense once you command the case where a vector simply *is* right, and the case where none is.
-
-Two questions live inside the display above, and they are the most important two questions in this book. Everything in Parts III and IV is an answer to one of them, asked about data. They get a box, so you can find them again from any chapter.
-
-\begin{svgraybox}
-\textbf{The two standing questions.} For a target $\mathbf{b}$ and a set of vectors to combine:
-
-\textbf{Existence.} Does \emph{any} combination reach $\mathbf{b}$? If not, no method, no cleverness, and no amount of computing will produce one. When existence fails, the only honest moves are to change the question or to settle for closest, and \emph{closest} is the subject of Part III.
-
-\textbf{Uniqueness.} If a combination reaches $\mathbf{b}$, is it the \emph{only} one? A unique answer is knowledge. An answer with infinitely many rivals settles nothing, because any claim built on one recipe could have been built on another. Uniqueness is also the license of Section 1.4, the fact that makes fast methods rigorous.
-
-Every solving question in this book, from the two-line systems below to the housing market in Chapter 3 to the estimators of Part III, is these two questions in costume.
-\end{svgraybox}
-
-Both questions are questions about the span, and each has a home there with a name.
-
-> **Definition 1.10 (rank).** The **rank** of a set of vectors is the dimension of its span, the number of independent directions the set actually delivers.
-
-> **Definition 1.11 (column space).** The **column space** of a matrix is the span of its columns. It is where existence lives: $A\mathbf{x} = \mathbf{b}$ has a solution exactly when $\mathbf{b}$ is in the column space, because $A\mathbf{x}$ *is* a combination of the columns with recipe $\mathbf{x}$.
-
-Existence, then, is geometry: is the target inside the reach, or outside it? Uniqueness is Section 1.4's dichotomy wearing solving clothes: independent columns give one recipe per reachable target (Claim 1.2), dependent columns give a family. Chapter 2 will name the space where uniqueness dies, at the first operator caught destroying, and Chapter 3 will measure it. Here, work the geometry until both questions draw themselves.
-
-\lensmark{algebraic} **Existence, both ways.** The pair $\mathbf{v} = (2, 1)$, $\mathbf{w} = (1, 3)$ is independent, rank 2, so its span is all of $\mathbb{R}^2$ and existence holds for *every* target. The recipe reaching $\mathbf{b} = (4, 7)$ was exhibited and verified in Section 1.4, and by Claim 1.2 it is the only one: existence and uniqueness both answered yes. Now break existence. Keep $\mathbf{v} = (2, 1)$ but replace $\mathbf{w}$ with $(4, 2) = 2\mathbf{v}$. The pair is dependent, rank 1, and the span collapses to $\mathbf{v}$'s line. Ask for $\mathbf{b} = (4, 7)$:
-
-\begin{align}
-c\,(2, 1) + d\,(4, 2) = (c + 2d)\,(2, 1) \;\ne\; (4, 7) \quad \text{for every } c, d,
-\end{align}
-
-because every combination lies on the line through the origin and $(2, 1)$, and $(4, 7)$ does not lie on that line: $4/2 \ne 7/1$. No recipe exists. Nothing was mis-solved and nothing can be re-solved; the target is simply outside the reach.
-
-\lensmark{algebraic} **Uniqueness, broken.** Add a third vector to the independent pair: $\{(2, 1), (1, 3), (4, 7)\}$. The span is still $\mathbb{R}^2$, existence still holds everywhere, but Section 1.4 showed this triple is dependent, and dependence manufactures recipes. Two different ways to build the same $\mathbf{b} = (4, 7)$:
-
-\begin{align}
-1\,(2, 1) + 2\,(1, 3) + 0\,(4, 7) = (4, 7), \qquad\quad
-0\,(2, 1) + 0\,(1, 3) + 1\,(4, 7) = (4, 7)
-\end{align}
-
-Both verify. Neither is wrong. And subtracting them recovers the zero combination with live weights, the dependence itself: uniqueness fails *because* the set is dependent, mechanically, weight by weight. Any claim of the form "the weight on the second vector is 2" just died, and with it most of what a data scientist would want a recipe for.
-
-\lensmark{geometric} The two failures draw, and the drawings are worth more than the algebra:
-
-\begin{figure}[!htb]
-\centering
-\begin{tikzpicture}[scale=0.62]
-  \begin{scope}[shift={(0,0)}]
-    \draw[gray!60, thick] (-2.0,-1.0) -- (5.0,2.5);
-    \draw[->, very thick] (0,0) -- (2,1) node[below right] {$\mathbf{v}$};
-    \draw[->, very thick, gray] (0,0) -- (4,2) node[below right] {$2\mathbf{v}$};
-    \draw[->, very thick, black!70] (0,0) -- (1.33,2.33) node[above] {$\mathbf{b}$};
-    \node[gray, anchor=north] at (1.5,-1.3) {\small existence fails: $\mathbf{b}$ off the span};
-  \end{scope}
-  \begin{scope}[shift={(9.5,0)}]
-    \draw[->, thick, gray] (0,0) -- (2,1);
-    \draw[->, thick, gray] (2,1) -- (2.67,3.0);
-    \draw[->, thick, black!60] (0,0) -- (2.67,3.0);
-    \draw[->, very thick] (0,0) -- (2.67,3.0) node[above] {$\mathbf{b}$};
-    \node[gray, anchor=west] at (0.4,1.7) {\scriptsize two recipes,};
-    \node[gray, anchor=west] at (0.4,1.15) {\scriptsize one target};
-    \node[gray, anchor=north] at (1.5,-1.3) {\small uniqueness fails: many recipes};
-  \end{scope}
-\end{tikzpicture}
-\caption{The two ways the solving question goes wrong. Left, the dependent pair spans only a line and the target $\mathbf{b} = (4,7)$, drawn to scale, is off it: no recipe exists. Right, three vectors reach $\mathbf{b}$ along more than one path: recipes exist in bulk, and no single recipe means anything.}
-\end{figure}
-
-\lensmark{data} When Part II brings data, both questions will carry money. A dataset's feature columns span a subspace, existence asks whether the observed target column lies in it, and uniqueness asks whether the weights a model reports are facts about the world or accidents of the combination that produced them. The standing spoiler, delivered on evidence from Chapter 5 onward: for real data the target column does *not* lie in the span, exact solving fails, and the question converts from *is* right to *most* right, which is where estimation begins.
-
-The question is posed. Chapter 3 answers it exactly where exact answers exist: the fast method licensed by uniqueness, the systematic machine (elimination) for when inspection fails, and the bookkeeping that diagnoses every system before any solving starts.
-
-## 1.6 In `axpy` we trust
+## 1.5 In `axpy` we trust
 
 One definition has been waiting since Section 1.2, and it is the name under which the linear combination earns its living.
 
@@ -583,7 +524,7 @@ The operation that compiled loop is built around is axpy, and at the very bottom
 
 Why has this much engineering been spent on one small operation? Because nearly everything we want to compute is built out of it, and the rest of this book is the itemized receipt. Least squares finds the combination of features closest to a price. Principal component analysis finds the combinations that carry the most variation. The Kalman filter blends a prediction and a measurement into one combination and calls it an estimate. Each of those is chapters away, and each is this section's operation wearing a job title. This book teaches you to recognize the combination inside each of them, and then to choose its weights.
 
-## 1.7 A vector is also a function
+## 1.6 A vector is also a function
 
 One more reading of the chapter's object, saved for last because it needed everything above it. A vector is also a function. Hand a vector in $\mathbb{R}^{10}$ an index from 1 to 10 and it hands you a number; that is precisely what a function with a ten-element domain does. The list $(1, 2, 3, \ldots, 10)$ *is* the function $f(x) = x$, tabulated. \lensmark{computational} The machine states this well, because building a vector by evaluating a function is a one-liner:
 
@@ -618,7 +559,7 @@ r.set_title('f(x) = x^2, tabulated')
 
 Each array is a function of its index, sampled and stored. Read this way, `np.arange` and friends are not conveniences; they are function tabulators, and every vector in this book has been a tabulated function all along.
 
-And Section 1.6's engine now earns a second reading. Run axpy on two tabulated functions and the output is the tabulation of the combined function, entry by entry:
+And Section 1.5's engine now earns a second reading. Run axpy on two tabulated functions and the output is the tabulation of the combined function, entry by entry:
 
 **Listing 1.15 (axpy combines functions)**
 
@@ -634,15 +575,15 @@ print('h is the tabulation of 2 sin + cos, to', err)
 h is the tabulation of 2 sin + cos, to 0.0
 ```
 
-The compiled loop that won Section 1.6's race is, on this reading, a function-combiner: it built the function $2\sin + \cos$ from samples of its parts, a million points at once. Chapter 2 will exploit exactly this, building operations on functions out of arithmetic on their samples.
+The compiled loop that won Section 1.5's race is, on this reading, a function-combiner: it built the function $2\sin + \cos$ from samples of its parts, a million points at once. Chapter 2 will exploit exactly this, building operations on functions out of arithmetic on their samples.
 
 Why does the reading matter? Because functions scale and add, pointwise, exactly the way vectors do entrywise. Scale $f$ by $a$ and add $g$, and $(af + g)(x) = a f(x) + g(x)$ is again a function. Both closure clauses of Definition 1.2 hold, so collections of functions form vector spaces, and every result in this chapter, span, independence, basis, coordinates, the standing questions, applies to functions with nothing re-proved.[^function] The dividends land on schedule. Chapter 2 differentiates a sampled function by multiplying a matrix into it. Chapter 5 will hand you random variables, which scale and add, and the algebra will already be waiting. And Chapter 14's Fourier analysis is a basis, made of functions, for a space of functions.
 
 [^function]: The precise statement: a vector in $\mathbb{R}^n$ is a function from $\{1, \ldots, n\}$ to $\mathbb{R}$. Widen the domain to a continuum and the same algebra runs on functions themselves. The linearity of the derivative, $(af + g)' = af' + g'$, which Chapter 2 stands on, is exactly the statement that differentiation respects this vector-space structure.
 
-## 1.8 Summary and exercises
+## 1.7 Summary and exercises
 
-A vector is one object seen five ways: arrow, list, array, column, and tabulated function. The act is the linear combination (Definition 1.3), axpy to the libraries that run it, and closure (Definition 1.2) is the agreement that keeps the act inside the space. The span is everything the act can reach; a span is always a subspace (Claim 1.1); the reach is set by the number of vectors combined, never the ambient space (Claim 1.3); and rank (Definition 1.10) counts it honestly. A basis is an independent set that spans, its recipe for any vector is unique (Claim 1.2), and the unique weights are coordinates, which is what a list of numbers is. The solving question is posed, loudly: existence asks whether the target is in the column space (Definition 1.11), uniqueness asks whether the recipe is one of a kind, and each failure was drawn to scale. And the data lens is loaded: feature columns are vectors, their span is everything a linear model can predict, and Part II brings the dataset that makes both concrete.
+One idea ran this chapter: the agreement. A vector space is a set closed under scaling and adding (Definition 1.1), a vector is anything that lives in one, and every construction that followed was the agreement paying out. The linear combination is the only move the agreement licenses (Definition 1.3), and axpy is that move at compiled speed. The span is everything the move can reach, the column space is the span wearing its matrix name (Definition 1.11), and existence asks whether a target lies inside it, answered by inspection once and broken once, both drawn. Independence separates sets whose recipes mean something from sets that manufacture rivals, uniqueness rides on it (Claim 1.2), a basis is an independent spanning set, its unique weights are coordinates, and the axes of every graph you ever drew were the standard basis in disguise. Rank counts the independent directions honestly (Definition 1.10). And a vector is also a tabulated function, so the agreement's reach extends to functions now and to random variables in Chapter 5. And the data lens is loaded: feature columns are vectors, their span is everything a linear model can predict, and Part II brings the dataset that makes both concrete.
 
 The question the book answers is now posed. Of all the linear combinations available, which one is the estimate, and how do we earn it?
 
@@ -652,12 +593,12 @@ A few of these are quiz-shaped on purpose.
 
 1. *(pencil)* Compute $3(1, -1, 2) + (0, 4, -1)$ entrywise. Then write the result as a combination of $\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3$ and check that the weights are exactly the entries.
 2. *(keyboard)* Time `list_comp_in_python` against `vectorized_in_numpy` on your own machine, over a sweep of sizes. Explain the gap you measure in terms of what the interpreter does per entry and what BLAS does per array.
-3. *(pencil)* Is $(5, 5)$ in the span of $(2, 1)$ and $(1, 3)$? Exhibit the recipe or show that none exists, using the elimination of Section 1.5, and verify your candidate. Name the standing question each half of your work answers.
+3. *(pencil)* Is $(5, 5)$ in the span of $(2, 1)$ and $(1, 3)$? Exhibit the recipe or show that none exists, by inspection, and verify your candidate. Name the standing question each half of your work answers.
 4. *(pencil)* Show that the line $\{t\mathbf{v} : t \in \mathbb{R}\}$ through the origin is a subspace: check the origin and both closure clauses of Definition 1.2.
 5. *(pencil, then keyboard)* Choose three vectors in $\mathbb{R}^3$ and decide independence: exhibit a combination equal to zero, or argue none exists. Check yourself in code by computing the combination you exhibited.
 6. *(pencil)* Using the basis $\{(1, 0), (1, 1)\}$ of $\mathbb{R}^2$, find the coordinates of $(7, 2)$, and verify your recipe by expanding it.
 7. *(pencil, bridge → Ch 2)* Write the claim "$\mathbf{b}$ is the combination $c_1$ of one column plus $c_2$ of another" as a rectangular array of numbers multiplying a column of weights. Which part is the combination's weights? You have just invented the next chapter.
 8. *(keyboard)* Rebuild the right panel of Figure 1.10 with `w = 2 * v`, and describe what happens to the cloud. Which case of Section 1.4 did you just draw?
-9. *(pencil)* For the dependent pair $(2, 1)$ and $(4, 2)$, characterize every target for which existence holds, in one sentence and one drawing. Then name a target for which it fails and prove the failure with the ratio test used in Section 1.5.
+9. *(pencil)* For the dependent pair $(2, 1)$ and $(4, 2)$, characterize every target for which existence holds, in one sentence and one drawing. Then name a target for which it fails and prove the failure with the ratio test used in Section 1.3.
 10. *(pencil)* The system $x + y = 3$, $2x + 2y = 6$ has clean numbers. Exhibit a solution by inspection, verify it, then exhibit a second solution. Which standing question just failed, and what is the rank of the columns?
 11. *(keyboard)* Tabulate $f(x) = \sin(x)$ on `np.linspace(0, 2*np.pi, 12)` and confirm the closure clauses at machine precision: check that `2*f + g` computed entrywise equals the tabulation of the function $2\sin + \cos$. Say in one sentence why this had to work.
