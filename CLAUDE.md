@@ -4,8 +4,11 @@ Springer book. Prose motion (no Claude Code prompts). Draft PDF to the editor by
 
 ## Production model (revised 2026-07-11)
 
-**Claude drafts, Josh edits.** `chapter_drafts/` is the current state of the
-book: finished readable prose, no scaffold beats. Claude writes it from the
+**Claude drafts, Josh edits.** `manuscript/` is the book: one file per
+document (preface.md, ch01..ch05.md), figures flat in manuscript/figures/.
+**Versioning is git**: commits for history, a tag per delivered draft book
+(v12, v13, ...). Never version via filenames, directories, or header
+comments; never keep parallel copies of the manuscript. Claude writes it from the
 feeders (chapter_notes conversation files + source maps, the outline, the
 source index); Josh edits in scribe (block edits + `>>` comments) or via the
 claude.ai channel, and his edits are the highest-authority voice signal. Study
