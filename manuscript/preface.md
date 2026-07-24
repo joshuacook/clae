@@ -1,11 +1,3 @@
-<!-- PREFACE v11 DRAFT (2026-07-19): per the v10 ink census + rulings.
-     Dedup rule (census 15): the three-ways product display OUT (Ch2's
-     composition section now owns it, deeply); elimination stays as the
-     windmill reminder (Ch3 owns the deep treatment; the preface keeps
-     only the quiz-anchored refresher). NEW: basic determinant
-     computation, 2x2 and 3x3 (census 16, Ch4 uses it). Base: the v10
-     preface (census: "the preface is great"). -->
-
 # Preface
 
 Five.
