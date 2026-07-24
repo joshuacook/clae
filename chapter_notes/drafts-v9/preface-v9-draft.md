@@ -208,6 +208,14 @@ The same work in matrix form is the version your eye should learn, because the g
 
 Triangular means solvable by back substitution. Climb down, then carry the answers back up. The bottom row gives $z = 2$. Carry it up, and $y = 3 - 2(2) = -1$. Carry both up, and $x = 5 - 2(-1) - 2 = 5$. Every unknown falls in turn.
 
+Elimination travels with a companion that is not a computation at all, and it is the piece of the review Jim owned outright. He opened his first lecture with two questions about any system of equations, before teaching us to solve a single one. **Existence**: does a solution exist at all? **Uniqueness**: if one exists, is it the only one? It seemed like a strange place to start. It is the perfect place to start, because uniqueness is a license: when the answer is one of a kind, *any* verified candidate is the answer, no matter how you found it. Watch the license work:
+
+\begin{align}
+\begin{aligned} x + y &= 5 \\ x - y &= 1 \end{aligned}
+\end{align}
+
+Two numbers that sum to 5 and differ by 1. By inspection, $(3, 2)$. Verify: $3 + 2 = 5$ and $3 - 2 = 1$. That verification is not a courtesy; with uniqueness in hand it is the entire proof, and nothing was eliminated. When the numbers are small and the structure shows, this is how working mathematicians actually solve, and this book does it constantly. Existence and uniqueness are the two questions the whole book asks of every model it builds, Chapter 1 gives each one a space to live in, and Chapter 3 turns the pair into a working method. They are Jim's first lecture, running through every page.
+
 Second, matrix multiplication, which Strang teaches three ways, entry by entry, column by column, and as a sum of outer products. The quiz that opened this preface was asking for all three, and all three get their full treatment where they earn their keep, in Chapter 2, where the product means something. Here it is enough that you can compute one: each entry of $AB$ is a row of $A$ against a column of $B$,
 
 \begin{align}
