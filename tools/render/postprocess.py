@@ -16,15 +16,16 @@ figs = json.load(open(figmap_path))
 def open_box(m):
     kind, title = m.group(1), m.group(2)
     env = '\\begin{%s}[%s]' % (kind, title)
-    if kind == 'claim':
+    if kind in ('claim', 'fact'):
         # Needspace keeps the gray box from opening as an empty strip at a
         # page bottom (v9 note #24)
         return '\\Needspace*{6\\baselineskip}\n\\begin{svgraybox}' + env
     return env
 
-tex = re.sub(r'ZZBEGINZZ(definition|claim)ZZ\s*(.*?)\s*ZZENDTITLEZZ',
+tex = re.sub(r'ZZBEGINZZ(definition|claim|fact)ZZ\s*(.*?)\s*ZZENDTITLEZZ',
              open_box, tex, flags=re.S)
 tex = tex.replace('ZZCLOSEZZclaimZZ', '\\end{claim}\\end{svgraybox}')
+tex = tex.replace('ZZCLOSEZZfactZZ', '\\end{fact}\\end{svgraybox}')
 tex = re.sub(r'ZZCLOSEZZ(definition)ZZ', r'\\end{\1}', tex)
 
 # figures

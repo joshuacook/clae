@@ -102,7 +102,7 @@ print('C @ (3,3,3):', C @ np.array([3, 3, 3]))
 C @ (3,3,3): [0 0 0]
 ```
 
-$C$ sends $(3, 3, 3)$ to zero, and it sends every constant vector to zero the same way: shift a sequence by a constant and its wrapped differences never notice. The whole line of constant vectors lies in $C$'s null space, two different inputs map to one output, and Chapter 2's Claim 2.6 already says what that costs: no inverse, and uniqueness dead on arrival for any system built on $C$. It draws. Listing 3.3 feeds $C$ two inputs that differ by a constant shift and plots both against their outputs; Figure 3.2 is its output.
+$C$ sends $(3, 3, 3)$ to zero, and it sends every constant vector to zero the same way: shift a sequence by a constant and its wrapped differences never notice. The whole line of constant vectors lies in $C$'s null space, two different inputs map to one output, and Chapter 2's Fact 2.6 already says what that costs: no inverse, and uniqueness dead on arrival for any system built on $C$. It draws. Listing 3.3 feeds $C$ two inputs that differ by a constant shift and plots both against their outputs; Figure 3.2 is its output.
 
 **Listing 3.3 (two inputs, one output, drawn)**
 
@@ -130,9 +130,9 @@ The null space of $A_3$, by contrast, is $\{\mathbf{0}\}$ alone, which is exactl
 
 The column space and the null space are not independent bookkeeping. They are two entries in one ledger, and the ledger balances. The bookkeeping needs two numbers.
 
-> **Definition 3.1 (nullity; rank recalled).** The **rank** of a matrix (Definition 1.10, now in matrix clothes) is the dimension of its column space, the number of dimensions the operator can reach. The **nullity** is the dimension of its null space (Definition 2.7), the number of independent directions the operator sends to zero.
+> **Definition 3.1 (nullity; rank recalled).** The **rank** of a matrix (Definition 1.9, now in matrix clothes) is the dimension of its column space, the number of dimensions the operator can reach. The **nullity** is the dimension of its null space (Definition 2.7), the number of independent directions the operator sends to zero.
 
-> **Claim 3.1 (rank and nullity balance the ledger).** For an $m \times n$ matrix, rank $+$ nullity $= n$. Every input dimension either survives into the column space or dies in the null space. None goes missing.
+> **Fact 3.1 (rank and nullity balance the ledger).** For an $m \times n$ matrix, rank $+$ nullity $= n$. Every input dimension either survives into the column space or dies in the null space. None goes missing.
 >
 > Witness it on $C$: three input dimensions, a plane of reach (rank 2), a line sent to zero (nullity 1), and $2 + 1 = 3$. The one-breath reason: pick a basis for the null space and extend it to a basis of $\mathbb{R}^n$; the extension vectors map to a basis of the column space, because anything their images failed to reach would trace back to more of the null space.[^ftla]
 
@@ -215,11 +215,11 @@ Triangular, so back substitution climbs: $2z = 4$ gives $z = 2$; then $y = 3 - 2
 
 ## 3.5 The algorithm is a factorization
 
-Here is the payoff Chapter 2 set up, and it is the reason this chapter sits after the matrix and not before it. Every move elimination made was itself a linear transformation, so by Claim 2.3 every move is a matrix. "Row 2 minus twice row 1" is the identity with a $-2$ planted below the diagonal. Elimination is not a procedure that happens *to* matrices. It *is* matrices, composed.
+Here is the payoff Chapter 2 set up, and it is the reason this chapter sits after the matrix and not before it. Every move elimination made was itself a linear transformation, so by Fact 2.3 every move is a matrix. "Row 2 minus twice row 1" is the identity with a $-2$ planted below the diagonal. Elimination is not a procedure that happens *to* matrices. It *is* matrices, composed.
 
 Run the bookkeeping. Each elimination step is a matrix multiplying $A$ from the left, and undoing the whole sequence collects the multipliers, exactly the numbers you used, into a lower triangle $L$. What remains after elimination is the upper triangle $U$. The record reads:
 
-> **Claim 3.2 (elimination is a factorization).** When elimination runs without row exchanges, it factors the matrix: $A = LU$, with $U$ the triangle elimination produced and $L$ the lower triangle holding the multipliers, ones on its diagonal.[^pivot]
+> **Fact 3.2 (elimination is a factorization).** When elimination runs without row exchanges, it factors the matrix: $A = LU$, with $U$ the triangle elimination produced and $L$ the lower triangle holding the multipliers, ones on its diagonal.[^pivot]
 >
 > Witness it on the worked example. The multipliers were $2$, $1$, and $1$:
 >
@@ -274,7 +274,7 @@ Nothing in Part I can define *best*. The word needs a way to measure how wrong a
 
 ## 3.8 Summary and exercises
 
-The equation is $A\mathbf{x} = \mathbf{b}$, and the two standing questions have spaces and now numbers: rank measures the column space, nullity measures the null space, and the ledger balances (Claim 3.1, the fundamental theorem's first installment). Diagnosis precedes solving, and the three fates are one, none, or a family. When uniqueness holds, the license is a method: see a candidate, verify it, done. When seeing fails, elimination is the systematic fallback, and elimination is not just a procedure but a factorization, $A = LU$ (Claim 3.2), reusable across targets. The machine runs the same factorization and gets held to the same standard: solve, then check the residual. And the square world has an edge: real measurement is overdetermined, existence fails as the normal condition, and *best* is a word Part I cannot define. Part II builds the equipment; Chapter 12 walks back through with it.
+The equation is $A\mathbf{x} = \mathbf{b}$, and the two standing questions have spaces and now numbers: rank measures the column space, nullity measures the null space, and the ledger balances (Fact 3.1, the fundamental theorem's first installment). Diagnosis precedes solving, and the three fates are one, none, or a family. When uniqueness holds, the license is a method: see a candidate, verify it, done. When seeing fails, elimination is the systematic fallback, and elimination is not just a procedure but a factorization, $A = LU$ (Fact 3.2), reusable across targets. The machine runs the same factorization and gets held to the same standard: solve, then check the residual. And the square world has an edge: real measurement is overdetermined, existence fails as the normal condition, and *best* is a word Part I cannot define. Part II builds the equipment; Chapter 12 walks back through with it.
 
 **Exercises**
 
@@ -284,7 +284,7 @@ The equation is $A\mathbf{x} = \mathbf{b}$, and the two standing questions have 
 4. *(pencil)* Eliminate the system $x + y + z = 6$, $x + 2y + z = 8$, $x + y + 3z = 10$ in matrix form, watching the zeros arrive. Back-substitute, then verify your candidate against all three original equations.
 5. *(pencil)* Collect your multipliers from exercise 4 into $L$, write down your $U$, and confirm $LU$ rebuilds the matrix by hand.
 6. *(keyboard)* Verify exercise 5's factorization in code, then solve the same system with `np.linalg.solve` and print the residual.
-7. *(keyboard)* Ask `scipy.linalg.lu` for the factorization of Section 3.4's matrix and compare its $L$ and $U$ to ours. They differ. Read the permutation matrix $P$ and explain why (the footnote to Claim 3.2 is the hint).
+7. *(keyboard)* Ask `scipy.linalg.lu` for the factorization of Section 3.4's matrix and compare its $L$ and $U$ to ours. They differ. Read the permutation matrix $P$ and explain why (the footnote to Fact 3.2 is the hint).
 8. *(pencil)* A $4 \times 4$ matrix has rank 2. State its nullity, describe the solution set of $A\mathbf{x} = \mathbf{b}$ when $\mathbf{b}$ is reachable, and name the fate when it is not.
 9. *(pencil)* Stack a third equation onto the system of exercise 4 that no solution of the first three satisfies, and diagnose the enlarged system: what happened to existence, and in which space did it happen?
 10. *(pencil, bridge → Ch 12)* An overdetermined system $A\mathbf{x} = \mathbf{b}$ has no solution. Chapter 12 will replace $\mathbf{b}$ with a vector that does have one. Using Chapter 2's operators, guess which vector, and which operator produces it. One sentence.

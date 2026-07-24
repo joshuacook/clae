@@ -97,11 +97,11 @@ Two examples calibrate the object. A fair die: $\Omega = \{1, 2, 3, 4, 5, 6\}$, 
 
 Read that definition against Chapter 1's closing section. A vector in $\mathbb{R}^n$ is a function from indices to numbers. A random variable is a function from outcomes to numbers. The domains differ, the algebra does not, and the consequence deserves a box.
 
-> **Claim 5.1 (random variables form a vector space).** Random variables on a fixed sample space, scaled and added pointwise, $(aX + Y)(\omega) = a\,X(\omega) + Y(\omega)$, satisfy both closure clauses of Definition 1.2. They form a vector space, and every Part I construction, combinations, span, independence in the linear-algebra sense, basis, applies to them verbatim.
+> **Fact 5.1 (random variables form a vector space).** Random variables on a fixed sample space, scaled and added pointwise, $(aX + Y)(\omega) = a\,X(\omega) + Y(\omega)$, satisfy both closure clauses of Definition 1.3. They form a vector space, and every Part I construction, combinations, span, independence in the linear-algebra sense, basis, applies to them verbatim.
 >
-> The proof is the same two lines as Claim 1.1. Scaling a function scales its values; adding two functions adds their values; both results are again functions on $\Omega$. Nothing about closure ever cared what the domain was.
+> The proof is the same two lines as Fact 1.1. Scaling a function scales its values; adding two functions adds their values; both results are again functions on $\Omega$. Nothing about closure ever cared what the domain was.
 
-This is why Part I kept insisting that a vector is more than a list. `GrLivArea` on the Ames sample space is a random variable: hand it a sale, it hands you a square footage. `SalePrice` is another. And the object every linear model in this book will ever produce, weights times features summed, is a linear combination of random variables, alive in the vector space of Claim 5.1 before any data is observed. Estimation, from Chapter 12 on, is the search for the right combination in exactly this space.
+This is why Part I kept insisting that a vector is more than a list. `GrLivArea` on the Ames sample space is a random variable: hand it a sale, it hands you a square footage. `SalePrice` is another. And the object every linear model in this book will ever produce, weights times features summed, is a linear combination of random variables, alive in the vector space of Fact 5.1 before any data is observed. Estimation, from Chapter 12 on, is the search for the right combination in exactly this space.
 
 ## 5.5 Columns are realizations
 
@@ -175,7 +175,7 @@ Part I posed two questions of every system and promised evidence. Here it is.
 \texttt{SalePrice} \;\approx\; w_1 \cdot \texttt{GrLivArea} \;+\; w_2 \cdot \texttt{OverallQual}
 \end{align}
 
-Read the right-hand side against Chapter 1's Definition 1.3. Two feature vectors, scaled by unknown weights, added. Finding weights is solving a system whose matrix has 1,460 rows, one per house, and two columns.
+Read the right-hand side against Chapter 1's Definition 1.4. Two feature vectors, scaled by unknown weights, added. Finding weights is solving a system whose matrix has 1,460 rows, one per house, and two columns.
 
 Start square, because square is what we can do. Keep only the first two houses, and the claim becomes an exact system, two equations in two unknowns:
 
@@ -241,16 +241,16 @@ lstsq w: [   51.87 17604.21]
 
 But notice what just happened to the words. *Best* weights. Miss *a little*. Nothing in Part I defines best or little. Those words need a way to measure how wrong a miss is and a reason to prefer one distribution of misses over another, and that is probability's department.
 
-The verdict is in, and it is the book's turning point. Existence fails on real data, not by bad luck but structurally: 1,460 equations, two unknowns, and a target column assembled from outcomes no two-feature recipe can thread. The exact question *which combination is right* has no answer. The honest question, *which combination is best*, needs a way to score misses, and scoring misses across realizations of random variables is what expectation, variance, and covariance are for. That is Chapters 6 and 7, and everything in them runs inside the vector space of Claim 5.1.
+The verdict is in, and it is the book's turning point. Existence fails on real data, not by bad luck but structurally: 1,460 equations, two unknowns, and a target column assembled from outcomes no two-feature recipe can thread. The exact question *which combination is right* has no answer. The honest question, *which combination is best*, needs a way to score misses, and scoring misses across realizations of random variables is what expectation, variance, and covariance are for. That is Chapters 6 and 7, and everything in them runs inside the vector space of Fact 5.1.
 
 ## 5.7 Summary and exercises
 
-The dataset arrived and the matrix completed its second identity: rows as samples, columns as features (Definition 5.1), the transpose flipping the two readings. Probability entered as the honest model of measurement variation (Definition 5.2), and the random variable, a function from outcomes to numbers (Definition 5.3), turned out to be a vector by Chapter 1's own reading, so the whole of Part I applies to randomness unchanged (Claim 5.1). A data column is one random variable realized many times; a data row is one realization of the random vector. Standardization put every column on one scale with a diagonal matrix and a disclosed shift. And the standing questions met real numbers: existence fails, exactly as Part I warned, and *best* is now officially the book's business.
+The dataset arrived and the matrix completed its second identity: rows as samples, columns as features (Definition 5.1), the transpose flipping the two readings. Probability entered as the honest model of measurement variation (Definition 5.2), and the random variable, a function from outcomes to numbers (Definition 5.3), turned out to be a vector by Chapter 1's own reading, so the whole of Part I applies to randomness unchanged (Fact 5.1). A data column is one random variable realized many times; a data row is one realization of the random vector. Standardization put every column on one scale with a diagonal matrix and a disclosed shift. And the standing questions met real numbers: existence fails, exactly as Part I warned, and *best* is now officially the book's business.
 
 **Exercises**
 
 1. *(pencil)* For one roll of a fair die, write two random variables: the face value $X$, and $Y = 1$ if the face is even, else $0$. Compute the realization of $3X + 2Y$ on the outcome "the die shows 4."
-2. *(pencil)* Prove the two closure checks of Claim 5.1 for the die's random variables explicitly: exhibit $(2X + Y)(\omega)$ for every $\omega$ in $\Omega$ and confirm it is again a function on $\Omega$.
+2. *(pencil)* Prove the two closure checks of Fact 5.1 for the die's random variables explicitly: exhibit $(2X + Y)(\omega)$ for every $\omega$ in $\Omega$ and confirm it is again a function on $\Omega$.
 3. *(keyboard)* Assemble the housing table with Listing 5.1 and extract the column `OverallQual`. State, in one sentence each, what this object is through the data lens, the algebraic lens, and the probabilistic lens of Definition 5.3.
 4. *(pencil)* A friend claims the row reading and the column reading of the data matrix are the same thing because the numbers are the same. Using Definition 5.1 and Section 5.5's vocabulary, say precisely what differs.
 5. *(keyboard)* Standardize `GrLivArea` and `OverallQual` with Listing 5.3's two moves and confirm each column's mean and standard deviation. Then write the scaling half as an explicit diagonal matrix acting on the centered columns, Chapter 2's operator meeting Chapter 5's data.
