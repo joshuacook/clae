@@ -7,6 +7,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{longtable,booktabs,array}
 \usepackage{tikz}
+\usepackage{needspace}
 \usepackage{newtxtext}
 \usepackage[varvw]{newtxmath}
 \usepackage[hidelinks]{hyperref}
@@ -15,7 +16,9 @@
 \makeatletter
 \let\claim\relax \let\endclaim\relax
 \makeatother
-\spnewtheorem{claim}[theorem]{Claim}{\bfseries}{\itshape}
+% own counter per type (Josh ruling R3; envcountsame must also be OFF in the main)
+\spnewtheorem{claim}{Claim}{\bfseries}{\itshape}
+\spnewtheorem{fact}{Fact}{\bfseries}{\itshape}
 
 % lens-switch margin tag (ruling 2, 2026-07-12): \lensmark{geometric} etc.
 % \marginpar is fragile inside footnotes/floats; \marginnote is not.
