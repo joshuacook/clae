@@ -97,9 +97,9 @@ Two examples calibrate the object. A fair die: $\Omega = \{1, 2, 3, 4, 5, 6\}$, 
 
 Read that definition against Chapter 1's closing section. A vector in $\mathbb{R}^n$ is a function from indices to numbers. A random variable is a function from outcomes to numbers. The domains differ, the algebra does not, and the consequence deserves a box.
 
-> **Fact 5.1 (random variables form a vector space).** Random variables on a fixed sample space, scaled and added pointwise, $(aX + Y)(\omega) = a\,X(\omega) + Y(\omega)$, satisfy both closure clauses of Definition 1.3. They form a vector space, and every Part I construction, combinations, span, independence in the linear-algebra sense, basis, applies to them verbatim.
+> **Fact 5.1 (random variables form a vector space).** Random variables on a fixed sample space, scaled and added pointwise, $(aX + Y)(\omega) = a\,X(\omega) + Y(\omega)$, satisfy both closure clauses of Definition 1.1. They form a vector space, and every Part I construction, combinations, span, independence in the linear-algebra sense, basis, applies to them verbatim.
 >
-> The proof is the same two lines as Fact 1.1. Scaling a function scales its values; adding two functions adds their values; both results are again functions on $\Omega$. Nothing about closure ever cared what the domain was.
+> The proof is the two closure checks Chapter 1 ran for spans. Scaling a function scales its values; adding two functions adds their values; both results are again functions on $\Omega$. Nothing about closure ever cared what the domain was.
 
 This is why Part I kept insisting that a vector is more than a list. `GrLivArea` on the Ames sample space is a random variable: hand it a sale, it hands you a square footage. `SalePrice` is another. And the object every linear model in this book will ever produce, weights times features summed, is a linear combination of random variables, alive in the vector space of Fact 5.1 before any data is observed. Estimation, from Chapter 12 on, is the search for the right combination in exactly this space.
 
