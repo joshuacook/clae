@@ -11,7 +11,7 @@
      naming unified (C6). Claims->Facts happens in the global pass.
      Base: V7. -->
 
-# Chapter 1: Vectors, Spaces, and the Solving Question
+# Chapter 1: The Agreement: Vectors, Spaces, and Combinations
 
 ## 1.0 The Method
 
